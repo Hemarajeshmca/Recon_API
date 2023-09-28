@@ -1,4 +1,5 @@
-﻿using ReconModels;
+﻿using Org.BouncyCastle.Asn1.Ocsp;
+using ReconModels;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static ReconModels.UserManagementModel;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace ReconDataLayer
 {
@@ -14,41 +17,47 @@ namespace ReconDataLayer
     {
         DataSet ds = new DataSet();
         DataTable result = new DataTable();
-        DBManager dbManager = new DBManager("ConnectionString");
+        DBManager dbManager = new DBManager("ConnectionStrings");
         List<IDbDataParameter> parameters;
         public DataTable Loginvalidation(Login_model Objmodel)
         {
             try
             {
-                //Recon.Controllers.LogHelper.WriteLog("UserName" + Objmodel.user_name, "Login_datamodel");
-                //Recon.Controllers.LogHelper.WriteLog("UserID" + Objmodel.user_id, "Login_datamodel");
-                //Recon.Controllers.LogHelper.WriteLog("Password" + Objmodel.password, "Login_datamodel");
                 Dictionary<string, Object> values = new Dictionary<string, object>();
-
-                MySqlDataAccess con = new MySqlDataAccess(Objmodel.user_id);
-               
-                    parameters = new List<IDbDataParameter>();
-
-                    parameters.Add(dbManager.CreateParameter("in_user_code", Objmodel.user_id, DbType.String));
-
-                    parameters.Add(dbManager.CreateParameter("in_password", Objmodel.password, DbType.String));
-
-                    parameters.Add(dbManager.CreateParameter("in_ip_addr", Objmodel.ip, DbType.String));
-                    ds = dbManager.execStoredProcedure("pr_get_loginvalidation_new", CommandType.StoredProcedure, parameters.ToArray());
-                    result = ds.Tables[0];
-                    return result;
-
+                MySqlDataAccess con = new MySqlDataAccess("ConnectionStrings");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_user_code", Objmodel.user_id, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_password", Objmodel.password, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_ip_addr", Objmodel.ip, DbType.String));
+                ds = dbManager.execStoredProcedure("pr_get_loginvalidation_new", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
             }
             catch (Exception ex)
             {
-
-                //string method_name = (new StackTrace()).GetFrame(0).GetMethod().Name;
-                //string source_name = this.GetType().ToString();
-                //string error = ex.ToString();
-                //Recon.Controllers.LogHelper.WriteLog("catchdatamodel" + error, "Login_datamodel");
-                //MSQLCON con = new MSQLCON(Objmodel.ip, Objmodel.user_id);
-                //con.errorlog(Objmodel.ip, Objmodel.user_id, method_name, error, source_name);
                 return result;
+            }
+        }
+
+        public DataTable changepass_save(change_password Usermodel, headerValue hv)
+        {
+            try
+            {
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess(Usermodel.user_id);
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_user_gid", hv.userCode, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_old_password", Usermodel.old_password, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_new_password", Usermodel.new_password, DbType.String));
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                ds = dbManager.execStoredProcedure("pr_set_password", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
     }

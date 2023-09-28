@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ReconDataLayer;
+using static ReconModels.UserManagementModel;
 
 namespace ReconServiceLayer
 {
@@ -22,47 +23,25 @@ namespace ReconServiceLayer
                     ds = objproduct.Loginvalidation(objmodel);
                 }
                 catch (Exception e)
-                {
-                    //Recon.Controllers.LogHelper.WriteLog("Catch Service" + e.ToString(), "LoginService");
-                }
+                { }
                 return ds;
             }
 
-            //public static string[] changepass_save(User_model objmodel)
-            //{
-            //    string[] result = { };
-            //    DataTable tab = new DataTable();
-            //    User_model user = new User_model();
-            //    try
-            //    {
-            //        Login_datamodel objproduct1 = new Login_datamodel();
-            //        result = objproduct1.changepass_save(objmodel);
-            //        if (result.Length == 2)
-            //        {
-            //            user.result = Convert.ToInt32(result[1]);
-            //            user.msg = result[0];
-            //        }
-            //        else
-            //        {
-            //            user.result = 0;
-            //            user.msg = "Process Failed";
-            //        }
-
-            //        return result;
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        throw ex;
-            //    }
-            //}
-
-            //public static DataTable forgotpassword(Login_model objmodel)
-            //{
-            //    DataTable ds = new DataTable();
-            //    Login_datamodel objproduct = new Login_datamodel();
-            //    ds = objproduct.forgotpassword(objmodel);
-            //    return ds;
-            //}
+            public static DataTable changepass_save(UserManagementModel.change_password objmodel, UserManagementModel.headerValue headerval)
+            {
+                Login_model user = new Login_model();
+                DataTable ds = new DataTable();
+                try
+                {
+                    UserManagementData objproduct = new UserManagementData();
+                    ds = objproduct.changepass_save(objmodel, headerval);
+                    return ds;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
         }
     }
 }

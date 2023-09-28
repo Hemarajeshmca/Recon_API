@@ -47,12 +47,11 @@ namespace ReconDataLayer
             return DataParameterManager.CreateParameter(providerName, name, value, dbType, direction);
         }
        
-       
-
-
        public DataSet execStoredProcedure(string commandText, CommandType commandType, IDbDataParameter[]? parameters = null)
         {
             var dynamicData = new Dictionary<string, object>();
+           // var connectionString = _configuration.GetSection("ConnectionStrings")["DefaultConnection"].ToString();
+            
             using (var connection = database.CreateConnection())
             {
                 connection.Open();
