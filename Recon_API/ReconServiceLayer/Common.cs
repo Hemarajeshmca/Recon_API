@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ReconDataLayer
 {
-    public class Common
+    public class CommonHeader
     {
+
     }
 }

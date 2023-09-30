@@ -170,3 +170,5 @@ D:\user\hema\Recon\Recon_API\Recon_API\Recon_API\obj\Debug\net6.0\refint\Recon_A
 D:\user\hema\Recon\Recon_API\Recon_API\Recon_API\obj\Debug\net6.0\Recon_API.pdb
 D:\user\hema\Recon\Recon_API\Recon_API\Recon_API\obj\Debug\net6.0\Recon_API.genruntimeconfig.cache
 D:\user\hema\Recon\Recon_API\Recon_API\Recon_API\obj\Debug\net6.0\ref\Recon_API.dll
+D:\user\hema\Recon\Recon_API\Recon_API\Recon_API\bin\Debug\net6.0\Microsoft.DotNet.PlatformAbstractions.dll
+D:\user\hema\Recon\Recon_API\Recon_API\Recon_API\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
