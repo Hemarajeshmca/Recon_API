@@ -24,5 +24,41 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
+		public static DataTable DatasetHeader(DatasetHeadermodel Datasetheadermodel)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				DatasetData objqcd = new DatasetData();
+				ds = objqcd.DatasetHeaderdata(Datasetheadermodel);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+		public static DataTable DatasetDetail(Datasetdetailmodel Datasetheadermodel)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				DatasetData objqcd = new DatasetData();
+				ds = objqcd.DatasetDetaildata(Datasetheadermodel);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+		public static DataTable DatasetReaddetail(Datasetdetailmodellist Datasetdetailmodellist)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				DatasetData objqcd = new DatasetData();
+				ds = objqcd.DatasetReaddetaildata(Datasetdetailmodellist);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
 	}
 }
