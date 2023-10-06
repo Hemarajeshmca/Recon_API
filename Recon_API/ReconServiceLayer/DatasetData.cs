@@ -39,7 +39,7 @@ namespace ReconDataLayer
 			{
 				Dictionary<string, Object> values = new Dictionary<string, object>();			
 				parameters = new List<IDbDataParameter>();
-				parameters.Add(dbManager.CreateParameter("in_dataset_gid", Objmodel.dataset_id, DbType.Int64, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("in_dataset_gid", Objmodel.dataset_id, DbType.Int32, ParameterDirection.Output));
 				parameters.Add(dbManager.CreateParameter("in_dataset_code", Objmodel.datasetCode, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_dataset_name", Objmodel.dataset_name, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_dataset_category", Objmodel.dataset_category, DbType.String));
@@ -91,6 +91,23 @@ namespace ReconDataLayer
 				parameters = new List<IDbDataParameter>();			
 				parameters.Add(dbManager.CreateParameter("in_dataset_code", Objmodel.datasetCode, DbType.String));
 				ds = dbManager.execStoredProcedure("pr_get_Datasetdetail", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				return result;
+			}
+		}
+		public DataTable getfieldtype()
+		{
+			try
+			{
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_user_code", "", DbType.String));
+				ds = dbManager.execStoredProcedure("pr_get_fieldtype", CommandType.StoredProcedure, parameters.ToArray());
 				result = ds.Tables[0];
 				return result;
 			}
