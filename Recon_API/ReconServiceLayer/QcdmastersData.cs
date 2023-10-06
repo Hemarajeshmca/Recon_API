@@ -42,7 +42,7 @@ namespace ReconDataLayer
 				parameters = new List<IDbDataParameter>();
 				parameters.Add(dbManager.CreateParameter("in_user_code", objgridread.in_user_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_master_code", objgridread.in_master_code, DbType.String));
-				ds = dbManager.execStoredProcedure("pr_get_qcdparent", CommandType.StoredProcedure, parameters.ToArray());
+				ds = dbManager.execStoredProcedure("pr_get_qcdmaster", CommandType.StoredProcedure, parameters.ToArray());
 				result = ds.Tables[0];
 				return result;
 			}
