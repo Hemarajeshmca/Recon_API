@@ -17,8 +17,8 @@ namespace ReconServiceLayer
 			DataTable ds = new DataTable();
 			try
 			{
-				DatasetData objqcd = new DatasetData();
-				ds = objqcd.DatasetReaddata(Datasetlistmode);
+				DatasetData objDS = new DatasetData();
+				ds = objDS.DatasetReaddata(Datasetlistmode);
 			}
 			catch (Exception e)
 			{ }
@@ -29,8 +29,8 @@ namespace ReconServiceLayer
 			DataTable ds = new DataTable();
 			try
 			{
-				DatasetData objqcd = new DatasetData();
-				ds = objqcd.DatasetHeaderdata(Datasetheadermodel);
+				DatasetData objDS = new DatasetData();
+				ds = objDS.DatasetHeaderdata(Datasetheadermodel);
 			}
 			catch (Exception e)
 			{ }
@@ -41,8 +41,8 @@ namespace ReconServiceLayer
 			DataTable ds = new DataTable();
 			try
 			{
-				DatasetData objqcd = new DatasetData();
-				ds = objqcd.DatasetDetaildata(Datasetheadermodel);
+				DatasetData objDS = new DatasetData();
+				ds = objDS.DatasetDetaildata(Datasetheadermodel);
 			}
 			catch (Exception e)
 			{ }
@@ -53,8 +53,20 @@ namespace ReconServiceLayer
 			DataTable ds = new DataTable();
 			try
 			{
-				DatasetData objqcd = new DatasetData();
-				ds = objqcd.DatasetReaddetaildata(Datasetdetailmodellist);
+				DatasetData objDS = new DatasetData();
+				ds = objDS.DatasetReaddetaildata(Datasetdetailmodellist);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+		public static DataTable getfieldtype()
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				DatasetData objDS = new DatasetData();
+				ds = objDS.getfieldtype();
 			}
 			catch (Exception e)
 			{ }

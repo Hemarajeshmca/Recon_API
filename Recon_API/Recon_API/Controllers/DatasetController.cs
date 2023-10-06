@@ -72,5 +72,20 @@ namespace Recon_API.Controllers
 				return Problem(title: e.Message);
 			}
 		}
+		[HttpPost("getfieldtype")]
+		public IActionResult getfieldtype()
+		{
+			DataTable response = new DataTable();
+			try
+			{
+				response = DatasetService.getfieldtype();
+				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
+				return Ok(serializedProduct);
+			}
+			catch (Exception e)
+			{
+				return Problem(title: e.Message);
+			}
+		}
 	}
 }
