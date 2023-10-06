@@ -90,10 +90,37 @@ namespace ReconDataLayer
             }
         }
 
-       
-       
-       
-       
+
+        public DataSet execStoredProcedurelist(string commandText, CommandType commandType, IDbDataParameter[]? parameters = null)
+        {
+            var dynamicData = new Dictionary<string, object>();
+            // var connectionString = _configuration.GetSection("ConnectionStrings")["DefaultConnection"].ToString();
+
+            using (var connection = database.CreateConnection())
+            {
+                connection.Open();
+                using (var command = database.CreateCommand(commandText, commandType, connection))
+                {
+                    if (parameters != null)
+                    {
+                        foreach (var parameter in parameters)
+                        {
+                            command.Parameters.Add(parameter);
+                        }
+                    }
+
+                    var dataset = new DataSet();
+                    var dataAdaper = database.CreateAdapter(command);
+                    dataAdaper.Fill(dataset);
+
+                    return dataset;
+                }
+            }
+        }
+
+
+
+
         public DataTable ConvertDictionaryToDataTable(System.Collections.Generic.Dictionary<string, object> dictionary)
         {
             DataTable dataTable = new DataTable();
