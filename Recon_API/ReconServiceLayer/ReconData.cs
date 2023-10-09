@@ -149,7 +149,31 @@ namespace ReconDataLayer
 
         }
 
+        public DataTable Recondatset(Recondataset objrecondataset)
+        {
+            try
+            {
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_recondataset_gid", objrecondataset.in_recondataset_gid, DbType.Int16, ParameterDirection.InputOutput));
+                parameters.Add(dbManager.CreateParameter("in_recon_code", objrecondataset.in_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_dataset_code", objrecondataset.in_dataset_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_dataset_type", objrecondataset.in_dataset_type, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_parent_dataset_code", objrecondataset.in_parent_dataset_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_active_status", objrecondataset.in_active_status, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_action", objrecondataset.in_action, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_action_by", objrecondataset.in_user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
 
+                ds = dbManager.execStoredProcedure("pr_recon_mst_trecondataset", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return result;
+            }
+        }
 
     }
 }

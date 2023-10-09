@@ -56,5 +56,19 @@ namespace ReconModels
             public Int16? out_result { get; set; }
         }
 
+        public class Recondataset
+        {
+            public Int16? in_recondataset_gid { get; set; }
+            public String in_recon_code { get; set; }
+            public String in_dataset_code { get; set; }
+            public String in_dataset_type { get; set; }
+            public String in_parent_dataset_code { get; set; }
+            public String in_active_status { get; set; }
+            public String in_action { get; set; }
+            public String? in_user_code { get; set; }
+            public String? out_msg { get; set; }
+            public Int16? out_result { get; set; }
+        }
+
     }
 }

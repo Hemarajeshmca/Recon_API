@@ -95,5 +95,22 @@ namespace Recon_API.Controllers
             }
         }
 
+
+        [HttpPost("Recondataset")]
+        public IActionResult Recondataset([FromBody] Recondataset objrecondataset)
+        {
+            DataTable response = new DataTable();
+            try
+            {
+                response = ReconService.Recondataset(objrecondataset);
+                var serializedProduct = JsonConvert.SerializeObject(response, Newtonsoft.Json.Formatting.Indented);
+                return Ok(serializedProduct);
+            }
+            catch (Exception ex)
+            {
+                return Problem(title: ex.Message);
+            }
+        }
+
     }
 }

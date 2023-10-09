@@ -81,5 +81,20 @@ namespace ReconServiceLayer
             }
             return ds;
         }
+
+        public static DataTable Recondataset(Recondataset objrecondataset)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                ReconData objrecon = new ReconData();
+                ds = objrecon.Recondatset(objrecondataset);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ds;
+        }
     }
 }
