@@ -30,18 +30,7 @@ namespace ReconServiceLayer
             }
         }
 
-        public DataSet Recon(Recon recon)
-        {
-            try
-            {
-                DataSet ds = MastersData.Recon(recon);
-                return ds;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+       
 
         public DataSet Reconacc(Reconacc reconacc)
         {

@@ -33,21 +33,7 @@ namespace Recon_API.Controllers
             }
         }
 
-        [HttpPost("Recon")]
-        public IActionResult Recon([FromBody] Recon recon)
-        {
-            try
-            {
-                DataSet ds = mastersService.Recon(recon);
-                var serializedProduct = JsonConvert.SerializeObject(ds, Newtonsoft.Json.Formatting.Indented);
-                return Ok(serializedProduct);
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex);
-                return Problem(title: ex.Message);
-            }
-        }
+      
 
         [HttpPost("Reconacc")]
         public IActionResult Reconacc([FromBody] Reconacc reconacc)
