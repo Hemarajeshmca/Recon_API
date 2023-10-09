@@ -24,5 +24,37 @@ namespace ReconModels
             public string? in_recon_code { get; set; }
 
         }
+
+        public class datamapping
+        {
+            public string? in_reconfield_gid { get; set; }
+            public string? in_recon_code { get; set; }
+            public string? in_recon_field_name { get; set; }
+            public Decimal? in_display_order { get; set; }
+            public string? in_dataset_code { get; set; }
+            public string? in_dataset_field_name { get; set; }
+            public string? in_active_status { get; set; }
+            public string? in_action { get; set; }
+            public string? in_user_code { get; set; }
+
+        }
+
+        public class Recon
+        {
+            public Int16? in_recon_gid { get; set; }
+            public String in_recon_code { get; set; }
+            public String in_recon_name { get; set; }
+            public String in_recontype_code { get; set; }
+            public String in_recon_automatch_partial { get; set; }
+            public DateOnly in_period_from { get; set; }
+            public DateOnly in_period_to { get; set; }
+            public String in_until_active_flag { get; set; }
+            public String in_active_status { get; set; }
+            public String in_action { get; set; }
+            public String in_action_by { get; set; }
+            public String? out_msg { get; set; }
+            public Int16? out_result { get; set; }
+        }
+
     }
 }

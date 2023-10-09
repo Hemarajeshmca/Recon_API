@@ -23,23 +23,7 @@ namespace ReconModels
             public Int16? out_result { get; set; }
         }
 
-    public class Recon
-    {
-        public Int16? in_recon_gid { get; set; }
-        public String in_recon_code { get; set; }
-        public String in_recon_name { get; set; }
-        public String in_recontype_code { get; set; }
-        public String in_recon_automatch_partial { get; set; }
-        public DateOnly in_period_from { get; set; }
-        public DateOnly in_period_to { get; set; }
-        public String in_until_active_flag { get; set; }
-        public String in_active_status { get; set; }
-        public String in_action { get; set; }
-        public String in_action_by { get; set; }
-        public String? out_msg { get; set; }
-        public Int16? out_result { get; set; }
-    }
-
+   
     public class Reconacc
     {
         public Int16? in_reconacc_gid { get; set; }

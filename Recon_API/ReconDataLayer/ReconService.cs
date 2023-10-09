@@ -52,5 +52,34 @@ namespace ReconServiceLayer
             { }
             return ds;
         }
+        public static DataTable recondatamapping(datamapping objdatamapping)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                ReconData objqcd = new ReconData();
+                ds = objqcd.recondatamapping(objdatamapping);
+
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+
+
+        public static DataTable Recon(Recon recon)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                ReconData objrecon = new ReconData();
+                ds = objrecon.Recon(recon);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ds;
+        }
     }
 }
