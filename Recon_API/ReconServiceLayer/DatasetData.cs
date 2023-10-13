@@ -39,7 +39,7 @@ namespace ReconDataLayer
 			{
 				Dictionary<string, Object> values = new Dictionary<string, object>();			
 				parameters = new List<IDbDataParameter>();
-				parameters.Add(dbManager.CreateParameter("in_dataset_gid", Objmodel.dataset_id, DbType.Int32, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("in_dataset_gid", Objmodel.dataset_id, DbType.Int32, ParameterDirection.InputOutput));
 				parameters.Add(dbManager.CreateParameter("in_dataset_code", Objmodel.datasetCode, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_dataset_name", Objmodel.dataset_name, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_dataset_category", Objmodel.dataset_category, DbType.String));
@@ -63,7 +63,7 @@ namespace ReconDataLayer
 			{
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				parameters = new List<IDbDataParameter>();
-				parameters.Add(dbManager.CreateParameter("in_datasetfield_gid", Objmodel.datasetdetail_id, DbType.Int64, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("in_datasetfield_gid", Objmodel.datasetdetail_id, DbType.Int64, ParameterDirection.InputOutput));
 				parameters.Add(dbManager.CreateParameter("in_dataset_code", Objmodel.datasetCode, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_field_name", Objmodel.field_name, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_field_type", Objmodel.field_type, DbType.String));
