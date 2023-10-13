@@ -24,7 +24,7 @@ namespace ReconModels
 		{
 			public string? dataset_name { get; set; }
 			public string? datasetCode { get; set; }
-			public int dataset_id { get; set; }
+			public Int32 dataset_id { get; set; }
 			public string? dataset_category { get; set; }
 			public string? active_status { get; set; }
 			public string? in_action { get; set; }
