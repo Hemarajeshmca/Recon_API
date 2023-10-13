@@ -63,9 +63,10 @@ namespace ReconDataLayer
                 parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_recon_code", objfetch.in_recon_code, DbType.String));
                 ds = dbManager.execStoredProcedurelist("pr_fetch_recondetails", CommandType.StoredProcedure, parameters.ToArray());
-                             
+                           
                 ds.Tables[0].TableName = "ReconHeader";
                 ds.Tables[1].TableName = "ReconDataSet";
+                ds.Tables[2].TableName = "ReconDataSetmapping";
 
                 return ds;
             }
@@ -166,6 +167,26 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
 
                 ds = dbManager.execStoredProcedure("pr_recon_mst_trecondataset", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return result;
+            }
+        }
+
+
+        public DataTable Recondatamappinglist(getReconDataMappingList objdatamappinglist)
+        {
+            try
+            {
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_recon_code", objdatamappinglist.in_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_recon_field_name", objdatamappinglist.in_recon_field_name, DbType.String));
+                ds = dbManager.execStoredProcedure("pr_get_recon_datamapping_list", CommandType.StoredProcedure, parameters.ToArray());
                 result = ds.Tables[0];
                 return result;
             }
