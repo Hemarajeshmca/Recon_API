@@ -112,5 +112,21 @@ namespace Recon_API.Controllers
             }
         }
 
+        [HttpPost("getReconDataMappingList")]
+        public IActionResult getReconDataMappingList([FromBody] getReconDataMappingList objdatamappinglist)
+        {
+            DataTable response = new DataTable();
+            try
+            {
+                response = ReconService.Recondatamappinglist(objdatamappinglist);
+                var serializedProduct = JsonConvert.SerializeObject(response, Newtonsoft.Json.Formatting.Indented);
+                return Ok(serializedProduct);
+            }
+            catch (Exception ex)
+            {
+                return Problem(title: ex.Message);
+            }
+        }
+
     }
 }
