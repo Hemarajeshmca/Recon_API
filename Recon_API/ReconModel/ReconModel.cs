@@ -74,7 +74,8 @@ namespace ReconModels
         {
             public String? in_recon_code { get; set; }
             public String? in_recon_field_name { get; set; }
-        }
+			public String? in_dataset_code { get; set; }
+		}
 
     }
 }
