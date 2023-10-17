@@ -63,11 +63,12 @@ namespace ReconDataLayer
                 parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_recon_code", objfetch.in_recon_code, DbType.String));
                 ds = dbManager.execStoredProcedurelist("pr_fetch_recondetails", CommandType.StoredProcedure, parameters.ToArray());
-                           
-                ds.Tables[0].TableName = "ReconHeader";
-                ds.Tables[1].TableName = "ReconDataSet";
-                ds.Tables[2].TableName = "ReconDataSetmapping";
-
+                if (ds.Tables.Count >= 3)
+                {
+                    ds.Tables[0].TableName = "ReconHeader";
+                    ds.Tables[1].TableName = "ReconDataSet";
+                    ds.Tables[2].TableName = "ReconDataSetmapping";
+                }
                 return ds;
             }
             catch (Exception ex)
@@ -186,7 +187,8 @@ namespace ReconDataLayer
                 parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_recon_code", objdatamappinglist.in_recon_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_recon_field_name", objdatamappinglist.in_recon_field_name, DbType.String));
-                ds = dbManager.execStoredProcedure("pr_get_recon_datamapping_list", CommandType.StoredProcedure, parameters.ToArray());
+				parameters.Add(dbManager.CreateParameter("in_dataset_code", objdatamappinglist.in_dataset_code, DbType.String));
+				ds = dbManager.execStoredProcedure("pr_get_recon_datamapping_list", CommandType.StoredProcedure, parameters.ToArray());
                 result = ds.Tables[0];
                 return result;
             }
