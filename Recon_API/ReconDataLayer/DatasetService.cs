@@ -72,5 +72,19 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
-	}
+
+
+        public static DataTable CloneDataset(clonedataset objclonedataset)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                DatasetData objDS = new DatasetData();
+                ds = objDS.cloneDatasetdata(objclonedataset);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+    }
 }

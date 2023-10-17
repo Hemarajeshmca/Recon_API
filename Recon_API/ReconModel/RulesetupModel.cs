@@ -76,5 +76,11 @@ namespace ReconModels
             public string? in_action { get; set; }
             public string? in_user_code { get; set; }
         }
+
+        public class fetchRule
+        {
+            public string? in_rule_code { get; set; }
+
+        }
     }
 }

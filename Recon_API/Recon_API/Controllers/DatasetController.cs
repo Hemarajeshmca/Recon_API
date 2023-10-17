@@ -87,5 +87,21 @@ namespace Recon_API.Controllers
 				return Problem(title: e.Message);
 			}
 		}
-	}
+
+        [HttpPost("clonedataset")]
+        public IActionResult clonedataset(clonedataset objclonedataset)
+        {
+            DataTable response = new DataTable();
+            try
+            {
+                response = DatasetService.CloneDataset(objclonedataset);
+                var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
+                return Ok(serializedProduct);
+            }
+            catch (Exception e)
+            {
+                return Problem(title: e.Message);
+            }
+        }
+    }
 }

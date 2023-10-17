@@ -163,8 +163,29 @@ namespace ReconDataLayer
             }
         }
 
+        public DataSet fetchRuleData(fetchRule objfetchrule)
+        {
+            try
+            {
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_rule_code", objfetchrule.in_rule_code, DbType.String));
+                ds = dbManager.execStoredProcedurelist("pr_fetch_ruledetails", CommandType.StoredProcedure, parameters.ToArray());
+                ds.Tables[0].TableName = "RuleHeader";
+                ds.Tables[1].TableName = "RuleGrouping";
+                ds.Tables[2].TableName = "RuleIdentifier";
+                ds.Tables[3].TableName = "RuleCondition";
 
-       
+
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                return ds;
+            }
+        }
+
 
     }
 

@@ -49,6 +49,14 @@ namespace ReconModels
 		{
 			public string? datasetCode { get; set; }
 		}
-	}
+
+        public class clonedataset
+        {
+            public string? in_clone_dataset_code { get; set; }
+            public string? in_new_dataset_code { get; set; }
+            public string? in_action_by { get; set; }
+
+        }
+    }
 }
 
