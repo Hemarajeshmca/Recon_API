@@ -91,5 +91,22 @@ namespace Recon_API.Controllers
                 return Problem(title: e.Message);
             }
         }
+
+
+        [HttpPost("fetchrule")]
+        public IActionResult fetchrule(fetchRule objfetchrule)
+        {
+            DataSet response = new DataSet();
+            try
+            {
+                response = RulesetupService.Rulefetch(objfetchrule);
+                var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
+                return Ok(serializedProduct);
+            }
+            catch (Exception e)
+            {
+                return Problem(title: e.Message);
+            }
+        }
     }
 }

@@ -116,5 +116,29 @@ namespace ReconDataLayer
 				return result;
 			}
 		}
-	}
+
+
+        public DataTable cloneDatasetdata(clonedataset objclonedataset)
+        {
+            try
+            {
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_clone_dataset_code", objclonedataset.in_clone_dataset_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_new_dataset_code", objclonedataset.in_new_dataset_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_action_by", objclonedataset.in_action_by, DbType.String));
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                ds = dbManager.execStoredProcedure("pr_recon_mst_dataset_clone", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return result;
+            }
+        }
+
+    }
 }

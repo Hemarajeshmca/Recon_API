@@ -80,5 +80,18 @@ namespace ReconServiceLayer
             { }
             return ds;
         }
+
+        public static DataSet Rulefetch(fetchRule objfetchrule)
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                RulesetupData objrule = new RulesetupData();
+                ds = objrule.fetchRuleData(objfetchrule);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
     }
 }
