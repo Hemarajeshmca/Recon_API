@@ -18,10 +18,17 @@ namespace Recon_API.Controllers
 		[HttpPost("QcdMasterRead")]
 		public IActionResult QcdMasterRead(QcdmasterModel qcdmodel)
 		{
+			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
 			{
-				response = QcdmasterService.QcdMasterRead(qcdmodel);
+				var getvalue = Request.Headers.TryGetValue("in_user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("in_lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("in_role_code", out var role_code) ? role_code.First() : "";
+				header_value.user_code = getvalue;
+				header_value.lang_code = getlangCode;
+				header_value.role_code = getRoleCode;
+				response = QcdmasterService.QcdMasterRead(qcdmodel, header_value);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}
@@ -34,10 +41,17 @@ namespace Recon_API.Controllers
 		[HttpPost("QcdMasterGridRead")]
 		public IActionResult QcdMasterGridRead(Qcdgridread objgridread)
 		{
+			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
 			{
-				response = QcdmasterService.QcdMasterGridRead(objgridread);
+				var getvalue = Request.Headers.TryGetValue("in_user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("in_lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("in_role_code", out var role_code) ? role_code.First() : "";
+				header_value.user_code = getvalue;
+				header_value.lang_code = getlangCode;
+				header_value.role_code = getRoleCode;
+				response = QcdmasterService.QcdMasterGridRead(objgridread, header_value);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}
@@ -50,10 +64,17 @@ namespace Recon_API.Controllers
 		[HttpPost("QcdMaster")]
 		public IActionResult QcdMaster(mainQCDMaster objmaster)
 		{
+			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
 			{
-				response = QcdmasterService.QcdMasters(objmaster);
+				var getvalue = Request.Headers.TryGetValue("in_user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("in_lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("in_role_code", out var role_code) ? role_code.First() : "";
+				header_value.user_code = getvalue;
+				header_value.lang_code = getlangCode;
+				header_value.role_code = getRoleCode;
+				response = QcdmasterService.QcdMasters(objmaster, header_value);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}

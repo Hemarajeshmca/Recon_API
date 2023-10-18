@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static ReconModels.QcdmasterModel;
 using ReconModels;
+using static ReconModels.UserManagementModel;
 
 namespace ReconDataLayer
 {
@@ -15,14 +16,16 @@ namespace ReconDataLayer
 		DataTable result = new DataTable();
 		DBManager dbManager = new DBManager("ConnectionString");
 		List<IDbDataParameter> parameters;
-		public DataTable QcdModeldataRead(QcdmasterModel Objmodel)
+		public DataTable QcdModeldataRead(QcdmasterModel Objmodel, UserManagementModel.headerValue headerval)
 		{
 			try
 			{
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess(Objmodel.in_user_code);
 				parameters = new List<IDbDataParameter>();
-				parameters.Add(dbManager.CreateParameter("in_user_code", "", DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
 				ds = dbManager.execStoredProcedure("pr_get_qcdparent", CommandType.StoredProcedure, parameters.ToArray());
 				result = ds.Tables[0];
 				return result;
@@ -33,15 +36,17 @@ namespace ReconDataLayer
 			}
 		}
 	
-		public DataTable QcdModeldataGridRead(Qcdgridread objgridread)
+		public DataTable QcdModeldataGridRead(Qcdgridread objgridread, UserManagementModel.headerValue headerval)
 		{
 			try
 			{
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess(objgridread.in_user_code);
 				parameters = new List<IDbDataParameter>();
-				parameters.Add(dbManager.CreateParameter("in_user_code", objgridread.in_user_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_master_code", objgridread.in_master_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
 				ds = dbManager.execStoredProcedure("pr_get_qcdmaster", CommandType.StoredProcedure, parameters.ToArray());
 				result = ds.Tables[0];
 				return result;
@@ -52,7 +57,7 @@ namespace ReconDataLayer
 			}
 		}
 
-		public DataTable QcdMaster(mainQCDMaster objmaster)
+		public DataTable QcdMaster(mainQCDMaster objmaster, UserManagementModel.headerValue headerval)
 		{
 			try
 			{
@@ -64,7 +69,10 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_master_short_code", objmaster.masterShortCode, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_master_name", objmaster.masterName, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_master_multiple_name", objmaster.mastermutiplename, DbType.String));
-				parameters.Add(dbManager.CreateParameter("in_parent_master_syscode", objmaster.ParentMasterSyscode, DbType.String)); 
+				parameters.Add(dbManager.CreateParameter("in_parent_master_syscode", objmaster.ParentMasterSyscode, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_active_status", objmaster.active_status, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action", objmaster.action, DbType.String));
 				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReconModels;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 using static ReconModels.DatasetModel;
 using static ReconModels.ReconModel;
 using static ReconModels.RulesetupModel;
+using static ReconModels.UserManagementModel;
 
 namespace ReconDataLayer
 {
@@ -16,7 +18,7 @@ namespace ReconDataLayer
         DataTable result = new DataTable();
         DBManager dbManager = new DBManager("ConnectionString");
         List<IDbDataParameter>? parameters; 
-        public DataTable Rulesetuplistdata(Rulesetuplist objrulesetuplist)
+        public DataTable Rulesetuplistdata(Rulesetuplist objrulesetuplist, UserManagementModel.headerValue headerval)
         {
             try
             {
@@ -24,7 +26,10 @@ namespace ReconDataLayer
                 MySqlDataAccess con = new MySqlDataAccess("");
                 parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_user_code", objrulesetuplist.in_user_code, DbType.String));
-                ds = dbManager.execStoredProcedure("pr_get_recon_rule", CommandType.StoredProcedure, parameters.ToArray());
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				ds = dbManager.execStoredProcedure("pr_get_recon_rule", CommandType.StoredProcedure, parameters.ToArray());
                 result = ds.Tables[0];
                 return result;
             }
@@ -36,7 +41,7 @@ namespace ReconDataLayer
 
         
 
-        public DataTable Rulesetupheaderdata(Rulesetupheader objrulesetupheader)
+        public DataTable Rulesetupheaderdata(Rulesetupheader objrulesetupheader, UserManagementModel.headerValue headerval)
         {
             try
             {
@@ -62,7 +67,10 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_active_status", objrulesetupheader.in_active_status, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_action", objrulesetupheader.in_action, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_action_by", objrulesetupheader.in_user_code, DbType.String));
-                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
                 parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
                 ds = dbManager.execStoredProcedure("pr_recon_mst_trulesetup", CommandType.StoredProcedure, parameters.ToArray());
                 result = ds.Tables[0];
@@ -76,7 +84,7 @@ namespace ReconDataLayer
 
 
 
-        public DataTable RulegroupingData(Rulegrouping objrulegrouping)
+        public DataTable RulegroupingData(Rulegrouping objrulegrouping, UserManagementModel.headerValue headerval)
         {
             try
             {
@@ -91,7 +99,10 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_rule_code", objrulegrouping.in_rule_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_active_status", objrulegrouping.in_active_status, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_action", objrulegrouping.in_action, DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_action_by", objrulegrouping.in_user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_action_by", objrulegrouping.in_user_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
                 parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
                 ds = dbManager.execStoredProcedure("pr_recon_mst_trulegrpfield", CommandType.StoredProcedure, parameters.ToArray());
@@ -105,7 +116,7 @@ namespace ReconDataLayer
         }
         
 
-        public DataTable RuleidentifierData(RuleIdentifier objruleidentifier)
+        public DataTable RuleidentifierData(RuleIdentifier objruleidentifier, UserManagementModel.headerValue headerval)
         {
             try
             {
@@ -119,7 +130,10 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_filter_criteria", objruleidentifier.in_filter_criteria, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_ident_criteria", objruleidentifier.in_ident_criteria, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_ident_value", objruleidentifier.in_ident_value, DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_active_status", objruleidentifier.in_active_status, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_active_status", objruleidentifier.in_active_status, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_action", objruleidentifier.in_action, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_action_by", objruleidentifier.in_user_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
@@ -135,7 +149,7 @@ namespace ReconDataLayer
         }
 
         
-        public DataTable RuleconditionData(RuleCondition objrulecondition)
+        public DataTable RuleconditionData(RuleCondition objrulecondition, UserManagementModel.headerValue headerval)
         {
             try
             {
@@ -150,7 +164,10 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_comparison_criteria", objrulecondition.in_comparison_criteria, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_active_status", objrulecondition.in_active_status, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_action", objrulecondition.in_action, DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_action_by", objrulecondition.in_user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_action_by", objrulecondition.in_user_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
                 parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
                 ds = dbManager.execStoredProcedure("pr_recon_mst_trulecondition", CommandType.StoredProcedure, parameters.ToArray());
@@ -163,7 +180,7 @@ namespace ReconDataLayer
             }
         }
 
-        public DataSet fetchRuleData(fetchRule objfetchrule)
+        public DataSet fetchRuleData(fetchRule objfetchrule, UserManagementModel.headerValue headerval)
         {
             try
             {
@@ -171,7 +188,10 @@ namespace ReconDataLayer
                 MySqlDataAccess con = new MySqlDataAccess("");
                 parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_rule_code", objfetchrule.in_rule_code, DbType.String));
-                ds = dbManager.execStoredProcedurelist("pr_fetch_ruledetails", CommandType.StoredProcedure, parameters.ToArray());
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				ds = dbManager.execStoredProcedurelist("pr_fetch_ruledetails", CommandType.StoredProcedure, parameters.ToArray());
                 ds.Tables[0].TableName = "RuleHeader";
                 ds.Tables[1].TableName = "RuleGrouping";
                 ds.Tables[2].TableName = "RuleIdentifier";
