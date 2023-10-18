@@ -12,61 +12,61 @@ namespace ReconServiceLayer
 {
 	public class DatasetService
 	{
-		public static DataTable DatasetRead(Datasetlistmodel Datasetlistmode)
+		public static DataTable DatasetRead(Datasetlistmodel Datasetlistmode, UserManagementModel.headerValue headerval)
 		{
 			DataTable ds = new DataTable();
 			try
 			{
 				DatasetData objDS = new DatasetData();
-				ds = objDS.DatasetReaddata(Datasetlistmode);
+				ds = objDS.DatasetReaddata(Datasetlistmode, headerval);
 			}
 			catch (Exception e)
 			{ }
 			return ds;
 		}
-		public static DataTable DatasetHeader(DatasetHeadermodel Datasetheadermodel)
+		public static DataTable DatasetHeader(DatasetHeadermodel Datasetheadermodel, UserManagementModel.headerValue headerval)
 		{
 			DataTable ds = new DataTable();
 			try
 			{
 				DatasetData objDS = new DatasetData();
-				ds = objDS.DatasetHeaderdata(Datasetheadermodel);
+				ds = objDS.DatasetHeaderdata(Datasetheadermodel, headerval);
 			}
 			catch (Exception e)
 			{ }
 			return ds;
 		}
-		public static DataTable DatasetDetail(Datasetdetailmodel Datasetheadermodel)
+		public static DataTable DatasetDetail(Datasetdetailmodel Datasetheadermodel, UserManagementModel.headerValue headerval)
 		{
 			DataTable ds = new DataTable();
 			try
 			{
 				DatasetData objDS = new DatasetData();
-				ds = objDS.DatasetDetaildata(Datasetheadermodel);
+				ds = objDS.DatasetDetaildata(Datasetheadermodel, headerval);
 			}
 			catch (Exception e)
 			{ }
 			return ds;
 		}
-		public static DataTable DatasetReaddetail(Datasetdetailmodellist Datasetdetailmodellist)
+		public static DataTable DatasetReaddetail(Datasetdetailmodellist Datasetdetailmodellist, UserManagementModel.headerValue headerval)
 		{
 			DataTable ds = new DataTable();
 			try
 			{
 				DatasetData objDS = new DatasetData();
-				ds = objDS.DatasetReaddetaildata(Datasetdetailmodellist);
+				ds = objDS.DatasetReaddetaildata(Datasetdetailmodellist, headerval);
 			}
 			catch (Exception e)
 			{ }
 			return ds;
 		}
-		public static DataTable getfieldtype()
+		public static DataTable getfieldtype(UserManagementModel.headerValue headerval)
 		{
 			DataTable ds = new DataTable();
 			try
 			{
 				DatasetData objDS = new DatasetData();
-				ds = objDS.getfieldtype();
+				ds = objDS.getfieldtype(headerval);
 			}
 			catch (Exception e)
 			{ }
