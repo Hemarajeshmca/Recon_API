@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using static ReconModels.DatasetModel;
 using static ReconModels.ReconModel;
-
 namespace ReconDataLayer
 {
     public class ReconData
@@ -17,14 +16,17 @@ namespace ReconDataLayer
         DataTable result = new DataTable();
         DBManager dbManager = new DBManager("ConnectionString");
         List<IDbDataParameter>? parameters;
-        public DataTable recntypeData()
+        public DataTable recntypeData(UserManagementModel.headerValue headerval)
         {
             try
             {
                 Dictionary<string, Object> values = new Dictionary<string, object>();
                 MySqlDataAccess con = new MySqlDataAccess("");
                 parameters = new List<IDbDataParameter>();
-                ds = dbManager.execStoredProcedure("pr_get_recontype", CommandType.StoredProcedure, parameters.ToArray());
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				ds = dbManager.execStoredProcedure("pr_get_recontype", CommandType.StoredProcedure, parameters.ToArray());
                 result = ds.Tables[0];
                 return result;
             }
@@ -35,15 +37,17 @@ namespace ReconDataLayer
         }
 
 
-        public DataTable recnlistData(Reconlist objreconlist)
+        public DataTable recnlistData(Reconlist objreconlist, UserManagementModel.headerValue headerval)
         {
             try
             {
                 Dictionary<string, Object> values = new Dictionary<string, object>();
                 MySqlDataAccess con = new MySqlDataAccess("");
                 parameters = new List<IDbDataParameter>();
-                parameters.Add(dbManager.CreateParameter("in_user_code", objreconlist.in_user_code, DbType.String));
-                ds = dbManager.execStoredProcedure("pr_recon_mst_trecon_list", CommandType.StoredProcedure, parameters.ToArray());
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				ds = dbManager.execStoredProcedure("pr_recon_mst_trecon_list", CommandType.StoredProcedure, parameters.ToArray());
                 result = ds.Tables[0];
                 return result;
             }
@@ -54,7 +58,7 @@ namespace ReconDataLayer
         }
     
     
-       public DataSet fetchRecondtl(fetchRecon objfetch)
+       public DataSet fetchRecondtl(fetchRecon objfetch, UserManagementModel.headerValue headerval)
         {
             try
             {
@@ -62,7 +66,10 @@ namespace ReconDataLayer
                 MySqlDataAccess con = new MySqlDataAccess("");
                 parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_recon_code", objfetch.in_recon_code, DbType.String));
-                ds = dbManager.execStoredProcedurelist("pr_fetch_recondetails", CommandType.StoredProcedure, parameters.ToArray());
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				ds = dbManager.execStoredProcedurelist("pr_fetch_recondetails", CommandType.StoredProcedure, parameters.ToArray());
                 if (ds.Tables.Count >= 3)
                 {
                     ds.Tables[0].TableName = "ReconHeader";
@@ -78,7 +85,7 @@ namespace ReconDataLayer
 
        }
 
-        public DataTable recondatamapping(datamapping objdatamapping)
+        public DataTable recondatamapping(datamapping objdatamapping, UserManagementModel.headerValue headerval)
         {
             try
             {
@@ -93,7 +100,10 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_dataset_field_name", objdatamapping.in_dataset_field_name, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_active_status", objdatamapping.in_active_status, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_action", objdatamapping.in_action, DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_action_by", objdatamapping.in_user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_action_by", objdatamapping.in_user_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
                 parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
 
@@ -108,38 +118,28 @@ namespace ReconDataLayer
         }
 
 
-        public DataTable Recon(Recon recon)
+        public DataTable Recon(Recon recon, UserManagementModel.headerValue headerval)
         {
             try
             {
                 parameters = new List<IDbDataParameter>();
 
                 parameters.Add(dbManager.CreateParameter("in_recon_gid", recon.in_recon_gid, DbType.Int16, ParameterDirection.InputOutput));
-
                 parameters.Add(dbManager.CreateParameter("in_recon_code", recon.in_recon_code, DbType.String));
-
                 parameters.Add(dbManager.CreateParameter("in_recon_name", recon.in_recon_name, DbType.String));
-
                 parameters.Add(dbManager.CreateParameter("in_recontype_code", recon.in_recontype_code, DbType.String));
-
                 parameters.Add(dbManager.CreateParameter("in_recon_automatch_partial", recon.in_recon_automatch_partial, DbType.String));
-
                 parameters.Add(dbManager.CreateParameter("in_period_from", recon.in_period_from, DbType.Date));
-
                 parameters.Add(dbManager.CreateParameter("in_period_to", recon.in_period_to, DbType.Date));
-
                 parameters.Add(dbManager.CreateParameter("in_until_active_flag", recon.in_until_active_flag, DbType.String));
-
                 parameters.Add(dbManager.CreateParameter("in_active_status", recon.in_active_status, DbType.String));
-
-                parameters.Add(dbManager.CreateParameter("in_action", recon.in_action, DbType.String));
-
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_action", recon.in_action, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_action_by", recon.in_action_by, DbType.String));
-
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
-
                 parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
-
                 ds = dbManager.execStoredProcedure("pr_recon_mst_trecon", CommandType.StoredProcedure, parameters.ToArray());
                 result = ds.Tables[0];
                 return result;
@@ -151,7 +151,7 @@ namespace ReconDataLayer
 
         }
 
-        public DataTable Recondatset(Recondataset objrecondataset)
+        public DataTable Recondatset(Recondataset objrecondataset, UserManagementModel.headerValue headerval)
         {
             try
             {
@@ -164,7 +164,10 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_active_status", objrecondataset.in_active_status, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_action", objrecondataset.in_action, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_action_by", objrecondataset.in_user_code, DbType.String));
-                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
                 parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
 
                 ds = dbManager.execStoredProcedure("pr_recon_mst_trecondataset", CommandType.StoredProcedure, parameters.ToArray());
@@ -178,7 +181,7 @@ namespace ReconDataLayer
         }
 
 
-        public DataTable Recondatamappinglist(getReconDataMappingList objdatamappinglist)
+        public DataTable Recondatamappinglist(getReconDataMappingList objdatamappinglist, UserManagementModel.headerValue headerval)
         {
             try
             {
@@ -188,6 +191,9 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_recon_code", objdatamappinglist.in_recon_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_recon_field_name", objdatamappinglist.in_recon_field_name, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_dataset_code", objdatamappinglist.in_dataset_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
 				ds = dbManager.execStoredProcedure("pr_get_recon_datamapping_list", CommandType.StoredProcedure, parameters.ToArray());
                 result = ds.Tables[0];
                 return result;

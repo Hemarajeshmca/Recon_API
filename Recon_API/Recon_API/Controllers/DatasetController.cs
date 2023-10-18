@@ -5,6 +5,7 @@ using ReconModels;
 using ReconServiceLayer;
 using System.Data;
 using static ReconModels.DatasetModel;
+using static ReconModels.UserManagementModel;
 
 namespace Recon_API.Controllers
 {
@@ -15,10 +16,17 @@ namespace Recon_API.Controllers
 		[HttpPost("DatasetRead")]
 		public IActionResult DatasetRead(Datasetlistmodel Datasetlistmodel)
 		{
+			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
 			{
-				response = DatasetService.DatasetRead(Datasetlistmodel);
+				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+				header_value.user_code = getvalue;
+				header_value.lang_code = getlangCode;
+				header_value.role_code = getRoleCode;
+				response = DatasetService.DatasetRead(Datasetlistmodel, header_value);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}
@@ -30,10 +38,17 @@ namespace Recon_API.Controllers
 		[HttpPost("DatasetHeader")]
 		public IActionResult DatasetHeader(DatasetHeadermodel Datasetheadermodel)
 		{
+			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
 			{
-				response = DatasetService.DatasetHeader(Datasetheadermodel);
+				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+				header_value.user_code = getvalue;
+				header_value.lang_code = getlangCode;
+				header_value.role_code = getRoleCode;
+				response = DatasetService.DatasetHeader(Datasetheadermodel, header_value);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}
@@ -45,10 +60,17 @@ namespace Recon_API.Controllers
 		[HttpPost("DatasetDetail")]
 		public IActionResult DatasetDetail(Datasetdetailmodel Datasetdetailmodel)
 		{
+			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
 			{
-				response = DatasetService.DatasetDetail(Datasetdetailmodel);
+				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+				header_value.user_code = getvalue;
+				header_value.lang_code = getlangCode;
+				header_value.role_code = getRoleCode;
+				response = DatasetService.DatasetDetail(Datasetdetailmodel, header_value);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}
@@ -60,10 +82,17 @@ namespace Recon_API.Controllers
 		[HttpPost("DatasetReaddetail")]
 		public IActionResult DatasetReaddetail(Datasetdetailmodellist Datasetdetailmodellist)
 		{
+			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
 			{
-				response = DatasetService.DatasetReaddetail(Datasetdetailmodellist);
+				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+				header_value.user_code = getvalue;
+				header_value.lang_code = getlangCode;
+				header_value.role_code = getRoleCode;
+				response = DatasetService.DatasetReaddetail(Datasetdetailmodellist, header_value);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}
@@ -75,10 +104,17 @@ namespace Recon_API.Controllers
 		[HttpPost("getfieldtype")]
 		public IActionResult getfieldtype()
 		{
+			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
 			{
-				response = DatasetService.getfieldtype();
+				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+				header_value.user_code = getvalue;
+				header_value.lang_code = getlangCode;
+				header_value.role_code = getRoleCode;
+				response = DatasetService.getfieldtype(header_value);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}

@@ -44,9 +44,9 @@ namespace Recon_API.Controllers
                 var getlangCode = Request.Headers.TryGetValue("langcode", out var langcode) ? langcode.First() : "";
 				var getRoleCode = Request.Headers.TryGetValue("roleCode", out var roleCode) ? roleCode.First() : "";
                 objmodel.user_id = getvalue;
-				header_value.userCode = getvalue;
-				header_value.langCode = getlangCode;
-				header_value.roleCode = getRoleCode;
+				header_value.user_code = getvalue;
+				header_value.lang_code = getlangCode;
+				header_value.role_code = getRoleCode;
                 response = login_serivce.changepass_save(objmodel, header_value);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);

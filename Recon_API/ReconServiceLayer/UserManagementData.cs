@@ -46,7 +46,7 @@ namespace ReconDataLayer
                 Dictionary<string, Object> values = new Dictionary<string, object>();
                 MySqlDataAccess con = new MySqlDataAccess(Usermodel.user_id);
                 parameters = new List<IDbDataParameter>();
-                parameters.Add(dbManager.CreateParameter("in_user_gid", hv.userCode, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_gid", hv.user_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_old_password", Usermodel.old_password, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_new_password", Usermodel.new_password, DbType.String));
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
