@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using ReconServiceLayer;
 using static ReconModels.RulesetupModel;
 using System.Data;
+using static ReconModels.UserManagementModel;
 
 namespace Recon_API.Controllers
 {
@@ -14,10 +15,17 @@ namespace Recon_API.Controllers
         [HttpPost("rulelist")]
         public IActionResult Rulelist(Rulesetuplist objrulesetuplist)
         {
-            DataTable response = new DataTable();
+			headerValue header_value = new headerValue();
+			DataTable response = new DataTable();
             try
             {
-                response = RulesetupService.getRulelist(objrulesetuplist);
+				var getvalue = Request.Headers.TryGetValue("in_user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("in_lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("in_role_code", out var role_code) ? role_code.First() : "";
+				header_value.user_code = getvalue;
+				header_value.lang_code = getlangCode;
+				header_value.role_code = getRoleCode;
+				response = RulesetupService.getRulelist(objrulesetuplist, header_value);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }
@@ -30,10 +38,17 @@ namespace Recon_API.Controllers
         [HttpPost("ruleheader")]
         public IActionResult Ruleheader(Rulesetupheader objrulesetupheader)
         {
-            DataTable response = new DataTable();
+			headerValue header_value = new headerValue();
+			DataTable response = new DataTable();
             try
             {
-                response = RulesetupService.ruleheader(objrulesetupheader);
+				var getvalue = Request.Headers.TryGetValue("in_user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("in_lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("in_role_code", out var role_code) ? role_code.First() : "";
+				header_value.user_code = getvalue;
+				header_value.lang_code = getlangCode;
+				header_value.role_code = getRoleCode;
+				response = RulesetupService.ruleheader(objrulesetupheader, header_value);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }
@@ -46,10 +61,17 @@ namespace Recon_API.Controllers
         [HttpPost("rulegrouping")]
         public IActionResult Rulegrouping(Rulegrouping objrulegrouping)
         {
-            DataTable response = new DataTable();
+			headerValue header_value = new headerValue();
+			DataTable response = new DataTable();
             try
             {
-                response = RulesetupService.Rulegrouping(objrulegrouping);
+				var getvalue = Request.Headers.TryGetValue("in_user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("in_lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("in_role_code", out var role_code) ? role_code.First() : "";
+				header_value.user_code = getvalue;
+				header_value.lang_code = getlangCode;
+				header_value.role_code = getRoleCode;
+				response = RulesetupService.Rulegrouping(objrulegrouping, header_value);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }
@@ -62,10 +84,17 @@ namespace Recon_API.Controllers
         [HttpPost("ruleidentifier")]
         public IActionResult RuleIdentifier(RuleIdentifier objruleidentifier)
         {
-            DataTable response = new DataTable();
+			headerValue header_value = new headerValue();
+			DataTable response = new DataTable();
             try
             {
-                response = RulesetupService.Ruleidentifier(objruleidentifier);
+				var getvalue = Request.Headers.TryGetValue("in_user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("in_lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("in_role_code", out var role_code) ? role_code.First() : "";
+				header_value.user_code = getvalue;
+				header_value.lang_code = getlangCode;
+				header_value.role_code = getRoleCode;
+				response = RulesetupService.Ruleidentifier(objruleidentifier, header_value);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }
@@ -79,10 +108,17 @@ namespace Recon_API.Controllers
         [HttpPost("rulecondition")]
         public IActionResult RuleCondition(RuleCondition objrulecondition)
         {
-            DataTable response = new DataTable();
+			headerValue header_value = new headerValue();
+			DataTable response = new DataTable();
             try
             {
-                response = RulesetupService.Rulecondition(objrulecondition);
+				var getvalue = Request.Headers.TryGetValue("in_user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("in_lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("in_role_code", out var role_code) ? role_code.First() : "";
+				header_value.user_code = getvalue;
+				header_value.lang_code = getlangCode;
+				header_value.role_code = getRoleCode;
+				response = RulesetupService.Rulecondition(objrulecondition, header_value);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }
@@ -96,10 +132,17 @@ namespace Recon_API.Controllers
         [HttpPost("fetchrule")]
         public IActionResult fetchrule(fetchRule objfetchrule)
         {
-            DataSet response = new DataSet();
+			headerValue header_value = new headerValue();
+			DataSet response = new DataSet();
             try
             {
-                response = RulesetupService.Rulefetch(objfetchrule);
+				var getvalue = Request.Headers.TryGetValue("in_user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("in_lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("in_role_code", out var role_code) ? role_code.First() : "";
+				header_value.user_code = getvalue;
+				header_value.lang_code = getlangCode;
+				header_value.role_code = getRoleCode;
+				response = RulesetupService.Rulefetch(objfetchrule, header_value);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }
