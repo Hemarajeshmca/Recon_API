@@ -77,5 +77,17 @@ namespace ReconModels
 			public String? in_dataset_code { get; set; }
 		}
 
+        public class getCondition
+        {
+            public String? in_condition_type { get; set; }
+            public String? in_field_type { get; set;}
+
+		}
+
+        public class getdataagainsRecon
+        {
+            public String? in_recon_code { get; set; }
+        }
+
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using static ReconModels.ReconModel;
 using static ReconModels.RulesetupModel;
 using static ReconModels.UserManagementModel;
 
@@ -95,5 +96,31 @@ namespace ReconServiceLayer
             { }
             return ds;
         }
-    }
+
+		public static DataTable getCondition(getCondition objcondition, UserManagementModel.headerValue headerval)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				RulesetupData objrule = new RulesetupData();
+				ds = objrule.getConditionData(objcondition, headerval);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+
+		public static DataTable getdataagainsRecon(getdataagainsRecon objdatarecon, UserManagementModel.headerValue headerval)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				RulesetupData objrule = new RulesetupData();
+				ds = objrule.getdataagainsReconData(objdatarecon, headerval);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+	}
 }
