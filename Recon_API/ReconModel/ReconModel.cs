@@ -89,5 +89,10 @@ namespace ReconModels
             public String? in_recon_code { get; set; }
         }
 
-    }
+        public class getFieldAgainstReconList
+        {
+            public String? in_recon_code { get; set; }
+		}
+
+	}
 }

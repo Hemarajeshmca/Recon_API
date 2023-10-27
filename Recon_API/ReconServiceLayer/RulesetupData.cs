@@ -48,7 +48,7 @@ namespace ReconDataLayer
                 Dictionary<string, Object> values = new Dictionary<string, object>();
                 MySqlDataAccess con = new MySqlDataAccess("");
                 parameters = new List<IDbDataParameter>();
-                parameters.Add(dbManager.CreateParameter("in_rule_gid", objrulesetupheader.in_rule_gid, DbType.Int64, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("in_rule_gid", objrulesetupheader.in_rule_gid, DbType.Int64, ParameterDirection.InputOutput));
                 parameters.Add(dbManager.CreateParameter("in_rule_code", objrulesetupheader.in_rule_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_rule_name", objrulesetupheader.in_rule_name, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_recon_code", objrulesetupheader.in_recon_code, DbType.String));
@@ -91,7 +91,7 @@ namespace ReconDataLayer
                 Dictionary<string, Object> values = new Dictionary<string, object>();
                 MySqlDataAccess con = new MySqlDataAccess("");
                 parameters = new List<IDbDataParameter>();
-                parameters.Add(dbManager.CreateParameter("in_rulegrpfield_gid", objrulegrouping.in_rulegrpfield_gid, DbType.Int64, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("in_rulegrpfield_gid", objrulegrouping.in_rulegrpfield_gid, DbType.Int64, ParameterDirection.InputOutput));
                 parameters.Add(dbManager.CreateParameter("in_rule_gid", objrulegrouping.in_rule_gid, DbType.Int64));
                 parameters.Add(dbManager.CreateParameter("in_group_method_flag", objrulegrouping.in_group_method_flag, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_manytomany_match_flag", objrulegrouping.in_manytomany_match_flag, DbType.String));
@@ -123,7 +123,7 @@ namespace ReconDataLayer
                 Dictionary<string, Object> values = new Dictionary<string, object>();
                 MySqlDataAccess con = new MySqlDataAccess("");
                 parameters = new List<IDbDataParameter>();
-                parameters.Add(dbManager.CreateParameter("in_ruleselefilter_gid", objruleidentifier.in_ruleselefilter_gid, DbType.Int64, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("in_ruleselefilter_gid", objruleidentifier.in_ruleselefilter_gid, DbType.Int64, ParameterDirection.InputOutput));
                 parameters.Add(dbManager.CreateParameter("in_rule_code", objruleidentifier.in_rule_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_filter_applied_on", objruleidentifier.in_filter_applied_on, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_filter_field", objruleidentifier.in_filter_field, DbType.String));
@@ -156,7 +156,7 @@ namespace ReconDataLayer
                 Dictionary<string, Object> values = new Dictionary<string, object>();
                 MySqlDataAccess con = new MySqlDataAccess("");
                 parameters = new List<IDbDataParameter>();
-                parameters.Add(dbManager.CreateParameter("in_rulecondition_gid", objrulecondition.in_rulecondition_gid, DbType.Int64, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("in_rulecondition_gid", objrulecondition.in_rulecondition_gid, DbType.Int64, ParameterDirection.InputOutput));
                 parameters.Add(dbManager.CreateParameter("in_rule_code", objrulecondition.in_rule_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_source_field", objrulecondition.in_source_field, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_comparison_field", objrulecondition.in_comparison_field, DbType.String));
