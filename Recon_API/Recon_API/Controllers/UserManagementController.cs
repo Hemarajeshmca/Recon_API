@@ -27,10 +27,7 @@ namespace Recon_API.Controllers
 			catch (Exception e)
 			{
 				return Problem(title: e.Message);
-
-
 			}
-
 		}
 
         [HttpPost("changepass_save")]
@@ -55,9 +52,7 @@ namespace Recon_API.Controllers
             {
                 return Problem(title: e.Message);
             }
-
         }
-
     }
  
 }

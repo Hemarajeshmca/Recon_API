@@ -111,5 +111,22 @@ namespace ReconServiceLayer
             }
             return ds;
         }
-    }
+
+		
+
+		public static DataTable ReconFieldAgainstReconlist(getFieldAgainstReconList objfieldlist, UserManagementModel.headerValue headerval)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				ReconData objrecon = new ReconData();
+				ds = objrecon.ReconFieldAgainstReconlist(objfieldlist, headerval);
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+			return ds;
+		}
+	}
 }
