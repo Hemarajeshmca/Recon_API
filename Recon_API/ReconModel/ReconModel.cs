@@ -28,6 +28,7 @@ namespace ReconModels
         public class datamapping
         {
             public Int16? in_reconfield_gid { get; set; }
+            public Int16? in_reconfieldmapping_gid { get; set; }
             public string? in_recon_code { get; set; }
             public string? in_recon_field_name { get; set; }
             public Decimal? in_display_order { get; set; }
