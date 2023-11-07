@@ -122,5 +122,19 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
+
+		//getruleagainstRecon
+		public static DataTable getruleagainstRecon(getruleagainstRecon objRecon, UserManagementModel.headerValue headerval)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				RulesetupData objrule = new RulesetupData();
+				ds = objrule.getruleagainstReconData(objRecon, headerval);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
 	}
 }
