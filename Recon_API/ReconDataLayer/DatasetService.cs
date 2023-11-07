@@ -48,9 +48,9 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
-		public static DataTable DatasetReaddetail(Datasetdetailmodellist Datasetdetailmodellist, UserManagementModel.headerValue headerval)
+		public static DataSet DatasetReaddetail(Datasetdetailmodellist Datasetdetailmodellist, UserManagementModel.headerValue headerval)
 		{
-			DataTable ds = new DataTable();
+			DataSet ds = new DataSet();
 			try
 			{
 				DatasetData objDS = new DatasetData();
