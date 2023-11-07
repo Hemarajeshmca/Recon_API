@@ -95,5 +95,11 @@ namespace ReconModels
             public String? in_recon_code { get; set; }
 		}
 
+        public class getruleagainstRecon
+        {
+			public String? in_recon_code { get; set; }
+            public String? in_rule_apply_on { get; set; }
+		}
+
 	}
 }

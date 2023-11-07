@@ -247,6 +247,33 @@ namespace ReconDataLayer
 				return result;
 			}
 		}
+
+
+		//getruleagainstReconData
+
+		public DataTable getruleagainstReconData(getruleagainstRecon objRecon, UserManagementModel.headerValue headerval)
+		{
+			try
+			{
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_recon_code", objRecon.in_recon_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_rule_apply_on", objRecon.in_rule_apply_on, DbType.String));
+				//parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				//parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				//parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				ds = dbManager.execStoredProcedure("pr_get_ruleagainstrecon", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				return result;
+			}
+		}
+
+
 	}
 
 }

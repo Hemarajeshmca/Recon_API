@@ -36,7 +36,6 @@ namespace Recon_API.Controllers
             }
         }
 
-
         [HttpPost("reconlist")]
         public IActionResult ReconList(Reconlist objreconlist)
         {
@@ -107,7 +106,6 @@ namespace Recon_API.Controllers
                 return Problem(title: e.Message);
             }
         }
-
 
         [HttpPost("Recon")]
         public IActionResult Recon([FromBody] Recon recon)
@@ -201,5 +199,29 @@ namespace Recon_API.Controllers
 				return Problem(title: ex.Message);
 			}
 		}
-	}
+
+        [HttpPost("getreconknockofflist")]
+        public IActionResult getreconknockofflist()
+        {
+            headerValue header_value = new headerValue();
+            DataTable response = new DataTable();
+            try
+            {
+                var getvalue = Request.Headers.TryGetValue("in_user_code", out var user_code) ? user_code.First() : "";
+                var getlangCode = Request.Headers.TryGetValue("in_lang_code", out var lang_code) ? lang_code.First() : "";
+                var getRoleCode = Request.Headers.TryGetValue("in_role_code", out var role_code) ? role_code.First() : "";
+                header_value.user_code = getvalue;
+                header_value.lang_code = getlangCode;
+                header_value.role_code = getRoleCode;
+                response = ReconService.reconlistknockoffService(header_value);
+                var serializedProduct = JsonConvert.SerializeObject(response, Newtonsoft.Json.Formatting.Indented);
+                return Ok(serializedProduct);
+            }
+            catch (Exception ex)
+            {
+                return Problem(title: ex.Message);
+            }
+        }
+
+    }
 }
