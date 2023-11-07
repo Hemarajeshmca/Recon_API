@@ -93,7 +93,7 @@ namespace ReconDataLayer
 				return result;
 			}
 		}
-		public DataTable DatasetReaddetaildata(Datasetdetailmodellist Objmodel, UserManagementModel.headerValue headerval)
+		public DataSet DatasetReaddetaildata(Datasetdetailmodellist Objmodel, UserManagementModel.headerValue headerval)
 		{
 			try
 			{
@@ -105,12 +105,16 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
 				ds = dbManager.execStoredProcedure("pr_get_Datasetdetail", CommandType.StoredProcedure, parameters.ToArray());
-				result = ds.Tables[0];
-				return result;
+				if (ds.Tables.Count >= 2)
+				{
+					ds.Tables[0].TableName = "Header";
+					ds.Tables[1].TableName = "DataSet";
+				}
+				return ds;
 			}
 			catch (Exception ex)
 			{
-				return result;
+				return ds;
 			}
 		}
 		public DataTable getfieldtype(UserManagementModel.headerValue headerval)
