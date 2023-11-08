@@ -50,7 +50,13 @@ namespace ReconModels
             public DateOnly in_period_from { get; set; }
             public DateOnly in_period_to { get; set; }
             public String in_until_active_flag { get; set; }
-            public String in_active_status { get; set; }
+            public String in_active_status { get; set; }            
+            public String in_recon_date_flag { get; set; }
+            public String in_recon_date_field { get; set; }
+            public String in_recon_value_flag { get; set; }
+            public String in_recon_value_field { get; set; }
+            public Double in_threshold_plus_value { get; set; }
+            public Double in_threshold_minus_value { get; set; }
             public String in_action { get; set; }
             public String in_action_by { get; set; }
             public String? out_msg { get; set; }

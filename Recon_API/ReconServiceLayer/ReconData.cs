@@ -132,6 +132,12 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_period_from", recon.in_period_from, DbType.Date));
                 parameters.Add(dbManager.CreateParameter("in_period_to", recon.in_period_to, DbType.Date));
                 parameters.Add(dbManager.CreateParameter("in_until_active_flag", recon.in_until_active_flag, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_recon_date_flag", recon.in_recon_date_flag, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_recon_date_field", recon.in_recon_date_field, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_recon_value_flag", recon.in_recon_value_flag, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_recon_value_field", recon.in_recon_value_field, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_threshold_plus_value", recon.in_threshold_plus_value, DbType.Double));
+                parameters.Add(dbManager.CreateParameter("in_threshold_minus_value", recon.in_threshold_minus_value, DbType.Double));
                 parameters.Add(dbManager.CreateParameter("in_active_status", recon.in_active_status, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
@@ -140,7 +146,7 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_action_by", recon.in_action_by, DbType.String));
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
                 parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
-                ds = dbManager.execStoredProcedure("pr_recon_mst_trecon", CommandType.StoredProcedure, parameters.ToArray());
+                ds = dbManager.execStoredProcedure("pr_recon_mst_trecon_new", CommandType.StoredProcedure, parameters.ToArray());
                 result = ds.Tables[0];
                 return result;
             }
