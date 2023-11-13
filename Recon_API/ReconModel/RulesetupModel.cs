@@ -13,7 +13,8 @@ namespace ReconModels
         public class Rulesetuplist
         {
             public String? in_user_code { get; set; }
-        }
+			public string? in_recon_code { get; set; }
+		}
 
         public class Rulesetupheader
         {

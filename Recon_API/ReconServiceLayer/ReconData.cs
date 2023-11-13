@@ -70,12 +70,13 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
 				ds = dbManager.execStoredProcedurelist("pr_fetch_recondetails", CommandType.StoredProcedure, parameters.ToArray());
-                if (ds.Tables.Count >= 3)
+                if (ds.Tables.Count >= 4)
                 {
                     ds.Tables[0].TableName = "ReconHeader";
                     ds.Tables[1].TableName = "ReconDataSet";
                     ds.Tables[2].TableName = "ReconDataSetmapping";
-                }
+					ds.Tables[3].TableName = "Reconfield";
+				}
                 return ds;
             }
             catch (Exception ex)
