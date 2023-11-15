@@ -51,6 +51,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_active_status", Objmodel.active_status, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action", Objmodel.in_action, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action_by", Objmodel.in_action_by, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_active_reason", Objmodel.inactive_reason, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
@@ -76,6 +77,8 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_field_name", Objmodel.field_name, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_field_type", Objmodel.field_type, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_field_length", Objmodel.field_length, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_precision_length", Objmodel.precision_length, DbType.Int64));
+				parameters.Add(dbManager.CreateParameter("in_scale_length", Objmodel.scale_length, DbType.Int64));
 				parameters.Add(dbManager.CreateParameter("in_field_mandatory", Objmodel.field_mandatory, DbType.String));				
 				parameters.Add(dbManager.CreateParameter("in_action", Objmodel.in_action, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action_by", Objmodel.in_action_by, DbType.String));
