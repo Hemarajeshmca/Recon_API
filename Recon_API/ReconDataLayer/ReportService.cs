@@ -52,5 +52,33 @@ namespace ReconServiceLayer
             { }
             return ds;
         }
-    }
+
+		//getreportlistservice
+		public static DataTable getreportlistservice(UserManagementModel.headerValue headerval)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				ReportData objreport = new ReportData();
+				ds = objreport.getreportlistData(headerval);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+
+		//getreportparamlistservice
+		public static DataTable getreportparamlistservice(reportparamlistmodel objreportparamlistmodel, UserManagementModel.headerValue headerval)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				ReportData objreport = new ReportData();
+				ds = objreport.getreportparamlistData(objreportparamlistmodel, headerval);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+	}
 }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static ReconModels.ProcessModel;
+using static ReconModels.ReconModel;
 using static ReconModels.ReportModel;
 
 namespace ReconDataLayer
@@ -26,7 +27,7 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_recon_code", objgeneratereportmodel.in_recon_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_report_code", objgeneratereportmodel.in_report_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_report_param", objgeneratereportmodel.in_report_param, DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_report_condition", objgeneratereportmodel.in_report_condition, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_report_condition", objgeneratereportmodel.reportcondition, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_ip_addr", objgeneratereportmodel.in_ip_addr, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_user_code", objgeneratereportmodel.in_user_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_outputfile_flag", objgeneratereportmodel.in_outputfile_flag, DbType.Boolean));
@@ -97,5 +98,53 @@ namespace ReconDataLayer
             }
 
         }
-    }
+
+		//getreportlistData
+		public DataTable getreportlistData(UserManagementModel.headerValue headerval)
+		{
+			try
+			{
+				parameters = new List<IDbDataParameter>();
+
+				//parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				//parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				//parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				ds = dbManager.execStoredProcedure("pr_get_reportlist", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+
+		}
+
+		//getreportparamlistData
+		public DataTable getreportparamlistData(reportparamlistmodel objreportparamlistmodel, UserManagementModel.headerValue headerval)
+		{
+			try
+			{
+				parameters = new List<IDbDataParameter>();
+
+				parameters.Add(dbManager.CreateParameter("in_report_code", objreportparamlistmodel.in_report_code, DbType.String));
+
+				//parameters.Add(dbManager.CreateParameter("in_reportparam_gid", objreportparamlistmodel.in_reportparam_gid, DbType.Int32));
+				//parameters.Add(dbManager.CreateParameter("in_action", objreportparamlistmodel.in_action, DbType.String));
+
+				//parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				//parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				//parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				ds = dbManager.execStoredProcedure("pr_recon_mst_treportparam", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+
+		}
+
+	}
 }
