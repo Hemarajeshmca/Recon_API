@@ -13,6 +13,8 @@ namespace Recon_API.Controllers
 	[ApiController]
 	public class UtilityController : ControllerBase
 	{
+		UtilityService _fileService = new UtilityService();
+
 		[HttpPost("jobStatus")]
 		public IActionResult JobStatus(JobStatusList objobstatus)
 		{
@@ -58,5 +60,8 @@ namespace Recon_API.Controllers
 				return Problem(title: e.Message);
 			}
 		}
+
+		
+
 	}
 }
