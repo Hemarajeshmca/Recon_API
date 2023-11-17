@@ -22,13 +22,13 @@ namespace ReconModels
         public class reconbetweenaccmodel
         {
             public String? in_recon_code { get; set; }
-            public DateOnly? in_tran_date { get; set; }
+            public String? in_tran_date { get; set; }
         }
 
         public class reconwithinaccmodel
         {
             public String? in_recon_code { get; set; }
-            public DateOnly? in_tran_date { get; set; }
+            public String? in_tran_date { get; set; }
         }
 
 		public class reportparamlistmodel

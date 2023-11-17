@@ -82,7 +82,7 @@ namespace ReconDataLayer
                 parameters = new List<IDbDataParameter>();
 
                 parameters.Add(dbManager.CreateParameter("in_recon_code", objreconwithinaccmodel.in_recon_code, DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_tran_date", objreconwithinaccmodel.in_tran_date, DbType.Date));
+                parameters.Add(dbManager.CreateParameter("in_tran_date", objreconwithinaccmodel.in_tran_date, DbType.String));
                 //parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
                 //parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
                 //parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
