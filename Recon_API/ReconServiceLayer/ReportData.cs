@@ -1,4 +1,5 @@
-﻿using ReconModels;
+﻿using Google.Protobuf;
+using ReconModels;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -145,6 +146,8 @@ namespace ReconDataLayer
 			}
 
 		}
+
+     
 
 	}
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static ReconModels.ReconModel;
+using static ReconModels.UserManagementModel;
 
 namespace ReconServiceLayer
 {
@@ -143,5 +144,33 @@ namespace ReconServiceLayer
             }
             return ds;
         }
-    }
+
+		public static DataTable getReconagainsttypecode(Reconagainsttypecode objreconlist, UserManagementModel.headerValue headerval)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				ReconData objqcd = new ReconData();
+				ds = objqcd.reconagainsttypecodeData(objreconlist, headerval);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+
+		public static DataTable testAPIService()
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				ReconData objrecon = new ReconData();
+				ds = objrecon.testData();
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+			return ds;
+		}
+	}
 }
