@@ -61,9 +61,9 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_comparison_dataset_code", objrulesetupheader.in_comparison_dataset_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_source_acc_mode", objrulesetupheader.in_source_acc_mode, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_comparison_acc_mode", objrulesetupheader.in_comparison_acc_mode, DbType.String));
-                //parameters.Add(dbManager.CreateParameter("in_parent_dataset_code", objrulesetupheader.in_parent_dataset_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_parent_dataset_code", objrulesetupheader.in_parent_dataset_code, DbType.String));
                 // parameters.Add(dbManager.CreateParameter("in_support_dataset_code", objrulesetupheader.in_support_dataset_code, DbType.String));
-                // parameters.Add(dbManager.CreateParameter("in_parent_acc_mode", objrulesetupheader.in_parent_acc_mode, DbType.String));
+                 parameters.Add(dbManager.CreateParameter("in_parent_acc_mode", objrulesetupheader.in_parent_acc_mode, DbType.String));
                 // parameters.Add(dbManager.CreateParameter("in_reversal_flag", objrulesetupheader.in_reversal_flag, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_group_flag", objrulesetupheader.in_group_flag, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_active_status", objrulesetupheader.in_active_status, DbType.String));
