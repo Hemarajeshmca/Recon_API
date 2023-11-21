@@ -107,6 +107,10 @@ namespace ReconModels
             public String? in_rule_apply_on { get; set; }
 		}
 
+        public class Reconagainsttypecode
+        {
+			public string? in_recontype_code { get; set; }
+		}
 
 	}
 }

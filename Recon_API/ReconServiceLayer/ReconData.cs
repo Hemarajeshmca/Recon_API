@@ -1,10 +1,12 @@
-﻿using ReconModels;
+﻿using Microsoft.AspNetCore.Mvc;
+using ReconModels;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using static ReconModels.DatasetModel;
 using static ReconModels.ReconModel;
@@ -32,7 +34,8 @@ namespace ReconDataLayer
             }
             catch (Exception ex)
             {
-                return result;
+                logger(ex.Message);
+				return result;
             }
         }
 
@@ -256,6 +259,69 @@ namespace ReconDataLayer
             }
         }
 
+        //recon against recontypecode
+		public DataTable reconagainsttypecodeData(Reconagainsttypecode objreconlist, UserManagementModel.headerValue headerval)
+		{
+			try
+			{
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_recontype_code", objreconlist.in_recontype_code, DbType.String));
+				ds = dbManager.execStoredProcedure("pr_get_reconagainst_typecode", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				return result;
+			}
+		}
 
-    }
+		//testData
+
+
+		public DataTable testData()
+		{
+			try
+			{
+				parameters = new List<IDbDataParameter>();
+
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+				ds = dbManager.execStoredProcedure("pr_tes_api", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+
+		}
+		public void logger(string sMessage)
+		{
+			string logFilePath = "D;//recon_logger/error.log"; // "D:\\DMS Error Log\\error.log";
+
+			// Ensure the directory exists
+			string logDirectory = Path.GetDirectoryName(logFilePath);
+			if (!Directory.Exists(logDirectory))
+			{
+				Directory.CreateDirectory(logDirectory);
+			}
+
+			// Append the error information to the log file
+			using (StreamWriter writer = new StreamWriter(logFilePath, true))
+			{
+				writer.WriteLine($"Timestamp: {DateTime.Now}");
+
+				writer.WriteLine($"Message: {sMessage}");
+				writer.WriteLine(new string('-', 40)); // Separator between entries
+			}
+		}
+
+
+	}
 }
