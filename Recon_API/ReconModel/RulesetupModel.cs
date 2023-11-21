@@ -25,14 +25,16 @@ namespace ReconModels
             public DateOnly in_period_from { get; set; }
             public DateOnly? in_period_to { get; set; }
             public string? in_until_active_flag { get; set; }
+            public Decimal? in_rule_order { get; set; }
             public string? in_applyrule_on { get; set; }
             public string? in_source_dataset_code { get; set; }
             public string? in_comparison_dataset_code { get; set; }
             public string? in_source_acc_mode { get; set; }
-            public string? in_parent_dataset_code { get; set; }
-            public string? in_support_dataset_code { get; set; }
-            public string? in_parent_acc_mode { get; set; }
-            public string? in_reversal_flag { get; set; }
+            public string? in_comparison_acc_mode { get; set; }
+           // public string? in_parent_dataset_code { get; set; }
+           // public string? in_support_dataset_code { get; set; }
+           // public string? in_parent_acc_mode { get; set; }
+           // public string? in_reversal_flag { get; set; }
             public string? in_group_flag { get; set; }
             public string? in_active_status { get; set; }
             public string? in_action { get; set; }
