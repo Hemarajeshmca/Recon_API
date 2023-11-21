@@ -254,7 +254,7 @@ namespace ReconDataLayer
 
 		//getruleagainstReconData
 
-		public DataTable getruleagainstReconData(getruleagainstRecon objRecon, UserManagementModel.headerValue headerval)
+		public DataSet getruleagainstReconData(getruleagainstRecon objRecon, UserManagementModel.headerValue headerval)
 		{
 			try
 			{
@@ -262,17 +262,24 @@ namespace ReconDataLayer
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();
 				parameters.Add(dbManager.CreateParameter("in_recon_code", objRecon.in_recon_code, DbType.String));
-				parameters.Add(dbManager.CreateParameter("in_rule_apply_on", objRecon.in_rule_apply_on, DbType.String));
-				//parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
-				//parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
-				//parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
-				ds = dbManager.execStoredProcedure("pr_get_ruleagainstrecon", CommandType.StoredProcedure, parameters.ToArray());
-				result = ds.Tables[0];
-				return result;
-			}
+				//parameters.Add(dbManager.CreateParameter("in_rule_apply_on", objRecon.in_rule_apply_on, DbType.String));
+                //parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+                //parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+                //parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+                //ds = dbManager.execStoredProcedure("pr_get_ruleagainstrecon", CommandType.StoredProcedure, parameters.ToArray());
+                //result = ds.Tables[0];
+                //return result;
+                ds = dbManager.execStoredProcedurelist("pr_get_ruleagainstrecon", CommandType.StoredProcedure, parameters.ToArray());
+                if (ds.Tables.Count >= 2)
+                {
+                    ds.Tables[0].TableName = "ReconRule";
+                    ds.Tables[1].TableName = "ReconDataSet";                    
+                }
+                return ds;
+            }
 			catch (Exception ex)
 			{
-				return result;
+				return ds;
 			}
 		}
 

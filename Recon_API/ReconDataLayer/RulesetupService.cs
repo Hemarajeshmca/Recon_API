@@ -124,9 +124,9 @@ namespace ReconServiceLayer
 		}
 
 		//getruleagainstRecon
-		public static DataTable getruleagainstRecon(getruleagainstRecon objRecon, UserManagementModel.headerValue headerval)
+		public static DataSet getruleagainstRecon(getruleagainstRecon objRecon, UserManagementModel.headerValue headerval)
 		{
-			DataTable ds = new DataTable();
+			DataSet ds = new DataSet();
 			try
 			{
 				RulesetupData objrule = new RulesetupData();
