@@ -46,6 +46,36 @@ namespace ReconDataLayer
 
         }
 
+        //pr_run_reconrule
+
+        public DataTable runreconruleData(runreconrule objrunreconrule, UserManagementModel.headerValue headerval)
+        {
+            try
+            {
+                parameters = new List<IDbDataParameter>();
+
+                parameters.Add(dbManager.CreateParameter("in_recon_code", objrunreconrule.in_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_period_from", objrunreconrule.in_period_from, DbType.Date));
+                parameters.Add(dbManager.CreateParameter("in_period_to", objrunreconrule.in_period_to, DbType.Date));
+                parameters.Add(dbManager.CreateParameter("in_automatch_flag", objrunreconrule.in_automatch_flag, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_ip_addr", objrunreconrule.in_ip_addr, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_code", objrunreconrule.in_user_code, DbType.String));
+                //parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+                //parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+                //parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                ds = dbManager.execStoredProcedure("pr_run_reconrule", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
 
         public DataTable undokojobData(undokojobmodel objundokojobmodel, UserManagementModel.headerValue headerval)
         {
@@ -97,5 +127,27 @@ namespace ReconDataLayer
 
         }
 
-    }
+		//getPipelinelistData
+
+		public DataTable getPipelinelistData(pipelinelist objpipeline, UserManagementModel.headerValue headerval)
+		{
+			try
+			{
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_target_dataset_code", objpipeline.in_target_dataset_code, DbType.String));
+				//parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				//parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				//parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				ds = dbManager.execStoredProcedure("pr_get_pipelinelist", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+
+		}
+
+	}
 }

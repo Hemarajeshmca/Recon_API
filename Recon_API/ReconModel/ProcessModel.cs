@@ -34,5 +34,22 @@ namespace ReconModels
             public String? in_undo_ko_reason { get; set; }
             public String? in_user_code { get; set; }
         }
+
+        public class runreconrule
+        {
+            public String? in_recon_code { get; set; }
+            public String? in_period_from { get; set; }
+            public String? in_period_to { get; set; }
+            public String? in_automatch_flag { get; set; }
+            public String? in_ip_addr { get; set; }
+            public String? in_user_code { get; set; }
+
+        }
+
+        public class pipelinelist
+		{
+            public String? in_target_dataset_code { get; set; }
+
+		}
     }
 }
