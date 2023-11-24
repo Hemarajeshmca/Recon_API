@@ -56,8 +56,20 @@ namespace ReconServiceLayer
             { }
             return ds;
         }
+		public static DataTable rulefieldorder(Rulefieldorder objRulefieldorder, UserManagementModel.headerValue headerval)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				RulesetupData objrule = new RulesetupData();
+				ds = objrule.rulefieldorderData(objRulefieldorder, headerval);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
 
-        public static DataTable Ruleidentifier(RuleIdentifier objruleidentifier, UserManagementModel.headerValue headerval)
+		public static DataTable Ruleidentifier(RuleIdentifier objruleidentifier, UserManagementModel.headerValue headerval)
         {
             DataTable ds = new DataTable();
             try

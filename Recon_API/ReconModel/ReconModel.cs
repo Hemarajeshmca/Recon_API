@@ -88,6 +88,7 @@ namespace ReconModels
         {
             public String? in_condition_type { get; set; }
             public String? in_field_type { get; set;}
+            public String? in_recon_code { get; set; }
 
 		}
 

@@ -105,7 +105,6 @@ namespace Recon_API.Controllers
             }
         }
 
-
         [HttpPost("rulecondition")]
         public IActionResult RuleCondition(RuleCondition objrulecondition)
         {
@@ -129,7 +128,6 @@ namespace Recon_API.Controllers
             }
         }
 
-
         [HttpPost("fetchrule")]
         public IActionResult fetchrule(fetchRule objfetchrule)
         {
@@ -152,7 +150,6 @@ namespace Recon_API.Controllers
                 return Problem(title: e.Message);
             }
         }
-
 
 		[HttpPost("getCondition")]
 		public IActionResult getCondition(getCondition objcondition)
@@ -220,6 +217,29 @@ namespace Recon_API.Controllers
                 //return Ok(serializedProduct);
                 ds = RulesetupService.getruleagainstRecon(objRecon, header_value);
 				var serializedProduct = JsonConvert.SerializeObject(ds, Formatting.None);
+				return Ok(serializedProduct);
+			}
+			catch (Exception e)
+			{
+				return Problem(title: e.Message);
+			}
+		}
+
+		[HttpPost("rulefieldorder")]
+		public IActionResult rulefieldorder(Rulefieldorder objRulefieldorder)
+		{
+			headerValue header_value = new headerValue();
+			DataTable response = new DataTable();
+			try
+			{
+				var getvalue = Request.Headers.TryGetValue("in_user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("in_lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("in_role_code", out var role_code) ? role_code.First() : "";
+				header_value.user_code = getvalue;
+				header_value.lang_code = getlangCode;
+				header_value.role_code = getRoleCode;
+				response = RulesetupService.rulefieldorder(objRulefieldorder, header_value);
+				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}
 			catch (Exception e)
