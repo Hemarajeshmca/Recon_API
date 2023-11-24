@@ -50,5 +50,33 @@ namespace ReconServiceLayer
             { }
             return ds;
         }
-    }
+
+        public static DataTable runreconruleservice(runreconrule objrunreconrule, UserManagementModel.headerValue headerval)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                ProcessData objprocess = new ProcessData();
+                ds = objprocess.runreconruleData(objrunreconrule, headerval);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+
+		public static DataTable getPipelinelistservice(pipelinelist objpipeline, UserManagementModel.headerValue headerval)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				ProcessData objprocess = new ProcessData();
+				ds = objprocess.getPipelinelistData(objpipeline, headerval);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+
+
+	}
 }
