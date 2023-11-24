@@ -63,7 +63,10 @@ namespace ReconModels
             public string? in_filter_criteria { get; set; }
             public string? in_ident_criteria { get; set; }
             public string? in_ident_value { get; set; }
-            public string? in_active_status { get; set; }
+			public string? in_open_flag { get; set; }
+			public string? in_close_flag { get; set; }
+			public string? in_join_condition { get; set; }
+			public string? in_active_status { get; set; }
             public string? in_action { get; set; }
             public string? in_user_code { get; set; }
         }
@@ -75,7 +78,10 @@ namespace ReconModels
             public string? in_comparison_field { get; set; }
             public string? in_extraction_criteria { get; set; }
             public string? in_comparison_criteria { get; set; }
-            public string? in_active_status { get; set; }
+			public string? in_open_flag { get; set; }
+			public string? in_close_flag { get; set; }
+			public string? in_join_condition { get; set; }
+			public string? in_active_status { get; set; }
             public string? in_action { get; set; }
             public string? in_user_code { get; set; }
         }
@@ -83,7 +89,17 @@ namespace ReconModels
         public class fetchRule
         {
             public string? in_rule_code { get; set; }
-
         }
-    }
+		public class Rulefieldorder
+		{
+			public int? in_rulerecorder_gid { get; set; }			
+			public string? in_rule_code { get; set; }
+			public string? in_recorder_applied_on { get; set; }
+			public int? in_recorder_seqno { get; set; }
+			public string? in_recorder_field { get; set; }
+			public string? in_active_status { get; set; }
+			public string? in_action { get; set; }
+			public string? in_user_code { get; set; }
+		}
+	}
 }
