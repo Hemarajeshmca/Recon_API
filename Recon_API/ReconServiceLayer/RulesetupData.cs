@@ -91,9 +91,6 @@ namespace ReconDataLayer
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();
 				parameters.Add(dbManager.CreateParameter("in_rulegrpfield_gid", objrulegrouping.in_rulegrpfield_gid, DbType.Int64, ParameterDirection.InputOutput));
-				parameters.Add(dbManager.CreateParameter("in_rule_gid", objrulegrouping.in_rule_gid, DbType.Int64));
-				parameters.Add(dbManager.CreateParameter("in_group_method_flag", objrulegrouping.in_group_method_flag, DbType.String));
-				parameters.Add(dbManager.CreateParameter("in_manytomany_match_flag", objrulegrouping.in_manytomany_match_flag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_grp_field", objrulegrouping.in_grp_field, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_rule_code", objrulegrouping.in_rule_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_active_status", objrulegrouping.in_active_status, DbType.String));
@@ -194,10 +191,11 @@ namespace ReconDataLayer
 				ds = dbManager.execStoredProcedurelist("pr_fetch_ruledetails", CommandType.StoredProcedure, parameters.ToArray());
 				ds.Tables[0].TableName = "RuleHeader";
 				ds.Tables[1].TableName = "RuleGrouping";
-				ds.Tables[2].TableName = "RuleIdentifier";
-				ds.Tables[3].TableName = "RuleCondition";
-
-
+				ds.Tables[2].TableName = "sourceidentifier";
+				ds.Tables[3].TableName = "comparisionidentifier";
+				ds.Tables[4].TableName = "RuleCondition";
+				ds.Tables[5].TableName = "RulefieldorderSource";
+				ds.Tables[6].TableName = "Rulefieldordercomparison";
 				return ds;
 			}
 			catch (Exception ex)
