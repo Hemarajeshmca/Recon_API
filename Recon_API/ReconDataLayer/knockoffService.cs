@@ -53,7 +53,20 @@ namespace ReconServiceLayer
                 throw ex;
             }
         }
-        
 
-        }
-    }
+		//runkosummService
+
+		public DataSet runkosummService(runkosumm objrunkosumm)
+		{
+			try
+			{
+				DataSet ds = knockOffData.runkosummData(objrunkosumm);
+				return ds;
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+		}
+	}
+}

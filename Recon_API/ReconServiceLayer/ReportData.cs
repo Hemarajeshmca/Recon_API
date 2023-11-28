@@ -48,8 +48,6 @@ namespace ReconDataLayer
 
         }
 
-        //reconbetweenaccData
-
         public DataTable reconbetweenaccData(reconbetweenaccmodel objreconbetweenaccmodel, UserManagementModel.headerValue headerval)
         {
             try
