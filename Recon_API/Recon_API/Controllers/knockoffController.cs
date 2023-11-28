@@ -66,6 +66,24 @@ namespace Recon_API.Controllers
             }
            
         }
-    }
+
+
+		[HttpPost("runkosumm")]
+		public IActionResult runkosumm([FromBody] runkosumm objrunkosumm)
+		{
+			try
+			{
+				DataSet ds = knockOffService.runkosummService(objrunkosumm);
+				var serializedProduct = JsonConvert.SerializeObject(ds, Newtonsoft.Json.Formatting.Indented);
+				return Ok(serializedProduct);
+			}
+			catch (Exception ex)
+			{
+				logger.Error(ex);
+				return Problem( title: ex.Message);
+			}
+
+		}
+	}
 }
 

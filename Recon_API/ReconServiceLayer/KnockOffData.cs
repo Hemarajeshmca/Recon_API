@@ -95,9 +95,30 @@ namespace ReconDataLayer
         }
 
 
-        
+		//runkosummData
+		public DataSet runkosummData(runkosumm objrunkosumm)
+		{
+			try
+			{
+				parameters = new List<IDbDataParameter>();
 
+				parameters.Add(dbManager.CreateParameter("in_recon_code", objrunkosumm.in_recon_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_period_from", objrunkosumm.in_period_from, DbType.Date));
+				parameters.Add(dbManager.CreateParameter("in_period_to", objrunkosumm.in_period_to, DbType.Date));
+				parameters.Add(dbManager.CreateParameter("in_ip_addr", objrunkosumm.in_ip_addr, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", objrunkosumm.in_user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+				ds = dbManager.execStoredProcedurelist("pr_get_kosumm", CommandType.StoredProcedure, parameters.ToArray());
+				return ds;
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
 
-    }
+		}
+
+	}
 }
 

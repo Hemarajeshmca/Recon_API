@@ -41,5 +41,13 @@ namespace ReconModels
 
     }
 
+    public class runkosumm
+    {
+        public String in_recon_code { get; set; }
+		public DateOnly in_period_from { get; set; }
+		public DateOnly in_period_to { get; set; }
+		public String in_ip_addr { get; set; }
+        public String in_user_code { get; set; }
+	}
 
-    }
+}
