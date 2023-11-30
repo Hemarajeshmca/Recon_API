@@ -69,6 +69,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_active_status", objrulesetupheader.in_active_status, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action", objrulesetupheader.in_action, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action_by", objrulesetupheader.in_user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_inactive_reason", objrulesetupheader.in_inactive_reason, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
