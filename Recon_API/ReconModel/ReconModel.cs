@@ -21,7 +21,7 @@ namespace ReconModels
 
         public class fetchRecon
         {
-            public string? in_recon_code { get; set; }
+            public Int16? in_recon_code { get; set; }
 
         }
 
@@ -57,7 +57,8 @@ namespace ReconModels
             public String in_recon_value_field { get; set; }
             public Double in_threshold_plus_value { get; set; }
             public Double in_threshold_minus_value { get; set; }
-            public String in_action { get; set; }
+			public String in_active_reason { get; set; }
+			public String in_action { get; set; }
             public String in_action_by { get; set; }
             public String? out_msg { get; set; }
             public Int16? out_result { get; set; }
