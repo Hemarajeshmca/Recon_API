@@ -68,7 +68,7 @@ namespace ReconDataLayer
                 Dictionary<string, Object> values = new Dictionary<string, object>();
                 MySqlDataAccess con = new MySqlDataAccess("");
                 parameters = new List<IDbDataParameter>();
-                parameters.Add(dbManager.CreateParameter("in_recon_code", objfetch.in_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_recon_code", objfetch.in_recon_code, DbType.Int16));
 				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
@@ -142,7 +142,8 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_recon_value_field", recon.in_recon_value_field, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_threshold_plus_value", recon.in_threshold_plus_value, DbType.Double));
                 parameters.Add(dbManager.CreateParameter("in_threshold_minus_value", recon.in_threshold_minus_value, DbType.Double));
-                parameters.Add(dbManager.CreateParameter("in_active_status", recon.in_active_status, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_active_reason", recon.in_active_reason, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_active_status", recon.in_active_status, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
