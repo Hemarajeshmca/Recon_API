@@ -322,7 +322,26 @@ namespace ReconDataLayer
 				writer.WriteLine(new string('-', 40)); // Separator between entries
 			}
 		}
-
+		public DataSet Datasetfielddata(Datasetfieldlist Objmodel, UserManagementModel.headerValue headerval)
+		{
+			try
+			{
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_dataset_code", Objmodel.datasetCode, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				ds = dbManager.execStoredProcedure("pr_get_Datasetfielddetail", CommandType.StoredProcedure, parameters.ToArray());				
+					ds.Tables[0].TableName = "DataSet";
+				return ds;
+			}
+			catch (Exception ex)
+			{
+				return ds;
+			}
+		}
 
 	}
 }

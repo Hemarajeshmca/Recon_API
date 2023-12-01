@@ -42,11 +42,13 @@ namespace ReconDataLayer
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();				
-				parameters.Add(dbManager.CreateParameter("in_scheduler_gid", Objmodel.in_user_gid, DbType.Int32));
+				parameters.Add(dbManager.CreateParameter("in_scheduler_gid", Objmodel.in_scheduler_gid, DbType.Int32));
 				parameters.Add(dbManager.CreateParameter("in_ip_addr", Objmodel.in_ip_addr, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
 				ds = dbManager.execStoredProcedure("pr_set_process_dataset", CommandType.StoredProcedure, parameters.ToArray());
 				result = ds.Tables[0];
 				return result;
