@@ -12,8 +12,11 @@ namespace ReconModels
         {
   
         }
-
-        public class Reconlist
+		public class Datasetfieldlist
+		{
+			public string? datasetCode { get; set; }
+		}
+		public class Reconlist
         {
             public string? in_user_code { get; set; }
            

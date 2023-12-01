@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ReconModels.DatasetModel;
 using static ReconModels.ReconModel;
 using static ReconModels.UserManagementModel;
 
@@ -170,6 +171,18 @@ namespace ReconServiceLayer
 			{
 				throw ex;
 			}
+			return ds;
+		}
+		public static DataSet Datasetfield(Datasetfieldlist Datasetfieldlist, UserManagementModel.headerValue headerval)
+		{
+			DataSet ds = new DataSet();
+			try
+			{
+				ReconData objDS = new ReconData();
+				ds = objDS.Datasetfielddata(Datasetfieldlist, headerval);
+			}
+			catch (Exception e)
+			{ }
 			return ds;
 		}
 	}

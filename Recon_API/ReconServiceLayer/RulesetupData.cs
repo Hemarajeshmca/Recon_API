@@ -185,7 +185,7 @@ namespace ReconDataLayer
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();
-				parameters.Add(dbManager.CreateParameter("in_rule_code", objfetchrule.in_rule_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_rule_code", objfetchrule.in_rule_code, DbType.Int16));
 				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
