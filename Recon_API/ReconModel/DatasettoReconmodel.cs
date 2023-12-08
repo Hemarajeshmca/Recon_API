@@ -31,5 +31,11 @@ namespace ReconModels
 
         }
 
-    }
+		public class runProcessdatasetModel
+		{
+			public int in_scheduler_gid { get; set; }
+			public string in_ip_addr { get; set; }
+		}
+
+	}
 }

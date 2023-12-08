@@ -78,5 +78,20 @@ namespace ReconServiceLayer
             { }
             return ds;
         }
-    }
+
+		//runProcessdatasetService
+
+		public static DataTable runProcessdatasetService(runProcessdatasetModel objrunProcessdataset, UserManagementModel.headerValue headerval)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				DatasettoRecondata objDS = new DatasettoRecondata();
+				ds = objDS.objrunProcessdatasetdata(objrunProcessdataset, headerval);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+	}
 }
