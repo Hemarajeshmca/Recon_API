@@ -85,15 +85,33 @@ namespace ReconServiceLayer
 				return ("application/zip", memoryStream.ToArray(), zipName);
 			}
 
-
-
-
-
-			//return ("ss", null, "");
-
-
 		}
 
+		public static DataTable objJobCompletedservice(JobCompleted objJobCompleted, UserManagementModel.headerValue headerval)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				UtilityData objutility = new UtilityData();
+				ds = objutility.objJobCompletedData(objJobCompleted, headerval);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+		//jobinpogressservice
 
+		public static DataTable jobinpogressservice(JobCompleted objJobCompleted, UserManagementModel.headerValue headerval)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				UtilityData objutility = new UtilityData();
+				ds = objutility.jobinpogressData(objJobCompleted, headerval);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
 	}
 }
