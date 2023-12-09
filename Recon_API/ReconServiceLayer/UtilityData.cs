@@ -60,5 +60,51 @@ namespace ReconDataLayer
 				return result;
 			}
 		}
+
+		public DataTable objJobCompletedData(JobCompleted objJobCompleted, UserManagementModel.headerValue headerval)
+		{
+			try
+			{
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_start_date", objJobCompleted.in_start_date, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_end_date", objJobCompleted.in_end_date, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_jobtype_code", objJobCompleted.in_jobtype_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				ds = dbManager.execStoredProcedure("pr_get_jobcompleted", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				return result;
+			}
+		}
+
+		public DataTable jobinpogressData(JobCompleted objJobCompleted, UserManagementModel.headerValue headerval)
+		{
+			try
+			{
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_start_date", objJobCompleted.in_start_date, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_end_date", objJobCompleted.in_end_date, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_jobtype_code", objJobCompleted.in_jobtype_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				ds = dbManager.execStoredProcedure("pr_get_jobinProgress", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				return result;
+			}
+		}
 	}
 }

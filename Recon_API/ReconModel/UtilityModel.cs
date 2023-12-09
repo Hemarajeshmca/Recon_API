@@ -16,5 +16,13 @@ namespace ReconModels
 			public String? in_jobstatus { get; set; }
 
 		}
+
+		public class JobCompleted
+		{
+			public String? in_start_date { get; set; }
+			public String? in_end_date { get; set; }
+			public String? in_jobtype_code { get; set; }
+
+		}
 	}
 }
