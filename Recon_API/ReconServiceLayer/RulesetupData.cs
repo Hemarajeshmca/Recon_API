@@ -191,10 +191,10 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
 				ds = dbManager.execStoredProcedurelist("pr_fetch_ruledetails", CommandType.StoredProcedure, parameters.ToArray());
 				ds.Tables[0].TableName = "RuleHeader";
-				ds.Tables[1].TableName = "RuleGrouping";
-				ds.Tables[2].TableName = "sourceidentifier";
-				ds.Tables[3].TableName = "comparisionidentifier";
-				ds.Tables[4].TableName = "RuleCondition";
+				ds.Tables[1].TableName = "RuleCondition";
+				ds.Tables[2].TableName = "RuleGrouping";
+				ds.Tables[3].TableName = "sourceidentifier";
+				ds.Tables[4].TableName = "comparisionidentifier";				
 				ds.Tables[5].TableName = "RulefieldorderSource";
 				ds.Tables[6].TableName = "Rulefieldordercomparison";
 				return ds;
