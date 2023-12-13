@@ -86,7 +86,7 @@ namespace ReconModels
 
         public class fetchRule
         {
-            public Int16? in_rule_code { get; set; }
+            public Int16? in_rule_gid { get; set; }
         }
 		public class Rulefieldorder
 		{
