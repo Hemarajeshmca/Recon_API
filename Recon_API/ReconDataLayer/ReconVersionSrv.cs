@@ -13,13 +13,26 @@ namespace ReconServiceLayer
 {
 	public class ReconVersionSrv
 	{
-		public static DataTable ReconVersionfetch(ReconVersionmodellist ReconVersionmodellist, UserManagementModel.headerValue headerval)
+		public static DataSet ReconVersionfetch(ReconVersionmodellist ReconVersionmodellist, UserManagementModel.headerValue headerval)
+		{
+			DataSet ds = new DataSet();
+			try
+			{
+				ReconversionData objDS = new ReconversionData();
+				ds = objDS.ReconVersionfetchdata(ReconVersionmodellist, headerval);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+
+		public static DataTable ReconVersionhistory(ReconVersionhsitorylist ReconVersionhsitorylist, UserManagementModel.headerValue headerval)
 		{
 			DataTable ds = new DataTable();
 			try
 			{
 				ReconversionData objDS = new ReconversionData();
-				ds = objDS.ReconVersionfetchdata(ReconVersionmodellist, headerval);
+				ds = objDS.ReconVersionhistorydata(ReconVersionhsitorylist, headerval);
 			}
 			catch (Exception e)
 			{ }
