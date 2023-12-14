@@ -32,7 +32,9 @@ namespace ReconDataLayer
 			}
 			catch (Exception ex)
 			{
-				return result;
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_get_qcdparent" + "Error Message:" + ex.Message);
+                return result;
 			}
 		}
 	
@@ -53,7 +55,9 @@ namespace ReconDataLayer
 			}
 			catch (Exception ex)
 			{
-				return result;
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_get_qcdmaster" + "Error Message:" + ex.Message);
+                return result;
 			}
 		}
 
@@ -83,7 +87,9 @@ namespace ReconDataLayer
 			}
 			catch (Exception ex)
 			{
-				return result;
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_recon_mst_tmaster" + "Error Message:" + ex.Message);
+                return result;
 			}
 		}
 

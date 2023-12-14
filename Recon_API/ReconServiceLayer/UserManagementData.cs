@@ -35,6 +35,8 @@ namespace ReconDataLayer
             }
             catch (Exception ex)
             {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_get_loginvalidation_new" + "Error Message:" + ex.Message);
                 return result;
             }
         }
@@ -57,6 +59,8 @@ namespace ReconDataLayer
             }
             catch (Exception ex)
             {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_set_password" + "Error Message:" + ex.Message);
                 throw ex;
             }
         }

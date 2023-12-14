@@ -41,6 +41,8 @@ namespace ReconDataLayer
             }
             catch (Exception ex)
             {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_run_match" + "Error Message:" + ex.Message);
                 throw ex;
             }
 
@@ -71,6 +73,8 @@ namespace ReconDataLayer
             }
             catch (Exception ex)
             {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_run_reconrule" + "Error Message:" + ex.Message);
                 throw ex;
             }
 
@@ -98,6 +102,8 @@ namespace ReconDataLayer
             }
             catch (Exception ex)
             {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_set_undokojob" + "Error Message:" + ex.Message);
                 throw ex;
             }
 
@@ -122,6 +128,8 @@ namespace ReconDataLayer
             }
             catch (Exception ex)
             {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_set_undoko" + "Error Message:" + ex.Message);
                 throw ex;
             }
 
@@ -144,7 +152,9 @@ namespace ReconDataLayer
 			}
 			catch (Exception ex)
 			{
-				throw ex;
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_get_pipelinelist" + "Error Message:" + ex.Message);
+                throw ex;
 			}
 
 		}

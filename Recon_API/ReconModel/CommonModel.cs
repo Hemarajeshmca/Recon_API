@@ -14,6 +14,8 @@ namespace ReconModels
 			public string in_source_name { get; set; }
 			public string in_proc_name { get; set; }
 			public string in_errorlog_text { get; set; }
-		}
+			public string user_code { get; set; }
+
+        }
 	}
 }

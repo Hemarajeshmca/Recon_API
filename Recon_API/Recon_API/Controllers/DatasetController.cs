@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using ReconModels;
 using ReconServiceLayer;
 using System.Data;
+using static ReconModels.CommonModel;
 using static ReconModels.DatasetModel;
 using static ReconModels.UserManagementModel;
 
@@ -54,7 +55,14 @@ namespace Recon_API.Controllers
 			}
 			catch (Exception e)
 			{
-				return Problem(title: e.Message);
+                CommonController errcon = new CommonController();
+				errorlogModel model = new errorlogModel();
+				model.in_errorlog_text = e.Message;
+				model.in_ip_addr = "Localhost";
+				model.in_proc_name = "DatasetHeader";
+				model.in_source_name = "Method";
+                errcon.errorLog(model);
+                return Problem(title: e.Message);
 			}
 		}
 		[HttpPost("DatasetDetail")]
