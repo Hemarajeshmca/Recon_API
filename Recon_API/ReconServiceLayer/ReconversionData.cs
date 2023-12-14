@@ -33,7 +33,9 @@ namespace ReconDataLayer
 			}
 			catch (Exception ex)
 			{
-				return result;
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_fetch_reconversion" + "Error Message:" + ex.Message);
+                return result;
 			}
 		}
 		public DataTable ReconVersionsavedata(ReconVersionmodelsave Objmodel, UserManagementModel.headerValue headerval)
@@ -55,7 +57,9 @@ namespace ReconDataLayer
 			}
 			catch (Exception ex)
 			{
-				return result;
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_set_reconrule_version" + "Error Message:" + ex.Message);
+                return result;
 			}
 		}
 	}

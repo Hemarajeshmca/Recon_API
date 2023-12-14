@@ -1,16 +1,13 @@
 ﻿using ReconModels;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using static ReconModels.CommonModel;
 using static ReconModels.DatasetModel;
-using static ReconModels.UserManagementModel;
+using static ReconModels.CommonModel;
+using ReconDataLayer;
 
 namespace ReconDataLayer
 {
-	public class DatasetData
+    public class DatasetData
 	{
 		DataSet ds = new DataSet();
 		DataTable result = new DataTable();
@@ -34,7 +31,9 @@ namespace ReconDataLayer
 			}
 			catch (Exception ex)
 			{
-				return result;
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_get_Dataset" + "Error Message:" + ex.Message);
+                return result;
 			}
 		}
 		public DataTable DatasetHeaderdata(DatasetHeadermodel  Objmodel, UserManagementModel.headerValue headerval)
@@ -63,7 +62,10 @@ namespace ReconDataLayer
 			}
 			catch (Exception ex)
 			{
-				return result;
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_recon_mst_tdataset"+"Error Message:" + ex.Message );
+				//objlog.logger(errorlogModel objerrorlog);
+                return result;
 			}
 		}
 		public DataTable DatasetDetaildata(Datasetdetailmodel Objmodel, UserManagementModel.headerValue headerval)
@@ -93,7 +95,9 @@ namespace ReconDataLayer
 			}
 			catch (Exception ex)
 			{
-				return result;
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_recon_mst_tdatasetfield"+"Error Message:" + ex.Message);
+                return result;
 			}
 		}
 		public DataSet DatasetReaddetaildata(Datasetdetailmodellist Objmodel, UserManagementModel.headerValue headerval)
@@ -117,7 +121,9 @@ namespace ReconDataLayer
 			}
 			catch (Exception ex)
 			{
-				return ds;
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_get_Datasetdetail"+"Error Message:" + ex.Message);
+                return ds;
 			}
 		}
 		public DataTable getfieldtype(UserManagementModel.headerValue headerval)
@@ -136,7 +142,9 @@ namespace ReconDataLayer
 			}
 			catch (Exception ex)
 			{
-				return result;
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_get_fieldtype"+"Error Message:" + ex.Message);
+                return result;
 			}
 		}
 
@@ -159,6 +167,8 @@ namespace ReconDataLayer
             }
             catch (Exception ex)
             {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_recon_mst_dataset_clone"+"Error Message:" + ex.Message);
                 return result;
             }
         }

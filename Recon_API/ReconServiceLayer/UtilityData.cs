@@ -36,7 +36,9 @@ namespace ReconDataLayer
 			}
 			catch (Exception ex)
 			{
-				return result;
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_get_jobstatus" + "Error Message:" + ex.Message);
+                return result;
 			}
 		}
 		
@@ -57,7 +59,9 @@ namespace ReconDataLayer
 			}
 			catch (Exception ex)
 			{
-				return result;
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_get_recon_jobtype" + "Error Message:" + ex.Message);
+                return result;
 			}
 		}
 
@@ -80,7 +84,9 @@ namespace ReconDataLayer
 			}
 			catch (Exception ex)
 			{
-				return result;
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_get_jobcompleted" + "Error Message:" + ex.Message);
+                return result;
 			}
 		}
 
@@ -103,7 +109,9 @@ namespace ReconDataLayer
 			}
 			catch (Exception ex)
 			{
-				return result;
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_get_jobinProgress" + "Error Message:" + ex.Message);
+                return result;
 			}
 		}
 	}

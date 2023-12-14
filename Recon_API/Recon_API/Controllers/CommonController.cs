@@ -13,7 +13,7 @@ namespace Recon_API.Controllers
 	public class CommonController : ControllerBase
 	{
 		[HttpPost("errorLog")]
-		public IActionResult errorLog(errorlogModel objerrorlog)
+		public void errorLog(errorlogModel objerrorlog)
 		{
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
@@ -27,11 +27,11 @@ namespace Recon_API.Controllers
 				header_value.role_code = getRoleCode;
 				response = CommonService.Commonservice(objerrorlog, header_value);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
-				return Ok(serializedProduct);
+				//return Ok(serializedProduct);
 			}
 			catch (Exception e)
 			{
-				return Problem(title: e.Message);
+				//return Problem(title: e.Message);
 			}
 		}
 	}

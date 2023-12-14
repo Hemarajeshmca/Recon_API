@@ -20,7 +20,7 @@ namespace ReconServiceLayer
 			try
 			{
 				CommonHeader objDS = new CommonHeader();
-				ds = objDS.commonData(objerrorlog, headerval);
+				ds = objDS.commonData(objerrorlog);
 			}
 			catch (Exception e)
 			{ }
