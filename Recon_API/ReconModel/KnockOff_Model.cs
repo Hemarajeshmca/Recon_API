@@ -50,4 +50,29 @@ namespace ReconModels
         public String in_user_code { get; set; }
 	}
 
-}
+    public class recondatasetinfo
+    {
+        public string in_recon_code { get; set; }
+        public string in_dataset_code { get; set;}
+        public string in_automatch_flag { get; set;}
+
+	}
+
+    public class runreportmodel
+    {
+        public string in_recon_code { get; set; }
+        public string in_report_code { get; set; }
+        public string in_report_param { get; set; }
+        public string in_report_condition { get; set; }
+        public string in_ip_addr { get; set; }
+        public Boolean in_outputfile_flag { get; set; }
+        public string in_user_code { get; set; }
+    }
+    public class undoKOmodel
+	{
+		public int in_ko_gid { get; set; }
+		public string in_undo_ko_reason { get; set; }
+		public string in_user_code { get; set; }
+
+	}
+	}

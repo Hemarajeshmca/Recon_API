@@ -20,11 +20,6 @@ namespace Recon_API.Controllers
 
        
         Dictionary<string, object> returnObj= new Dictionary<string, object>();
-        
-
-      
-
-
 
         [HttpPost("ReconMstTAcc")]
         public IActionResult ReconMstTAcc([FromBody] ReconMstTacc reconMstTacc)
@@ -81,6 +76,57 @@ namespace Recon_API.Controllers
 			{
 				logger.Error(ex);
 				return Problem( title: ex.Message);
+			}
+
+		}
+
+		[HttpPost("recondatasetinfo")]
+		public IActionResult recondatasetinfo([FromBody] recondatasetinfo objrecondatasetinfo)
+		{
+			try
+			{
+				DataSet ds = knockOffService.recondatasetinfoService(objrecondatasetinfo);
+				var serializedProduct = JsonConvert.SerializeObject(ds, Newtonsoft.Json.Formatting.Indented);
+				return Ok(serializedProduct);
+			}
+			catch (Exception ex)
+			{
+				logger.Error(ex);
+				return Problem(title: ex.Message);
+			}
+
+		}
+
+        [HttpPost("undorunreport")]
+		public IActionResult undorunreport([FromBody] runreportmodel objrunreport)
+		{
+			try
+			{
+				DataTable dt = knockOffService.undorunreportService(objrunreport);
+				var serializedProduct = JsonConvert.SerializeObject(dt, Newtonsoft.Json.Formatting.Indented);
+				return Ok(serializedProduct);
+			}
+			catch (Exception ex)
+			{
+				logger.Error(ex);
+				return Problem(title: ex.Message);
+			}
+
+		}
+
+		[HttpPost("undoKO")]
+		public IActionResult undoKO([FromBody] undoKOmodel objundoKO)
+		{
+			try
+			{
+				DataTable dt = knockOffService.undoKOService(objundoKO);
+				var serializedProduct = JsonConvert.SerializeObject(dt, Newtonsoft.Json.Formatting.Indented);
+				return Ok(serializedProduct);
+			}
+			catch (Exception ex)
+			{
+				logger.Error(ex);
+				return Problem(title: ex.Message);
 			}
 
 		}
