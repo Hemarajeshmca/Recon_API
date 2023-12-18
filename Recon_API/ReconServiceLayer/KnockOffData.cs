@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Common;
 using ReconModels;
 using System;
 using System.Collections.Generic;
@@ -100,6 +101,79 @@ namespace ReconDataLayer
                 CommonHeader objlog = new CommonHeader();
                 objlog.logger("SP:pr_get_kosumm" + "Error Message:" + ex.Message);
                 throw ex;
+			}
+		}
+		//recondatasetinfoData
+
+		public DataSet recondatasetinfoData(recondatasetinfo objrecondatasetinfo)
+		{
+            DataSet ds = new DataSet();
+			try
+			{
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_recon_code", objrecondatasetinfo.in_recon_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_dataset_code", objrecondatasetinfo.in_dataset_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_automatch_flag", objrecondatasetinfo.in_automatch_flag, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+				ds = dbManager.execStoredProcedurelist("pr_get_recondatasetinfo", CommandType.StoredProcedure, parameters.ToArray());
+				return ds;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_get_recondatasetinfo" +" " + "Error Message:" + ex.Message);
+				throw ex;
+			}
+		}
+
+		public DataTable undorunreportData(runreportmodel objrunreport)
+		{
+			try
+			{
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_recon_code", objrunreport.in_recon_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_report_code", objrunreport.in_report_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_report_param", objrunreport.in_report_param, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_report_condition", objrunreport.in_report_condition, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_ip_addr", objrunreport.in_ip_addr, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_outputfile_flag", objrunreport.in_outputfile_flag, DbType.Boolean));
+				parameters.Add(dbManager.CreateParameter("in_user_code", objrunreport.in_user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+				ds = dbManager.execStoredProcedure("pr_run_report", CommandType.StoredProcedure, parameters.ToArray());
+				dt = ds.Tables[0];
+				return dt;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_run_report" + " " + "Error Message:" + ex.Message);
+				throw ex;
+			}
+		}
+
+		//undoKOData
+
+		public DataTable undoKOData(undoKOmodel objundoKO)
+		{
+			try
+			{
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_ko_gid", objundoKO.in_ko_gid, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_undo_ko_reason", objundoKO.in_undo_ko_reason, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", objundoKO.in_user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+				ds = dbManager.execStoredProcedure("pr_set_undoko", CommandType.StoredProcedure, parameters.ToArray());
+				dt = ds.Tables[0];
+				return dt;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_set_undoko" + " " + "Error Message:" + ex.Message);
+				throw ex;
 			}
 		}
 

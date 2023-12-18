@@ -68,5 +68,49 @@ namespace ReconServiceLayer
 				throw ex;
 			}
 		}
+		//	recondatasetinfoService
+
+		public DataSet recondatasetinfoService(recondatasetinfo objrecondatasetinfo)
+		{
+			try
+			{
+				DataSet ds = knockOffData.recondatasetinfoData(objrecondatasetinfo);
+				return ds;
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+		}
+
+		//runreportService
+
+		public DataTable undorunreportService(runreportmodel objrunreport)
+		{
+			try
+			{
+				DataTable dt = knockOffData.undorunreportData(objrunreport);
+				return dt;
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+		}
+
+		//undoKOService
+
+		public DataTable undoKOService(undoKOmodel objundoKO)
+		{
+			try
+			{
+				DataTable dt = knockOffData.undoKOData(objundoKO);
+				return dt;
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+		}
 	}
 }
