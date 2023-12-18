@@ -53,6 +53,31 @@ namespace Recon_API.Controllers
                 return Problem(title: e.Message);
             }
         }
+
+
+        [HttpPost("dashboard")]
+        public IActionResult dashboard(dashboardmodel objdashboard)
+        {
+            headerValue header_value = new headerValue();
+            DataSet response = new DataSet();
+            try
+            {
+                var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+                var getlangCode = Request.Headers.TryGetValue("langcode", out var langcode) ? langcode.First() : "";
+                var getRoleCode = Request.Headers.TryGetValue("roleCode", out var roleCode) ? roleCode.First() : "";
+                header_value.user_code = getvalue;
+                header_value.lang_code = getlangCode;
+                header_value.role_code = getRoleCode;
+                response = login_serivce.dashboardService(objdashboard, header_value);
+                var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
+                return Ok(serializedProduct);
+            }
+            catch (Exception e)
+            {
+                return Problem(title: e.Message);
+            }
+        }
+
     }
  
 }

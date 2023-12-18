@@ -42,6 +42,25 @@ namespace ReconServiceLayer
                     throw ex;
                 }
             }
+
+            //dashboardService
+
+            public static DataSet dashboardService(UserManagementModel.dashboardmodel objdashboard, UserManagementModel.headerValue headerval)
+            {
+                Login_model user = new Login_model();
+                DataSet ds = new DataSet();
+                try
+                {
+                    UserManagementData objproduct = new UserManagementData();
+                    ds = objproduct.dashboardData(objdashboard, headerval);
+                    return ds;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+
         }
     }
 }

@@ -17,6 +17,7 @@ namespace ReconDataLayer
     {
         DataSet ds = new DataSet();
         DataTable result = new DataTable();
+        DataSet DS = new DataSet();
         DBManager dbManager = new DBManager("ConnectionStrings");
         List<IDbDataParameter> parameters;
         public DataTable Loginvalidation(Login_model Objmodel)
@@ -61,6 +62,38 @@ namespace ReconDataLayer
             {
                 CommonHeader objlog = new CommonHeader();
                 objlog.logger("SP:pr_set_password" + "Error Message:" + ex.Message);
+                throw ex;
+            }
+        }
+
+        //dashboardData
+
+        public DataSet dashboardData(dashboardmodel objdashboard, headerValue hv)
+        {
+            try
+            {
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_recon_code", objdashboard.in_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_period_from", objdashboard.in_period_from, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_period_to", objdashboard.in_period_to, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_code", hv.user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                DS = dbManager.execStoredProcedurelist("pr_get_dashboard", CommandType.StoredProcedure, parameters.ToArray());
+                if (DS.Tables.Count >= 3)
+                {
+                    DS.Tables[0].TableName = "DataSet1";
+                    DS.Tables[1].TableName = "DataSet2";
+                    DS.Tables[2].TableName = "DataSet3";
+                }
+                return DS;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_get_dashboard" + " "+ "Error Message:" + ex.Message);
                 throw ex;
             }
         }
