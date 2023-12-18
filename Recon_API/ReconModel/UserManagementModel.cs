@@ -36,5 +36,13 @@ namespace ReconModels
             public string lang_code { get; set; } = "";
         }
 
+
+        public class dashboardmodel
+        {
+            public string in_recon_code { get; set; }
+            public string in_period_from { get; set;}
+            public string in_period_to { get; set;}    
+        }
+
     }
 }
