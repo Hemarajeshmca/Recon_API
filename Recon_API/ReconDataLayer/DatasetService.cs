@@ -86,5 +86,34 @@ namespace ReconServiceLayer
             { }
             return ds;
         }
-    }
+
+		//getSchedulerService
+		public static DataTable getSchedulerService(getSchedulerModel objgetScheduler, UserManagementModel.headerValue headerval)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				DatasetData objDS = new DatasetData();
+				ds = objDS.getSchedulerData(objgetScheduler, headerval);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+
+		//delSchedulerService
+		public static DataTable delSchedulerService(delSchedulerModel objdelScheduler, UserManagementModel.headerValue headerval)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				DatasetData objDS = new DatasetData();
+				ds = objDS.delSchedulerData(objdelScheduler, headerval);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+
+	}
 }

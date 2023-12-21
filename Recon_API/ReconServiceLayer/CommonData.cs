@@ -73,5 +73,28 @@ namespace ReconDataLayer
             }
         }
 
+
+        //configvalueData
+        public DataTable configvalueData(configvalueModel objconfigvalue)
+        {
+            try
+            {
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_config_name", objconfigvalue.in_config_name, DbType.String));
+                parameters.Add(dbManager.CreateParameter("out_config_value", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                ds = dbManager.execStoredProcedure("pr_get_configvalue", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                logger("SP:pr_get_configvalue" + " " + "Error Message:" + ex.Message);
+                return result;
+            }
+        }
     }
 }

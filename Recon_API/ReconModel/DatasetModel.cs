@@ -61,6 +61,18 @@ namespace ReconModels
             public string? in_action_by { get; set; }
 
         }
-    }
+    
+		public class getSchedulerModel
+		{
+			public DateOnly in_processed_date { get; set;}
+			public string? in_scheduler_status { get; set;}
+		}
+
+		public class delSchedulerModel
+		{
+			public int in_scheduler_gid { get; set; }
+			public string in_remark { get; set; }
+		}
+	}
 }
 

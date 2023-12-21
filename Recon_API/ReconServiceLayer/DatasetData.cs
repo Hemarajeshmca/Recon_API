@@ -173,5 +173,61 @@ namespace ReconDataLayer
             }
         }
 
-    }
+		//getSchedulerData
+		public DataTable getSchedulerData(getSchedulerModel objgetScheduler, UserManagementModel.headerValue headerval)
+		{
+			try
+			{
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_processed_date", objgetScheduler.in_processed_date, DbType.Date));
+				parameters.Add(dbManager.CreateParameter("in_scheduler_status", objgetScheduler.in_scheduler_status, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+				ds = dbManager.execStoredProcedure("pr_get_scheduler", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_get_scheduler" + " "+ "Error Message:" + ex.Message);
+				return result;
+			}
+		}
+
+		//delSchedulerData
+
+		public DataTable delSchedulerData(delSchedulerModel objdelScheduler, UserManagementModel.headerValue headerval)
+		{
+			try
+			{
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_scheduler_gid", objdelScheduler.in_scheduler_gid, DbType.Int32));
+				parameters.Add(dbManager.CreateParameter("in_remark", objdelScheduler.in_remark, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				//parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				//parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+				ds = dbManager.execStoredProcedure("pr_del_scheduler", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_del_scheduler" + " " + "Error Message:" + ex.Message);
+				return result;
+			}
+		}
+
+
+	}
 }
