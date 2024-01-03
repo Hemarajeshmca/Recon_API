@@ -75,4 +75,22 @@ namespace ReconModels
 		public string in_user_code { get; set; }
 
 	}
+	public class undoKOjobModel
+	{
+		public string in_recon_code { get; set; }
+		public string in_job_type { get; set; }
+		public string in_job_status { get; set; }
+		public string in_from_date { get; set; }
+		public string in_to_date { get; set; }
 	}
+	public class undomatchmodel
+	{
+		public string? reconcode { get; set; }
+		public int job_id { get; set; }
+		public string? undo_job_reason { get; set; }
+		public string? in_ip_addr { get; set; }
+		public string? in_user_code { get; set; }
+		public string? out_msg { get; set; }
+		public string? out_result { get; set; }
+	}
+}
