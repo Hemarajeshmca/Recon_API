@@ -27,5 +27,20 @@ namespace ReconServiceLayer
 			return ds;
 		}
 
-	}
+
+
+        public static DataTable configvalueservice(configvalueModel objconfigvalue, UserManagementModel.headerValue headerval)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                CommonHeader objDS = new CommonHeader();
+                ds = objDS.configvalueData(objconfigvalue);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+    }
+
 }

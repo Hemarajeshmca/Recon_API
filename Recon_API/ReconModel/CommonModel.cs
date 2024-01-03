@@ -17,5 +17,11 @@ namespace ReconModels
 			public string user_code { get; set; }
 
         }
-	}
+
+        public class configvalueModel
+        {
+            public string in_config_name { get; set; }
+		
+			}
+    }
 }
