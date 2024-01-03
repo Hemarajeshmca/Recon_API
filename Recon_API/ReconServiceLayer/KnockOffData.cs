@@ -176,7 +176,50 @@ namespace ReconDataLayer
 				throw ex;
 			}
 		}
-
+		public DataTable undoKOjobData(undoKOjobModel objundoKO)
+		{
+			try
+			{
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_recon_code", objundoKO.in_recon_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_job_status", objundoKO.in_job_status, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_job_type", objundoKO.in_job_type, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_From_date", objundoKO.in_from_date, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_To_date", objundoKO.in_to_date, DbType.String));
+				ds = dbManager.execStoredProcedure("pr_get_undojobprocess", CommandType.StoredProcedure, parameters.ToArray());
+				dt = ds.Tables[0];
+				return dt;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_set_undoko" + " " + "Error Message:" + ex.Message);
+				throw ex;
+			}
+		}
+		public DataTable undomatchjobData(undomatchmodel objundoKO)
+		{
+			try
+			{
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_job_gid", objundoKO.job_id, DbType.Int32));
+				parameters.Add(dbManager.CreateParameter("in_recon_code", objundoKO.reconcode, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_undo_job_reason", objundoKO.undo_job_reason, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_ip_addr", objundoKO.in_ip_addr, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", objundoKO.in_user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+				ds = dbManager.execStoredProcedure("pr_set_undokojob", CommandType.StoredProcedure, parameters.ToArray());
+				dt = ds.Tables[0];
+				return dt;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_set_undoko" + " " + "Error Message:" + ex.Message);
+				throw ex;
+			}
+		}
 	}
 }
 

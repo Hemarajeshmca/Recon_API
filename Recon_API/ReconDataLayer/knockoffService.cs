@@ -112,5 +112,29 @@ namespace ReconServiceLayer
 				throw ex;
 			}
 		}
+		public DataTable undoKOjobService(undoKOjobModel objundoKO)
+		{
+			try
+			{
+				DataTable dt = knockOffData.undoKOjobData(objundoKO);
+				return dt;
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+		}
+		public DataTable undomatchjobService(undomatchmodel objundoKO)
+		{
+			try
+			{
+				DataTable dt = knockOffData.undomatchjobData(objundoKO);
+				return dt;
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+		}
 	}
 }
