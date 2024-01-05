@@ -17,21 +17,14 @@ namespace ReconDataLayer
         DataSet ds = new DataSet();
         DataTable dt = new DataTable();
         public List<IDbDataParameter> parameters;
-        public DBManager dbManager = new DBManager("ConnectionString");
-        
-
        // private readonly YourDbContext _context;
 
-
-       
-
-
-        public DataSet ReconMstTAcc(ReconMstTacc reconMstTacc)
+        public DataSet ReconMstTAcc(ReconMstTacc reconMstTacc, string constring)
         {
             try
             {
-                parameters = new List<IDbDataParameter>();
-                
+				DBManager dbManager = new DBManager(constring);
+				parameters = new List<IDbDataParameter>();                
                 parameters.Add(dbManager.CreateParameter("in_acc_gid", reconMstTacc.in_acc_gid, DbType.Int16,ParameterDirection.InputOutput));
                 parameters.Add(dbManager.CreateParameter("in_acc_code", reconMstTacc.in_acc_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_acc_name", reconMstTacc.in_acc_name, DbType.String));
@@ -54,11 +47,12 @@ namespace ReconDataLayer
 
         }
 
-        public DataSet runReport(RunReport runReport)
+        public DataSet runReport(RunReport runReport, string constring)
         {
             try
             {
-                parameters = new List<IDbDataParameter>();               
+				DBManager dbManager = new DBManager(constring);
+				parameters = new List<IDbDataParameter>();               
                 parameters.Add(dbManager.CreateParameter("in_report_code", runReport.in_report_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_recon_gid", runReport.in_recon_gid, DbType.Int16));
                 parameters.Add(dbManager.CreateParameter("in_condition", runReport.in_condition, DbType.String));
@@ -81,10 +75,11 @@ namespace ReconDataLayer
 
 
 		//runkosummData
-		public DataSet runkosummData(runkosumm objrunkosumm)
+		public DataSet runkosummData(runkosumm objrunkosumm, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				parameters = new List<IDbDataParameter>();
 				parameters.Add(dbManager.CreateParameter("in_recon_code", objrunkosumm.in_recon_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_period_from", objrunkosumm.in_period_from, DbType.Date));
@@ -105,11 +100,12 @@ namespace ReconDataLayer
 		}
 		//recondatasetinfoData
 
-		public DataSet recondatasetinfoData(recondatasetinfo objrecondatasetinfo)
+		public DataSet recondatasetinfoData(recondatasetinfo objrecondatasetinfo, string constring)
 		{
             DataSet ds = new DataSet();
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				parameters = new List<IDbDataParameter>();
 				parameters.Add(dbManager.CreateParameter("in_recon_code", objrecondatasetinfo.in_recon_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_dataset_code", objrecondatasetinfo.in_dataset_code, DbType.String));
@@ -127,10 +123,11 @@ namespace ReconDataLayer
 			}
 		}
 
-		public DataTable undorunreportData(runreportmodel objrunreport)
+		public DataTable undorunreportData(runreportmodel objrunreport, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				parameters = new List<IDbDataParameter>();
 				parameters.Add(dbManager.CreateParameter("in_recon_code", objrunreport.in_recon_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_report_code", objrunreport.in_report_code, DbType.String));
@@ -155,10 +152,11 @@ namespace ReconDataLayer
 
 		//undoKOData
 
-		public DataTable undoKOData(undoKOmodel objundoKO)
+		public DataTable undoKOData(undoKOmodel objundoKO, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				parameters = new List<IDbDataParameter>();
 				parameters.Add(dbManager.CreateParameter("in_ko_gid", objundoKO.in_ko_gid, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_undo_ko_reason", objundoKO.in_undo_ko_reason, DbType.String));
@@ -176,10 +174,11 @@ namespace ReconDataLayer
 				throw ex;
 			}
 		}
-		public DataTable undoKOjobData(undoKOjobModel objundoKO)
+		public DataTable undoKOjobData(undoKOjobModel objundoKO, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				parameters = new List<IDbDataParameter>();
 				parameters.Add(dbManager.CreateParameter("in_recon_code", objundoKO.in_recon_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_job_status", objundoKO.in_job_status, DbType.String));
@@ -197,10 +196,11 @@ namespace ReconDataLayer
 				throw ex;
 			}
 		}
-		public DataTable undomatchjobData(undomatchmodel objundoKO)
+		public DataTable undomatchjobData(undomatchmodel objundoKO, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				parameters = new List<IDbDataParameter>();
 				parameters.Add(dbManager.CreateParameter("in_job_gid", objundoKO.job_id, DbType.Int32));
 				parameters.Add(dbManager.CreateParameter("in_recon_code", objundoKO.reconcode, DbType.String));

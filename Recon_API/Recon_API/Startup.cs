@@ -1,41 +1,64 @@
 ﻿using System.Configuration;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using ReconModels;
+using log4net.Config;
+using log4net;
+using System.Reflection;
+using Microsoft.AspNetCore.Builder;
+using ReconDataLayer;
 
 namespace Recon_API
 {
     public class Startup
     {
-        private readonly IConfiguration _configuration;
-
         public Startup(IConfiguration configuration)
         {
-            _configuration = configuration;
+            Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
+
+        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddControllers();
-            services.Configure<confmodal>(Configuration.GetSection("AppSettings"));
-            services.AddCors(options =>
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            services.AddEndpointsApiExplorer();
+            services.AddSwaggerGen();
+            var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+            XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
+        {
+
+            if (env.IsDevelopment())
             {
-                options.AddDefaultPolicy(
-                    builder =>
-                    {
-                        builder.WithOrigins("http://localhost:42374")
-                            .AllowAnyHeader()
-                            .AllowAnyMethod(); //THIS LINE RIGHT HERE IS WHAT YOU NEED
-                    });
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+            app.UseHttpsRedirection();
+            app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
+            // global cors policy
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
+            // custom jwt auth middleware
+            //app.UseMiddleware<JwtMiddleware>();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
             });
-            //services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
-            //services.AddDbContext<ApplicationDbContext>(options =>
-            //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //app.Run();
         }
     }
+}
 
-    internal class confmodal
-    {
-        private string Secret { get; set; }
-}
-}

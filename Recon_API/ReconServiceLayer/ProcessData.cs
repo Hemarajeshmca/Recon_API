@@ -14,14 +14,14 @@ namespace ReconDataLayer
     {
         DataSet ds = new DataSet();
         DataTable result = new DataTable();
-        DBManager dbManager = new DBManager("ConnectionString");
         List<IDbDataParameter>? parameters;
 
-        public DataTable automatchpreviewData(automatchpreviewmodel objautomatchpreview, UserManagementModel.headerValue headerval)
+        public DataTable automatchpreviewData(automatchpreviewmodel objautomatchpreview, UserManagementModel.headerValue headerval, string constring)
         {
             try
             {
-                parameters = new List<IDbDataParameter>();
+				DBManager dbManager = new DBManager(constring);
+				parameters = new List<IDbDataParameter>();
 
                 parameters.Add(dbManager.CreateParameter("in_recon_code", objautomatchpreview.in_recon_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_ko_post_flag", objautomatchpreview.in_ko_post_flag, DbType.String));
@@ -50,11 +50,12 @@ namespace ReconDataLayer
 
         //pr_run_reconrule
 
-        public DataTable runreconruleData(runreconrule objrunreconrule, UserManagementModel.headerValue headerval)
+        public DataTable runreconruleData(runreconrule objrunreconrule, UserManagementModel.headerValue headerval, string constring)
         {
             try
             {
-                parameters = new List<IDbDataParameter>();
+				DBManager dbManager = new DBManager(constring);
+				parameters = new List<IDbDataParameter>();
 
                 parameters.Add(dbManager.CreateParameter("in_recon_code", objrunreconrule.in_recon_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_period_from", objrunreconrule.in_period_from, DbType.Date));
@@ -81,11 +82,12 @@ namespace ReconDataLayer
         }
 
 
-        public DataTable undokojobData(undokojobmodel objundokojobmodel, UserManagementModel.headerValue headerval)
+        public DataTable undokojobData(undokojobmodel objundokojobmodel, UserManagementModel.headerValue headerval, string constring)
         {
             try
             {
-                parameters = new List<IDbDataParameter>();
+				DBManager dbManager = new DBManager(constring);
+				parameters = new List<IDbDataParameter>();
 
                 parameters.Add(dbManager.CreateParameter("in_job_gid", objundokojobmodel.in_job_gid, DbType.Int64));
                 parameters.Add(dbManager.CreateParameter("in_undo_job_reason", objundokojobmodel.in_undo_job_reason, DbType.String));
@@ -108,11 +110,12 @@ namespace ReconDataLayer
             }
 
         }
-        public DataTable objundokoData(undokomodel objundokomodel, UserManagementModel.headerValue headerval)
+        public DataTable objundokoData(undokomodel objundokomodel, UserManagementModel.headerValue headerval, string constring)
         {
             try
             {
-                parameters = new List<IDbDataParameter>();
+				DBManager dbManager = new DBManager(constring);
+				parameters = new List<IDbDataParameter>();
 
                 parameters.Add(dbManager.CreateParameter("in_ko_gid", objundokomodel.in_ko_gid, DbType.Int64));
                 parameters.Add(dbManager.CreateParameter("in_undo_ko_reason", objundokomodel.in_undo_ko_reason, DbType.String));
@@ -137,10 +140,11 @@ namespace ReconDataLayer
 
 		//getPipelinelistData
 
-		public DataTable getPipelinelistData(pipelinelist objpipeline, UserManagementModel.headerValue headerval)
+		public DataTable getPipelinelistData(pipelinelist objpipeline, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				parameters = new List<IDbDataParameter>();
 				parameters.Add(dbManager.CreateParameter("in_target_dataset_code", objpipeline.in_target_dataset_code, DbType.String));
 				//parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));

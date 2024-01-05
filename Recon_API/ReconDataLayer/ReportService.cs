@@ -12,13 +12,13 @@ namespace ReconServiceLayer
 {
     public class ReportService
     {
-        public static DataTable generatereportservice(generatereportmodel objgeneratereportmodel, UserManagementModel.headerValue headerval)
+        public static DataTable generatereportservice(generatereportmodel objgeneratereportmodel, UserManagementModel.headerValue headerval, string constring)
         {
             DataTable ds = new DataTable();
             try
             {
                 ReportData objreport = new ReportData();
-                ds = objreport.generatereportData(objgeneratereportmodel, headerval);
+                ds = objreport.generatereportData(objgeneratereportmodel, headerval, constring);
             }
             catch (Exception e)
             { }
@@ -26,13 +26,13 @@ namespace ReconServiceLayer
         }
         //reconbetweenaccservice
 
-        public static DataTable reconbetweenaccservice(reconbetweenaccmodel objreconbetweenaccmodel, UserManagementModel.headerValue headerval)
+        public static DataTable reconbetweenaccservice(reconbetweenaccmodel objreconbetweenaccmodel, UserManagementModel.headerValue headerval, string constring)
         {
             DataTable ds = new DataTable();
             try
             {
                 ReportData objreport = new ReportData();
-                ds = objreport.reconbetweenaccData(objreconbetweenaccmodel, headerval);
+                ds = objreport.reconbetweenaccData(objreconbetweenaccmodel, headerval, constring);
             }
             catch (Exception e)
             { }
@@ -40,13 +40,13 @@ namespace ReconServiceLayer
         }
 
         //reconwithinaccservice
-        public static DataTable reconwithinaccservice(reconwithinaccmodel objreconwithinaccmodel, UserManagementModel.headerValue headerval)
+        public static DataTable reconwithinaccservice(reconwithinaccmodel objreconwithinaccmodel, UserManagementModel.headerValue headerval, string constring)
         {
             DataTable ds = new DataTable();
             try
             {
                 ReportData objreport = new ReportData();
-                ds = objreport.reconwithinaccData(objreconwithinaccmodel, headerval);
+                ds = objreport.reconwithinaccData(objreconwithinaccmodel, headerval, constring);
             }
             catch (Exception e)
             { }
@@ -54,13 +54,13 @@ namespace ReconServiceLayer
         }
 
 		//getreportlistservice
-		public static DataTable getreportlistservice(UserManagementModel.headerValue headerval)
+		public static DataTable getreportlistservice(UserManagementModel.headerValue headerval, string constring)
 		{
 			DataTable ds = new DataTable();
 			try
 			{
 				ReportData objreport = new ReportData();
-				ds = objreport.getreportlistData(headerval);
+				ds = objreport.getreportlistData(headerval, constring);
 			}
 			catch (Exception e)
 			{ }
@@ -68,13 +68,13 @@ namespace ReconServiceLayer
 		}
 
 		//getreportparamlistservice
-		public static DataTable getreportparamlistservice(reportparamlistmodel objreportparamlistmodel, UserManagementModel.headerValue headerval)
+		public static DataTable getreportparamlistservice(reportparamlistmodel objreportparamlistmodel, UserManagementModel.headerValue headerval, string constring)
 		{
 			DataTable ds = new DataTable();
 			try
 			{
 				ReportData objreport = new ReportData();
-				ds = objreport.getreportparamlistData(objreportparamlistmodel, headerval);
+				ds = objreport.getreportparamlistData(objreportparamlistmodel, headerval, constring);
 			}
 			catch (Exception e)
 			{ }

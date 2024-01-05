@@ -12,6 +12,12 @@ namespace Recon_API.Controllers
 	[ApiController]
 	public class CommonController : ControllerBase
 	{
+		private IConfiguration _configuration;
+		public CommonController(IConfiguration configuration)
+		{
+			_configuration = configuration;
+		}
+		string constring = "";
 		[HttpPost("errorLog")]
 		public void errorLog(errorlogModel objerrorlog)
 		{
@@ -19,13 +25,14 @@ namespace Recon_API.Controllers
 			DataTable response = new DataTable();
 			try
 			{
+				constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
 				var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
 				var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = CommonService.Commonservice(objerrorlog, header_value);
+				response = CommonService.Commonservice(objerrorlog, header_value, constring);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				//return Ok(serializedProduct);
 			}
@@ -42,13 +49,14 @@ namespace Recon_API.Controllers
             DataTable response = new DataTable();
             try
             {
-                var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+				constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
                 var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
                 var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
                 header_value.user_code = getvalue;
                 header_value.lang_code = getlangCode;
                 header_value.role_code = getRoleCode;
-                response = CommonService.configvalueservice(objconfigvalue, header_value);
+                response = CommonService.configvalueservice(objconfigvalue, header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }

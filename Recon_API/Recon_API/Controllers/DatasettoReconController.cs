@@ -14,9 +14,16 @@ namespace Recon_API.Controllers
 	[ApiController]
 	public class DatasettoReconController : ControllerBase
 	{
+		private IConfiguration _configuration;
+		public DatasettoReconController(IConfiguration configuration)
+		{
+			_configuration = configuration;
+		}
+		string constring = "";
 		[HttpPost("DatasettoReconRead")]
 		public IActionResult DatasettoReconRead(DatasettoReconmodellist DatasettoReconmodellist)
 		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
@@ -27,7 +34,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = DatasettoReconservice.DatasettoReconRead(DatasettoReconmodellist, header_value);
+				response = DatasettoReconservice.DatasettoReconRead(DatasettoReconmodellist, header_value, constring);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}
@@ -39,6 +46,7 @@ namespace Recon_API.Controllers
 		[HttpPost("DatasettoReconprocess")]
 		public IActionResult DatasettoReconprocess(DatasettoReconmodelprocess DatasettoReconmodelprocess)
 		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
@@ -49,7 +57,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = DatasettoReconservice.DatasettoReconprocess(DatasettoReconmodelprocess, header_value);
+				response = DatasettoReconservice.DatasettoReconprocess(DatasettoReconmodelprocess, header_value, constring);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}
@@ -63,6 +71,7 @@ namespace Recon_API.Controllers
 		[HttpPost("DatasettoManualRead")]
 		public IActionResult DatasettoManualRead()
 		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
@@ -73,7 +82,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = DatasettoReconservice.DatasettoManualRead(header_value);
+				response = DatasettoReconservice.DatasettoManualRead(header_value, constring);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}
@@ -87,7 +96,8 @@ namespace Recon_API.Controllers
         [HttpPost("ManuaMatchInfo")]
         public IActionResult ManuaMatchInfo(ManualMatchinfoModel objManualMatchinfo)
         {
-            headerValue header_value = new headerValue();
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+			headerValue header_value = new headerValue();
             DataSet response = new DataSet();
             try
             {
@@ -97,7 +107,7 @@ namespace Recon_API.Controllers
                 header_value.user_code = getvalue;
                 header_value.lang_code = getlangCode;
                 header_value.role_code = getRoleCode;
-                response = DatasettoReconservice.ManuaMatchInfoService(objManualMatchinfo, header_value);
+                response = DatasettoReconservice.ManuaMatchInfoService(objManualMatchinfo, header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }
@@ -110,7 +120,8 @@ namespace Recon_API.Controllers
 		[HttpPost("runManualfile")]
         public IActionResult runManualfile(runManualfileModel objrunManualfile)
         {
-            headerValue header_value = new headerValue();
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+			headerValue header_value = new headerValue();
             DataTable response = new DataTable();
             try
             {
@@ -120,7 +131,7 @@ namespace Recon_API.Controllers
                 header_value.user_code = getvalue;
                 header_value.lang_code = getlangCode;
                 header_value.role_code = getRoleCode;
-                response = DatasettoReconservice.runManualfileService(objrunManualfile, header_value);
+                response = DatasettoReconservice.runManualfileService(objrunManualfile, header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }
@@ -134,6 +145,7 @@ namespace Recon_API.Controllers
 		[HttpPost("runProcessdataset")]
 		public IActionResult runProcessdataset(runProcessdatasetModel objrunProcessdataset)
 		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
@@ -144,7 +156,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = DatasettoReconservice.runProcessdatasetService(objrunProcessdataset, header_value);
+				response = DatasettoReconservice.runProcessdatasetService(objrunProcessdataset, header_value, constring);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}

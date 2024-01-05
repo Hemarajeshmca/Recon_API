@@ -12,10 +12,17 @@ namespace Recon_API.Controllers
     [ApiController]
     public class ProcessController : ControllerBase
     {
-        [HttpPost("automatchpreview")]
+		private IConfiguration _configuration;
+		public ProcessController(IConfiguration configuration)
+		{
+			_configuration = configuration;
+		}
+		string constring = "";
+		[HttpPost("automatchpreview")]
         public IActionResult automatchpreview(automatchpreviewmodel objautomatchpreview)
         {
-            headerValue header_value = new headerValue();
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+			headerValue header_value = new headerValue();
             DataTable response = new DataTable();
             try
             {
@@ -25,7 +32,7 @@ namespace Recon_API.Controllers
                 header_value.user_code = getvalue;
                 header_value.lang_code = getlangCode;
                 header_value.role_code = getRoleCode;
-                response = ProcessService.automatchpreviewservice(objautomatchpreview, header_value);
+                response = ProcessService.automatchpreviewservice(objautomatchpreview, header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }
@@ -39,7 +46,8 @@ namespace Recon_API.Controllers
         [HttpPost("undokojob")]
         public IActionResult undokojob(undokojobmodel objundokojobmodel)
         {
-            headerValue header_value = new headerValue();
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+			headerValue header_value = new headerValue();
             DataTable response = new DataTable();
             try
             {
@@ -49,7 +57,7 @@ namespace Recon_API.Controllers
                 header_value.user_code = getvalue;
                 header_value.lang_code = getlangCode;
                 header_value.role_code = getRoleCode;
-                response = ProcessService.undokojobservice(objundokojobmodel, header_value);
+                response = ProcessService.undokojobservice(objundokojobmodel, header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }
@@ -62,7 +70,8 @@ namespace Recon_API.Controllers
         [HttpPost("undoko")]
         public IActionResult undoko(undokomodel objundokomodel)
         {
-            headerValue header_value = new headerValue();
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+			headerValue header_value = new headerValue();
             DataTable response = new DataTable();
             try
             {
@@ -72,7 +81,7 @@ namespace Recon_API.Controllers
                 header_value.user_code = getvalue;
                 header_value.lang_code = getlangCode;
                 header_value.role_code = getRoleCode;
-                response = ProcessService.undokoservice(objundokomodel, header_value);
+                response = ProcessService.undokoservice(objundokomodel, header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }
@@ -85,7 +94,8 @@ namespace Recon_API.Controllers
         [HttpPost("runreconrule")]
         public IActionResult runreconrule(runreconrule objrunreconrule)
         {
-            headerValue header_value = new headerValue();
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+			headerValue header_value = new headerValue();
             DataTable response = new DataTable();
             try
             {
@@ -95,7 +105,7 @@ namespace Recon_API.Controllers
                 header_value.user_code = getvalue;
                 header_value.lang_code = getlangCode;
                 header_value.role_code = getRoleCode;
-                response = ProcessService.runreconruleservice(objrunreconrule, header_value);
+                response = ProcessService.runreconruleservice(objrunreconrule, header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }
@@ -109,6 +119,7 @@ namespace Recon_API.Controllers
 		[HttpPost("getPipelinelist")]
 		public IActionResult getPipelinelist(pipelinelist objpipeline)
 		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
@@ -119,7 +130,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = ProcessService.getPipelinelistservice(objpipeline, header_value);
+				response = ProcessService.getPipelinelistservice(objpipeline, header_value, constring);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}

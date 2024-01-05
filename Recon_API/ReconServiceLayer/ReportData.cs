@@ -16,14 +16,14 @@ namespace ReconDataLayer
     {
         DataSet ds = new DataSet();
         DataTable result = new DataTable();
-        DBManager dbManager = new DBManager("ConnectionString");
         List<IDbDataParameter>? parameters;
 
-        public DataTable generatereportData(generatereportmodel objgeneratereportmodel, UserManagementModel.headerValue headerval)
+        public DataTable generatereportData(generatereportmodel objgeneratereportmodel, UserManagementModel.headerValue headerval, string constring)
         {
             try
             {
-                parameters = new List<IDbDataParameter>();
+				DBManager dbManager = new DBManager(constring);
+				parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_recon_code", objgeneratereportmodel.in_recon_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_report_code", objgeneratereportmodel.in_report_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_report_param", objgeneratereportmodel.in_report_param, DbType.String));
@@ -49,11 +49,12 @@ namespace ReconDataLayer
 
         }
 
-        public DataTable reconbetweenaccData(reconbetweenaccmodel objreconbetweenaccmodel, UserManagementModel.headerValue headerval)
+        public DataTable reconbetweenaccData(reconbetweenaccmodel objreconbetweenaccmodel, UserManagementModel.headerValue headerval, string constring)
         {
             try
             {
-                parameters = new List<IDbDataParameter>();
+				DBManager dbManager = new DBManager(constring);
+				parameters = new List<IDbDataParameter>();
 
                 parameters.Add(dbManager.CreateParameter("in_recon_code", objreconbetweenaccmodel.in_recon_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_tran_date", objreconbetweenaccmodel.in_tran_date, DbType.Date));
@@ -77,11 +78,12 @@ namespace ReconDataLayer
 
         //reconwithinaccData
 
-        public DataTable reconwithinaccData(reconwithinaccmodel objreconwithinaccmodel, UserManagementModel.headerValue headerval)
+        public DataTable reconwithinaccData(reconwithinaccmodel objreconwithinaccmodel, UserManagementModel.headerValue headerval, string constring)
         {
             try
             {
-                parameters = new List<IDbDataParameter>();
+				DBManager dbManager = new DBManager(constring);
+				parameters = new List<IDbDataParameter>();
 
                 parameters.Add(dbManager.CreateParameter("in_recon_code", objreconwithinaccmodel.in_recon_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_tran_date", objreconwithinaccmodel.in_tran_date, DbType.String));
@@ -104,10 +106,11 @@ namespace ReconDataLayer
         }
 
 		//getreportlistData
-		public DataTable getreportlistData(UserManagementModel.headerValue headerval)
+		public DataTable getreportlistData(UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				parameters = new List<IDbDataParameter>();
 
 				//parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
@@ -127,10 +130,11 @@ namespace ReconDataLayer
 		}
 
 		//getreportparamlistData
-		public DataTable getreportparamlistData(reportparamlistmodel objreportparamlistmodel, UserManagementModel.headerValue headerval)
+		public DataTable getreportparamlistData(reportparamlistmodel objreportparamlistmodel, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				parameters = new List<IDbDataParameter>();
 
 				parameters.Add(dbManager.CreateParameter("in_report_code", objreportparamlistmodel.in_report_code, DbType.String));

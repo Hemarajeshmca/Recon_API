@@ -15,14 +15,14 @@ namespace ReconDataLayer
     public class ReconData
     {
         DataSet ds = new DataSet();
-        DataTable result = new DataTable();
-        DBManager dbManager = new DBManager("ConnectionString");
+        DataTable result = new DataTable();       
         List<IDbDataParameter>? parameters;
-        public DataTable recntypeData(UserManagementModel.headerValue headerval)
+        public DataTable recntypeData(UserManagementModel.headerValue headerval, string constring)
         {
             try
             {
-                Dictionary<string, Object> values = new Dictionary<string, object>();
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
                 MySqlDataAccess con = new MySqlDataAccess("");
                 parameters = new List<IDbDataParameter>();
 				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
@@ -42,11 +42,12 @@ namespace ReconDataLayer
         }
 
 
-        public DataTable recnlistData(Reconlist objreconlist, UserManagementModel.headerValue headerval)
+        public DataTable recnlistData(Reconlist objreconlist, UserManagementModel.headerValue headerval, string constring)
         {
             try
             {
-                Dictionary<string, Object> values = new Dictionary<string, object>();
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
                 MySqlDataAccess con = new MySqlDataAccess("");
                 parameters = new List<IDbDataParameter>();
 				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
@@ -65,11 +66,12 @@ namespace ReconDataLayer
         }
     
     
-       public DataSet fetchRecondtl(fetchRecon objfetch, UserManagementModel.headerValue headerval)
+       public DataSet fetchRecondtl(fetchRecon objfetch, UserManagementModel.headerValue headerval, string constring)
         {
             try
             {
-                Dictionary<string, Object> values = new Dictionary<string, object>();
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
                 MySqlDataAccess con = new MySqlDataAccess("");
                 parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_recon_code", objfetch.in_recon_code, DbType.Int16));
@@ -95,11 +97,12 @@ namespace ReconDataLayer
 
        }
 
-        public DataTable recondatamapping(datamapping objdatamapping, UserManagementModel.headerValue headerval)
+        public DataTable recondatamapping(datamapping objdatamapping, UserManagementModel.headerValue headerval, string constring)
         {
             try
             {
-                Dictionary<string, Object> values = new Dictionary<string, object>();
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
                 MySqlDataAccess con = new MySqlDataAccess("");
                 parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_reconfield_gid", objdatamapping.in_reconfield_gid, DbType.Int16, ParameterDirection.InputOutput));
@@ -130,11 +133,12 @@ namespace ReconDataLayer
         }
 
 
-        public DataTable Recon(Recon recon, UserManagementModel.headerValue headerval)
+        public DataTable Recon(Recon recon, UserManagementModel.headerValue headerval, string constring)
         {
             try
             {
-                parameters = new List<IDbDataParameter>();
+				DBManager dbManager = new DBManager(constring);
+				parameters = new List<IDbDataParameter>();
 
                 parameters.Add(dbManager.CreateParameter("in_recon_gid", recon.in_recon_gid, DbType.Int16, ParameterDirection.InputOutput));
                 parameters.Add(dbManager.CreateParameter("in_recon_code", recon.in_recon_code, DbType.String));
@@ -172,11 +176,12 @@ namespace ReconDataLayer
 
         }
 
-        public DataTable Recondatset(Recondataset objrecondataset, UserManagementModel.headerValue headerval)
+        public DataTable Recondatset(Recondataset objrecondataset, UserManagementModel.headerValue headerval, string constring)
         {
             try
             {
-                parameters = new List<IDbDataParameter>();
+				DBManager dbManager = new DBManager(constring);
+				parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_recondataset_gid", objrecondataset.in_recondataset_gid, DbType.Int16, ParameterDirection.InputOutput));
                 parameters.Add(dbManager.CreateParameter("in_recon_code", objrecondataset.in_recon_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_dataset_code", objrecondataset.in_dataset_code, DbType.String));
@@ -204,11 +209,12 @@ namespace ReconDataLayer
         }
 
 
-        public DataTable Recondatamappinglist(getReconDataMappingList objdatamappinglist, UserManagementModel.headerValue headerval)
+        public DataTable Recondatamappinglist(getReconDataMappingList objdatamappinglist, UserManagementModel.headerValue headerval, string constring)
         {
             try
             {
-                Dictionary<string, Object> values = new Dictionary<string, object>();
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
                 MySqlDataAccess con = new MySqlDataAccess("");
                 parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_recon_code", objdatamappinglist.in_recon_code, DbType.String));
@@ -232,10 +238,11 @@ namespace ReconDataLayer
 
 
 		
-	    public DataTable ReconFieldAgainstReconlist(getFieldAgainstReconList objfieldlist, UserManagementModel.headerValue headerval)
+	    public DataTable ReconFieldAgainstReconlist(getFieldAgainstReconList objfieldlist, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();
@@ -256,11 +263,12 @@ namespace ReconDataLayer
 		}
 
 
-        public DataTable reconlistknockoff(UserManagementModel.headerValue headerval)
+        public DataTable reconlistknockoff(UserManagementModel.headerValue headerval, string constring)
         {
             try
             {
-                Dictionary<string, Object> values = new Dictionary<string, object>();
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
                 MySqlDataAccess con = new MySqlDataAccess("");
                 parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
@@ -279,10 +287,11 @@ namespace ReconDataLayer
         }
 
         //recon against recontypecode
-		public DataTable reconagainsttypecodeData(Reconagainsttypecode objreconlist, UserManagementModel.headerValue headerval)
+		public DataTable reconagainsttypecodeData(Reconagainsttypecode objreconlist, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();
@@ -299,30 +308,6 @@ namespace ReconDataLayer
                 objlog.logger("SP:pr_get_reconagainst_typecode" + "Error Message:" + ex.Message);
                 return result;
 			}
-		}
-
-		//testData
-
-
-		public DataTable testData()
-		{
-			try
-			{
-				parameters = new List<IDbDataParameter>();
-
-				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
-				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
-				ds = dbManager.execStoredProcedure("pr_tes_api", CommandType.StoredProcedure, parameters.ToArray());
-				result = ds.Tables[0];
-				return result;
-			}
-			catch (Exception ex)
-			{
-                CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_tes_api" + "Error Message:" + ex.Message);
-                throw ex;
-			}
-
 		}
 		public void logger(string sMessage)
 		{
@@ -344,10 +329,11 @@ namespace ReconDataLayer
 				writer.WriteLine(new string('-', 40)); // Separator between entries
 			}
 		}
-		public DataSet Datasetfielddata(Datasetfieldlist Objmodel, UserManagementModel.headerValue headerval)
+		public DataSet Datasetfielddata(Datasetfieldlist Objmodel, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();

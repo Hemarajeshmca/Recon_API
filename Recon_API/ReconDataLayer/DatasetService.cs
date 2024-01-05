@@ -12,61 +12,61 @@ namespace ReconServiceLayer
 {
 	public class DatasetService
 	{
-		public static DataTable DatasetRead(Datasetlistmodel Datasetlistmode, UserManagementModel.headerValue headerval)
+		public static DataTable DatasetRead(Datasetlistmodel Datasetlistmode, UserManagementModel.headerValue headerval,string constring)
 		{
 			DataTable ds = new DataTable();
 			try
 			{
 				DatasetData objDS = new DatasetData();
-				ds = objDS.DatasetReaddata(Datasetlistmode, headerval);
+				ds = objDS.DatasetReaddata(Datasetlistmode, headerval,constring);
 			}
 			catch (Exception e)
 			{ }
 			return ds;
 		}
-		public static DataTable DatasetHeader(DatasetHeadermodel Datasetheadermodel, UserManagementModel.headerValue headerval)
+		public static DataTable DatasetHeader(DatasetHeadermodel Datasetheadermodel, UserManagementModel.headerValue headerval, string constring)
 		{
 			DataTable ds = new DataTable();
 			try
 			{
 				DatasetData objDS = new DatasetData();
-				ds = objDS.DatasetHeaderdata(Datasetheadermodel, headerval);
+				ds = objDS.DatasetHeaderdata(Datasetheadermodel, headerval, constring);
 			}
 			catch (Exception e)
 			{ }
 			return ds;
 		}
-		public static DataTable DatasetDetail(Datasetdetailmodel Datasetheadermodel, UserManagementModel.headerValue headerval)
+		public static DataTable DatasetDetail(Datasetdetailmodel Datasetheadermodel, UserManagementModel.headerValue headerval, string constring)
 		{
 			DataTable ds = new DataTable();
 			try
 			{
 				DatasetData objDS = new DatasetData();
-				ds = objDS.DatasetDetaildata(Datasetheadermodel, headerval);
+				ds = objDS.DatasetDetaildata(Datasetheadermodel, headerval, constring);
 			}
 			catch (Exception e)
 			{ }
 			return ds;
 		}
-		public static DataSet DatasetReaddetail(Datasetdetailmodellist Datasetdetailmodellist, UserManagementModel.headerValue headerval)
+		public static DataSet DatasetReaddetail(Datasetdetailmodellist Datasetdetailmodellist, UserManagementModel.headerValue headerval, string constring)
 		{
 			DataSet ds = new DataSet();
 			try
 			{
 				DatasetData objDS = new DatasetData();
-				ds = objDS.DatasetReaddetaildata(Datasetdetailmodellist, headerval);
+				ds = objDS.DatasetReaddetaildata(Datasetdetailmodellist, headerval,constring);
 			}
 			catch (Exception e)
 			{ }
 			return ds;
 		}
-		public static DataTable getfieldtype(UserManagementModel.headerValue headerval)
+		public static DataTable getfieldtype(UserManagementModel.headerValue headerval, string constring)
 		{
 			DataTable ds = new DataTable();
 			try
 			{
 				DatasetData objDS = new DatasetData();
-				ds = objDS.getfieldtype(headerval);
+				ds = objDS.getfieldtype(headerval, constring);
 			}
 			catch (Exception e)
 			{ }
@@ -74,13 +74,13 @@ namespace ReconServiceLayer
 		}
 
 
-        public static DataTable CloneDataset(clonedataset objclonedataset)
+        public static DataTable CloneDataset(clonedataset objclonedataset, string constring)
         {
             DataTable ds = new DataTable();
             try
             {
                 DatasetData objDS = new DatasetData();
-                ds = objDS.cloneDatasetdata(objclonedataset);
+                ds = objDS.cloneDatasetdata(objclonedataset, constring);
             }
             catch (Exception e)
             { }
@@ -88,13 +88,13 @@ namespace ReconServiceLayer
         }
 
 		//getSchedulerService
-		public static DataTable getSchedulerService(getSchedulerModel objgetScheduler, UserManagementModel.headerValue headerval)
+		public static DataTable getSchedulerService(getSchedulerModel objgetScheduler, UserManagementModel.headerValue headerval, string constring)
 		{
 			DataTable ds = new DataTable();
 			try
 			{
 				DatasetData objDS = new DatasetData();
-				ds = objDS.getSchedulerData(objgetScheduler, headerval);
+				ds = objDS.getSchedulerData(objgetScheduler, headerval, constring);
 			}
 			catch (Exception e)
 			{ }
@@ -102,13 +102,13 @@ namespace ReconServiceLayer
 		}
 
 		//delSchedulerService
-		public static DataTable delSchedulerService(delSchedulerModel objdelScheduler, UserManagementModel.headerValue headerval)
+		public static DataTable delSchedulerService(delSchedulerModel objdelScheduler, UserManagementModel.headerValue headerval, string constring)
 		{
 			DataTable ds = new DataTable();
 			try
 			{
 				DatasetData objDS = new DatasetData();
-				ds = objDS.delSchedulerData(objdelScheduler, headerval);
+				ds = objDS.delSchedulerData(objdelScheduler, headerval, constring);
 			}
 			catch (Exception e)
 			{ }

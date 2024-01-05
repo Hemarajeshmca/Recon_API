@@ -14,10 +14,17 @@ namespace Recon_API.Controllers
 	[ApiController]
 	public class QcdmasterController : ControllerBase
 	{
+		private IConfiguration _configuration;
+		public QcdmasterController(IConfiguration configuration)
+		{
+			_configuration = configuration;
+		}
+		string constring = "";
 
 		[HttpPost("QcdMasterRead")]
 		public IActionResult QcdMasterRead(QcdmasterModel qcdmodel)
 		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
@@ -28,7 +35,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = QcdmasterService.QcdMasterRead(qcdmodel, header_value);
+				response = QcdmasterService.QcdMasterRead(qcdmodel, header_value, constring);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}
@@ -41,6 +48,7 @@ namespace Recon_API.Controllers
 		[HttpPost("QcdMasterGridRead")]
 		public IActionResult QcdMasterGridRead(Qcdgridread objgridread)
 		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
@@ -51,7 +59,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = QcdmasterService.QcdMasterGridRead(objgridread, header_value);
+				response = QcdmasterService.QcdMasterGridRead(objgridread, header_value, constring);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}
@@ -64,6 +72,7 @@ namespace Recon_API.Controllers
 		[HttpPost("QcdMaster")]
 		public IActionResult QcdMaster(mainQCDMaster objmaster)
 		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
@@ -74,7 +83,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = QcdmasterService.QcdMasters(objmaster, header_value);
+				response = QcdmasterService.QcdMasters(objmaster, header_value, constring);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}

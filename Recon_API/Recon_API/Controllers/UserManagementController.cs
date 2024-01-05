@@ -14,13 +14,20 @@ namespace Recon_API.Controllers
 	[ApiController]
 	public class UserManagementController : ControllerBase
 	{
+		private IConfiguration _configuration;
+		public UserManagementController(IConfiguration configuration)
+		{
+			_configuration = configuration;
+		}
+		string constring = "";
 		[HttpPost("Loginvalidation")]
 		public IActionResult Loginvalidation(Login_model objmodel)
 		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			DataTable response = new DataTable();
 			try
 			{
-				response = login_serivce.Loginvalidation(objmodel);
+				response = login_serivce.Loginvalidation(objmodel, constring);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}
@@ -33,6 +40,7 @@ namespace Recon_API.Controllers
         [HttpPost("changepass_save")]
         public IActionResult changepass_save(change_password objmodel)
         {
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
             DataTable response = new DataTable();
             try
@@ -44,7 +52,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-                response = login_serivce.changepass_save(objmodel, header_value);
+                response = login_serivce.changepass_save(objmodel, header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }
@@ -58,7 +66,8 @@ namespace Recon_API.Controllers
         [HttpPost("dashboard")]
         public IActionResult dashboard(dashboardmodel objdashboard)
         {
-            headerValue header_value = new headerValue();
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+			headerValue header_value = new headerValue();
             DataSet response = new DataSet();
             try
             {
@@ -68,7 +77,7 @@ namespace Recon_API.Controllers
                 header_value.user_code = getvalue;
                 header_value.lang_code = getlangCode;
                 header_value.role_code = getRoleCode;
-                response = login_serivce.dashboardService(objdashboard, header_value);
+                response = login_serivce.dashboardService(objdashboard, header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }

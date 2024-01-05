@@ -11,12 +11,13 @@ namespace ReconDataLayer
 	{
 		DataSet ds = new DataSet();
 		DataTable result = new DataTable();
-		DBManager dbManager = new DBManager("ConnectionString");
+		
 		List<IDbDataParameter>? parameters;
-		public DataTable DatasetReaddata(Datasetlistmodel Objmodel, UserManagementModel.headerValue headerval)
+		public DataTable DatasetReaddata(Datasetlistmodel Objmodel, UserManagementModel.headerValue headerval,string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();			
@@ -24,7 +25,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_active_status", Objmodel.in_active_status, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
-				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));				
 				ds = dbManager.execStoredProcedure("pr_get_Dataset", CommandType.StoredProcedure, parameters.ToArray());
 				result = ds.Tables[0];
 				return result;
@@ -36,10 +37,11 @@ namespace ReconDataLayer
                 return result;
 			}
 		}
-		public DataTable DatasetHeaderdata(DatasetHeadermodel  Objmodel, UserManagementModel.headerValue headerval)
+		public DataTable DatasetHeaderdata(DatasetHeadermodel  Objmodel, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();			
 				parameters = new List<IDbDataParameter>();
 				parameters.Add(dbManager.CreateParameter("in_dataset_gid", Objmodel.dataset_id, DbType.Int32, ParameterDirection.InputOutput));
@@ -68,10 +70,11 @@ namespace ReconDataLayer
                 return result;
 			}
 		}
-		public DataTable DatasetDetaildata(Datasetdetailmodel Objmodel, UserManagementModel.headerValue headerval)
+		public DataTable DatasetDetaildata(Datasetdetailmodel Objmodel, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				parameters = new List<IDbDataParameter>();
 				parameters.Add(dbManager.CreateParameter("in_datasetfield_gid", Objmodel.datasetdetail_id, DbType.Int64, ParameterDirection.InputOutput));
@@ -100,14 +103,15 @@ namespace ReconDataLayer
                 return result;
 			}
 		}
-		public DataSet DatasetReaddetaildata(Datasetdetailmodellist Objmodel, UserManagementModel.headerValue headerval)
+		public DataSet DatasetReaddetaildata(Datasetdetailmodellist Objmodel, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();			
-				parameters.Add(dbManager.CreateParameter("in_dataset_code", Objmodel.datasetCode, DbType.Int16));
+				parameters.Add(dbManager.CreateParameter("in_dataset_gid", Objmodel.dataset_gid, DbType.Int16));
 				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
@@ -126,10 +130,11 @@ namespace ReconDataLayer
                 return ds;
 			}
 		}
-		public DataTable getfieldtype(UserManagementModel.headerValue headerval)
+		public DataTable getfieldtype(UserManagementModel.headerValue headerval,string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();
@@ -149,11 +154,12 @@ namespace ReconDataLayer
 		}
 
 
-        public DataTable cloneDatasetdata(clonedataset objclonedataset)
+        public DataTable cloneDatasetdata(clonedataset objclonedataset, string constring)
         {
             try
             {
-                Dictionary<string, Object> values = new Dictionary<string, object>();
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
                 MySqlDataAccess con = new MySqlDataAccess("");
                 parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_clone_dataset_code", objclonedataset.in_clone_dataset_code, DbType.String));
@@ -174,10 +180,11 @@ namespace ReconDataLayer
         }
 
 		//getSchedulerData
-		public DataTable getSchedulerData(getSchedulerModel objgetScheduler, UserManagementModel.headerValue headerval)
+		public DataTable getSchedulerData(getSchedulerModel objgetScheduler, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();
@@ -202,10 +209,11 @@ namespace ReconDataLayer
 
 		//delSchedulerData
 
-		public DataTable delSchedulerData(delSchedulerModel objdelScheduler, UserManagementModel.headerValue headerval)
+		public DataTable delSchedulerData(delSchedulerModel objdelScheduler, UserManagementModel.headerValue headerval , string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();
