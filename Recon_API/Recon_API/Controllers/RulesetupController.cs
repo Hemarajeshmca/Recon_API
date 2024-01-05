@@ -13,9 +13,16 @@ namespace Recon_API.Controllers
     [ApiController]
     public class RulesetupController : ControllerBase
     {
-        [HttpPost("rulelist")]
+		private IConfiguration _configuration;
+		public RulesetupController(IConfiguration configuration)
+		{
+			_configuration = configuration;
+		}
+		string constring = "";
+		[HttpPost("rulelist")]
         public IActionResult Rulelist(Rulesetuplist objrulesetuplist)
         {
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
             try
@@ -26,7 +33,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = RulesetupService.getRulelist(objrulesetuplist, header_value);
+				response = RulesetupService.getRulelist(objrulesetuplist, header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }
@@ -39,6 +46,7 @@ namespace Recon_API.Controllers
         [HttpPost("ruleheader")]
         public IActionResult Ruleheader(Rulesetupheader objrulesetupheader)
         {
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
             try
@@ -49,7 +57,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = RulesetupService.ruleheader(objrulesetupheader, header_value);
+				response = RulesetupService.ruleheader(objrulesetupheader, header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }
@@ -62,6 +70,7 @@ namespace Recon_API.Controllers
         [HttpPost("rulegrouping")]
         public IActionResult Rulegrouping(Rulegrouping objrulegrouping)
         {
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
             try
@@ -72,7 +81,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = RulesetupService.Rulegrouping(objrulegrouping, header_value);
+				response = RulesetupService.Rulegrouping(objrulegrouping, header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }
@@ -85,6 +94,7 @@ namespace Recon_API.Controllers
         [HttpPost("ruleidentifier")]
         public IActionResult RuleIdentifier(RuleIdentifier objruleidentifier)
         {
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
             try
@@ -95,7 +105,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = RulesetupService.Ruleidentifier(objruleidentifier, header_value);
+				response = RulesetupService.Ruleidentifier(objruleidentifier, header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }
@@ -108,6 +118,7 @@ namespace Recon_API.Controllers
         [HttpPost("rulecondition")]
         public IActionResult RuleCondition(RuleCondition objrulecondition)
         {
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
             try
@@ -118,7 +129,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = RulesetupService.Rulecondition(objrulecondition, header_value);
+				response = RulesetupService.Rulecondition(objrulecondition, header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }
@@ -131,6 +142,7 @@ namespace Recon_API.Controllers
         [HttpPost("fetchrule")]
         public IActionResult fetchrule(fetchRule objfetchrule)
         {
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataSet response = new DataSet();
             try
@@ -141,7 +153,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = RulesetupService.Rulefetch(objfetchrule, header_value);
+				response = RulesetupService.Rulefetch(objfetchrule, header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }
@@ -154,6 +166,7 @@ namespace Recon_API.Controllers
 		[HttpPost("getCondition")]
 		public IActionResult getCondition(getCondition objcondition)
 		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
@@ -164,7 +177,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = RulesetupService.getCondition(objcondition, header_value);
+				response = RulesetupService.getCondition(objcondition, header_value, constring);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}
@@ -177,6 +190,7 @@ namespace Recon_API.Controllers
 		[HttpPost("getdataagainsRecon")]
 		public IActionResult getdataagainsRecon(getdataagainsRecon objdatarecon)
 		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
@@ -187,7 +201,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = RulesetupService.getdataagainsRecon(objdatarecon, header_value);
+				response = RulesetupService.getdataagainsRecon(objdatarecon, header_value, constring);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}
@@ -200,6 +214,7 @@ namespace Recon_API.Controllers
 		[HttpPost("getRecon")]
 		public IActionResult getRecon(getdataagainsRecon objdatarecon)
 		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
@@ -210,7 +225,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = RulesetupService.getRecon(objdatarecon, header_value);
+				response = RulesetupService.getRecon(objdatarecon, header_value, constring);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}
@@ -223,6 +238,7 @@ namespace Recon_API.Controllers
 		[HttpPost("getruleagainstRecon")]
 		public IActionResult getruleagainstRecon(getruleagainstRecon objRecon)
 		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
             DataSet ds = new DataSet();
@@ -238,7 +254,7 @@ namespace Recon_API.Controllers
                 //ds = ReconService.fetchReconDetails(objfetch, header_value);
                 //var serializedProduct = JsonConvert.SerializeObject(ds, Formatting.None);
                 //return Ok(serializedProduct);
-                ds = RulesetupService.getruleagainstRecon(objRecon, header_value);
+                ds = RulesetupService.getruleagainstRecon(objRecon, header_value, constring);
 				var serializedProduct = JsonConvert.SerializeObject(ds, Formatting.None);
 				return Ok(serializedProduct);
 			}
@@ -251,6 +267,7 @@ namespace Recon_API.Controllers
 		[HttpPost("rulefieldorder")]
 		public IActionResult rulefieldorder(Rulefieldorder objRulefieldorder)
 		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
@@ -261,7 +278,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = RulesetupService.rulefieldorder(objRulefieldorder, header_value);
+				response = RulesetupService.rulefieldorder(objRulefieldorder, header_value, constring);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}

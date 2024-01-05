@@ -14,27 +14,27 @@ namespace ReconServiceLayer
     {
         public class login_serivce
         {
-            public static DataTable Loginvalidation(UserManagementModel.Login_model objmodel)
+            public static DataTable Loginvalidation(UserManagementModel.Login_model objmodel, string constring)
             {
                 DataTable ds = new DataTable();
                 try
                 {
                     UserManagementData objproduct = new UserManagementData();
-                    ds = objproduct.Loginvalidation(objmodel);
+                    ds = objproduct.Loginvalidation(objmodel, constring);
                 }
                 catch (Exception e)
                 { }
                 return ds;
             }
 
-            public static DataTable changepass_save(UserManagementModel.change_password objmodel, UserManagementModel.headerValue headerval)
+            public static DataTable changepass_save(UserManagementModel.change_password objmodel, UserManagementModel.headerValue headerval, string constring)
             {
                 Login_model user = new Login_model();
                 DataTable ds = new DataTable();
                 try
                 {
                     UserManagementData objproduct = new UserManagementData();
-                    ds = objproduct.changepass_save(objmodel, headerval);
+                    ds = objproduct.changepass_save(objmodel, headerval, constring);
                     return ds;
                 }
                 catch (Exception ex)
@@ -45,14 +45,14 @@ namespace ReconServiceLayer
 
             //dashboardService
 
-            public static DataSet dashboardService(UserManagementModel.dashboardmodel objdashboard, UserManagementModel.headerValue headerval)
+            public static DataSet dashboardService(UserManagementModel.dashboardmodel objdashboard, UserManagementModel.headerValue headerval, string constring)
             {
                 Login_model user = new Login_model();
                 DataSet ds = new DataSet();
                 try
                 {
                     UserManagementData objproduct = new UserManagementData();
-                    ds = objproduct.dashboardData(objdashboard, headerval);
+                    ds = objproduct.dashboardData(objdashboard, headerval, constring);
                     return ds;
                 }
                 catch (Exception ex)

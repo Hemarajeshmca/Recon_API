@@ -14,14 +14,15 @@ namespace ReconDataLayer
     public class CommonHeader
     {
 		DataSet ds = new DataSet();
-		DataTable result = new DataTable();
-		DBManager dbManager = new DBManager("ConnectionString");
+		DataTable result = new DataTable();	
 		List<IDbDataParameter>? parameters;
-
-		public DataTable commonData(errorlogModel objerrorlog)
+        string constring1 = "";
+		public DataTable commonData(errorlogModel objerrorlog, string constring)
 		{
 			try
 			{
+				constring1= constring;
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();
@@ -55,7 +56,7 @@ namespace ReconDataLayer
             objmodel.in_ip_addr = "localhost";
             objmodel.in_source_name = "SP";
             objmodel.user_code = "Hema";
-            commonData(objmodel);
+            commonData(objmodel, constring1);
             // Ensure the directory exists
             string logDirectory = Path.GetDirectoryName(logFilePath);
             if (!Directory.Exists(logDirectory))
@@ -75,11 +76,12 @@ namespace ReconDataLayer
 
 
         //configvalueData
-        public DataTable configvalueData(configvalueModel objconfigvalue)
+        public DataTable configvalueData(configvalueModel objconfigvalue, string constring)
         {
             try
             {
-                Dictionary<string, Object> values = new Dictionary<string, object>();
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
                 MySqlDataAccess con = new MySqlDataAccess("");
                 parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_config_name", objconfigvalue.in_config_name, DbType.String));

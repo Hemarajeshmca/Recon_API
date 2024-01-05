@@ -16,12 +16,12 @@ namespace ReconDataLayer
 	{
 		DataSet ds = new DataSet();
 		DataTable result = new DataTable();
-		DBManager dbManager = new DBManager("ConnectionString");
 		List<IDbDataParameter>? parameters;
-		public DataTable Rulesetuplistdata(Rulesetuplist objrulesetuplist, UserManagementModel.headerValue headerval)
+		public DataTable Rulesetuplistdata(Rulesetuplist objrulesetuplist, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();
@@ -43,10 +43,11 @@ namespace ReconDataLayer
 
 
 
-		public DataTable Rulesetupheaderdata(Rulesetupheader objrulesetupheader, UserManagementModel.headerValue headerval)
+		public DataTable Rulesetupheaderdata(Rulesetupheader objrulesetupheader, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();
@@ -88,10 +89,11 @@ namespace ReconDataLayer
 				return result;
 			}
 		}
-		public DataTable RulegroupingData(Rulegrouping objrulegrouping, UserManagementModel.headerValue headerval)
+		public DataTable RulegroupingData(Rulegrouping objrulegrouping, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();
@@ -117,10 +119,11 @@ namespace ReconDataLayer
 				return result;
 			}
 		}
-		public DataTable RuleidentifierData(RuleIdentifier objruleidentifier, UserManagementModel.headerValue headerval)
+		public DataTable RuleidentifierData(RuleIdentifier objruleidentifier, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();
@@ -153,10 +156,11 @@ namespace ReconDataLayer
 				return result;
 			}
 		}
-		public DataTable RuleconditionData(RuleCondition objrulecondition, UserManagementModel.headerValue headerval)
+		public DataTable RuleconditionData(RuleCondition objrulecondition, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();
@@ -188,10 +192,11 @@ namespace ReconDataLayer
 				return result;
 			}
 		}
-		public DataSet fetchRuleData(fetchRule objfetchrule, UserManagementModel.headerValue headerval)
+		public DataSet fetchRuleData(fetchRule objfetchrule, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();
@@ -216,10 +221,11 @@ namespace ReconDataLayer
 				return ds;
 			}
 		}
-		public DataTable getConditionData(getCondition objcondition, UserManagementModel.headerValue headerval)
+		public DataTable getConditionData(getCondition objcondition, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();
@@ -240,10 +246,11 @@ namespace ReconDataLayer
 				return result;
 			}
 		}
-		public DataTable getdataagainsReconData(getdataagainsRecon objdatarecon, UserManagementModel.headerValue headerval)
+		public DataTable getdataagainsReconData(getdataagainsRecon objdatarecon, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();
@@ -263,10 +270,11 @@ namespace ReconDataLayer
 			}
 		}
 		//getruleagainstReconData
-		public DataSet getruleagainstReconData(getruleagainstRecon objRecon, UserManagementModel.headerValue headerval)
+		public DataSet getruleagainstReconData(getruleagainstRecon objRecon, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();
@@ -294,10 +302,11 @@ namespace ReconDataLayer
 			}
 		}
 
-		public DataTable rulefieldorderData(Rulefieldorder objRulefieldorder, UserManagementModel.headerValue headerval)
+		public DataTable rulefieldorderData(Rulefieldorder objRulefieldorder, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();
@@ -326,10 +335,11 @@ namespace ReconDataLayer
 			}
 		}
 
-		public DataTable getReconData(getdataagainsRecon objdatarecon, UserManagementModel.headerValue headerval)
+		public DataTable getReconData(getdataagainsRecon objdatarecon, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();

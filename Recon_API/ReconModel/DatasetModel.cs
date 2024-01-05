@@ -51,7 +51,7 @@ namespace ReconModels
 		}
 		public class Datasetdetailmodellist
 		{
-			public Int16 datasetCode { get; set; }
+			public Int16 dataset_gid { get; set; }
 		}
 
         public class clonedataset

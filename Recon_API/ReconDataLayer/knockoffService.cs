@@ -20,11 +20,11 @@ namespace ReconServiceLayer
 
        
 
-        public DataSet ReconMstTAcc(ReconMstTacc reconMstTacc)
+        public DataSet ReconMstTAcc(ReconMstTacc reconMstTacc, string constring)
         {
             try
             {
-                DataSet ds = knockOffData.ReconMstTAcc(reconMstTacc);
+                DataSet ds = knockOffData.ReconMstTAcc(reconMstTacc, constring);
                
                 //  return retResult;
                 return ds;
@@ -39,11 +39,11 @@ namespace ReconServiceLayer
 
        
     
-     public DataSet runReport(RunReport runReport)
+     public DataSet runReport(RunReport runReport, string constring)
         {
             try
             {
-                DataSet ds = knockOffData.runReport(runReport);
+                DataSet ds = knockOffData.runReport(runReport, constring);
                 return ds;
 
                
@@ -56,11 +56,11 @@ namespace ReconServiceLayer
 
 		//runkosummService
 
-		public DataSet runkosummService(runkosumm objrunkosumm)
+		public DataSet runkosummService(runkosumm objrunkosumm, string constring)
 		{
 			try
 			{
-				DataSet ds = knockOffData.runkosummData(objrunkosumm);
+				DataSet ds = knockOffData.runkosummData(objrunkosumm, constring);
 				return ds;
 			}
 			catch (Exception ex)
@@ -70,11 +70,11 @@ namespace ReconServiceLayer
 		}
 		//	recondatasetinfoService
 
-		public DataSet recondatasetinfoService(recondatasetinfo objrecondatasetinfo)
+		public DataSet recondatasetinfoService(recondatasetinfo objrecondatasetinfo, string constring)
 		{
 			try
 			{
-				DataSet ds = knockOffData.recondatasetinfoData(objrecondatasetinfo);
+				DataSet ds = knockOffData.recondatasetinfoData(objrecondatasetinfo, constring);
 				return ds;
 			}
 			catch (Exception ex)
@@ -85,11 +85,11 @@ namespace ReconServiceLayer
 
 		//runreportService
 
-		public DataTable undorunreportService(runreportmodel objrunreport)
+		public DataTable undorunreportService(runreportmodel objrunreport, string constring)
 		{
 			try
 			{
-				DataTable dt = knockOffData.undorunreportData(objrunreport);
+				DataTable dt = knockOffData.undorunreportData(objrunreport, constring);
 				return dt;
 			}
 			catch (Exception ex)
@@ -100,11 +100,11 @@ namespace ReconServiceLayer
 
 		//undoKOService
 
-		public DataTable undoKOService(undoKOmodel objundoKO)
+		public DataTable undoKOService(undoKOmodel objundoKO, string constring)
 		{
 			try
 			{
-				DataTable dt = knockOffData.undoKOData(objundoKO);
+				DataTable dt = knockOffData.undoKOData(objundoKO, constring);
 				return dt;
 			}
 			catch (Exception ex)
@@ -112,11 +112,11 @@ namespace ReconServiceLayer
 				throw ex;
 			}
 		}
-		public DataTable undoKOjobService(undoKOjobModel objundoKO)
+		public DataTable undoKOjobService(undoKOjobModel objundoKO, string constring)
 		{
 			try
 			{
-				DataTable dt = knockOffData.undoKOjobData(objundoKO);
+				DataTable dt = knockOffData.undoKOjobData(objundoKO, constring);
 				return dt;
 			}
 			catch (Exception ex)
@@ -124,11 +124,11 @@ namespace ReconServiceLayer
 				throw ex;
 			}
 		}
-		public DataTable undomatchjobService(undomatchmodel objundoKO)
+		public DataTable undomatchjobService(undomatchmodel objundoKO, string constring)
 		{
 			try
 			{
-				DataTable dt = knockOffData.undomatchjobData(objundoKO);
+				DataTable dt = knockOffData.undomatchjobData(objundoKO, constring);
 				return dt;
 			}
 			catch (Exception ex)

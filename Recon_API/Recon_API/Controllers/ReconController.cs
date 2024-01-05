@@ -14,9 +14,16 @@ namespace Recon_API.Controllers
     [ApiController]
     public class ReconController : ControllerBase
     {
-        [HttpGet("recontype")]
+		private IConfiguration _configuration;
+		public ReconController(IConfiguration configuration)
+		{
+			_configuration = configuration;
+		}
+		string constring = "";
+		[HttpGet("recontype")]
         public IActionResult ReconType()
         {
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
             try
@@ -27,7 +34,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = ReconService.getReconType(header_value);
+				response = ReconService.getReconType(header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }
@@ -40,6 +47,7 @@ namespace Recon_API.Controllers
         [HttpPost("reconlist")]
         public IActionResult ReconList(Reconlist objreconlist)
         {
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
             try
@@ -50,7 +58,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = ReconService.getReconList(objreconlist, header_value);
+				response = ReconService.getReconList(objreconlist, header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }
@@ -64,6 +72,7 @@ namespace Recon_API.Controllers
         [HttpPost("fetchrecondetails")]
         public IActionResult fetchReconDetails(fetchRecon objfetch)
         {
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
             DataSet ds = new DataSet();
@@ -75,7 +84,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				ds = ReconService.fetchReconDetails(objfetch, header_value);
+				ds = ReconService.fetchReconDetails(objfetch, header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(ds, Formatting.None);
                 return Ok(serializedProduct);
             }
@@ -88,6 +97,7 @@ namespace Recon_API.Controllers
         [HttpPost("recondatamapping")]
         public IActionResult recondatamapping(datamapping objdatamapping)
         {
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
             try
@@ -98,7 +108,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = ReconService.recondatamapping(objdatamapping, header_value);
+				response = ReconService.recondatamapping(objdatamapping, header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }
@@ -111,6 +121,7 @@ namespace Recon_API.Controllers
         [HttpPost("Recon")]
         public IActionResult Recon([FromBody] Recon recon)
         {
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
             try
@@ -121,7 +132,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = ReconService.Recon(recon, header_value);
+				response = ReconService.Recon(recon, header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Newtonsoft.Json.Formatting.Indented);
                 return Ok(serializedProduct);
             }
@@ -135,6 +146,7 @@ namespace Recon_API.Controllers
         [HttpPost("Recondataset")]
         public IActionResult Recondataset([FromBody] Recondataset objrecondataset)
         {
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
             try
@@ -145,7 +157,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = ReconService.Recondataset(objrecondataset, header_value);
+				response = ReconService.Recondataset(objrecondataset, header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Newtonsoft.Json.Formatting.Indented);
                 return Ok(serializedProduct);
             }
@@ -158,6 +170,7 @@ namespace Recon_API.Controllers
         [HttpPost("getReconDataMappingList")]
         public IActionResult getReconDataMappingList([FromBody] getReconDataMappingList objdatamappinglist)
         {
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
             try
@@ -168,7 +181,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = ReconService.Recondatamappinglist(objdatamappinglist, header_value);
+				response = ReconService.Recondatamappinglist(objdatamappinglist, header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Newtonsoft.Json.Formatting.Indented);
                 return Ok(serializedProduct);
             }
@@ -181,6 +194,7 @@ namespace Recon_API.Controllers
 		[HttpPost("getFieldAgainstRecon")]
 		public IActionResult getFieldAgainstRecon([FromBody] getFieldAgainstReconList objfieldlist)
 		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
@@ -191,7 +205,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = ReconService.ReconFieldAgainstReconlist(objfieldlist, header_value);
+				response = ReconService.ReconFieldAgainstReconlist(objfieldlist, header_value, constring);
 				var serializedProduct = JsonConvert.SerializeObject(response, Newtonsoft.Json.Formatting.Indented);
 				return Ok(serializedProduct);
 			}
@@ -204,7 +218,8 @@ namespace Recon_API.Controllers
         [HttpPost("getreconknockofflist")]
         public IActionResult getreconknockofflist()
         {
-            headerValue header_value = new headerValue();
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+			headerValue header_value = new headerValue();
             DataTable response = new DataTable();
             try
             {
@@ -214,7 +229,7 @@ namespace Recon_API.Controllers
                 header_value.user_code = getvalue;
                 header_value.lang_code = getlangCode;
                 header_value.role_code = getRoleCode;
-                response = ReconService.reconlistknockoffService(header_value);
+                response = ReconService.reconlistknockoffService(header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Newtonsoft.Json.Formatting.Indented);
                 return Ok(serializedProduct);
             }
@@ -228,6 +243,7 @@ namespace Recon_API.Controllers
         [HttpPost("getReconAgainstTypecode")]
 		public IActionResult getReconAgainstTypecode(Reconagainsttypecode objreconlist)
 		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
@@ -238,7 +254,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = ReconService.getReconagainsttypecode(objreconlist, header_value);
+				response = ReconService.getReconagainsttypecode(objreconlist, header_value, constring);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}
@@ -248,26 +264,11 @@ namespace Recon_API.Controllers
 			}
 		}
 
-		[HttpGet("testAPI")]
-		public IActionResult testAPI()
-		{
-			headerValue header_value = new headerValue();
-			DataTable response = new DataTable();
-			try
-			{
-				
-				response = ReconService.testAPIService();
-				var serializedProduct = JsonConvert.SerializeObject(response, Newtonsoft.Json.Formatting.Indented);
-				return Ok(serializedProduct);
-			}
-			catch (Exception ex)
-			{
-				return Problem(title: ex.Message);
-			}
-		}
+		
 		[HttpPost("Datasetfield")]
 		public IActionResult DatasetReaddetail(Datasetfieldlist Datasetfieldlist)
 		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataSet response = new DataSet();
 			try
@@ -278,7 +279,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = ReconService.Datasetfield(Datasetfieldlist, header_value);
+				response = ReconService.Datasetfield(Datasetfieldlist, header_value, constring);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}

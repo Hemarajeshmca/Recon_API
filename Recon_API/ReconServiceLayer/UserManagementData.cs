@@ -18,13 +18,13 @@ namespace ReconDataLayer
         DataSet ds = new DataSet();
         DataTable result = new DataTable();
         DataSet DS = new DataSet();
-        DBManager dbManager = new DBManager("ConnectionStrings");
         List<IDbDataParameter> parameters;
-        public DataTable Loginvalidation(Login_model Objmodel)
+        public DataTable Loginvalidation(Login_model Objmodel, string constring)
         {
             try
             {
-                Dictionary<string, Object> values = new Dictionary<string, object>();
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
                 MySqlDataAccess con = new MySqlDataAccess("ConnectionStrings");
                 parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_user_code", Objmodel.user_id, DbType.String));
@@ -42,11 +42,12 @@ namespace ReconDataLayer
             }
         }
 
-        public DataTable changepass_save(change_password Usermodel, headerValue hv)
+        public DataTable changepass_save(change_password Usermodel, headerValue hv, string constring)
         {
             try
             {
-                Dictionary<string, Object> values = new Dictionary<string, object>();
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
                 MySqlDataAccess con = new MySqlDataAccess(Usermodel.user_id);
                 parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_user_gid", hv.user_code, DbType.String));
@@ -68,11 +69,12 @@ namespace ReconDataLayer
 
         //dashboardData
 
-        public DataSet dashboardData(dashboardmodel objdashboard, headerValue hv)
+        public DataSet dashboardData(dashboardmodel objdashboard, headerValue hv, string constring)
         {
             try
             {
-                Dictionary<string, Object> values = new Dictionary<string, object>();
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
                 MySqlDataAccess con = new MySqlDataAccess("");
                 parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_recon_code", objdashboard.in_recon_code, DbType.String));

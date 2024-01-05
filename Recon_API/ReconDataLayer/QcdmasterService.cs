@@ -12,39 +12,39 @@ namespace ReconServiceLayer
 {
 	public class QcdmasterService
 	{
-		public static DataTable QcdMasterRead(QcdmasterModel objmodel, UserManagementModel.headerValue headerval)
+		public static DataTable QcdMasterRead(QcdmasterModel objmodel, UserManagementModel.headerValue headerval, string constring)
 		{
 			DataTable ds = new DataTable();
 			try
 			{
 				QcdmastersData objqcd = new QcdmastersData();
-				ds = objqcd.QcdModeldataRead(objmodel, headerval);
+				ds = objqcd.QcdModeldataRead(objmodel, headerval, constring);
 			}
 			catch (Exception e)
 			{ }
 			return ds;
 		}
 
-		public static DataTable QcdMasterGridRead(Qcdgridread objgridread, UserManagementModel.headerValue headerval)
+		public static DataTable QcdMasterGridRead(Qcdgridread objgridread, UserManagementModel.headerValue headerval, string constring)
 		{
 			DataTable ds = new DataTable();
 			try
 			{
 				QcdmastersData objqcd = new QcdmastersData();
-				ds = objqcd.QcdModeldataGridRead(objgridread, headerval);
+				ds = objqcd.QcdModeldataGridRead(objgridread, headerval, constring);
 			}
 			catch (Exception e)
 			{ }
 			return ds;
 		}
 
-		public static DataTable QcdMasters(mainQCDMaster objmaster, UserManagementModel.headerValue headerval)
+		public static DataTable QcdMasters(mainQCDMaster objmaster, UserManagementModel.headerValue headerval, string constring)
 		{
 			DataTable ds = new DataTable();
 			try
 			{
 				QcdmastersData objqcd = new QcdmastersData();
-				ds = objqcd.QcdMaster(objmaster, headerval);
+				ds = objqcd.QcdMaster(objmaster, headerval, constring);
 			}
 			catch (Exception e)
 			{ }

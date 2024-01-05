@@ -12,14 +12,14 @@ namespace ReconDataLayer
 	public class UtilityData
 	{
 		DataSet ds = new DataSet();
-		DataTable result = new DataTable();
-		DBManager dbManager = new DBManager("ConnectionString");
+		DataTable result = new DataTable();		
 		List<IDbDataParameter>? parameters;
 
-		public DataTable jobstatusData(JobStatusList objobstatus, UserManagementModel.headerValue headerval)
+		public DataTable jobstatusData(JobStatusList objobstatus, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();
@@ -43,10 +43,11 @@ namespace ReconDataLayer
 		}
 		
 
-		public DataTable jobtypeData(UserManagementModel.headerValue headerval)
+		public DataTable jobtypeData(UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();
@@ -65,10 +66,11 @@ namespace ReconDataLayer
 			}
 		}
 
-		public DataTable objJobCompletedData(JobCompleted objJobCompleted, UserManagementModel.headerValue headerval)
+		public DataTable objJobCompletedData(JobCompleted objJobCompleted, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();
@@ -90,10 +92,11 @@ namespace ReconDataLayer
 			}
 		}
 
-		public DataTable jobinpogressData(JobCompleted objJobCompleted, UserManagementModel.headerValue headerval)
+		public DataTable jobinpogressData(JobCompleted objJobCompleted, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();

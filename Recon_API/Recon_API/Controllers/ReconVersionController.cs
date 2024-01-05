@@ -13,9 +13,16 @@ namespace Recon_API.Controllers
 	[ApiController]
 	public class ReconVersionController : ControllerBase
 	{
+		private IConfiguration _configuration;
+		public ReconVersionController(IConfiguration configuration)
+		{
+			_configuration = configuration;
+		}
+		string constring = "";
 		[HttpPost("ReconVersionfetch")]
 		public IActionResult ReconVersionfetch(ReconVersionmodellist ReconVersionmodellist)
 		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataSet response = new DataSet();
 			try
@@ -26,7 +33,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = ReconVersionSrv.ReconVersionfetch(ReconVersionmodellist, header_value);
+				response = ReconVersionSrv.ReconVersionfetch(ReconVersionmodellist, header_value, constring);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}
@@ -39,6 +46,7 @@ namespace Recon_API.Controllers
 		[HttpPost("ReconVersionhistory")]
 		public IActionResult ReconVersionhistory(ReconVersionhsitorylist ReconVersionhsitorylist)
 		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
@@ -49,7 +57,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = ReconVersionSrv.ReconVersionhistory(ReconVersionhsitorylist, header_value);
+				response = ReconVersionSrv.ReconVersionhistory(ReconVersionhsitorylist, header_value, constring);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}
@@ -62,6 +70,7 @@ namespace Recon_API.Controllers
 		[HttpPost("ReconVersionsave")]
 		public IActionResult ReconVersionsave(ReconVersionmodelsave ReconVersionmodelsave)
 		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
@@ -72,7 +81,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = ReconVersionSrv.ReconVersionsave(ReconVersionmodelsave, header_value);
+				response = ReconVersionSrv.ReconVersionsave(ReconVersionmodelsave, header_value, constring);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}

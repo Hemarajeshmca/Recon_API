@@ -13,11 +13,18 @@ namespace Recon_API.Controllers
 	[ApiController]
 	public class UtilityController : ControllerBase
 	{
+		private IConfiguration _configuration;
+		public UtilityController(IConfiguration configuration)
+		{
+			_configuration = configuration;
+		}
+		string constring = "";
 		UtilityService _fileService = new UtilityService();
 
 		[HttpPost("jobStatus")]
 		public IActionResult JobStatus(JobStatusList objobstatus)
 		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
@@ -28,7 +35,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = UtilityService.getJobStatusList(objobstatus, header_value);
+				response = UtilityService.getJobStatusList(objobstatus, header_value, constring);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}
@@ -41,6 +48,7 @@ namespace Recon_API.Controllers
 		[HttpGet("jobtype")]
 		public IActionResult Jobtype()
 		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
@@ -51,7 +59,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = UtilityService.getJobtypeList(header_value);
+				response = UtilityService.getJobtypeList(header_value, constring);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}
@@ -65,6 +73,7 @@ namespace Recon_API.Controllers
 		[HttpPost("jobcompleted")]
 		public IActionResult jobcompleted(JobCompleted objJobCompleted)
 		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
@@ -75,7 +84,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = UtilityService.objJobCompletedservice(objJobCompleted, header_value);
+				response = UtilityService.objJobCompletedservice(objJobCompleted, header_value, constring);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}
@@ -89,6 +98,7 @@ namespace Recon_API.Controllers
 		[HttpPost("jobinpogress")]
 		public IActionResult jobinpogress(JobCompleted objJobCompleted)
 		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
@@ -99,7 +109,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = UtilityService.jobinpogressservice(objJobCompleted, header_value);
+				response = UtilityService.jobinpogressservice(objJobCompleted, header_value, constring);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}

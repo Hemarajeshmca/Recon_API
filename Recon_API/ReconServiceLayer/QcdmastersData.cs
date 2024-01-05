@@ -13,13 +13,13 @@ namespace ReconDataLayer
 	public class QcdmastersData
 	{
 		DataSet ds = new DataSet();
-		DataTable result = new DataTable();
-		DBManager dbManager = new DBManager("ConnectionString");
+		DataTable result = new DataTable();		
 		List<IDbDataParameter> parameters;
-		public DataTable QcdModeldataRead(QcdmasterModel Objmodel, UserManagementModel.headerValue headerval)
+		public DataTable QcdModeldataRead(QcdmasterModel Objmodel, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess(Objmodel.in_user_code);
 				parameters = new List<IDbDataParameter>();
@@ -38,10 +38,11 @@ namespace ReconDataLayer
 			}
 		}
 	
-		public DataTable QcdModeldataGridRead(Qcdgridread objgridread, UserManagementModel.headerValue headerval)
+		public DataTable QcdModeldataGridRead(Qcdgridread objgridread, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess(objgridread.in_user_code);
 				parameters = new List<IDbDataParameter>();
@@ -61,10 +62,11 @@ namespace ReconDataLayer
 			}
 		}
 
-		public DataTable QcdMaster(mainQCDMaster objmaster, UserManagementModel.headerValue headerval)
+		public DataTable QcdMaster(mainQCDMaster objmaster, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				parameters = new List<IDbDataParameter>();
 				parameters.Add(dbManager.CreateParameter("in_master_gid", objmaster.masterGid, DbType.Int64));

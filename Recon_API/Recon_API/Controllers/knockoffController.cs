@@ -14,7 +14,13 @@ namespace Recon_API.Controllers
     [ApiController]
     public class knockoffController : ControllerBase
     {
-        log4net.ILog logger = log4net.LogManager.GetLogger(typeof(knockoffController));
+		private IConfiguration _configuration;
+		public knockoffController(IConfiguration configuration)
+		{
+			_configuration = configuration;
+		}
+		string constring = "";
+		log4net.ILog logger = log4net.LogManager.GetLogger(typeof(knockoffController));
 
         knockoffService knockOffService = new knockoffService();
 
@@ -26,7 +32,8 @@ namespace Recon_API.Controllers
         {
             try
             {
-                DataSet ds = knockOffService.ReconMstTAcc(reconMstTacc);
+				constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+				DataSet ds = knockOffService.ReconMstTAcc(reconMstTacc, constring);
                 var serializedProduct = JsonConvert.SerializeObject(ds, Newtonsoft.Json.Formatting.Indented);
                 return Ok(serializedProduct);
             }
@@ -47,7 +54,8 @@ namespace Recon_API.Controllers
         {
             try
             {
-               DataSet ds=  knockOffService.runReport(runReport);
+				constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+				DataSet ds=  knockOffService.runReport(runReport, constring);
                 var serializedProduct = JsonConvert.SerializeObject(ds, Newtonsoft.Json.Formatting.Indented);
                  return Ok(serializedProduct);
             }
@@ -68,7 +76,8 @@ namespace Recon_API.Controllers
 		{
 			try
 			{
-				DataSet ds = knockOffService.runkosummService(objrunkosumm);
+				constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+				DataSet ds = knockOffService.runkosummService(objrunkosumm, constring);
 				var serializedProduct = JsonConvert.SerializeObject(ds, Newtonsoft.Json.Formatting.Indented);
 				return Ok(serializedProduct);
 			}
@@ -85,7 +94,8 @@ namespace Recon_API.Controllers
 		{
 			try
 			{
-				DataSet ds = knockOffService.recondatasetinfoService(objrecondatasetinfo);
+				constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+				DataSet ds = knockOffService.recondatasetinfoService(objrecondatasetinfo, constring);
 				var serializedProduct = JsonConvert.SerializeObject(ds, Newtonsoft.Json.Formatting.Indented);
 				return Ok(serializedProduct);
 			}
@@ -102,7 +112,8 @@ namespace Recon_API.Controllers
 		{
 			try
 			{
-				DataTable dt = knockOffService.undorunreportService(objrunreport);
+				constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+				DataTable dt = knockOffService.undorunreportService(objrunreport, constring);
 				var serializedProduct = JsonConvert.SerializeObject(dt, Newtonsoft.Json.Formatting.Indented);
 				return Ok(serializedProduct);
 			}
@@ -119,7 +130,41 @@ namespace Recon_API.Controllers
 		{
 			try
 			{
-				DataTable dt = knockOffService.undoKOService(objundoKO);
+				constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+				DataTable dt = knockOffService.undoKOService(objundoKO, constring);
+				var serializedProduct = JsonConvert.SerializeObject(dt, Newtonsoft.Json.Formatting.Indented);
+				return Ok(serializedProduct);
+			}
+			catch (Exception ex)
+			{
+				logger.Error(ex);
+				return Problem(title: ex.Message);
+			}
+
+		}
+		[HttpPost("undoKOjob")]
+		public IActionResult undoKOjob([FromBody] undoKOjobModel objundoKO)
+		{
+			try
+			{
+				constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+				DataTable dt = knockOffService.undoKOjobService(objundoKO, constring);
+				var serializedProduct = JsonConvert.SerializeObject(dt, Newtonsoft.Json.Formatting.Indented);
+				return Ok(serializedProduct);
+			}
+			catch (Exception ex)
+			{
+				logger.Error(ex);
+				return Problem(title: ex.Message);
+			}
+		}
+		[HttpPost("undomatchjob")]
+		public IActionResult undomatchjob([FromBody] undomatchmodel objundoKO)
+		{
+			try
+			{
+				constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+				DataTable dt = knockOffService.undomatchjobService(objundoKO, constring);
 				var serializedProduct = JsonConvert.SerializeObject(dt, Newtonsoft.Json.Formatting.Indented);
 				return Ok(serializedProduct);
 			}

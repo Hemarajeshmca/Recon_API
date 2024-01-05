@@ -14,53 +14,53 @@ namespace ReconServiceLayer
 {
     public class ReconService
     {
-        public static DataTable getReconType(UserManagementModel.headerValue headerval)
+        public static DataTable getReconType(UserManagementModel.headerValue headerval, string constring)
         {
             DataTable ds = new DataTable();
             try
             {
                 ReconData objqcd = new ReconData();
-                ds = objqcd.recntypeData(headerval);
+                ds = objqcd.recntypeData(headerval, constring);
             }
             catch (Exception e)
             { }
             return ds;
         }
 
-        public static DataTable getReconList(Reconlist objreconlist, UserManagementModel.headerValue headerval)
+        public static DataTable getReconList(Reconlist objreconlist, UserManagementModel.headerValue headerval, string constring)
         {
             DataTable ds = new DataTable();
             try
             {
                 ReconData objqcd = new ReconData();
-                ds = objqcd.recnlistData(objreconlist, headerval);
+                ds = objqcd.recnlistData(objreconlist, headerval, constring);
             }
             catch (Exception e)
             { }
             return ds;
         }
 
-        public static DataSet fetchReconDetails(fetchRecon objfetch, UserManagementModel.headerValue headerval)
+        public static DataSet fetchReconDetails(fetchRecon objfetch, UserManagementModel.headerValue headerval, string constring)
         {
             //DataTable ds = new DataTable();
             DataSet ds = new DataSet();
             try
             {
                 ReconData objqcd = new ReconData();
-                ds = objqcd.fetchRecondtl(objfetch, headerval);
+                ds = objqcd.fetchRecondtl(objfetch, headerval, constring);
 
             }
             catch (Exception e)
             { }
             return ds;
         }
-        public static DataTable recondatamapping(datamapping objdatamapping, UserManagementModel.headerValue headerval)
+        public static DataTable recondatamapping(datamapping objdatamapping, UserManagementModel.headerValue headerval, string constring)
         {
             DataTable ds = new DataTable();
             try
             {
                 ReconData objqcd = new ReconData();
-                ds = objqcd.recondatamapping(objdatamapping, headerval);
+                ds = objqcd.recondatamapping(objdatamapping, headerval, constring);
 
             }
             catch (Exception e)
@@ -69,13 +69,13 @@ namespace ReconServiceLayer
         }
 
 
-        public static DataTable Recon(Recon recon, UserManagementModel.headerValue headerval)
+        public static DataTable Recon(Recon recon, UserManagementModel.headerValue headerval, string constring)
         {
             DataTable ds = new DataTable();
             try
             {
                 ReconData objrecon = new ReconData();
-                ds = objrecon.Recon(recon, headerval);
+                ds = objrecon.Recon(recon, headerval, constring);
             }
             catch (Exception ex)
             {
@@ -84,13 +84,13 @@ namespace ReconServiceLayer
             return ds;
         }
 
-        public static DataTable Recondataset(Recondataset objrecondataset, UserManagementModel.headerValue headerval)
+        public static DataTable Recondataset(Recondataset objrecondataset, UserManagementModel.headerValue headerval, string constring)
         {
             DataTable ds = new DataTable();
             try
             {
                 ReconData objrecon = new ReconData();
-                ds = objrecon.Recondatset(objrecondataset, headerval);
+                ds = objrecon.Recondatset(objrecondataset, headerval, constring);
             }
             catch (Exception ex)
             {
@@ -99,13 +99,13 @@ namespace ReconServiceLayer
             return ds;
         }
         
-        public static DataTable Recondatamappinglist(getReconDataMappingList objdatamappinglist, UserManagementModel.headerValue headerval)
+        public static DataTable Recondatamappinglist(getReconDataMappingList objdatamappinglist, UserManagementModel.headerValue headerval, string constring)
         {
             DataTable ds = new DataTable();
             try
             {
                 ReconData objrecon = new ReconData();
-                ds = objrecon.Recondatamappinglist(objdatamappinglist, headerval);
+                ds = objrecon.Recondatamappinglist(objdatamappinglist, headerval, constring);
             }
             catch (Exception ex)
             {
@@ -116,13 +116,13 @@ namespace ReconServiceLayer
 
 		
 
-		public static DataTable ReconFieldAgainstReconlist(getFieldAgainstReconList objfieldlist, UserManagementModel.headerValue headerval)
+		public static DataTable ReconFieldAgainstReconlist(getFieldAgainstReconList objfieldlist, UserManagementModel.headerValue headerval, string constring)
 		{
 			DataTable ds = new DataTable();
 			try
 			{
 				ReconData objrecon = new ReconData();
-				ds = objrecon.ReconFieldAgainstReconlist(objfieldlist, headerval);
+				ds = objrecon.ReconFieldAgainstReconlist(objfieldlist, headerval, constring);
 			}
 			catch (Exception ex)
 			{
@@ -131,13 +131,13 @@ namespace ReconServiceLayer
 			return ds;
 		}
 
-        public static DataTable reconlistknockoffService(UserManagementModel.headerValue headerval)
+        public static DataTable reconlistknockoffService(UserManagementModel.headerValue headerval, string constring)
         {
             DataTable ds = new DataTable();
             try
             {
                 ReconData objrecon = new ReconData();
-                ds = objrecon.reconlistknockoff(headerval);
+                ds = objrecon.reconlistknockoff(headerval, constring);
             }
             catch (Exception ex)
             {
@@ -146,40 +146,27 @@ namespace ReconServiceLayer
             return ds;
         }
 
-		public static DataTable getReconagainsttypecode(Reconagainsttypecode objreconlist, UserManagementModel.headerValue headerval)
+		public static DataTable getReconagainsttypecode(Reconagainsttypecode objreconlist, UserManagementModel.headerValue headerval, string constring)
 		{
 			DataTable ds = new DataTable();
 			try
 			{
 				ReconData objqcd = new ReconData();
-				ds = objqcd.reconagainsttypecodeData(objreconlist, headerval);
+				ds = objqcd.reconagainsttypecodeData(objreconlist, headerval, constring);
 			}
 			catch (Exception e)
 			{ }
 			return ds;
 		}
 
-		public static DataTable testAPIService()
-		{
-			DataTable ds = new DataTable();
-			try
-			{
-				ReconData objrecon = new ReconData();
-				ds = objrecon.testData();
-			}
-			catch (Exception ex)
-			{
-				throw ex;
-			}
-			return ds;
-		}
-		public static DataSet Datasetfield(Datasetfieldlist Datasetfieldlist, UserManagementModel.headerValue headerval)
+		
+		public static DataSet Datasetfield(Datasetfieldlist Datasetfieldlist, UserManagementModel.headerValue headerval, string constring)
 		{
 			DataSet ds = new DataSet();
 			try
 			{
 				ReconData objDS = new ReconData();
-				ds = objDS.Datasetfielddata(Datasetfieldlist, headerval);
+				ds = objDS.Datasetfielddata(Datasetfieldlist, headerval, constring);
 			}
 			catch (Exception e)
 			{ }

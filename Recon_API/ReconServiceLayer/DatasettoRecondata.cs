@@ -13,13 +13,13 @@ namespace ReconDataLayer
 	public class DatasettoRecondata
 	{
 		DataSet ds = new DataSet();
-		DataTable result = new DataTable();
-		DBManager dbManager = new DBManager("ConnectionString");
+		DataTable result = new DataTable();		
 		List<IDbDataParameter>? parameters;
-		public DataTable DatasettoReconReaddata(DatasettoReconmodellist Objmodel, UserManagementModel.headerValue headerval)
+		public DataTable DatasettoReconReaddata(DatasettoReconmodellist Objmodel, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();				
@@ -37,10 +37,11 @@ namespace ReconDataLayer
                 return result;
 			}
 		}
-		public DataTable DatasettoReconprocessdata(DatasettoReconmodelprocess Objmodel, UserManagementModel.headerValue headerval)
+		public DataTable DatasettoReconprocessdata(DatasettoReconmodelprocess Objmodel, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();				
@@ -64,10 +65,11 @@ namespace ReconDataLayer
 		}
 
 
-		public DataTable DatasettoManualReaddata(UserManagementModel.headerValue headerval)
+		public DataTable DatasettoManualReaddata(UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();
@@ -86,11 +88,12 @@ namespace ReconDataLayer
 			}
 		}
 
-        public DataSet ManuaMatchInfodata(ManualMatchinfoModel objManualMatchinfo, UserManagementModel.headerValue headerval)
+        public DataSet ManuaMatchInfodata(ManualMatchinfoModel objManualMatchinfo, UserManagementModel.headerValue headerval, string constring)
         {
             try
             {
-                Dictionary<string, Object> values = new Dictionary<string, object>();
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
                 MySqlDataAccess con = new MySqlDataAccess("");
                 parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_scheduler_gid", objManualMatchinfo.in_scheduler_gid, DbType.Int32));
@@ -117,11 +120,12 @@ namespace ReconDataLayer
         }
 
 
-        public DataTable runManualfiledata(runManualfileModel objrunManualfile, UserManagementModel.headerValue headerval)
+        public DataTable runManualfiledata(runManualfileModel objrunManualfile, UserManagementModel.headerValue headerval, string constring)
         {
             try
             {
-                Dictionary<string, Object> values = new Dictionary<string, object>();
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
                 MySqlDataAccess con = new MySqlDataAccess("");
                 parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_scheduler_gid", objrunManualfile.in_scheduler_gid, DbType.Int32));
@@ -145,10 +149,11 @@ namespace ReconDataLayer
 
 		//objrunProcessdatasetdata
 
-		public DataTable objrunProcessdatasetdata(runProcessdatasetModel objrunProcessdataset, UserManagementModel.headerValue headerval)
+		public DataTable objrunProcessdatasetdata(runProcessdatasetModel objrunProcessdataset, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
+				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();

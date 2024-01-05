@@ -12,10 +12,17 @@ namespace Recon_API.Controllers
     [ApiController]
     public class ReportController : ControllerBase
     {
-        [HttpPost("generatereport")]
+		private IConfiguration _configuration;
+		public ReportController(IConfiguration configuration)
+		{
+			_configuration = configuration;
+		}
+		string constring = "";
+		[HttpPost("generatereport")]
         public IActionResult generatereport(generatereportmodel objgeneratereportmodel)
         {
-            headerValue header_value = new headerValue();
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+			headerValue header_value = new headerValue();
             DataTable response = new DataTable();
             try
             {
@@ -25,7 +32,7 @@ namespace Recon_API.Controllers
                 header_value.user_code = getvalue;
                 header_value.lang_code = getlangCode;
                 header_value.role_code = getRoleCode;
-                response = ReportService.generatereportservice(objgeneratereportmodel, header_value);
+                response = ReportService.generatereportservice(objgeneratereportmodel, header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }
@@ -39,7 +46,8 @@ namespace Recon_API.Controllers
         [HttpPost("reconbetweenacc")]
         public IActionResult reconbetweenacc(reconbetweenaccmodel objreconbetweenaccmodel)
         {
-            headerValue header_value = new headerValue();
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+			headerValue header_value = new headerValue();
             DataTable response = new DataTable();
             try
             {
@@ -49,7 +57,7 @@ namespace Recon_API.Controllers
                 header_value.user_code = getvalue;
                 header_value.lang_code = getlangCode;
                 header_value.role_code = getRoleCode;
-                response = ReportService.reconbetweenaccservice(objreconbetweenaccmodel, header_value);
+                response = ReportService.reconbetweenaccservice(objreconbetweenaccmodel, header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }
@@ -62,7 +70,8 @@ namespace Recon_API.Controllers
         [HttpPost("reconwithinacc")]
         public IActionResult reconwithinacc(reconwithinaccmodel objreconwithinaccmodel)
         {
-            headerValue header_value = new headerValue();
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+			headerValue header_value = new headerValue();
             DataTable response = new DataTable();
             try
             {
@@ -72,7 +81,7 @@ namespace Recon_API.Controllers
                 header_value.user_code = getvalue;
                 header_value.lang_code = getlangCode;
                 header_value.role_code = getRoleCode;
-                response = ReportService.reconwithinaccservice(objreconwithinaccmodel, header_value);
+                response = ReportService.reconwithinaccservice(objreconwithinaccmodel, header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }
@@ -86,6 +95,7 @@ namespace Recon_API.Controllers
 		[HttpPost("getreportlist")]
 		public IActionResult getreportlist()
 		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
@@ -96,7 +106,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = ReportService.getreportlistservice(header_value);
+				response = ReportService.getreportlistservice(header_value, constring);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}
@@ -109,6 +119,7 @@ namespace Recon_API.Controllers
 		[HttpPost("getreportparamlist")]
 		public IActionResult getreportparamlist(reportparamlistmodel objreportparamlistmodel)
 		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
@@ -119,7 +130,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = ReportService.getreportparamlistservice(objreportparamlistmodel, header_value);
+				response = ReportService.getreportparamlistservice(objreportparamlistmodel, header_value, constring);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}

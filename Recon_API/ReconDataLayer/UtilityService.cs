@@ -14,26 +14,26 @@ namespace ReconServiceLayer
 {
 	public class UtilityService
 	{
-		public static DataTable getJobStatusList(JobStatusList objobstatus, UserManagementModel.headerValue headerval)
+		public static DataTable getJobStatusList(JobStatusList objobstatus, UserManagementModel.headerValue headerval, string constring)
 		{
 			DataTable ds = new DataTable();
 			try
 			{
 				UtilityData objutility = new UtilityData();
-				ds = objutility.jobstatusData(objobstatus, headerval);
+				ds = objutility.jobstatusData(objobstatus, headerval, constring);
 			}
 			catch (Exception e)
 			{ }
 			return ds;
 		}
 
-		public static DataTable getJobtypeList(UserManagementModel.headerValue headerval)
+		public static DataTable getJobtypeList(UserManagementModel.headerValue headerval, string constring)
 		{
 			DataTable ds = new DataTable();
 			try
 			{
 				UtilityData objutility = new UtilityData();
-				ds = objutility.jobtypeData(headerval);
+				ds = objutility.jobtypeData(headerval, constring);
 			}
 			catch (Exception e)
 			{ }
@@ -87,13 +87,13 @@ namespace ReconServiceLayer
 
 		}
 
-		public static DataTable objJobCompletedservice(JobCompleted objJobCompleted, UserManagementModel.headerValue headerval)
+		public static DataTable objJobCompletedservice(JobCompleted objJobCompleted, UserManagementModel.headerValue headerval, string constring)
 		{
 			DataTable ds = new DataTable();
 			try
 			{
 				UtilityData objutility = new UtilityData();
-				ds = objutility.objJobCompletedData(objJobCompleted, headerval);
+				ds = objutility.objJobCompletedData(objJobCompleted, headerval, constring);
 			}
 			catch (Exception e)
 			{ }
@@ -101,13 +101,13 @@ namespace ReconServiceLayer
 		}
 		//jobinpogressservice
 
-		public static DataTable jobinpogressservice(JobCompleted objJobCompleted, UserManagementModel.headerValue headerval)
+		public static DataTable jobinpogressservice(JobCompleted objJobCompleted, UserManagementModel.headerValue headerval, string constring)
 		{
 			DataTable ds = new DataTable();
 			try
 			{
 				UtilityData objutility = new UtilityData();
-				ds = objutility.jobinpogressData(objJobCompleted, headerval);
+				ds = objutility.jobinpogressData(objJobCompleted, headerval, constring);
 			}
 			catch (Exception e)
 			{ }

@@ -13,51 +13,51 @@ namespace ReconServiceLayer
 {
 	public class DatasettoReconservice
 	{
-		public static DataTable DatasettoReconRead(DatasettoReconmodellist DatasettoReconmodellist, UserManagementModel.headerValue headerval)
+		public static DataTable DatasettoReconRead(DatasettoReconmodellist DatasettoReconmodellist, UserManagementModel.headerValue headerval, string constring)
 		{
 			DataTable ds = new DataTable();
 			try
 			{
 				DatasettoRecondata objDS = new DatasettoRecondata();
-				ds = objDS.DatasettoReconReaddata(DatasettoReconmodellist, headerval);
+				ds = objDS.DatasettoReconReaddata(DatasettoReconmodellist, headerval, constring);
 			}
 			catch (Exception e)
 			{ }
 			return ds;
 		}
-		public static DataTable DatasettoReconprocess(DatasettoReconmodelprocess DatasettoReconmodelprocess, UserManagementModel.headerValue headerval)
+		public static DataTable DatasettoReconprocess(DatasettoReconmodelprocess DatasettoReconmodelprocess, UserManagementModel.headerValue headerval, string constring)
 		{
 			DataTable ds = new DataTable();
 			try
 			{
 				DatasettoRecondata objDS = new DatasettoRecondata();
-				ds = objDS.DatasettoReconprocessdata(DatasettoReconmodelprocess, headerval);
-			}
-			catch (Exception e)
-			{ }
-			return ds;
-		}
-
-		public static DataTable DatasettoManualRead(UserManagementModel.headerValue headerval)
-		{
-			DataTable ds = new DataTable();
-			try
-			{
-				DatasettoRecondata objDS = new DatasettoRecondata();
-				ds = objDS.DatasettoManualReaddata(headerval);
+				ds = objDS.DatasettoReconprocessdata(DatasettoReconmodelprocess, headerval,constring);
 			}
 			catch (Exception e)
 			{ }
 			return ds;
 		}
 
-        public static DataSet ManuaMatchInfoService(ManualMatchinfoModel objManualMatchinfo, UserManagementModel.headerValue headerval)
+		public static DataTable DatasettoManualRead(UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				DatasettoRecondata objDS = new DatasettoRecondata();
+				ds = objDS.DatasettoManualReaddata(headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+
+        public static DataSet ManuaMatchInfoService(ManualMatchinfoModel objManualMatchinfo, UserManagementModel.headerValue headerval, string constring)
         {
             DataSet ds = new DataSet();
             try
             {
                 DatasettoRecondata objDS = new DatasettoRecondata();
-                ds = objDS.ManuaMatchInfodata(objManualMatchinfo, headerval);
+                ds = objDS.ManuaMatchInfodata(objManualMatchinfo, headerval, constring);
             }
             catch (Exception e)
             { }
@@ -66,13 +66,13 @@ namespace ReconServiceLayer
 
         //runManualfileService
 
-        public static DataTable runManualfileService(runManualfileModel objrunManualfile, UserManagementModel.headerValue headerval)
+        public static DataTable runManualfileService(runManualfileModel objrunManualfile, UserManagementModel.headerValue headerval, string constring)
         {
             DataTable ds = new DataTable();
             try
             {
                 DatasettoRecondata objDS = new DatasettoRecondata();
-                ds = objDS.runManualfiledata(objrunManualfile, headerval);
+                ds = objDS.runManualfiledata(objrunManualfile, headerval, constring);
             }
             catch (Exception e)
             { }
@@ -81,13 +81,13 @@ namespace ReconServiceLayer
 
 		//runProcessdatasetService
 
-		public static DataTable runProcessdatasetService(runProcessdatasetModel objrunProcessdataset, UserManagementModel.headerValue headerval)
+		public static DataTable runProcessdatasetService(runProcessdatasetModel objrunProcessdataset, UserManagementModel.headerValue headerval, string constring)
 		{
 			DataTable ds = new DataTable();
 			try
 			{
 				DatasettoRecondata objDS = new DatasettoRecondata();
-				ds = objDS.objrunProcessdatasetdata(objrunProcessdataset, headerval);
+				ds = objDS.objrunProcessdatasetdata(objrunProcessdataset, headerval, constring);
 			}
 			catch (Exception e)
 			{ }
