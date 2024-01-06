@@ -93,4 +93,11 @@ namespace ReconModels
 		public string? out_msg { get; set; }
 		public string? out_result { get; set; }
 	}
+
+    public class getundojobrulemodel
+    {
+        public string? in_recon_code { get; set; }
+        public DateOnly in_start_date { get; set; }
+        public DateOnly in_end_date { get; set; }
+    }
 }
