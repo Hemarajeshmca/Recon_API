@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using static ReconModels.UserManagementModel;
 using System.Threading.Tasks;
 
 namespace ReconServiceLayer
@@ -130,6 +131,20 @@ namespace ReconServiceLayer
 			{
 				DataTable dt = knockOffData.undomatchjobData(objundoKO, constring);
 				return dt;
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+		}
+		//getundojobruleService
+
+		public DataSet getundojobruleService(getundojobrulemodel objgetundojobrule, UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DataSet ds = knockOffData.getundojobruleData(objgetundojobrule, headerval, constring);
+				return ds;
 			}
 			catch (Exception ex)
 			{

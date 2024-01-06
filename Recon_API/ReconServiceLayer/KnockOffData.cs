@@ -220,6 +220,32 @@ namespace ReconDataLayer
 				throw ex;
 			}
 		}
+
+		//getundojobruleData
+		public DataSet getundojobruleData(getundojobrulemodel objgetundojobrule, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataSet ds = new DataSet();
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_recon_code", objgetundojobrule.in_recon_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_start_date", objgetundojobrule.in_start_date, DbType.Date));
+				parameters.Add(dbManager.CreateParameter("in_end_date", objgetundojobrule.in_end_date, DbType.Date));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				ds = dbManager.execStoredProcedurelist("pr_get_undokojobrule", CommandType.StoredProcedure, parameters.ToArray());
+				return ds;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_get_undokojobrule" + " " + "Error Message:" + ex.Message);
+				throw ex;
+			}
+		}
+
 	}
 }
 
