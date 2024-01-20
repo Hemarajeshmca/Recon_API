@@ -99,5 +99,56 @@ namespace ReconDataLayer
                 throw ex;
             }
         }
-    }
+		public DataTable userlist_db(headerValue Objmodel, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("ConnectionStrings");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_user_code", Objmodel.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", Objmodel.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", Objmodel.lang_code, DbType.String));
+				ds = dbManager.execStoredProcedure("pr_fetch_userlist", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_get_loginvalidation_new" + "Error Message:" + ex.Message);
+				return result;
+			}
+		}
+		public DataTable Usersave_db(User_model Usermodel, headerValue hv, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_user_gid", Usermodel.user_gid, DbType.Int16, ParameterDirection.InputOutput));
+				parameters.Add(dbManager.CreateParameter("in_user_code", Usermodel.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_name", Usermodel.user_name, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_contactno", Usermodel.user_contact_no, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_emailid", Usermodel.user_emailid, DbType.String));
+				parameters.Add(dbManager.CreateParameter("user_password", Usermodel.user_password, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_gid", Usermodel.role_gid, DbType.Int16));
+				parameters.Add(dbManager.CreateParameter("in_action_by", Usermodel.action_by, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+				ds = dbManager.execStoredProcedure("pr_ins_user", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_set_password" + "Error Message:" + ex.Message);
+				throw ex;
+			}
+		}
+	}
 }
