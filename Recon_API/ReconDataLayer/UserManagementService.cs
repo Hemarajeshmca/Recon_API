@@ -60,7 +60,30 @@ namespace ReconServiceLayer
                     throw ex;
                 }
             }
-
-        }
+			public static DataTable userlist_srv(UserManagementModel.headerValue objmodel, string constring)
+			{
+				DataTable ds = new DataTable();
+				try
+				{
+					UserManagementData objproduct = new UserManagementData();
+					ds = objproduct.userlist_db(objmodel, constring);
+				}
+				catch (Exception e)
+				{ }
+				return ds;
+			}
+			public static DataTable Usersave_srv(UserManagementModel.User_model objmodel, UserManagementModel.headerValue headerval, string constring)
+			{
+				DataTable ds = new DataTable();
+				try
+				{
+					UserManagementData objproduct = new UserManagementData();
+					ds = objproduct.Usersave_db(objmodel, headerval, constring);
+				}
+				catch (Exception e)
+				{ }
+				return ds;
+			}
+		}
     }
 }
