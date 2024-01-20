@@ -5,6 +5,7 @@ using ReconServiceLayer;
 using static ReconModels.UserManagementModel;
 using System.Data;
 using static ReconModels.ReportModel;
+using static ReconModels.ReconModel;
 
 namespace Recon_API.Controllers
 {
@@ -140,5 +141,27 @@ namespace Recon_API.Controllers
 			}
 		}
 
-	}
+        [Route("ExectionReport")]
+        [HttpPost]
+        public IActionResult ExectionReport(Report_model user)
+        {
+            //DataTable response = new DataTable();
+            constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+            string[] response = { };
+            try
+            {
+                response = ReportService.ExectionReport(user, constring);
+                var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
+                return Ok(serializedProduct);
+            }
+            catch (Exception e)
+            {
+                return Problem(title: e.Message);
+
+            }
+        }
+
+    }
+
+   
 }

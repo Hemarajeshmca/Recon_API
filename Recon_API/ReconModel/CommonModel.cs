@@ -23,5 +23,6 @@ namespace ReconModels
             public string in_config_name { get; set; }
 		
 			}
-    }
+
+	}
 }

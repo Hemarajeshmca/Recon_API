@@ -13,10 +13,6 @@ namespace ReconServiceLayer
 {
     public class RulesetupService
     {
-        //public getRulelist() {
-
-
-        //}
         public static DataTable getRulelist(Rulesetuplist objrulesetuplist, UserManagementModel.headerValue headerval, string constring)
         {
             DataTable ds = new DataTable();
@@ -155,6 +151,20 @@ namespace ReconServiceLayer
 			{
 				RulesetupData objrule = new RulesetupData();
 				ds = objrule.getruleagainstReconData(objRecon, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+
+		//cloneReconRuleService
+		public static DataTable cloneReconRuleService(cloneReconRuleModel objcloneReconRule, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				RulesetupData objrule = new RulesetupData();
+				ds = objrule.cloneReconRuleData(objcloneReconRule, headerval, constring);
 			}
 			catch (Exception e)
 			{ }

@@ -246,6 +246,35 @@ namespace ReconDataLayer
 			}
 		}
 
-	}
+
+        //setundojobruleData
+        public DataTable setundojobruleData(setundojobrulemodel objsetundojobrule, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_recon_code", objsetundojobrule.in_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_job_gid", objsetundojobrule.in_job_gid, DbType.Int32));
+                parameters.Add(dbManager.CreateParameter("in_rule_code", objsetundojobrule.in_rule_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_undo_job_reason", objsetundojobrule.in_undo_job_reason, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_ip_addr", headerval.ip_address, DbType.String));
+                // parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                ds = dbManager.execStoredProcedure("pr_set_undokojobrule", CommandType.StoredProcedure, parameters.ToArray());
+                dt = ds.Tables[0];
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_set_undokojobrule" + " " + "Error Message:" + ex.Message);
+                throw ex;
+            }
+        }
+
+    }
 }
 

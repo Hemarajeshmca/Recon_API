@@ -100,4 +100,13 @@ namespace ReconModels
         public DateOnly in_start_date { get; set; }
         public DateOnly in_end_date { get; set; }
     }
+
+    public class setundojobrulemodel
+    {
+        public string? in_recon_code { get; set; }
+        public int in_job_gid { get; set; }
+        public string? in_rule_code { get; set; }
+        public string? in_undo_job_reason { get; set; }
+
+    }
 }
