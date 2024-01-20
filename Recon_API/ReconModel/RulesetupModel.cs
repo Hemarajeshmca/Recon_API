@@ -99,5 +99,17 @@ namespace ReconModels
 			public string? in_action { get; set; }
 			public string? in_user_code { get; set; }
 		}
-	}
+
+        public class cloneReconRuleModel
+		{
+            public string in_recon_code { get; set; }
+            public string in_rule_name { get; set; }
+            public string in_source_dataset_code { get; set; }
+            public string in_comparison_dataset_code { get; set; }
+            public string in_clone_recon_code { get; set; }
+            public string in_clone_rule_code { get; set; }
+            public string in_clone_source_dataset_code { get; set; }
+            public string in_clone_comparison_dataset_code { get; set; }
+		}
+    }
 }

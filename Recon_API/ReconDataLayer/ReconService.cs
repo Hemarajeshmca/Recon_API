@@ -172,5 +172,35 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
+
+		//cloneReconService
+
+		public static DataTable cloneReconService(cloneReconModel objcloneRecon, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable dt = new DataTable();
+			try
+			{
+				ReconData objDS = new ReconData();
+				dt = objDS.cloneReconData(objcloneRecon, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return dt;
+		}
+
+		//cloneReconDatasetService
+
+		public static DataTable cloneReconDatasetService(cloneReconDatasetModel objcloneReconDataset, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable dt = new DataTable();
+			try
+			{
+				ReconData objDS = new ReconData();
+				dt = objDS.cloneReconDatasetData(objcloneReconDataset, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return dt;
+		}
 	}
 }

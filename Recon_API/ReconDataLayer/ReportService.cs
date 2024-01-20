@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ReconModels.ReconModel;
 using static ReconModels.ReportModel;
 
 namespace ReconServiceLayer
@@ -80,5 +81,38 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
-	}
+
+        //Report
+
+        public static string[] ExectionReport(Report_model objmodel, string constring)
+        {
+            string[] result = { };
+           // FileConvTemp_model user = new FileConvTemp_model();
+            try
+            {
+                //Report_datamodel objproduct = new Report_datamodel();
+
+                //result = objproduct.ExectionReport(objmodel);
+                //if (result.Length == 2)
+                //{
+                //    user.result = Convert.ToInt32(result[1]);
+                //    user.msg = result[0];
+                //}
+                //else
+                //{
+                //    user.result = 0;
+                //    user.msg = "Process Failed";
+                //}
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                string control = "ReportService";
+
+            }
+            return result;
+        }
+
+    }
 }

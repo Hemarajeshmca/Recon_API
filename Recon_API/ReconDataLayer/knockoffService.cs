@@ -151,5 +151,19 @@ namespace ReconServiceLayer
 				throw ex;
 			}
 		}
-	}
+
+        //setundojobruleService
+        public DataTable setundojobruleService(setundojobrulemodel objsetundojobrule, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DataTable ds = knockOffData.setundojobruleData(objsetundojobrule, headerval, constring);
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+    }
 }
