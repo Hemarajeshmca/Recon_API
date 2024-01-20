@@ -358,6 +358,41 @@ namespace ReconDataLayer
 				return result;
 			}
 		}
+		
+		//cloneReconRuleData
+		public DataTable cloneReconRuleData(cloneReconRuleModel objcloneReconRule, UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_recon_code", objcloneReconRule.in_recon_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_rule_name", objcloneReconRule.in_rule_name, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_source_dataset_code", objcloneReconRule.in_source_dataset_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_comparison_dataset_code", objcloneReconRule.in_comparison_dataset_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_clone_recon_code", objcloneReconRule.in_clone_recon_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_clone_rule_code", objcloneReconRule.in_clone_rule_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_clone_source_dataset_code", objcloneReconRule.in_clone_source_dataset_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_clone_comparison_dataset_code", objcloneReconRule.in_clone_comparison_dataset_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				//parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				//parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+				ds = dbManager.execStoredProcedure("pr_clone_reconrule", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_clone_reconrule" + "Error Message:" + ex.Message);
+				return result;
+			}
+		}
+
 	}
 
 }

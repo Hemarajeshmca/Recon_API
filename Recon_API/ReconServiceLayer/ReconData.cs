@@ -352,6 +352,65 @@ namespace ReconDataLayer
                 return ds;
 			}
 		}
+		//cloneReconData
 
+		public DataTable cloneReconData(cloneReconModel objcloneRecon, UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				//parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				//parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_recon_name", objcloneRecon.in_recon_name, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_clone_recon_code", objcloneRecon.in_clone_recon_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_recon_code", "out", DbType.String, ParameterDirection.Output));
+				ds = dbManager.execStoredProcedure("pr_clone_recon", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_clone_recon" + "Error Message:" + ex.Message);
+				return result;
+			}
+		}
+
+		//cloneReconDatasetData
+		public DataTable cloneReconDatasetData(cloneReconDatasetModel objcloneReconDataset, UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				//parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				//parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_recon_code", objcloneReconDataset.in_recon_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_dataset_code", objcloneReconDataset.in_dataset_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_parent_dataset_code", objcloneReconDataset.in_parent_dataset_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_clone_dataset_code", objcloneReconDataset.in_clone_dataset_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_clone_recon_code", objcloneReconDataset.in_clone_recon_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+				ds = dbManager.execStoredProcedure("pr_clone_recon", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_clone_recon" + "Error Message:" + ex.Message);
+				return result;
+			}
+		}
 	}
 }
