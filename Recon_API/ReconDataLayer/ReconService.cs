@@ -202,5 +202,20 @@ namespace ReconServiceLayer
 			{ }
 			return dt;
 		}
+
+		public static DataSet fetchCloneReconDetails(fetchRecon objfetch, UserManagementModel.headerValue headerval, string constring)
+		{
+			//DataTable ds = new DataTable();
+			DataSet ds = new DataSet();
+			try
+			{
+				ReconData objqcd = new ReconData();
+				ds = objqcd.fetchCloneRecondtl(objfetch, headerval, constring);
+
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
 	}
 }

@@ -170,5 +170,19 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
+
+		//getAllRuleListService
+		public static DataTable getAllRuleListService(UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				RulesetupData objrule = new RulesetupData();
+				ds = objrule.getAllRuleListData(headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
 	}
 }
