@@ -121,6 +121,77 @@ namespace ReconDataLayer
 				return result;
 			}
 		}
+		public List<treeviewllist> treeviewlist_db(headerValue Objmodel, string constring)
+		{
+			List<treeviewllist> objList = new List<treeviewllist>();
+			try
+			{				
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("ConnectionStrings");
+				parameters = new List<IDbDataParameter>();				
+				ds = dbManager.execStoredProcedure("GetTreeNodes", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				foreach (DataRow datarow in result.Rows)
+				{
+					if (datarow["unitDependCode"].ToString() == "-")
+					{
+						treeviewllist node = new treeviewllist();
+						node.parent_code = datarow["parent_code"].ToString();
+						node.master_code = datarow["master_code"].ToString();
+						node.master_name = datarow["master_name"].ToString();
+						node.depend_code = datarow["depend_code"].ToString();
+						node.id = "";
+						var v_master_code = node.master_code;
+
+						var rows = result.AsEnumerable()
+									   .Where(r => r.Field<string>("depend_code") == v_master_code);
+
+						foreach (DataRow _row in rows)
+						{
+							treeviewllist child1 = new treeviewllist();
+							child1 = add_node(result, _row);
+							node.items.Add(child1);
+						}
+						objList.Add(node);
+					}
+				}
+				return objList;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:GetTreeNodes" + "Error Message:" + ex.Message);
+				return objList;
+			}
+		}
+		public treeviewllist add_node(DataTable _dt, DataRow _dr)
+		{
+			treeviewllist node = new treeviewllist();
+			try
+			{
+				node.id = _dr["id"].ToString();
+				node.parent_code = _dr["parent_code"].ToString();
+				node.master_code = _dr["master_code"].ToString();
+				node.master_name = _dr["master_name"].ToString();
+				node.depend_code = _dr["depend_code"].ToString();
+
+				var rows = _dt.AsEnumerable()
+							   .Where(r => r.Field<string>("depend_code") == node.master_code);
+
+				foreach (DataRow _row in rows)
+				{
+					treeviewllist child1 = new treeviewllist();
+					child1 = add_node(_dt, _row);
+					node.items.Add(child1);
+				}
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+			return node;
+		}
 		public DataTable Usersave_db(User_model Usermodel, headerValue hv, string constring)
 		{
 			try
@@ -146,8 +217,76 @@ namespace ReconDataLayer
 			catch (Exception ex)
 			{
 				CommonHeader objlog = new CommonHeader();
-				objlog.logger("SP:pr_set_password" + "Error Message:" + ex.Message);
+				objlog.logger("SP:pr_ins_user" + "Error Message:" + ex.Message);
 				throw ex;
+			}
+		}
+
+		public DataTable Usermappingsave_db(usermappingmodel Usermodel, headerValue hv, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_user_gid", Usermodel.user_gid, DbType.Int16));
+				parameters.Add(dbManager.CreateParameter("in_user_code", Usermodel.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_level_mapping", Usermodel.level_mapping, DbType.String));				
+				parameters.Add(dbManager.CreateParameter("in_action_by", hv.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+				ds = dbManager.execStoredProcedure("pr_ins_userlevelmapping", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_ins_userlevelmapping" + "Error Message:" + ex.Message);
+				throw ex;
+			}
+		}
+		public DataTable getcheckednode_db(getcheckedmodel Usermodel, headerValue hv, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_user_gid", Usermodel.user_gid, DbType.Int16));
+				parameters.Add(dbManager.CreateParameter("in_user_code", Usermodel.user_code, DbType.String));				
+				ds = dbManager.execStoredProcedure("pr_get_checkedvalues", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_get_checkedvalues" + "Error Message:" + ex.Message);
+				throw ex;
+			}
+		}
+		public DataTable setcontextlist_db(getcheckedmodel Usermodel, headerValue Objmodel, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("ConnectionStrings");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_user_gid", Usermodel.user_gid, DbType.Int16));
+				parameters.Add(dbManager.CreateParameter("in_user_code", Usermodel.user_code, DbType.String));
+				ds = dbManager.execStoredProcedure("pr_get_headers", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_get_headers" + "Error Message:" + ex.Message);
+				return result;
 			}
 		}
 	}

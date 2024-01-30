@@ -57,5 +57,27 @@ namespace ReconModels
 			public String? out_msg { get; set; }
 			public Int16? out_result { get; set; }
 		}
+		public class treeviewllist
+		{
+			public List<treeviewllist> items = new List<treeviewllist>();
+			public string depend_code { get; set; }
+			public string master_code { get; set; }
+			public string master_name { get; set; }
+			public string parent_code { get; set; }
+			public string id { get; set; }
+		}
+		public class usermappingmodel
+		{
+			public string user_code { get; set; }
+			public int user_gid { get; set; }
+			public string level_mapping { get; set; }
+			public String? out_msg { get; set; }
+			public Int16? out_result { get; set; }
+		}
+		public class getcheckedmodel
+		{
+			public string user_code { get; set; }
+			public int user_gid { get; set; }			
+		}
 	}
 }
