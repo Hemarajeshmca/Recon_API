@@ -72,6 +72,18 @@ namespace ReconServiceLayer
 				{ }
 				return ds;
 			}
+			public List<treeviewllist> treeviewlist_srv(UserManagementModel.headerValue objmodel, string constring)
+			{
+				List<treeviewllist> tnl = new List<treeviewllist>();
+				try
+				{
+					UserManagementData objproduct = new UserManagementData();
+					tnl = objproduct.treeviewlist_db(objmodel, constring);
+				}
+				catch (Exception e)
+				{ }
+				return tnl;
+			}
 			public static DataTable Usersave_srv(UserManagementModel.User_model objmodel, UserManagementModel.headerValue headerval, string constring)
 			{
 				DataTable ds = new DataTable();
@@ -79,6 +91,42 @@ namespace ReconServiceLayer
 				{
 					UserManagementData objproduct = new UserManagementData();
 					ds = objproduct.Usersave_db(objmodel, headerval, constring);
+				}
+				catch (Exception e)
+				{ }
+				return ds;
+			}
+			public static DataTable Usermappingsave_srv(UserManagementModel.usermappingmodel objmodel, UserManagementModel.headerValue headerval, string constring)
+			{
+				DataTable ds = new DataTable();
+				try
+				{
+					UserManagementData objproduct = new UserManagementData();
+					ds = objproduct.Usermappingsave_db(objmodel, headerval, constring);
+				}
+				catch (Exception e)
+				{ }
+				return ds;
+			}
+			public static DataTable getcheckednode_srv(UserManagementModel.getcheckedmodel objmodel, UserManagementModel.headerValue headerval, string constring)
+			{
+				DataTable ds = new DataTable();
+				try
+				{
+					UserManagementData objproduct = new UserManagementData();
+					ds = objproduct.getcheckednode_db(objmodel, headerval, constring);
+				}
+				catch (Exception e)
+				{ }
+				return ds;
+			}
+			public static DataTable setcontextlist_srv(UserManagementModel.getcheckedmodel objmodel, UserManagementModel.headerValue headerval, string constring)
+			{
+				DataTable ds = new DataTable();
+				try
+				{
+					UserManagementData objproduct = new UserManagementData();
+					ds = objproduct.setcontextlist_db(objmodel, headerval, constring);
 				}
 				catch (Exception e)
 				{ }
