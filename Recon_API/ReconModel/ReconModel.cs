@@ -24,7 +24,7 @@ namespace ReconModels
 
         public class fetchRecon
         {
-            public Int16? in_recon_code { get; set; }
+            public String? in_recon_code { get; set; }
 
         }
 

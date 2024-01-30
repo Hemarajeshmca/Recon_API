@@ -74,17 +74,18 @@ namespace ReconDataLayer
 				Dictionary<string, Object> values = new Dictionary<string, object>();
                 MySqlDataAccess con = new MySqlDataAccess("");
                 parameters = new List<IDbDataParameter>();
-                parameters.Add(dbManager.CreateParameter("in_recon_code", objfetch.in_recon_code, DbType.Int16));
+                parameters.Add(dbManager.CreateParameter("in_recon_code", objfetch.in_recon_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
-				ds = dbManager.execStoredProcedurelist("pr_fetch_recondetails", CommandType.StoredProcedure, parameters.ToArray());
-                if (ds.Tables.Count >= 4)
+				ds = dbManager.execStoredProcedurelist("pr_fetch_recondetail", CommandType.StoredProcedure, parameters.ToArray());
+                if (ds.Tables.Count >= 5)
                 {
                     ds.Tables[0].TableName = "ReconHeader";
                     ds.Tables[1].TableName = "ReconDataSet";
                     ds.Tables[2].TableName = "ReconDataSetmapping";
 					ds.Tables[3].TableName = "Reconfield";
+					ds.Tables[4].TableName = "ReconRule";
 				}
                 return ds;
             }
@@ -141,7 +142,7 @@ namespace ReconDataLayer
 				parameters = new List<IDbDataParameter>();
 
                 parameters.Add(dbManager.CreateParameter("in_recon_gid", recon.in_recon_gid, DbType.Int16, ParameterDirection.InputOutput));
-                parameters.Add(dbManager.CreateParameter("in_recon_code", recon.in_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_recon_code", recon.in_recon_code, DbType.String, ParameterDirection.InputOutput));
                 parameters.Add(dbManager.CreateParameter("in_recon_name", recon.in_recon_name, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_recontype_code", recon.in_recontype_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_recon_automatch_partial", recon.in_recon_automatch_partial, DbType.String));
@@ -401,16 +402,49 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_clone_recon_code", objcloneReconDataset.in_clone_recon_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
 				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
-				ds = dbManager.execStoredProcedure("pr_clone_recon", CommandType.StoredProcedure, parameters.ToArray());
+				ds = dbManager.execStoredProcedure("pr_clone_recondataset", CommandType.StoredProcedure, parameters.ToArray());
 				result = ds.Tables[0];
 				return result;
 			}
 			catch (Exception ex)
 			{
 				CommonHeader objlog = new CommonHeader();
-				objlog.logger("SP:pr_clone_recon" + "Error Message:" + ex.Message);
+				objlog.logger("SP:pr_clone_recondataset" + "Error Message:" + ex.Message);
 				return result;
 			}
 		}
+
+		public DataSet fetchCloneRecondtl(fetchRecon objfetch, UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_recon_code", objfetch.in_recon_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				ds = dbManager.execStoredProcedurelist("pr_fetch_clonerecondetail", CommandType.StoredProcedure, parameters.ToArray());
+				if (ds.Tables.Count >= 5)
+				{
+					ds.Tables[0].TableName = "ReconHeader";
+					ds.Tables[1].TableName = "ReconDataSet";
+					ds.Tables[2].TableName = "ReconDataSetmapping";
+					ds.Tables[3].TableName = "Reconfield";
+					ds.Tables[4].TableName = "ReconRule";
+				}
+				return ds;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_fetch_recondetail" + "Error Message:" + ex.Message);
+				return ds;
+			}
+
+		}
+
 	}
 }
