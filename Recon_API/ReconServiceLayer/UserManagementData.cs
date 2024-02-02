@@ -207,7 +207,9 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_user_emailid", Usermodel.user_emailid, DbType.String));
 				parameters.Add(dbManager.CreateParameter("user_password", Usermodel.user_password, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_role_gid", Usermodel.role_gid, DbType.Int16));
+				parameters.Add(dbManager.CreateParameter("in_action", Usermodel.action, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action_by", Usermodel.action_by, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_active_reason", Usermodel.in_active_reason, DbType.String));
 				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
 				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
 				ds = dbManager.execStoredProcedure("pr_ins_user", CommandType.StoredProcedure, parameters.ToArray());
