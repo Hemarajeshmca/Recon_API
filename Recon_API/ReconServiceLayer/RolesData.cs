@@ -28,7 +28,7 @@ namespace ReconDataLayer
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();
 				parameters.Add(dbManager.CreateParameter("in_role_gid", objrolelist.in_role_gid, DbType.Int32, ParameterDirection.InputOutput));
-				parameters.Add(dbManager.CreateParameter("in_role_code", objrolelist.in_role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", objrolelist.in_role_code, DbType.String, ParameterDirection.InputOutput));
 				parameters.Add(dbManager.CreateParameter("in_role_name", objrolelist.in_role_name, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_active_status", objrolelist.in_active_status, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_active_reason", objrolelist.in_active_reason, DbType.String));
