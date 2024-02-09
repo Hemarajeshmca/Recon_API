@@ -41,6 +41,18 @@ namespace ReconServiceLayer
             { }
             return ds;
         }
-    }
+		public static DataTable roleconfig_srv(roleconfig objconfigvalue, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				CommonHeader objDS = new CommonHeader();
+				ds = objDS.roleconfig_db(objconfigvalue, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+	}
 
 }

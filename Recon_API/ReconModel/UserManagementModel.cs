@@ -55,7 +55,7 @@ namespace ReconModels
 			public string action { get; set; }
 			public string action_by { get; set; }
 			public string in_active_reason { get; set; }
-			public int role_gid { get; set; }
+			public string role_code { get; set; }
 			public String? out_msg { get; set; }
 			public Int16? out_result { get; set; }
 		}
@@ -80,6 +80,21 @@ namespace ReconModels
 		{
 			public string user_code { get; set; }
 			public int user_gid { get; set; }			
+		}
+		public class setcontextmodel
+		{
+			public string user_code { get; set; }			
+			public string level_mapping { get; set; }
+			public String? out_msg { get; set; }
+			public Int16? out_result { get; set; }
+		}
+		public class getcontexttmodel
+		{
+			public string user_code { get; set; }
+		}
+		public class getmenumodel
+		{
+			public string user_code { get; set; }
 		}
 	}
 }

@@ -132,6 +132,42 @@ namespace ReconServiceLayer
 				{ }
 				return ds;
 			}
+			public static DataTable applycontextlist_srv(UserManagementModel.setcontextmodel objmodel, UserManagementModel.headerValue headerval, string constring)
+			{
+				DataTable ds = new DataTable();
+				try
+				{
+					UserManagementData objproduct = new UserManagementData();
+					ds = objproduct.applycontextlist_db(objmodel, headerval, constring);
+				}
+				catch (Exception e)
+				{ }
+				return ds;
+			}
+			public static DataTable getcontextlist_srv(UserManagementModel.getcontexttmodel objmodel, UserManagementModel.headerValue headerval, string constring)
+			{
+				DataTable ds = new DataTable();
+				try
+				{
+					UserManagementData objproduct = new UserManagementData();
+					ds = objproduct.getcontextlist_db(objmodel, headerval, constring);
+				}
+				catch (Exception e)
+				{ }
+				return ds;
+			}
+			public static DataSet getmenulist_srv(UserManagementModel.getmenumodel objmodel, UserManagementModel.headerValue headerval, string constring)
+			{
+				DataSet ds = new DataSet();
+				try
+				{
+					UserManagementData objproduct = new UserManagementData();
+					ds = objproduct.getmenulist_db(objmodel, headerval, constring);
+				}
+				catch (Exception e)
+				{ }
+				return ds;
+			}
 		}
     }
 }
