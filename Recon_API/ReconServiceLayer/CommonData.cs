@@ -98,5 +98,24 @@ namespace ReconDataLayer
                 return result;
             }
         }
-    }
+		public DataTable roleconfig_db(roleconfig objconfigvalue, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_screen_code", objconfigvalue.in_screen_code, DbType.String));
+				ds = dbManager.execStoredProcedure("pr_get_role_config", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				logger("SP:pr_get_role_config" + " " + "Error Message:" + ex.Message);
+				return result;
+			}
+		}
+	}
 }
