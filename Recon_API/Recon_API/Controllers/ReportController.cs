@@ -161,6 +161,26 @@ namespace Recon_API.Controllers
             }
         }
 
+        [Route("MonthendReport")]
+        [HttpPost]
+        public IActionResult MonthendReport(MonthendReportModel objMonthendReport)
+        {
+            DataSet ds = new DataSet();
+            constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+            try
+            {
+                ds = ReportService.MonthendReportService(objMonthendReport, constring);
+                var serializedProduct = JsonConvert.SerializeObject(ds, Formatting.None);
+                return Ok(serializedProduct);
+            }
+            catch (Exception e)
+            {
+                return Problem(title: e.Message);
+
+            }
+        }
+
+
     }
 
    
