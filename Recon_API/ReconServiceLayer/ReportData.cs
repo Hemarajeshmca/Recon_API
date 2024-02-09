@@ -200,5 +200,26 @@ namespace ReconDataLayer
             }
         }
 
+        //MonthendReportData
+        public DataSet MonthendReportData(MonthendReportModel objMonthendReport, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                parameters = new List<IDbDataParameter>();
+
+                parameters.Add(dbManager.CreateParameter("in_recon_code", objMonthendReport.in_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_tran_date", objMonthendReport.in_tran_date, DbType.Date));
+                ds = dbManager.execStoredProcedurelist("pr_get_brsmonthend", CommandType.StoredProcedure, parameters.ToArray());
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_get_brsmonthend" + "Error Message:" + ex.Message);
+                throw ex;
+            }
+
+        }
     }
 }

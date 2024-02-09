@@ -114,5 +114,22 @@ namespace ReconServiceLayer
             return result;
         }
 
+
+        //MonthendReportService
+
+        public static DataSet MonthendReportService(MonthendReportModel objMonthendReport, string constring)
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                ReportData objreport = new ReportData();
+                ds = objreport.MonthendReportData(objMonthendReport, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+
+
     }
 }

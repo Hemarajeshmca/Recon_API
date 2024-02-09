@@ -211,5 +211,12 @@ namespace ReconModels
 			public string in_clone_dataset_code { get; set; }
 		}
 
-	}
+        public class MonthendReportModel
+        {
+            public string in_recon_code { get; set; }
+            public DateOnly in_tran_date { get; set; }
+        }
+
+
+    }
 }
