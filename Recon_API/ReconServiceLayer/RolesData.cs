@@ -147,6 +147,8 @@ namespace ReconDataLayer
 					parameters.Add(dbManager.CreateParameter("in_add_flag", JsonData.Rows[i]["in_add_flag"], DbType.String));
 					parameters.Add(dbManager.CreateParameter("in_modify_flag", JsonData.Rows[i]["in_modify_flag"], DbType.String));
 					parameters.Add(dbManager.CreateParameter("in_view_flag", JsonData.Rows[i]["in_view_flag"], DbType.String));
+					parameters.Add(dbManager.CreateParameter("in_deleteflag", JsonData.Rows[i]["in_deleteflag"], DbType.String));
+					parameters.Add(dbManager.CreateParameter("in_process_flag", JsonData.Rows[i]["in_process_flag"], DbType.String));
 					parameters.Add(dbManager.CreateParameter("in_download_flag", JsonData.Rows[i]["in_download_flag"], DbType.String));
 					parameters.Add(dbManager.CreateParameter("in_deny_flag", JsonData.Rows[i]["in_deny_flag"], DbType.String));
 					parameters.Add(dbManager.CreateParameter("in_active_status", JsonData.Rows[i]["in_active_status"], DbType.String));
