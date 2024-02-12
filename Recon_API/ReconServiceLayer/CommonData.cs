@@ -76,7 +76,7 @@ namespace ReconDataLayer
 
 
         //configvalueData
-        public DataTable configvalueData(configvalueModel objconfigvalue, string constring)
+        public DataTable configvalueData(configvalueModel objconfigvalue, headerValue hv, string constring)
         {
             try
             {
@@ -98,7 +98,7 @@ namespace ReconDataLayer
                 return result;
             }
         }
-		public DataTable roleconfig_db(roleconfig objconfigvalue, string constring)
+		public DataTable roleconfig_db(roleconfig objconfigvalue, headerValue hv, string constring)
 		{
 			try
 			{
@@ -107,6 +107,7 @@ namespace ReconDataLayer
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();
 				parameters.Add(dbManager.CreateParameter("in_screen_code", objconfigvalue.in_screen_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", hv.role_code, DbType.String));
 				ds = dbManager.execStoredProcedure("pr_get_role_config", CommandType.StoredProcedure, parameters.ToArray());
 				result = ds.Tables[0];
 				return result;

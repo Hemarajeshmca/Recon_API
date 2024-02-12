@@ -25,7 +25,7 @@ namespace ReconModels
 			}
 		public class roleconfig
 		{
-			public int in_screen_code { get; set; }
+			public string in_screen_code { get; set; }
 			public string add { get; set; }
 			public string edit { get; set; }
 			public string view { get; set; }
