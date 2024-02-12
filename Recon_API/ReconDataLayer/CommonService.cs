@@ -35,7 +35,7 @@ namespace ReconServiceLayer
             try
             {
                 CommonHeader objDS = new CommonHeader();
-                ds = objDS.configvalueData(objconfigvalue, constring);
+                ds = objDS.configvalueData(objconfigvalue, headerval, constring);
             }
             catch (Exception e)
             { }
@@ -47,7 +47,7 @@ namespace ReconServiceLayer
 			try
 			{
 				CommonHeader objDS = new CommonHeader();
-				ds = objDS.roleconfig_db(objconfigvalue, constring);
+				ds = objDS.roleconfig_db(objconfigvalue, headerval, constring);
 			}
 			catch (Exception e)
 			{ }
