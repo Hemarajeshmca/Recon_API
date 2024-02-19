@@ -36,5 +36,37 @@ namespace ReconModels
     		public String? in_report_code { get; set; }
 
 		}
+
+        public class reportTemplateModel
+        {
+            public int? in_reporttemplate_gid { get; set;}
+			public String? in_reporttemplate_code { get; set; }
+			public String? in_reporttemplate_name { get; set; }
+			public String? in_report_code { get; set; }
+			public String? in_action { get; set; }
+			public String? in_active_status { get; set; }
+
+		}
+
+        public class fetchReportTemplateModel
+		{
+			public String? in_reporttemplate_code { get; set; }
+
+		}
+
+        public class reporttemplatefilterModel
+        {
+            public Int32? in_reporttemplatefilter_gid { get; set; }
+            public String? in_reporttemplate_code { get; set; }
+            public Int32? in_filter_seqno { get; set; }
+            public string? in_report_field { get; set; }
+            public string? in_filter_criteria { get; set; }
+            public string? in_filter_value { get; set; }
+            public string? in_open_parentheses_flag { get; set; }
+            public string? in_close_parentheses_flag { get; set; }
+            public string? in_join_condition { get; set; }
+            public string? in_action { get; set; }
+            public String? in_active_status { get; set; }
+        }
 	}
 }

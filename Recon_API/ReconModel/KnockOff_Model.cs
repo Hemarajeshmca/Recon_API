@@ -109,4 +109,9 @@ namespace ReconModels
         public string? in_undo_job_reason { get; set; }
 
     }
+
+    public class getruleagainstjobmodel
+    {
+        public int in_job_gid { get; set; }
+    }
 }

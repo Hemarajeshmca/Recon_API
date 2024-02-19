@@ -181,7 +181,112 @@ namespace Recon_API.Controllers
         }
 
 
-    }
+		[Route("getReportTemplateList")]
+		[HttpGet]
+		public IActionResult getReportTemplateList()
+		{
+			DataTable dt = new DataTable();
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+			headerValue header_value = new headerValue();
+			try
+			{
+				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+				header_value.user_code = getvalue;
+				header_value.lang_code = getlangCode;
+				header_value.role_code = getRoleCode;
+				dt = ReportService.getReportTemplateListService(constring, header_value);
+				var serializedProduct = JsonConvert.SerializeObject(dt, Formatting.None);
+				return Ok(serializedProduct);
+			}
+			catch (Exception e)
+			{
+				return Problem(title: e.Message);
 
-   
+			}
+		}
+
+
+		[Route("reportTemplate")]
+		[HttpPost]
+		public IActionResult reportTemplate(reportTemplateModel objreportTemplate)
+		{
+			DataTable dt = new DataTable();
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+			headerValue header_value = new headerValue();
+			try
+			{
+				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+				header_value.user_code = getvalue;
+				header_value.lang_code = getlangCode;
+				header_value.role_code = getRoleCode;
+				dt = ReportService.reportTemplateService(objreportTemplate, constring, header_value);
+				var serializedProduct = JsonConvert.SerializeObject(dt, Formatting.None);
+				return Ok(serializedProduct);
+			}
+			catch (Exception e)
+			{
+				return Problem(title: e.Message);
+
+			}
+		}
+
+
+		[Route("fetchReportTemplate")]
+		[HttpPost]
+		public IActionResult fetchReportTemplate(fetchReportTemplateModel objfetchReportTemplate)
+		{
+			DataSet ds = new DataSet();
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+			headerValue header_value = new headerValue();
+			try
+			{
+				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+				header_value.user_code = getvalue;
+				header_value.lang_code = getlangCode;
+				header_value.role_code = getRoleCode;
+				ds = ReportService.fetchReportTemplateService(objfetchReportTemplate, constring, header_value);
+				var serializedProduct = JsonConvert.SerializeObject(ds, Formatting.None);
+				return Ok(serializedProduct);
+			}
+			catch (Exception e)
+			{
+				return Problem(title: e.Message);
+			}
+		}
+
+
+		[Route("reporttemplatefilter")]
+		[HttpPost]
+		public IActionResult reporttemplatefilter(reporttemplatefilterModel objreporttemplatefilter)
+		{
+			DataTable dt = new DataTable();
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+			headerValue header_value = new headerValue();
+			try
+			{
+				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+				header_value.user_code = getvalue;
+				header_value.lang_code = getlangCode;
+				header_value.role_code = getRoleCode;
+				dt = ReportService.reporttemplatefilterService(objreporttemplatefilter, constring, header_value);
+				var serializedProduct = JsonConvert.SerializeObject(dt, Formatting.None);
+				return Ok(serializedProduct);
+			}
+			catch (Exception e)
+			{
+				return Problem(title: e.Message);
+
+			}
+		}
+
+
+	}
 }

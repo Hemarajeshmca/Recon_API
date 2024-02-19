@@ -165,5 +165,20 @@ namespace ReconServiceLayer
                 throw ex;
             }
         }
-    }
+
+		//getruleagainstjobService
+
+		public DataTable getruleagainstjobService(getruleagainstjobmodel objgetruleagainstjob, UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DataTable ds = knockOffData.getruleagainstjobData(objgetruleagainstjob, headerval, constring);
+				return ds;
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+		}
+	}
 }
