@@ -129,7 +129,61 @@ namespace ReconServiceLayer
             { }
             return ds;
         }
+		//getReportTemplateListService
+		public static DataTable getReportTemplateListService(string constring, UserManagementModel.headerValue headerval)
+		{
+			DataTable dt = new DataTable();
+			try
+			{
+				ReportData objreport = new ReportData();
+				dt = objreport.getReportTemplateListData(constring, headerval);
+			}
+			catch (Exception e)
+			{ }
+			return dt;
+		}
 
+        //reportTemplateService
+        public static DataTable reportTemplateService(reportTemplateModel objreportTemplate, string constring, UserManagementModel.headerValue headerval)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                ReportData objreport = new ReportData();
+                dt = objreport.reportTemplateData(objreportTemplate, constring, headerval);
+            }
+            catch (Exception e)
+            { }
+            return dt;
+        }
 
-    }
+		//fetchReportTemplateService
+		public static DataSet fetchReportTemplateService(fetchReportTemplateModel objfetchReportTemplate, string constring, UserManagementModel.headerValue headerval)
+		{
+			DataSet ds = new DataSet();
+			try
+			{
+				ReportData objreport = new ReportData();
+				ds = objreport.fetchReportTemplateData(objfetchReportTemplate, constring, headerval);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+
+		//reporttemplatefilterService
+
+		public static DataTable reporttemplatefilterService(reporttemplatefilterModel objreporttemplatefilter, string constring, UserManagementModel.headerValue headerval)
+		{
+			DataTable dt = new DataTable();
+			try
+			{
+				ReportData objreport = new ReportData();
+				dt = objreport.reporttemplatefilterData(objreporttemplatefilter, constring, headerval);
+			}
+			catch (Exception e)
+			{ }
+			return dt;
+		}
+	}
 }
