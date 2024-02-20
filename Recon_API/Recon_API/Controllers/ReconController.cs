@@ -28,9 +28,9 @@ namespace Recon_API.Controllers
 			DataTable response = new DataTable();
             try
             {
-				var getvalue = Request.Headers.TryGetValue("in_user_code", out var user_code) ? user_code.First() : "";
-				var getlangCode = Request.Headers.TryGetValue("in_lang_code", out var lang_code) ? lang_code.First() : "";
-				var getRoleCode = Request.Headers.TryGetValue("in_role_code", out var role_code) ? role_code.First() : "";
+				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
@@ -45,16 +45,16 @@ namespace Recon_API.Controllers
         }
 
         [HttpPost("reconlist")]
-        public IActionResult ReconList(Reconlist objreconlist)
+        public IActionResult ReconList([FromBody] Reconlist objreconlist)
         {
 			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
             try
             {
-				var getvalue = Request.Headers.TryGetValue("in_user_code", out var user_code) ? user_code.First() : "";
-				var getlangCode = Request.Headers.TryGetValue("in_lang_code", out var lang_code) ? lang_code.First() : "";
-				var getRoleCode = Request.Headers.TryGetValue("in_role_code", out var role_code) ? role_code.First() : "";
+				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
@@ -70,7 +70,7 @@ namespace Recon_API.Controllers
 
 
         [HttpPost("fetchrecondetails")]
-        public IActionResult fetchReconDetails(fetchRecon objfetch)
+        public IActionResult fetchReconDetails([FromBody]  fetchRecon objfetch)
         {
 			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
@@ -78,9 +78,9 @@ namespace Recon_API.Controllers
             DataSet ds = new DataSet();
             try
             {
-				var getvalue = Request.Headers.TryGetValue("in_user_code", out var user_code) ? user_code.First() : "";
-				var getlangCode = Request.Headers.TryGetValue("in_lang_code", out var lang_code) ? lang_code.First() : "";
-				var getRoleCode = Request.Headers.TryGetValue("in_role_code", out var role_code) ? role_code.First() : "";
+				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
@@ -102,9 +102,9 @@ namespace Recon_API.Controllers
 			DataTable response = new DataTable();
             try
             {
-				var getvalue = Request.Headers.TryGetValue("in_user_code", out var user_code) ? user_code.First() : "";
-				var getlangCode = Request.Headers.TryGetValue("in_lang_code", out var lang_code) ? lang_code.First() : "";
-				var getRoleCode = Request.Headers.TryGetValue("in_role_code", out var role_code) ? role_code.First() : "";
+				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
@@ -126,9 +126,9 @@ namespace Recon_API.Controllers
 			DataTable response = new DataTable();
             try
             {
-				var getvalue = Request.Headers.TryGetValue("in_user_code", out var user_code) ? user_code.First() : "";
-				var getlangCode = Request.Headers.TryGetValue("in_lang_code", out var lang_code) ? lang_code.First() : "";
-				var getRoleCode = Request.Headers.TryGetValue("in_role_code", out var role_code) ? role_code.First() : "";
+				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
@@ -151,9 +151,9 @@ namespace Recon_API.Controllers
 			DataTable response = new DataTable();
             try
             {
-				var getvalue = Request.Headers.TryGetValue("in_user_code", out var user_code) ? user_code.First() : "";
-				var getlangCode = Request.Headers.TryGetValue("in_lang_code", out var lang_code) ? lang_code.First() : "";
-				var getRoleCode = Request.Headers.TryGetValue("in_role_code", out var role_code) ? role_code.First() : "";
+				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
@@ -175,9 +175,9 @@ namespace Recon_API.Controllers
 			DataTable response = new DataTable();
             try
             {
-				var getvalue = Request.Headers.TryGetValue("in_user_code", out var user_code) ? user_code.First() : "";
-				var getlangCode = Request.Headers.TryGetValue("in_lang_code", out var lang_code) ? lang_code.First() : "";
-				var getRoleCode = Request.Headers.TryGetValue("in_role_code", out var role_code) ? role_code.First() : "";
+				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
@@ -199,9 +199,9 @@ namespace Recon_API.Controllers
 			DataTable response = new DataTable();
 			try
 			{
-				var getvalue = Request.Headers.TryGetValue("in_user_code", out var user_code) ? user_code.First() : "";
-				var getlangCode = Request.Headers.TryGetValue("in_lang_code", out var lang_code) ? lang_code.First() : "";
-				var getRoleCode = Request.Headers.TryGetValue("in_role_code", out var role_code) ? role_code.First() : "";
+				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
@@ -223,9 +223,9 @@ namespace Recon_API.Controllers
             DataTable response = new DataTable();
             try
             {
-                var getvalue = Request.Headers.TryGetValue("in_user_code", out var user_code) ? user_code.First() : "";
-                var getlangCode = Request.Headers.TryGetValue("in_lang_code", out var lang_code) ? lang_code.First() : "";
-                var getRoleCode = Request.Headers.TryGetValue("in_role_code", out var role_code) ? role_code.First() : "";
+                var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+                var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+                var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
                 header_value.user_code = getvalue;
                 header_value.lang_code = getlangCode;
                 header_value.role_code = getRoleCode;
@@ -248,9 +248,9 @@ namespace Recon_API.Controllers
 			DataTable response = new DataTable();
 			try
 			{
-				var getvalue = Request.Headers.TryGetValue("in_user_code", out var user_code) ? user_code.First() : "";
-				var getlangCode = Request.Headers.TryGetValue("in_lang_code", out var lang_code) ? lang_code.First() : "";
-				var getRoleCode = Request.Headers.TryGetValue("in_role_code", out var role_code) ? role_code.First() : "";
+				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
@@ -346,9 +346,9 @@ namespace Recon_API.Controllers
 			DataSet ds = new DataSet();
 			try
 			{
-				var getvalue = Request.Headers.TryGetValue("in_user_code", out var user_code) ? user_code.First() : "";
-				var getlangCode = Request.Headers.TryGetValue("in_lang_code", out var lang_code) ? lang_code.First() : "";
-				var getRoleCode = Request.Headers.TryGetValue("in_role_code", out var role_code) ? role_code.First() : "";
+				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;

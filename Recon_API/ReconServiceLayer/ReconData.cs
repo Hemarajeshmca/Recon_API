@@ -161,7 +161,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action", recon.in_action, DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_action_by", recon.in_action_by, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_action_by", headerval.user_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
                 parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
                 ds = dbManager.execStoredProcedure("pr_recon_mst_trecon_new", CommandType.StoredProcedure, parameters.ToArray());
