@@ -117,13 +117,13 @@ namespace ReconServiceLayer
 
         //MonthendReportService
 
-        public static DataSet MonthendReportService(MonthendReportModel objMonthendReport, string constring)
+        public static async Task<DataSet> MonthendReportService(MonthendReportModel objMonthendReport, UserManagementModel.headerValue headerval, string constring)
         {
             DataSet ds = new DataSet();
             try
             {
                 ReportData objreport = new ReportData();
-                ds = objreport.MonthendReportData(objMonthendReport, constring);
+                ds = await objreport.MonthendReportData(objMonthendReport, headerval, constring);
             }
             catch (Exception e)
             { }
