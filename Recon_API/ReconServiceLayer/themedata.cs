@@ -79,6 +79,7 @@ namespace ReconDataLayer
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				parameters = new List<IDbDataParameter>();
 				parameters.Add(dbManager.CreateParameter("in_themefilter_gid", Objmodel.themefilter_gid, DbType.Int32, ParameterDirection.InputOutput));
+				parameters.Add(dbManager.CreateParameter("in_theme_seqno", Objmodel.theme_seqno, DbType.Int32));
 				parameters.Add(dbManager.CreateParameter("in_theme_code", Objmodel.theme_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_recon_field", Objmodel.recon_field, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_filter_criteria", Objmodel.filter_criteria, DbType.String));
