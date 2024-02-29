@@ -25,6 +25,7 @@ namespace ReconModels
 		public class themedetailmodel
 		{
 			public Int32 themefilter_gid { get; set; }
+			public Int32 theme_seqno { get; set; }
 			public string theme_code { get; set; }
 			public string recon_field { get; set; }
 			public string filter_criteria { get; set; }
