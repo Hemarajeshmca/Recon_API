@@ -185,5 +185,51 @@ namespace ReconServiceLayer
 			{ }
 			return dt;
 		}
-	}
+
+
+        //runPageReportService
+
+        public static DataTable runPageReportService(runPageReportModel objrunPageReport, string constring, UserManagementModel.headerValue headerval)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                ReportData objreport = new ReportData();
+                dt = objreport.runPageReportData(objrunPageReport, constring, headerval);
+            }
+            catch (Exception e)
+            { }
+            return dt;
+        }
+
+        //getPaginationreportService
+        public static DataTable getPaginationreportService(string constring, UserManagementModel.headerValue headerval)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                ReportData objreport = new ReportData();
+                dt = objreport.getPaginationreportData(constring, headerval);
+            }
+            catch (Exception e)
+            { }
+            return dt;
+        }
+
+        //getPageNoReportService
+
+        public static DataTable getPageNoReportService(getPageNoReportModel objgetPageNoReport, string constring, UserManagementModel.headerValue headerval)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                ReportData objreport = new ReportData();
+                dt = objreport.getPageNoReportData(objgetPageNoReport, constring, headerval);
+            }
+            catch (Exception e)
+            { }
+            return dt;
+        }
+
+    }
 }

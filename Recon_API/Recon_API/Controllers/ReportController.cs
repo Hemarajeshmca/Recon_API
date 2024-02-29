@@ -294,6 +294,101 @@ namespace Recon_API.Controllers
 			}
 		}
 
+        #region
 
-	}
+        // pr_run_pagereport
+
+        [Route("runPageReport")]
+        [HttpPost]
+        public IActionResult runPageReport(runPageReportModel objrunPageReport)
+        {
+            DataTable dt = new DataTable();
+            constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+            headerValue header_value = new headerValue();
+            try
+            {
+                var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+                var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+                var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+                var getIpAddress = Request.Headers.TryGetValue("ip_address", out var ip_address) ? ip_address.First() : "";
+                header_value.user_code = getvalue;
+                header_value.lang_code = getlangCode;
+                header_value.role_code = getRoleCode;
+                header_value.ip_address = getIpAddress;
+                dt = ReportService.runPageReportService(objrunPageReport, constring, header_value);
+                var serializedProduct = JsonConvert.SerializeObject(dt, Formatting.None);
+                return Ok(serializedProduct);
+            }
+            catch (Exception e)
+            {
+                return Problem(title: e.Message);
+
+            }
+        }
+
+        #endregion
+
+        #region
+
+        [Route("getPaginationreport")]
+        [HttpPost]
+        public IActionResult getPaginationreport()
+        {
+            DataTable dt = new DataTable();
+            constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+            headerValue header_value = new headerValue();
+            try
+            {
+                var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+                var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+                var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+                var getIpAddress = Request.Headers.TryGetValue("ip_address", out var ip_address) ? ip_address.First() : "";
+                header_value.user_code = getvalue;
+                header_value.lang_code = getlangCode;
+                header_value.role_code = getRoleCode;
+                header_value.ip_address = getIpAddress;
+                dt = ReportService.getPaginationreportService(constring, header_value);
+                var serializedProduct = JsonConvert.SerializeObject(dt, Formatting.None);
+                return Ok(serializedProduct);
+            }
+            catch (Exception e)
+            {
+                return Problem(title: e.Message);
+
+            }
+        }
+        #endregion
+
+        #region
+
+        [Route("getPageNoReport")]
+        [HttpPost]
+        public IActionResult getPageNoReport(getPageNoReportModel objgetPageNoReport)
+        {
+            DataTable dt = new DataTable();
+            constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+            headerValue header_value = new headerValue();
+            try
+            {
+                var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+                var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+                var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+                var getIpAddress = Request.Headers.TryGetValue("ip_address", out var ip_address) ? ip_address.First() : "";
+                header_value.user_code = getvalue;
+                header_value.lang_code = getlangCode;
+                header_value.role_code = getRoleCode;
+                header_value.ip_address = getIpAddress;
+                dt = ReportService.getPageNoReportService(objgetPageNoReport, constring, header_value);
+                var serializedProduct = JsonConvert.SerializeObject(dt, Formatting.None);
+                return Ok(serializedProduct);
+            }
+            catch (Exception e)
+            {
+                return Problem(title: e.Message);
+
+            }
+        }
+
+        #endregion
+    }
 }

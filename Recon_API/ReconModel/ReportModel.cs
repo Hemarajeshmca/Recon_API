@@ -68,5 +68,23 @@ namespace ReconModels
             public string? in_action { get; set; }
             public String? in_active_status { get; set; }
         }
-	}
+
+        public class runPageReportModel
+        {
+            public string? in_report_code { get; set; }
+            public string? in_recon_code { get; set; }
+            public string in_report_condition { get; set; }
+        }
+
+        public class getPageNoReportModel
+        {
+            public string? in_recon_code { get; set; }
+            public int? in_rptsession_gid { get; set; } 
+            public int in_page_no { get; set; }
+            public int in_page_size { get; set; }
+            public int in_tot_records { get; set; }
+
+        }
+
+    }
 }
