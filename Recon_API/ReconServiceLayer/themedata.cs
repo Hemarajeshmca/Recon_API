@@ -16,14 +16,15 @@ namespace ReconDataLayer
 		DataTable result = new DataTable();
 
 		List<IDbDataParameter>? parameters;
-		public DataTable themeReaddata(UserManagementModel.headerValue headerval, string constring)
+		public DataTable themeReaddata(UserManagementModel.headerValue headerval, themelistmodel list, string constring)
 		{
 			try
 			{
 				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
-				parameters = new List<IDbDataParameter>();				
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_recon_code", list.recon_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));

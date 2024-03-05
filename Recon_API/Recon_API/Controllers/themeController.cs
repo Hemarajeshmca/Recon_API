@@ -20,7 +20,7 @@ namespace Recon_API.Controllers
 		}
 		string constring = "";
 		[HttpPost("themeRead")]
-		public IActionResult themeRead()
+		public IActionResult themeRead(themelistmodel list)
 		{
 			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
@@ -33,7 +33,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = theme_service.themeRead(header_value, constring);
+				response = theme_service.themeRead(header_value, list, constring);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}

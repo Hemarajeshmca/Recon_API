@@ -13,13 +13,13 @@ namespace ReconServiceLayer
 {
 	public class theme_service
 	{
-		public static DataTable themeRead(UserManagementModel.headerValue headerval, string constring)
+		public static DataTable themeRead(UserManagementModel.headerValue headerval, themelistmodel list, string constring)
 		{
 			DataTable ds = new DataTable();
 			try
 			{
 				themedata objDS = new themedata();
-				ds = objDS.themeReaddata(headerval, constring);
+				ds = objDS.themeReaddata(headerval, list, constring);
 			}
 			catch (Exception e)
 			{ }
