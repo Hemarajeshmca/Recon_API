@@ -41,5 +41,9 @@ namespace ReconModels
 		{			
 			public string theme_Code { get; set; }
 		}
+		public class themelistmodel
+		{
+			public string recon_code { get; set; }
+		}
 	}
 }
