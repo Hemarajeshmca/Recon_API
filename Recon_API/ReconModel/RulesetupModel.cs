@@ -40,6 +40,7 @@ namespace ReconModels
             public string? in_action { get; set; }
             public string? in_user_code { get; set; }
 			public string? in_inactive_reason { get; set; }
+			public string probableflag { get; set; }
 		}
 
         public class Rulegrouping

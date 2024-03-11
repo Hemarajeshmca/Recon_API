@@ -49,6 +49,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_theme_gid", Objmodel.theme_gid, DbType.Int32, ParameterDirection.InputOutput));
 				parameters.Add(dbManager.CreateParameter("in_theme_code", Objmodel.theme_Code, DbType.String, ParameterDirection.InputOutput));
 				parameters.Add(dbManager.CreateParameter("in_theme_name", Objmodel.theme_name, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_theme_order", Objmodel.theme_order, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_recon_code", Objmodel.recon_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_clone_theme", Objmodel.clone_theme, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_active_status", Objmodel.active_status, DbType.String));
