@@ -55,6 +55,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_rule_code", objrulesetupheader.in_rule_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_rule_name", objrulesetupheader.in_rule_name, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_recon_code", objrulesetupheader.in_recon_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_probableflag", objrulesetupheader.probableflag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_period_from", objrulesetupheader.in_period_from, DbType.Date));
 				parameters.Add(dbManager.CreateParameter("in_period_to", objrulesetupheader.in_period_to, DbType.Date));
 				parameters.Add(dbManager.CreateParameter("in_rule_order", objrulesetupheader.in_rule_order, DbType.Decimal));

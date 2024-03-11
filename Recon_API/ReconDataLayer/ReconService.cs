@@ -217,5 +217,17 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
+		public static DataTable ReconDatasetlist( UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				ReconData objqcd = new ReconData();
+				ds = objqcd.ReconDatasetlistData( headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
 	}
 }
