@@ -115,5 +115,20 @@ namespace ReconServiceLayer
 			return ds;
 		}
 
-	}
+        //datasetAgainstReconService
+
+        public static DataTable datasetAgainstReconService(datasetAgainstReconModel objdatasetAgainstRecon, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                DatasetData objDS = new DatasetData();
+                ds = objDS.datasetAgainstReconData(objdatasetAgainstRecon, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+
+    }
 }

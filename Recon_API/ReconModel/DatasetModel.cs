@@ -73,6 +73,11 @@ namespace ReconModels
 			public int in_scheduler_gid { get; set; }
 			public string in_remark { get; set; }
 		}
-	}
+
+		public class datasetAgainstReconModel
+		{
+			public string in_recon_code { get; set; }
+		}
+    }
 }
 
