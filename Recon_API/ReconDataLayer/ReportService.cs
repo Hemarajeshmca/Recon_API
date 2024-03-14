@@ -82,9 +82,22 @@ namespace ReconServiceLayer
 			return ds;
 		}
 
-        //Report
+		//getreportparamlistreconservice
+		public static DataTable getreportparamlistreconservice(reportparamlistmodel objreportparamlistmodel, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				ReportData objreport = new ReportData();
+				ds = objreport.getreportparamlistreconData(objreportparamlistmodel, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+		//Report
 
-        public static string[] ExectionReport(Report_model objmodel, string constring)
+		public static string[] ExectionReport(Report_model objmodel, string constring)
         {
             string[] result = { };
            // FileConvTemp_model user = new FileConvTemp_model();
