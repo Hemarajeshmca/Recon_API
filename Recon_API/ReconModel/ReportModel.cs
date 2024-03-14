@@ -34,7 +34,7 @@ namespace ReconModels
 		public class reportparamlistmodel
 		{
     		public String? in_report_code { get; set; }
-
+			public String? in_recon_code { get; set; }
 		}
 
         public class reportTemplateModel

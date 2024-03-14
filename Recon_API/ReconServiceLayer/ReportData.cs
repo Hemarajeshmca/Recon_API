@@ -159,9 +159,31 @@ namespace ReconDataLayer
 
 		}
 
-        // Report
+		//getreportparamlistserviceData
+		public DataTable getreportparamlistreconData(reportparamlistmodel objreportparamlistmodel, UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				parameters = new List<IDbDataParameter>();
 
-        public string[] ExectionReport(Report_model objmodel, string constring)
+				parameters.Add(dbManager.CreateParameter("in_report_code", objreportparamlistmodel.in_report_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_recon_code", objreportparamlistmodel.in_recon_code, DbType.String));
+				ds = dbManager.execStoredProcedure("pr_get_reportparam", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_get_reportparam" + "Error Message:" + ex.Message);
+				throw ex;
+			}
+
+		}
+		// Report
+
+		public string[] ExectionReport(Report_model objmodel, string constring)
         {
             // DataTable result = new DataTable();
             string[] result = { };
