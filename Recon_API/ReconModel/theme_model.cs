@@ -21,6 +21,7 @@ namespace ReconModels
 			public string? out_msg { get; set; }
 			public string? out_result { get; set; }
 			public string clone_theme { get; set; }
+			public string holdflag { get; set; }
 		}
 
 		public class themedetailmodel
