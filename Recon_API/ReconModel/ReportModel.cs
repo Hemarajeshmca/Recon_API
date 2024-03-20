@@ -45,6 +45,7 @@ namespace ReconModels
 			public String? in_report_code { get; set; }
 			public String? in_action { get; set; }
 			public String? in_active_status { get; set; }
+            public string? in_system_flag { get; set; }
 
 		}
 
@@ -84,6 +85,16 @@ namespace ReconModels
             public int in_page_size { get; set; }
             public int in_tot_records { get; set; }
 
+        }
+
+        public class cloneReportTemplateModel
+        {
+
+            public string? in_clone_reporttemplate_code { get; set; }
+            public string? in_reporttemplate_name { get; set; }
+            public string? in_report_code { get; set; }
+            public string? in_action { get; set; }
+            public string? in_active_status { get; set; }
         }
 
     }

@@ -244,5 +244,20 @@ namespace ReconServiceLayer
             return dt;
         }
 
+
+        //cloneReportTemplateService
+        public static DataTable cloneReportTemplateService(cloneReportTemplateModel objcloneReportTemplate, string constring, UserManagementModel.headerValue headerval)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                ReportData objreport = new ReportData();
+                dt = objreport.cloneReportTemplateData(objcloneReportTemplate, constring, headerval);
+            }
+            catch (Exception e)
+            { }
+            return dt;
+        }
+
     }
 }
