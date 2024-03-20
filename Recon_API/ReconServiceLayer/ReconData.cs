@@ -153,6 +153,7 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_recon_date_field", recon.in_recon_date_field, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_recon_value_flag", recon.in_recon_value_flag, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_recon_value_field", recon.in_recon_value_field, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_threshold_code", recon.threshold_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_threshold_plus_value", recon.in_threshold_plus_value, DbType.Double));
                 parameters.Add(dbManager.CreateParameter("in_threshold_minus_value", recon.in_threshold_minus_value, DbType.Double));
 				parameters.Add(dbManager.CreateParameter("in_active_reason", recon.in_active_reason, DbType.String));
