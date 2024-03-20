@@ -61,6 +61,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_lookup_dataset_code", Objmodel.lookup_dataset_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_lookup_return_field", Objmodel.lookup_return_field, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_preprocess_order", Objmodel.preprocess_order, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_hold_flag", Objmodel.hold_flag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_active_status", Objmodel.active_status, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action", Objmodel.in_action, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action_by", Objmodel.in_action_by, DbType.String));
@@ -91,6 +92,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_preprocessfilter_gid", objfilterdata.in_preprocessfilter_gid, DbType.Int64, ParameterDirection.InputOutput));
 				parameters.Add(dbManager.CreateParameter("in_preprocess_code", objfilterdata.in_preprocess_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_recon_code", objfilterdata.in_recon_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_filter_seqno", objfilterdata.in_filter_seqno, DbType.Double));
 				parameters.Add(dbManager.CreateParameter("in_filter_field", objfilterdata.in_filter_field, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_filter_criteria", objfilterdata.in_filter_criteria, DbType.String));				
 				parameters.Add(dbManager.CreateParameter("in_filter_value", objfilterdata.in_ident_value, DbType.String));
@@ -154,7 +156,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_Ldataset_code", objconditiondata.in_Ldataset_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_Lreturn_field", objconditiondata.in_Lreturn_field, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_setrecon_field", objconditiondata.in_setrecon_field, DbType.String));
-				parameters.Add(dbManager.CreateParameter("in_condition_seqno", objconditiondata.in_condition_seqno, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_condition_seqno", objconditiondata.in_condition_seqno, DbType.Double));
 				parameters.Add(dbManager.CreateParameter("in_recon_field", objconditiondata.in_recon_field, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_extraction_criteria", objconditiondata.in_extraction_criteria, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_extraction_filter", objconditiondata.in_extraction_filter, DbType.String));
