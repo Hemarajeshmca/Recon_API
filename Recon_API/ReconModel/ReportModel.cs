@@ -43,6 +43,8 @@ namespace ReconModels
 			public String? in_reporttemplate_code { get; set; }
 			public String? in_reporttemplate_name { get; set; }
 			public String? in_report_code { get; set; }
+            public String? in_sortby_code { get; set; }
+            public string? in_recon_code { get; set; }
 			public String? in_action { get; set; }
 			public String? in_active_status { get; set; }
             public string? in_system_flag { get; set; }
@@ -97,5 +99,26 @@ namespace ReconModels
             public string? in_active_status { get; set; }
         }
 
+		public class getReportTemplateListModel
+		{
+			public string? in_recon_code { get; set; }
+		}
+
+        public class reporttemplatefieldModel
+        {
+            public string? templateJSON { get; set; }
+        }
+
+        public class reporttemplatesortingModel
+        {
+            public int? in_reporttemplatesorting_gid { get; set; }
+            public string? in_reporttemplate_code { get; set; }
+            public string? in_report_field { get; set; }
+            public decimal? in_sorting_order { get; set; }
+            public string? in_active_status { get; set; }
+            public string? in_action { get; set; }
+            public string? in_action_by { get; set; }
+            public string? in_delete_flag { get; set; }
+        }
     }
 }

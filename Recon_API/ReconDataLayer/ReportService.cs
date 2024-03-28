@@ -143,13 +143,13 @@ namespace ReconServiceLayer
             return ds;
         }
 		//getReportTemplateListService
-		public static DataTable getReportTemplateListService(string constring, UserManagementModel.headerValue headerval)
+		public static DataTable getReportTemplateListService(getReportTemplateListModel objgetReportTemplateListModel, string constring, UserManagementModel.headerValue headerval)
 		{
 			DataTable dt = new DataTable();
 			try
 			{
 				ReportData objreport = new ReportData();
-				dt = objreport.getReportTemplateListData(constring, headerval);
+				dt = objreport.getReportTemplateListData(objgetReportTemplateListModel, constring, headerval);
 			}
 			catch (Exception e)
 			{ }
@@ -259,5 +259,33 @@ namespace ReconServiceLayer
             return dt;
         }
 
+        //reporttemplatefieldService
+        public static DataTable reporttemplatefieldService(reporttemplatefieldModel objreporttemplatefield, string constring, UserManagementModel.headerValue headerval)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                ReportData objreport = new ReportData();
+                dt = objreport.reporttemplatefieldData(objreporttemplatefield, constring, headerval);
+            }
+            catch (Exception e)
+            { }
+            return dt;
+        }
+
+        //reporttemplatesortingService
+
+        public static DataTable reporttemplatesortingService(reporttemplatesortingModel objreporttemplatesorting, string constring, UserManagementModel.headerValue headerval)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                ReportData objreport = new ReportData();
+                dt = objreport.reporttemplatesortingData(objreporttemplatesorting, constring, headerval);
+            }
+            catch (Exception e)
+            { }
+            return dt;
+        }
     }
 }
