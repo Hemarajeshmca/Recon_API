@@ -100,6 +100,7 @@ namespace ReconDataLayer
 				parameters = new List<IDbDataParameter>();
 				parameters.Add(dbManager.CreateParameter("in_rulegrpfield_gid", objrulegrouping.in_rulegrpfield_gid, DbType.Int64, ParameterDirection.InputOutput));
 				parameters.Add(dbManager.CreateParameter("in_grp_field", objrulegrouping.in_grp_field, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_rulegrpfield_seqno", objrulegrouping.rulegrpfield_seqno, DbType.Decimal));
 				parameters.Add(dbManager.CreateParameter("in_rule_code", objrulegrouping.in_rule_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_active_status", objrulegrouping.in_active_status, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action", objrulegrouping.in_action, DbType.String));
@@ -130,6 +131,7 @@ namespace ReconDataLayer
 				parameters = new List<IDbDataParameter>();
 				parameters.Add(dbManager.CreateParameter("in_ruleselefilter_gid", objruleidentifier.in_ruleselefilter_gid, DbType.Int64, ParameterDirection.InputOutput));
 				parameters.Add(dbManager.CreateParameter("in_rule_code", objruleidentifier.in_rule_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_ruleselefilter_seqno", objruleidentifier.ruleselefilter_seqno, DbType.Decimal));
 				parameters.Add(dbManager.CreateParameter("in_filter_applied_on", objruleidentifier.in_filter_applied_on, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_filter_field", objruleidentifier.in_filter_field, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_filter_criteria", objruleidentifier.in_filter_criteria, DbType.String));
@@ -167,6 +169,7 @@ namespace ReconDataLayer
 				parameters = new List<IDbDataParameter>();
 				parameters.Add(dbManager.CreateParameter("in_rulecondition_gid", objrulecondition.in_rulecondition_gid, DbType.Int64, ParameterDirection.InputOutput));
 				parameters.Add(dbManager.CreateParameter("in_rule_code", objrulecondition.in_rule_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_rulecondition_seqno", objrulecondition.in_rulecondition_seqno, DbType.Decimal));
 				parameters.Add(dbManager.CreateParameter("in_source_field", objrulecondition.in_source_field, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_comparison_field", objrulecondition.in_comparison_field, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_extraction_criteria", objrulecondition.in_extraction_criteria, DbType.String));
