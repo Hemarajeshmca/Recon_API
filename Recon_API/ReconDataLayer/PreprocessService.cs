@@ -87,5 +87,17 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
+		public static DataTable getConditionlookupsrv(getConditionlook objcondition, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				PreprocessData objrule = new PreprocessData();
+				ds = objrule.getConditionlookupData(objcondition, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
 	}
 }
