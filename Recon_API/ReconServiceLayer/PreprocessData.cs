@@ -207,5 +207,30 @@ namespace ReconDataLayer
 				return result;
 			}
 		}
+		public DataTable getConditionlookupData(getConditionlook objcondition, UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_condition_type", objcondition.in_condition_type, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_field_type", objcondition.in_field_type, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_dataset_code", objcondition.in_dataset_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				ds = dbManager.execStoredProcedure("pr_get_conditionlookup", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_get_condition" + "Error Message:" + ex.Message);
+				return result;
+			}
+		}
 	}
 }

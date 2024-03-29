@@ -317,7 +317,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_rulerecorder_gid", objRulefieldorder.in_rulerecorder_gid, DbType.Int64, ParameterDirection.InputOutput));
 				parameters.Add(dbManager.CreateParameter("in_rule_code", objRulefieldorder.in_rule_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_recorder_applied_on", objRulefieldorder.in_recorder_applied_on, DbType.String));
-				parameters.Add(dbManager.CreateParameter("in_recorder_seqno", objRulefieldorder.in_recorder_seqno, DbType.Int64));
+				parameters.Add(dbManager.CreateParameter("in_recorder_seqno", objRulefieldorder.in_recorder_seqno, DbType.Decimal));
 				parameters.Add(dbManager.CreateParameter("in_recorder_field", objRulefieldorder.in_recorder_field, DbType.String));				
 				parameters.Add(dbManager.CreateParameter("in_active_status", objRulefieldorder.in_active_status, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action", objRulefieldorder.in_action, DbType.String));

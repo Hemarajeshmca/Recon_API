@@ -57,6 +57,13 @@ namespace ReconModels
 		{
 			public string? preprocess_code { get; set; }
 		}
+		public class getConditionlook
+		{
+			public String? in_condition_type { get; set; }
+			public String? in_field_type { get; set; }
+			public String? in_dataset_code { get; set; }
+
+		}
 		public class conditiondata
 		{
 			public int? in_preprocesscondition_gid { get; set; }
