@@ -120,5 +120,26 @@ namespace ReconModels
             public string? in_action_by { get; set; }
             public string? in_delete_flag { get; set; }
         }
+
+        public class uploadreporttempletefileModel
+        {
+            public string? in_reporttemplate_code { get; set; }
+            public string? in_file_name { get; set; }
+            public string? in_file_path { get; set; }
+            public string? in_action_by { get; set; }
+        }
+
+        public class generatedynamicReportmodel
+        {
+
+            public String? in_reporttemplate_code { get; set; }
+            public String? in_report_param { get; set; }
+            public String? in_report_condition { get; set; }
+            public String? in_ip_addr { get; set; }
+            public Boolean? in_outputfile_flag { get; set; }
+            public String? in_outputfile_type { get; set; }
+            public string? in_user_code { get; set; }
+        }
+
     }
 }
