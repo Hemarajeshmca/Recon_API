@@ -1,4 +1,9 @@
-﻿using Google.Protobuf;
+﻿using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Drawing.Diagrams;
+using Google.Protobuf;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Org.BouncyCastle.Asn1.Ocsp;
 using ReconModels;
 using System;
 using System.Collections.Generic;
@@ -7,9 +12,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ReconModels.CommonModel;
 using static ReconModels.ProcessModel;
 using static ReconModels.ReconModel;
 using static ReconModels.ReportModel;
+using static ReconModels.UserManagementModel;
 
 namespace ReconDataLayer
 {
@@ -517,6 +524,7 @@ namespace ReconDataLayer
         {
             try
             {
+                DataSet dataset = new DataSet();
                 DBManager dbManager = new DBManager(constring);
                 parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_reporttemplate_code", objgeneratedynamicReport.in_reporttemplate_code, DbType.String));
@@ -528,9 +536,35 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code,DbType.String));
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
                 parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
-                ds = dbManager.execStoredProcedure("pr_run_dynamicreport", CommandType.StoredProcedure, parameters.ToArray());
-                result = ds.Tables[0];
-                return result;
+                dataset = dbManager.execStoredProcedurelist("pr_run_dynamicreport", CommandType.StoredProcedure, parameters.ToArray());
+                if(objgeneratedynamicReport.in_outputfile_type == "csv")
+                {
+                    result = dataset.Tables[0];
+                    return result;
+                } else
+                {
+                    var job_id = dataset.Tables[1].Rows[0]["result"];
+					string sourceFile = roleconfig_db("temp_file_folder_path", constring);
+                    string getdestFile = roleconfig_db("xlsx_folder_path", constring);
+                    string destFile = getdestFile + job_id + ".xlsx";
+					//string sourceFile = @"D:\Recon_files\Template\Report_template.xlsx";
+					//string destFile = @"D:\Recon_files\JobFiles\" +job_id+ ".xlsx";
+					string sheetName = "Report";
+                    try
+                    {
+                        File.Copy(sourceFile, destFile, true);
+                        using (var workbook = new XLWorkbook())
+                        {
+                            var worksheet = workbook.Worksheets.Add(sheetName);
+                            worksheet.Cell(1, 1).InsertTable(dataset.Tables[0].AsEnumerable());
+                            workbook.SaveAs(destFile);
+                        }
+                    } catch (Exception ex) {
+                        throw ex;
+                    }
+                    return dataset.Tables[1];
+                }
+                
             }
             catch (Exception ex)
             {
@@ -539,6 +573,31 @@ namespace ReconDataLayer
                 throw ex;
             }
 
-        }
-    }
+		}
+
+		public string roleconfig_db(string in_config_name, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_config_name", in_config_name, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_config_value", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+				ds = dbManager.execStoredProcedure("pr_get_configvalue", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				string outMsgValue = parameters[1].Value.ToString();
+				return outMsgValue;
+			}
+			catch (Exception ex)
+			{
+				
+				return "failed";
+			}
+		}
+
+	}
 }
