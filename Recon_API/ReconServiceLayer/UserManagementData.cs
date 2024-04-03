@@ -355,5 +355,26 @@ namespace ReconDataLayer
 				return ds;
 			}
 		}
-	}
+        public DataTable lastlogin_db(getmenumodel menumodel, headerValue Objmodel, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess("ConnectionStrings");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_user_code", menumodel.user_code, DbType.String));
+                ds = dbManager.execStoredProcedurelist("pr_get_lastlogin", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_getmenu" + "Error Message:" + ex.Message);
+                return result;
+            }
+        }
+        
+    }
 }
