@@ -76,6 +76,8 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_master_name", objmaster.masterName, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_master_multiple_name", objmaster.mastermutiplename, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_parent_master_syscode", objmaster.ParentMasterSyscode, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_depend_parent_master_syscode", objmaster.depend_parent_master_syscode, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_depend_master_syscode", objmaster.depend_master_syscode, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
