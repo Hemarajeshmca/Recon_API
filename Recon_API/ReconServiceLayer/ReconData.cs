@@ -79,13 +79,15 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
 				ds = dbManager.execStoredProcedurelist("pr_fetch_recondetail", CommandType.StoredProcedure, parameters.ToArray());
-                if (ds.Tables.Count >= 5)
+                if (ds.Tables.Count >= 7)
                 {
                     ds.Tables[0].TableName = "ReconHeader";
                     ds.Tables[1].TableName = "ReconDataSet";
                     ds.Tables[2].TableName = "ReconDataSetmapping";
 					ds.Tables[3].TableName = "Reconfield";
 					ds.Tables[4].TableName = "ReconRule";
+					ds.Tables[5].TableName = "Recontheme";
+					ds.Tables[6].TableName = "Reconpreprocess";
 				}
                 return ds;
             }
@@ -132,9 +134,34 @@ namespace ReconDataLayer
                 return result;
             }
         }
+		public DataTable recondatamappingdelete(datamapping objdatamapping, UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();				
+				parameters.Add(dbManager.CreateParameter("in_reconfieldmapping_gid", objdatamapping.in_reconfieldmapping_gid, DbType.Int16));				
+				parameters.Add(dbManager.CreateParameter("in_action", objdatamapping.in_action, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+				ds = dbManager.execStoredProcedure("pr_recon_trn_trecondatamappingdelete", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_recon_trn_trecondatamapping" + "Error Message:" + ex.Message);
+				return result;
+			}
+		}
 
-
-        public DataTable Recon(Recon recon, UserManagementModel.headerValue headerval, string constring)
+		public DataTable Recon(Recon recon, UserManagementModel.headerValue headerval, string constring)
         {
             try
             {
@@ -175,9 +202,8 @@ namespace ReconDataLayer
                 objlog.logger("SP:pr_recon_mst_trecon_new" + "Error Message:" + ex.Message);
                 throw ex;
             }
-
         }
-
+				
         public DataTable Recondatset(Recondataset objrecondataset, UserManagementModel.headerValue headerval, string constring)
         {
             try

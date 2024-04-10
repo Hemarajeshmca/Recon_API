@@ -42,8 +42,12 @@ namespace ReconModels
             public string? in_user_code { get; set; }
 
         }
-
-        public class Recon
+		public class datamappingdel
+		{			
+			public Int16? in_reconfieldmapping_gid { get; set; }
+			public string? in_action { get; set; }
+		}
+		public class Recon
         {
             public Int16? in_recon_gid { get; set; }
             public String in_recon_code { get; set; }
