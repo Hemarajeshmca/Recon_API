@@ -54,8 +54,10 @@ namespace ReconModels
         public class fetchReportTemplateModel
 		{
 			public String? in_reporttemplate_code { get; set; }
+            public string? in_recon_code { get; set; }
+            public string? in_report_code { get; set; }
 
-		}
+        }
 
         public class reporttemplatefilterModel
         {
@@ -74,24 +76,27 @@ namespace ReconModels
 
         public class runPageReportModel
         {
-            public string? in_report_code { get; set; }
+            public string? in_reporttemplate_code { get; set; }
+            public string? in_report_condition { get; set; }
             public string? in_recon_code { get; set; }
-            public string in_report_condition { get; set; }
-        }
+            public string? in_report_code { get; set; }
+
+		}
 
         public class getPageNoReportModel
         {
-            public string? in_recon_code { get; set; }
+            public string? in_reporttemplate_code { get; set; }
             public int? in_rptsession_gid { get; set; } 
             public int in_page_no { get; set; }
             public int in_page_size { get; set; }
             public int in_tot_records { get; set; }
-
+            public string? in_recon_code { get; set; }
+            public string? in_report_code { get; set; }
         }
 
         public class cloneReportTemplateModel
         {
-
+            public int? in_reporttemplate_gid { get; set; }
             public string? in_clone_reporttemplate_code { get; set; }
             public string? in_reporttemplate_name { get; set; }
             public string? in_report_code { get; set; }
@@ -102,11 +107,14 @@ namespace ReconModels
 		public class getReportTemplateListModel
 		{
 			public string? in_recon_code { get; set; }
+            public Boolean? in_custom_flag { get; set; }
+
 		}
 
         public class reporttemplatefieldModel
         {
             public string? templateJSON { get; set; }
+            public string? in_reporttemplate_code { get; set; }
         }
 
         public class reporttemplatesortingModel
@@ -133,12 +141,16 @@ namespace ReconModels
         {
 
             public String? in_reporttemplate_code { get; set; }
-            public String? in_report_param { get; set; }
+            public string? in_report_code { get; set; }
+            public string? in_recon_code { get; set; }
+			public String? in_report_param { get; set; }
             public String? in_report_condition { get; set; }
             public String? in_ip_addr { get; set; }
             public Boolean? in_outputfile_flag { get; set; }
             public String? in_outputfile_type { get; set; }
             public string? in_user_code { get; set; }
+            public string? file_name { get; set; }
+
         }
 
     }

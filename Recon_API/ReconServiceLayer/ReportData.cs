@@ -222,7 +222,8 @@ namespace ReconDataLayer
                 DBManager dbManager = new DBManager(constring);
                 parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_recon_code", objgetReportTemplateListModel.in_recon_code, DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_custom_flag", objgetReportTemplateListModel.in_custom_flag, DbType.Boolean));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
                 ds = dbManager.execStoredProcedurelist("pr_get_reporttemplate_list", CommandType.StoredProcedure, parameters.ToArray());
@@ -281,6 +282,8 @@ namespace ReconDataLayer
                 DBManager dbManager = new DBManager(constring);
                 parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_reporttemplate_code", objfetchReportTemplate.in_reporttemplate_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_recon_code", objfetchReportTemplate.in_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_report_code", objfetchReportTemplate.in_report_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
@@ -335,9 +338,10 @@ namespace ReconDataLayer
             {
                 DBManager dbManager = new DBManager(constring);
                 parameters = new List<IDbDataParameter>();
-                parameters.Add(dbManager.CreateParameter("in_recon_code", objrunPageReport.in_recon_code, DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_report_code", objrunPageReport.in_report_code, DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_report_condition", objrunPageReport.in_report_condition, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_reporttemplate_code", objrunPageReport.in_reporttemplate_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_recon_code", objrunPageReport.in_recon_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_report_code", objrunPageReport.in_report_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_report_condition", objrunPageReport.in_report_condition, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_ip_addr", headerval.ip_address, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("out_rec_count", "out", DbType.String, ParameterDirection.Output));
@@ -386,6 +390,8 @@ namespace ReconDataLayer
             {
                 DBManager dbManager = new DBManager(constring);
                 parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_reporttemplate_code", objgetPageNoReport.in_reporttemplate_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_report_code", objgetPageNoReport.in_report_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_recon_code", objgetPageNoReport.in_recon_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_rptsession_gid", objgetPageNoReport.in_rptsession_gid, DbType.Int32));
                 parameters.Add(dbManager.CreateParameter("in_page_no", objgetPageNoReport.in_page_no, DbType.Int32));
@@ -393,14 +399,14 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_tot_records", objgetPageNoReport.in_tot_records, DbType.Int32));
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
                 parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
-                ds = dbManager.execStoredProcedure("pr_get_pagenoreport", CommandType.StoredProcedure, parameters.ToArray());
+                ds = dbManager.execStoredProcedure("pr_run_pagenoreport", CommandType.StoredProcedure, parameters.ToArray());
                 result = ds.Tables[0];
                 return result;
             }
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_get_pagenoreport" + "Error Message:" + ex.Message);
+                objlog.logger("SP:pr_run_pagenoreport" + "Error Message:" + ex.Message);
                 throw ex;
             }
 
@@ -413,10 +419,11 @@ namespace ReconDataLayer
             try
             {
                 DBManager dbManager = new DBManager(constring);
-                parameters = new List<IDbDataParameter>();
+                parameters = new List<IDbDataParameter>(); 
+                parameters.Add(dbManager.CreateParameter("in_reporttemplate_gid", objcloneReportTemplate.in_reporttemplate_gid, DbType.Int16, ParameterDirection.InputOutput));
                 parameters.Add(dbManager.CreateParameter("in_clone_reporttemplate_code", objcloneReportTemplate.in_clone_reporttemplate_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_reporttemplate_name", objcloneReportTemplate.in_reporttemplate_name, DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_report_code", objcloneReportTemplate.in_report_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_report_code", objcloneReportTemplate.in_report_code, DbType.String, ParameterDirection.InputOutput));
                 parameters.Add(dbManager.CreateParameter("in_action", objcloneReportTemplate.in_action, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_active_status", objcloneReportTemplate.in_active_status, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
@@ -447,8 +454,9 @@ namespace ReconDataLayer
                 DBManager dbManager = new DBManager(constring);
                 Dictionary<string, Object> values = new Dictionary<string, object>();
                 MySqlDataAccess con = new MySqlDataAccess("");
-                    parameters = new List<IDbDataParameter>();
+                    parameters = new List<IDbDataParameter>(); 
                     parameters.Add(dbManager.CreateParameter("in_jsonArray", objreporttemplatefield.templateJSON, DbType.String));
+                    parameters.Add(dbManager.CreateParameter("in_reporttemplate_code", objreporttemplatefield.in_reporttemplate_code, DbType.String));
                     parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
                     parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
                     ds = dbManager.execStoredProcedure("pr_recon_mst_treporttemplatefield_new", CommandType.StoredProcedure, parameters.ToArray());
@@ -528,7 +536,9 @@ namespace ReconDataLayer
                 DBManager dbManager = new DBManager(constring);
                 parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_reporttemplate_code", objgeneratedynamicReport.in_reporttemplate_code, DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_report_param", objgeneratedynamicReport.in_report_param, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_recon_code", objgeneratedynamicReport.in_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_report_code", objgeneratedynamicReport.in_report_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_report_param", objgeneratedynamicReport.in_report_param, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_report_condition", objgeneratedynamicReport.in_report_condition, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_outputfile_flag", objgeneratedynamicReport.in_outputfile_flag, DbType.Boolean));
                 parameters.Add(dbManager.CreateParameter("in_outputfile_type", objgeneratedynamicReport.in_outputfile_type, DbType.String));
@@ -543,24 +553,42 @@ namespace ReconDataLayer
                     return result;
                 } else
                 {
+                    string sourceFile = "";
                     var job_id = dataset.Tables[1].Rows[0]["result"];
-					string sourceFile = roleconfig_db("temp_file_folder_path", constring);
+                    string getsourcefolderpath = roleconfig_db("folder_path", constring);
+                    if (objgeneratedynamicReport.file_name == "" || objgeneratedynamicReport.in_reporttemplate_code == "")
+                    {
+                        sourceFile = roleconfig_db("temp_file_folder_path", constring);
+                    }
+                    else
+                    {
+                        sourceFile = getsourcefolderpath + objgeneratedynamicReport.in_reporttemplate_code + ".xlsx";
+
+                    }                     
                     string getdestFile = roleconfig_db("xlsx_folder_path", constring);
                     string destFile = getdestFile + job_id + ".xlsx";
-					//string sourceFile = @"D:\Recon_files\Template\Report_template.xlsx";
-					//string destFile = @"D:\Recon_files\JobFiles\" +job_id+ ".xlsx";
-					string sheetName = "Report";
-                    try
+					string sheetName = "Report";                   
+                    File.Copy(sourceFile, destFile, true);
+                    using (var workbook = new XLWorkbook(destFile))
                     {
-                        File.Copy(sourceFile, destFile, true);
-                        using (var workbook = new XLWorkbook())
+                        var worksheet = workbook.Worksheet(sheetName);
+                        worksheet.Clear(XLClearOptions.Contents);
+                        try
                         {
-                            var worksheet = workbook.Worksheets.Add(sheetName);
-                            worksheet.Cell(1, 1).InsertTable(dataset.Tables[0].AsEnumerable());
+                            if(dataset.Tables[0].Rows.Count > 0)
+                            {
+                                worksheet.Cell(1, 1).InsertTable(dataset.Tables[0].AsEnumerable());
+                            } else
+                            {
+                                worksheet.Cell(1, 1).InsertData("No Record Found");
+                            }                            
                             workbook.SaveAs(destFile);
                         }
-                    } catch (Exception ex) {
-                        throw ex;
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"An error occurred while inserting table: {ex.Message}");
+                            throw;
+                        }
                     }
                     return dataset.Tables[1];
                 }
