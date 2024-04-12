@@ -16,6 +16,8 @@ namespace ReconModels
 		{
 			public string in_recon_code { get; set; }
 			public string in_rule_code { get; set; }
+			public string in_theme_code { get; set; }
+			public string in_preprocess_code { get; set; }
 			public string in_reconrule_version { get; set; }
 			public string in_user_code { get; set; }
 		}

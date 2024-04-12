@@ -1,4 +1,5 @@
-﻿using ReconModels;
+﻿using DocumentFormat.OpenXml.Drawing;
+using ReconModels;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -29,10 +30,12 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
 				ds = dbManager.execStoredProcedure("pr_fetch_reconversion", CommandType.StoredProcedure, parameters.ToArray());
-				if (ds.Tables.Count >= 2)
+				if (ds.Tables.Count >= 4)
 				{
 					ds.Tables[0].TableName = "versionlist";
 					ds.Tables[1].TableName = "Reconversion";
+					ds.Tables[2].TableName = "theme";
+					ds.Tables[3].TableName = "preprocess";
 				}
 				return ds;
 			}
@@ -77,6 +80,8 @@ namespace ReconDataLayer
 				parameters = new List<IDbDataParameter>();
 				parameters.Add(dbManager.CreateParameter("in_recon_code", Objmodel.in_recon_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_rule_code", Objmodel.in_rule_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_theme_code", Objmodel.in_theme_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_preprocess_code", Objmodel.in_preprocess_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_reconrule_version", Objmodel.in_reconrule_version, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
