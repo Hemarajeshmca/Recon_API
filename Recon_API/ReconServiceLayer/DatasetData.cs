@@ -68,7 +68,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_recon_mst_tdataset"+"Error Message:" + ex.Message );
-				objlog.logger(errorlogModel objerrorlog);
+				//objlog.logger(errorlogModel objerrorlog);
 				objlog.commonDataapi("", "SP", ex.Message, "pr_recon_mst_tdataset", headerval.user_code, constring);
 				return result;
 			}
