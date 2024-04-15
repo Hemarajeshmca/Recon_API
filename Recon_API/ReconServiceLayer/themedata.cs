@@ -36,6 +36,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_themelist" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_themelist", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -69,7 +70,8 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_recon_mst_ttheme" + "Error Message:" + ex.Message);
-				//objlog.logger(errorlogModel objerrorlog);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_recon_mst_ttheme", headerval.user_code, constring);
+				objlog.logger(errorlogModel objerrorlog);
 				return result;
 			}
 		}
@@ -106,6 +108,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_recon_mst_tthemefield" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_recon_mst_tthemefield", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -128,6 +131,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_themefield" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_themefield", headerval.user_code, constring);
 				return ds;
 			}
 		}
@@ -150,6 +154,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_themeclonelist" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_themeclonelist", headerval.user_code, constring);
 				return result;
 			}
 		}

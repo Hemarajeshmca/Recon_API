@@ -41,11 +41,14 @@ namespace ReconDataLayer
 			}
 			catch (Exception ex)
 			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_fetch_reconversion" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_fetch_reconversion", headerval.user_code, constring);
 				return ds;
 			}
 		}
 
-		public DataTable ReconVersionhistorydata(ReconVersionhsitorylist Objmodel, UserManagementModel.headerValue headerval, string constring)
+		public DataSet ReconVersionhistorydata(ReconVersionhsitorylist Objmodel, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
@@ -59,14 +62,20 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
 				ds = dbManager.execStoredProcedure("pr_fetch_reconversionhistory", CommandType.StoredProcedure, parameters.ToArray());
-				result = ds.Tables[0];
-				return result;
+				if (ds.Tables.Count >= 3)
+				{
+					ds.Tables[0].TableName = "versionlist";					
+					ds.Tables[1].TableName = "theme";
+					ds.Tables[2].TableName = "preprocess";
+				}
+				return ds;
 			}
 			catch (Exception ex)
 			{
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_fetch_reconversion" + "Error Message:" + ex.Message);
-                return result;
+				objlog.logger("SP:pr_fetch_reconversionhistory" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_fetch_reconversionhistory", headerval.user_code, constring);
+				return ds;
 			}
 		}
 
@@ -94,7 +103,8 @@ namespace ReconDataLayer
 			{
                 CommonHeader objlog = new CommonHeader();
                 objlog.logger("SP:pr_set_reconrule_version" + "Error Message:" + ex.Message);
-                return result;
+				objlog.commonDataapi("", "SP", ex.Message, "pr_set_reconrule_version", headerval.user_code, constring);
+				return result;
 			}
 		}
 	}

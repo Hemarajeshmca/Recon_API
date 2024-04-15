@@ -42,8 +42,9 @@ namespace ReconDataLayer
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_run_match" + "Error Message:" + ex.Message);
-                throw ex;
+				objlog.logger("SP:pr_run_match" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_run_match", headerval.user_code, constring);
+				throw ex;
             }
 
         }
@@ -75,8 +76,9 @@ namespace ReconDataLayer
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_run_reconrule" + "Error Message:" + ex.Message);
-                throw ex;
+				objlog.logger("SP:pr_run_reconrule" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_run_reconrule", headerval.user_code, constring);
+				throw ex;
             }
 
         }
@@ -106,7 +108,8 @@ namespace ReconDataLayer
             {
                 CommonHeader objlog = new CommonHeader();
                 objlog.logger("SP:pr_set_undokojob" + "Error Message:" + ex.Message);
-                throw ex;
+				objlog.commonDataapi("", "SP", ex.Message, "pr_set_undokojob", headerval.user_code, constring);
+				throw ex;
             }
 
         }
@@ -132,8 +135,9 @@ namespace ReconDataLayer
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_set_undoko" + "Error Message:" + ex.Message);
-                throw ex;
+				objlog.logger("SP:pr_set_undoko" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_set_undoko", headerval.user_code, constring);
+				throw ex;
             }
 
         }
@@ -157,8 +161,9 @@ namespace ReconDataLayer
 			catch (Exception ex)
 			{
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_get_pipelinelist" + "Error Message:" + ex.Message);
-                throw ex;
+				objlog.logger("SP:pr_get_pipelinelist" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_pipelinelist", headerval.user_code, constring);
+				throw ex;
 			}
 
 		}

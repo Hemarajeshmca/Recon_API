@@ -48,7 +48,7 @@ namespace Recon_API.Controllers
 		{
 			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
-			DataTable response = new DataTable();
+			DataSet response = new DataSet();
 			try
 			{
 				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";

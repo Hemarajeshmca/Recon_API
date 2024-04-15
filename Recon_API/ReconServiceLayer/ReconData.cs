@@ -35,8 +35,9 @@ namespace ReconDataLayer
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_get_recontype" + "Error Message:" + ex.Message);
-                logger(ex.Message);
+				objlog.logger("SP:pr_get_recontype" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_recontype", headerval.user_code, constring);
+				logger(ex.Message);
 				return result;
             }
         }
@@ -60,8 +61,9 @@ namespace ReconDataLayer
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_recon_mst_trecon_list" + "Error Message:" + ex.Message);
-                return result;
+				objlog.logger("SP:pr_recon_mst_trecon_list" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_recon_mst_trecon_list", headerval.user_code, constring);
+				return result;
             }
         }
     
@@ -94,8 +96,9 @@ namespace ReconDataLayer
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_fetch_recondetails" + "Error Message:" + ex.Message);
-                return ds;
+				objlog.logger("SP:pr_fetch_recondetails" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_fetch_recondetail", headerval.user_code, constring);
+				return ds;
             }
 
        }
@@ -130,8 +133,9 @@ namespace ReconDataLayer
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_recon_trn_trecondatamapping" + "Error Message:" + ex.Message);
-                return result;
+				objlog.logger("SP:pr_recon_trn_trecondatamapping" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_recon_trn_trecondatamapping", headerval.user_code, constring);
+				return result;
             }
         }
 		public DataTable recondatamappingdelete(datamapping objdatamapping, UserManagementModel.headerValue headerval, string constring)
@@ -157,6 +161,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_recon_trn_trecondatamapping" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_recon_trn_trecondatamappingdelete", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -199,8 +204,9 @@ namespace ReconDataLayer
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_recon_mst_trecon_new" + "Error Message:" + ex.Message);
-                throw ex;
+				objlog.logger("SP:pr_recon_mst_trecon_new" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_recon_mst_trecon_new", headerval.user_code, constring);
+				throw ex;
             }
         }
 				
@@ -232,7 +238,8 @@ namespace ReconDataLayer
             {
                 CommonHeader objlog = new CommonHeader();
                 objlog.logger("SP:pr_recon_mst_trecondataset" + "Error Message:" + ex.Message);
-                return result;
+				objlog.commonDataapi("", "SP", ex.Message, "pr_recon_mst_trecondataset", headerval.user_code, constring);
+				return result;
             }
         }
 
@@ -259,7 +266,8 @@ namespace ReconDataLayer
             {
                 CommonHeader objlog = new CommonHeader();
                 objlog.logger("SP:pr_get_recon_datamapping_list" + "Error Message:" + ex.Message);
-                return result;
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_recon_datamapping_list", headerval.user_code, constring);
+				return result;
             }
         }
 
@@ -286,7 +294,8 @@ namespace ReconDataLayer
 			{
                 CommonHeader objlog = new CommonHeader();
                 objlog.logger("SP:pr_get_field_againt_recon" + "Error Message:" + ex.Message);
-                return result;
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_field_againt_recon", headerval.user_code, constring);
+				return result;
 			}
 		}
 
@@ -310,7 +319,8 @@ namespace ReconDataLayer
             {
                 CommonHeader objlog = new CommonHeader();
                 objlog.logger("SP:pr_get_reconlist_knockoff" + "Error Message:" + ex.Message);
-                return result;
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_reconlist_knockoff", headerval.user_code, constring);
+				return result;
             }
         }
 
@@ -333,8 +343,9 @@ namespace ReconDataLayer
 			catch (Exception ex)
 			{
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_get_reconagainst_typecode" + "Error Message:" + ex.Message);
-                return result;
+				objlog.logger("SP:pr_get_reconagainst_typecode" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_reconagainst_typecode", headerval.user_code, constring);
+				return result;
 			}
 		}
 		public void logger(string sMessage)
@@ -377,7 +388,8 @@ namespace ReconDataLayer
 			{
                 CommonHeader objlog = new CommonHeader();
                 objlog.logger("SP:pr_get_Datasetfielddetail" + "Error Message:" + ex.Message);
-                return ds;
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_Datasetfielddetail", headerval.user_code, constring);
+				return ds;
 			}
 		}
 		//cloneReconData
@@ -406,6 +418,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_clone_recon" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_clone_recon", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -437,6 +450,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_clone_recondataset" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_clone_recondataset", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -468,6 +482,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_fetch_recondetail" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_fetch_clonerecondetail", headerval.user_code, constring);
 				return ds;
 			}
 
@@ -491,6 +506,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_recon_mst_trecon_list" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_fetch_ReconDatasetlist", headerval.user_code, constring);
 				return result;
 			}
 		}
