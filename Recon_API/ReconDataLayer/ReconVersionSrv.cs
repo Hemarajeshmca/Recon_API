@@ -26,9 +26,9 @@ namespace ReconServiceLayer
 			return ds;
 		}
 
-		public static DataTable ReconVersionhistory(ReconVersionhsitorylist ReconVersionhsitorylist, UserManagementModel.headerValue headerval, string constring)
+		public static DataSet ReconVersionhistory(ReconVersionhsitorylist ReconVersionhsitorylist, UserManagementModel.headerValue headerval, string constring)
 		{
-			DataTable ds = new DataTable();
+			DataSet ds = new DataSet();
 			try
 			{
 				ReconversionData objDS = new ReconversionData();

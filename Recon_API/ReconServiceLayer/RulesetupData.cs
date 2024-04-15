@@ -37,6 +37,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_recon_rule" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_recon_rule", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -87,6 +88,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_recon_mst_trulesetup" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_recon_mst_trulesetup", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -118,6 +120,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_recon_mst_trulegrpfield" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_recon_mst_trulegrpfield", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -156,6 +159,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_recon_mst_truleselefilter" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_recon_mst_truleselefilter", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -193,6 +197,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_recon_mst_trulecondition" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_recon_mst_trulecondition", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -222,6 +227,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_fetch_ruledetails" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_fetch_ruledetails", headerval.user_code, constring);
 				return ds;
 			}
 		}
@@ -247,6 +253,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_condition" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_condition", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -270,6 +277,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_datasetdetails" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_datasetdetails", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -302,6 +310,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_ruleagainstrecon" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_ruleagainstrecon", headerval.user_code, constring);
 				return ds;
 			}
 		}
@@ -335,6 +344,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_recon_mst_trulerecorder" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_recon_mst_trulerecorder", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -359,6 +369,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_rulerecondetails" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_rulerecondetails", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -393,6 +404,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_clone_reconrule" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_clone_reconrule", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -416,6 +428,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_allrulelist" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_allrulelist", headerval.user_code, constring);
 				return result;
 			}
 		}

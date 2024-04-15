@@ -9,7 +9,6 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace ReconDataLayer
 {
     public class KnockOffData
@@ -41,8 +40,9 @@ namespace ReconDataLayer
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_recon_mst_tacc" + "Error Message:" + ex.Message);
-                throw ex;
+				objlog.logger("SP:pr_recon_mst_tacc" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_recon_mst_tacc", reconMstTacc.in_action_by, constring);
+				throw ex;
             }
 
         }
@@ -67,8 +67,9 @@ namespace ReconDataLayer
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_run_report" + "Error Message:" + ex.Message);
-                throw ex;
+				objlog.logger("SP:pr_run_report" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_run_report", runReport.in_user_code, constring);
+				throw ex;
             }
 
         }
@@ -94,8 +95,9 @@ namespace ReconDataLayer
 			catch (Exception ex)
 			{
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_get_kosumm" + "Error Message:" + ex.Message);
-                throw ex;
+				objlog.logger("SP:pr_get_kosumm" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_kosumm", objrunkosumm.in_user_code, constring);
+				throw ex;
 			}
 		}
 		//recondatasetinfoData
@@ -119,6 +121,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_recondatasetinfo" +" " + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_recondatasetinfo", "", constring);
 				throw ex;
 			}
 		}
@@ -146,6 +149,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_run_report" + " " + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_run_report", objrunreport.in_user_code, constring);
 				throw ex;
 			}
 		}
@@ -171,6 +175,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_set_undoko" + " " + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_set_undoko", objundoKO.in_user_code, constring);
 				throw ex;
 			}
 		}
@@ -193,6 +198,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_set_undoko" + " " + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_undojobprocess", "", constring);
 				throw ex;
 			}
 		}
@@ -217,6 +223,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_set_undoko" + " " + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_set_undokojob", objundoKO.in_user_code, constring);
 				throw ex;
 			}
 		}
@@ -242,6 +249,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_undokojobrule" + " " + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_undokojobrule", headerval.user_code, constring);
 				throw ex;
 			}
 		}
@@ -270,8 +278,9 @@ namespace ReconDataLayer
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_set_undokojobrule" + " " + "Error Message:" + ex.Message);
-                throw ex;
+				objlog.logger("SP:pr_set_undokojobrule" + " " + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_set_undokojobrule", headerval.user_code, constring);
+				throw ex;
             }
         }
 
@@ -295,6 +304,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_ruleagainstjob" + " " + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_ruleagainstjob", headerval.user_code, constring);
 				throw ex;
 			}
 		}

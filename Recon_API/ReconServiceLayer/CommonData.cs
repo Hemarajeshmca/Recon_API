@@ -118,5 +118,32 @@ namespace ReconDataLayer
 				return result;
 			}
 		}
+
+		public DataTable commonDataapi(string ipaddr,string sourcename,string errorlog,string procname,string usrcode,string constring)
+		{
+			try
+			{
+				constring1 = constring;
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_ip_addr", ipaddr, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_source_name", sourcename, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_errorlog_text", errorlog, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_proc_name", procname, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", usrcode, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+				ds = dbManager.execStoredProcedure("pr_ins_errorlog", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+
+				return result;
+			}
+		}
 	}
 }

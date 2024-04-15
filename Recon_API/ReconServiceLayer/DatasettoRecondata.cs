@@ -33,8 +33,9 @@ namespace ReconDataLayer
 			catch (Exception ex)
 			{
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_get_datasettorecon" + "Error Message:" + ex.Message);
-                return result;
+				objlog.logger("SP:pr_get_datasettorecon" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_datasettorecon", headerval.user_code, constring);
+				return result;
 			}
 		}
 		public DataTable DatasettoReconprocessdata(DatasettoReconmodelprocess Objmodel, UserManagementModel.headerValue headerval, string constring)
@@ -59,8 +60,9 @@ namespace ReconDataLayer
 			catch (Exception ex)
 			{
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_set_process_dataset" + "Error Message:" + ex.Message);
-                return result;
+				objlog.logger("SP:pr_set_process_dataset" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_set_process_dataset", headerval.user_code, constring);
+				return result;
 			}
 		}
 
@@ -83,8 +85,9 @@ namespace ReconDataLayer
 			catch (Exception ex)
 			{
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_get_datasettomanual" + "Error Message:" + ex.Message);
-                return result;
+				objlog.logger("SP:pr_get_datasettomanual" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_datasettomanual", headerval.user_code, constring);
+				return result;
 			}
 		}
 
@@ -115,8 +118,9 @@ namespace ReconDataLayer
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_get_manualinfo" + "Error Message:" + ex.Message);
-                return ds;
+				objlog.logger("SP:pr_get_manualinfo" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_manualinfo", headerval.user_code, constring);
+				return ds;
             }
         }
 
@@ -143,8 +147,9 @@ namespace ReconDataLayer
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_run_manualfile" + "Error Message:" + ex.Message);
-                return result;
+				objlog.logger("SP:pr_run_manualfile" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_run_manualfile", headerval.user_code, constring);
+				return result;
             }
         }
 
@@ -172,8 +177,9 @@ namespace ReconDataLayer
 			catch (Exception ex)
 			{
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_set_process_dataset" + "Error Message:" + ex.Message);
-                return result;
+				objlog.logger("SP:pr_set_process_dataset" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_set_process_dataset", headerval.user_code, constring);
+				return result;
 			}
 		}
 
