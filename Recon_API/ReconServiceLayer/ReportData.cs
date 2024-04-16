@@ -582,11 +582,10 @@ namespace ReconDataLayer
                     else
                     {
                         sourceFile = getsourcefolderpath + objgeneratedynamicReport.in_reporttemplate_code + ".xlsx";
-
                     }                     
                     string getdestFile = roleconfig_db("xlsx_folder_path", constring);
                     string destFile = getdestFile + job_id + ".xlsx";
-					string sheetName = "Report";                   
+					string sheetName = "Data";                   
                     File.Copy(sourceFile, destFile, true);
                     using (var workbook = new XLWorkbook(destFile))
                     {
