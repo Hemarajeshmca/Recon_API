@@ -318,7 +318,7 @@ namespace ReconDataLayer
                 parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_reporttemplatefilter_gid", objreporttemplatefilter.in_reporttemplatefilter_gid, DbType.Int32, ParameterDirection.InputOutput));
                 parameters.Add(dbManager.CreateParameter("in_reporttemplate_code", objreporttemplatefilter.in_reporttemplate_code, DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_filter_seqno", objreporttemplatefilter.in_filter_seqno, DbType.Int32));
+                parameters.Add(dbManager.CreateParameter("in_filter_seqno", objreporttemplatefilter.in_filter_seqno, DbType.Decimal));
                 parameters.Add(dbManager.CreateParameter("in_report_field", objreporttemplatefilter.in_report_field, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_filter_criteria", objreporttemplatefilter.in_filter_criteria, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_filter_value", objreporttemplatefilter.in_filter_value, DbType.String));
@@ -552,6 +552,7 @@ namespace ReconDataLayer
             try
             {
                 DataSet dataset = new DataSet();
+                DataTable dt = new DataTable();
                 DBManager dbManager = new DBManager(constring);
                 parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_reporttemplate_code", objgeneratedynamicReport.in_reporttemplate_code, DbType.String));
@@ -568,12 +569,13 @@ namespace ReconDataLayer
                 dataset = dbManager.execStoredProcedurelist("pr_run_dynamicreport", CommandType.StoredProcedure, parameters.ToArray());
                 if(objgeneratedynamicReport.in_outputfile_type == "csv")
                 {
-                    result = dataset.Tables[0];
-                    return result;
+                    dt = dataset.Tables[0];
+                    return dt;
                 } else
                 {
                     string sourceFile = "";
                     var job_id = dataset.Tables[1].Rows[0]["result"];
+                    var filename = job_id + "_" + objgeneratedynamicReport.in_report_name;
                     string getsourcefolderpath = roleconfig_db("folder_path", constring);
                     if (objgeneratedynamicReport.file_name == "" || objgeneratedynamicReport.in_reporttemplate_code == "")
                     {
@@ -584,31 +586,42 @@ namespace ReconDataLayer
                         sourceFile = getsourcefolderpath + objgeneratedynamicReport.in_reporttemplate_code + ".xlsx";
                     }                     
                     string getdestFile = roleconfig_db("xlsx_folder_path", constring);
-                    string destFile = getdestFile + job_id + ".xlsx";
-					string sheetName = "Data";                   
-                    File.Copy(sourceFile, destFile, true);
-                    using (var workbook = new XLWorkbook(destFile))
+                    string destFile = getdestFile + filename + ".xlsx";
+                    string insertintojob = "";
+                    if (job_id != null)
                     {
-                        var worksheet = workbook.Worksheet(sheetName);
-                        worksheet.Clear(XLClearOptions.Contents);
-                        try
+                        insertintojob = insertfileName(filename, job_id, constring);
+                    }
+
+                    if (insertintojob == "Success")
+                    {
+                        string sheetName = "Data";
+                        File.Copy(sourceFile, destFile, true);
+                        using (var workbook = new XLWorkbook(destFile))
                         {
-                            if(dataset.Tables[0].Rows.Count > 0)
+                            var worksheet = workbook.Worksheet(sheetName);
+                            worksheet.Clear(XLClearOptions.Contents);
+                            try
                             {
-                                worksheet.Cell(1, 1).InsertTable(dataset.Tables[0].AsEnumerable());
-                            } else
+                                if (dataset.Tables[0].Rows.Count > 0)
+                                {
+                                    worksheet.Cell(1, 1).InsertTable(dataset.Tables[0].AsEnumerable());
+                                }
+                                else
+                                {
+                                    worksheet.Cell(1, 1).InsertData("No Record Found");
+                                }
+                                workbook.SaveAs(destFile);
+                            }
+                            catch (Exception ex)
                             {
-                                worksheet.Cell(1, 1).InsertData("No Record Found");
-                            }                            
-                            workbook.SaveAs(destFile);
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine($"An error occurred while inserting table: {ex.Message}");
-                            throw;
+                                Console.WriteLine($"An error occurred while inserting table: {ex.Message}");
+                                throw;
+                            }
                         }
                     }
-                    return dataset.Tables[1];
+                    dt = dataset.Tables[1];
+                    return dt;
                 }
                 
             }
@@ -619,7 +632,6 @@ namespace ReconDataLayer
 				objlog.commonDataapi("", "SP", ex.Message, "pr_run_dynamicreport", headerval.user_code, constring);
 				throw ex;
             }
-
 		}
 
 		public string roleconfig_db(string in_config_name, string constring)
@@ -647,5 +659,34 @@ namespace ReconDataLayer
 			}
 		}
 
-	}
+
+
+        public string insertfileName(string file_name, object job_id, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                int getjobId =Convert.ToInt32(job_id.ToString());
+                parameters.Add(dbManager.CreateParameter("in_file_name", file_name, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_job_id", getjobId, DbType.Int64));
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                ds = dbManager.execStoredProcedure("pr_recon_trn_tjob", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                //string outMsgValue = result.Rows[0]["out_msg"].ToString();
+                string outMsgValue = parameters[2].Value.ToString();
+                return outMsgValue;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.commonDataapi("", "SP", ex.Message, "pr_get_configvalue", "", constring);
+                return "failed";
+            }
+        }
+
+    }
 }

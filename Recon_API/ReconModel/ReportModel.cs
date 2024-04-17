@@ -63,13 +63,13 @@ namespace ReconModels
         {
             public Int32? in_reporttemplatefilter_gid { get; set; }
             public String? in_reporttemplate_code { get; set; }
-            public Int32? in_filter_seqno { get; set; }
+            public Decimal? in_filter_seqno { get; set; }
             public string? in_report_field { get; set; }
             public string? in_filter_criteria { get; set; }
             public string? in_filter_value { get; set; }
             public string? in_open_parentheses_flag { get; set; }
             public string? in_close_parentheses_flag { get; set; }
-            public string? in_join_condition { get; set; }
+            public string in_join_condition { get; set; }
             public string? in_action { get; set; }
             public String? in_active_status { get; set; }
         }
@@ -150,6 +150,7 @@ namespace ReconModels
             public String? in_outputfile_type { get; set; }
             public string? in_user_code { get; set; }
             public string? file_name { get; set; }
+            public string? in_report_name { get; set; }
 
         }
 
