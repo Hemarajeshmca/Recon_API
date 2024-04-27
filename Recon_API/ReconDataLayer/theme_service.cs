@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static ReconModels.DatasetModel;
+using static ReconModels.ReconModel;
+using static ReconModels.RulesetupModel;
 using static ReconModels.theme_model;
 
 namespace ReconServiceLayer
@@ -49,13 +51,13 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
-		public static DataSet themedetail(themeDetailmodel themeDetailmodel,UserManagementModel.headerValue headerval, string constring)
+		public static DataSet themedetailfetch(themeDetailmodelfetch themeDetailmodel,UserManagementModel.headerValue headerval, string constring)
 		{
 			DataSet ds = new DataSet();
 			try
 			{
 				themedata objDS = new themedata();
-				ds = objDS.themedetaildata(themeDetailmodel,headerval, constring);
+				ds = objDS.themedetaildatafetch(themeDetailmodel,headerval, constring);
 			}
 			catch (Exception e)
 			{ }
@@ -68,6 +70,66 @@ namespace ReconServiceLayer
 			{
 				themedata objDS = new themedata();
 				ds = objDS.Themeclonefetchdata(headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+		public static DataTable ThemeCondition(ThemeCondition objthemeCondition, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				themedata objDS = new themedata();
+				ds = objDS.ThemeConditionData(objthemeCondition, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+		public static DataTable themegrouping(themegrouping objthemegrouping, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				themedata objDS = new themedata();
+				ds = objDS.themegroupingData(objthemegrouping, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+		public static DataTable themeaggfunsrv(Aggfunction objAggfunction, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				themedata objDS = new themedata();
+				ds = objDS.themeaggfunData(objAggfunction, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+		public static DataTable getConditioncriteria(getCondition objcondition, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				themedata objDS = new themedata();
+				ds = objDS.getConditioncriteriaData(objcondition, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+		public static DataTable themeaggconditionsrv(Aggcondition objAggcondition, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				themedata objDS = new themedata();
+				ds = objDS.themeaggconditionData(objAggcondition, headerval, constring);
 			}
 			catch (Exception e)
 			{ }
