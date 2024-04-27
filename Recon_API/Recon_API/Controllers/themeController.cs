@@ -6,6 +6,8 @@ using static ReconModels.DatasetModel;
 using static ReconModels.UserManagementModel;
 using System.Data;
 using static ReconModels.theme_model;
+using static ReconModels.RulesetupModel;
+using static ReconModels.ReconModel;
 
 namespace Recon_API.Controllers
 {
@@ -91,7 +93,7 @@ namespace Recon_API.Controllers
 			}
 		}
 		[HttpPost("themefield")]
-		public IActionResult themedetail(themeDetailmodel themeDetailmodel)
+		public IActionResult themedetail(themeDetailmodelfetch themeDetailmodel)
 		{
 			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
@@ -104,7 +106,7 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = theme_service.themedetail(themeDetailmodel,header_value, constring);
+				response = theme_service.themedetailfetch(themeDetailmodel,header_value, constring);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}
@@ -128,6 +130,121 @@ namespace Recon_API.Controllers
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
 				response = theme_service.Themeclonefetch(header_value, constring);
+				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
+				return Ok(serializedProduct);
+			}
+			catch (Exception e)
+			{
+				return Problem(title: e.Message);
+			}
+		}
+		[HttpPost("themecondition")]
+		public IActionResult themecondition(ThemeCondition objthemeCondition)
+		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+			headerValue header_value = new headerValue();
+			DataTable response = new DataTable();
+			try
+			{
+				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+				header_value.user_code = getvalue;
+				header_value.lang_code = getlangCode;
+				header_value.role_code = getRoleCode;
+				response = theme_service.ThemeCondition(objthemeCondition, header_value, constring);
+				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
+				return Ok(serializedProduct);
+			}
+			catch (Exception e)
+			{
+				return Problem(title: e.Message);
+			}
+		}
+		[HttpPost("themegrouping")]
+		public IActionResult themegrouping(themegrouping objthemegrouping)
+		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+			headerValue header_value = new headerValue();
+			DataTable response = new DataTable();
+			try
+			{
+				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+				header_value.user_code = getvalue;
+				header_value.lang_code = getlangCode;
+				header_value.role_code = getRoleCode;
+				response = theme_service.themegrouping(objthemegrouping, header_value, constring);
+				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
+				return Ok(serializedProduct);
+			}
+			catch (Exception e)
+			{
+				return Problem(title: e.Message);
+			}
+		}
+		[HttpPost("themeaggfun")]
+		public IActionResult themeaggfun(Aggfunction objAggfunction)
+		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+			headerValue header_value = new headerValue();
+			DataTable response = new DataTable();
+			try
+			{
+				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+				header_value.user_code = getvalue;
+				header_value.lang_code = getlangCode;
+				header_value.role_code = getRoleCode;
+				response = theme_service.themeaggfunsrv(objAggfunction, header_value, constring);
+				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
+				return Ok(serializedProduct);
+			}
+			catch (Exception e)
+			{
+				return Problem(title: e.Message);
+			}
+		}
+		[HttpPost("getConditioncriteria")]
+		public IActionResult getConditioncriteria(getCondition objcondition)
+		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+			headerValue header_value = new headerValue();
+			DataTable response = new DataTable();
+			try
+			{
+				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+				header_value.user_code = getvalue;
+				header_value.lang_code = getlangCode;
+				header_value.role_code = getRoleCode;
+				response = theme_service.getConditioncriteria(objcondition, header_value, constring);
+				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
+				return Ok(serializedProduct);
+			}
+			catch (Exception e)
+			{
+				return Problem(title: e.Message);
+			}
+		}
+		[HttpPost("themeaggcondition")]
+		public IActionResult themeaggcondition(Aggcondition objAggcondition)
+		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+			headerValue header_value = new headerValue();
+			DataTable response = new DataTable();
+			try
+			{
+				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+				header_value.user_code = getvalue;
+				header_value.lang_code = getlangCode;
+				header_value.role_code = getRoleCode;
+				response = theme_service.themeaggconditionsrv(objAggcondition, header_value, constring);
 				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
 				return Ok(serializedProduct);
 			}
