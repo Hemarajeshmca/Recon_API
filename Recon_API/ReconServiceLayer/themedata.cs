@@ -57,6 +57,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_theme_type", Objmodel.theme_type, DbType.String));				
 				parameters.Add(dbManager.CreateParameter("in_source_dataset", Objmodel.source_dataset, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_comparison_dataset", Objmodel.comparison_dataset, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_inactive_reason", Objmodel.inactive_reason, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_active_status", Objmodel.active_status, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action", Objmodel.in_action, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action_by", Objmodel.in_action_by, DbType.String));				
