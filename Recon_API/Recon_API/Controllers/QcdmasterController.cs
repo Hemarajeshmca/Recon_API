@@ -83,9 +83,16 @@ namespace Recon_API.Controllers
 				header_value.user_code = getvalue;
 				header_value.lang_code = getlangCode;
 				header_value.role_code = getRoleCode;
-				response = QcdmasterService.QcdMasters(objmaster, header_value, constring);
-				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
-				return Ok(serializedProduct);
+				try
+				{
+					response = QcdmasterService.QcdMasters(objmaster, header_value, constring);
+					var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
+					return Ok(serializedProduct);
+				} catch (Exception ex)
+				{
+					return Problem(title: ex.Message);
+				}
+				
 			}
 			catch (Exception e)
 			{
