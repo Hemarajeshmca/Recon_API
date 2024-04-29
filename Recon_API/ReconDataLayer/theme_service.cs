@@ -111,7 +111,7 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
-		public static DataTable getConditioncriteria(getCondition objcondition, UserManagementModel.headerValue headerval, string constring)
+		public static DataTable getConditioncriteria(getConditiontheme objcondition, UserManagementModel.headerValue headerval, string constring)
 		{
 			DataTable ds = new DataTable();
 			try
