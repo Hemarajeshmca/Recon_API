@@ -275,7 +275,7 @@ namespace ReconDataLayer
 				return result;
 			}			
 		}
-		public DataTable getConditioncriteriaData(getCondition objcondition, UserManagementModel.headerValue headerval, string constring)
+		public DataTable getConditioncriteriaData(getConditiontheme objcondition, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
@@ -284,7 +284,8 @@ namespace ReconDataLayer
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();
 				parameters.Add(dbManager.CreateParameter("in_condition_type", objcondition.in_condition_type, DbType.String));
-				parameters.Add(dbManager.CreateParameter("in_field_type", objcondition.in_field_type, DbType.String));				
+				parameters.Add(dbManager.CreateParameter("in_field_type", objcondition.in_field_type, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_theme_code", objcondition.in_theme_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));

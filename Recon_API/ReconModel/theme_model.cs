@@ -111,5 +111,12 @@ namespace ReconModels
 			public string? out_msg { get; set; }
 			public string? out_result { get; set; }
 		}
+		public class getConditiontheme
+		{
+			public String? in_condition_type { get; set; }
+			public String? in_field_type { get; set; }
+			public String? in_theme_code { get; set; }
+
+		}
 	}
 }

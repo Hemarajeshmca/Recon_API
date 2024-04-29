@@ -208,7 +208,7 @@ namespace Recon_API.Controllers
 			}
 		}
 		[HttpPost("getConditioncriteria")]
-		public IActionResult getConditioncriteria(getCondition objcondition)
+		public IActionResult getConditioncriteria(getConditiontheme objcondition)
 		{
 			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
