@@ -17,9 +17,7 @@ namespace ReconModels
 			public string recon_code { get; set; }
 			public string active_status { get; set; }
 			public string in_action { get; set; }
-			public string in_action_by { get; set; }
-			public string out_msg { get; set; }
-			public string out_result { get; set; }
+			public string in_action_by { get; set; }			
 			public string theme_type { get; set; }
 			public string source_dataset { get; set; }
 			public string comparison_dataset { get; set; }

@@ -135,5 +135,17 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
+		public static DataTable getdataagainsReconthemesrv(getdataagainsRecon objdatarecon, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				themedata objDS = new themedata();
+				ds = objDS.getdataagainsReconthemeData(objdatarecon, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
 	}
 }
