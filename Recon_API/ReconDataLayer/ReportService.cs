@@ -97,7 +97,7 @@ namespace ReconServiceLayer
 		}
 		//Report
 
-		public static string[] ExectionReport(Report_model objmodel, string constring)
+		public static string[] ExectionReport(Report_model objmodel, UserManagementModel.headerValue headerval, string constring)
         {
             string[] result = { };
            // FileConvTemp_model user = new FileConvTemp_model();
