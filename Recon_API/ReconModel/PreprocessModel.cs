@@ -91,5 +91,15 @@ namespace ReconModels
 			public string? out_msg { get; set; }
 			public string? out_result { get; set; }
 		}
+		public class Preprocesslistmodelclone
+		{
+			public string? recon_code { get; set; }
+		}
+		public class clonepreprocessModel
+		{
+			public String? in_preprocess_name { get; set; }
+			public String? in_clone_preprocess_code { get; set; }
+
+		}
 	}
 }

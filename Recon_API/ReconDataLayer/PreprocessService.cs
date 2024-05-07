@@ -99,5 +99,29 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
+		public static DataTable getPreprocessListclonesrv(Preprocesslistmodelclone objpreprocess, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				PreprocessData objqcd = new PreprocessData();
+				ds = objqcd.getPreprocessListclonedata(objpreprocess, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+		public static DataTable clonepreprocessService(clonepreprocessModel objclonepreprocess, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable dt = new DataTable();
+			try
+			{
+				PreprocessData objqcd = new PreprocessData();
+				dt = objqcd.clonepreprocessData(objclonepreprocess, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return dt;
+		}
 	}
 }
