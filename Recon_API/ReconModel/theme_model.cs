@@ -116,5 +116,11 @@ namespace ReconModels
 			public String? in_theme_code { get; set; }
 
 		}
+		public class clonethemeModel
+		{
+			public string in_theme_name { get; set; }
+			public string in_clone_theme_code { get; set; }
+
+		}
 	}
 }

@@ -63,18 +63,7 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
-		public static DataTable Themeclonefetch(UserManagementModel.headerValue headerval, string constring)
-		{
-			DataTable ds = new DataTable();
-			try
-			{
-				themedata objDS = new themedata();
-				ds = objDS.Themeclonefetchdata(headerval, constring);
-			}
-			catch (Exception e)
-			{ }
-			return ds;
-		}
+		
 		public static DataTable ThemeCondition(ThemeCondition objthemeCondition, UserManagementModel.headerValue headerval, string constring)
 		{
 			DataTable ds = new DataTable();
@@ -146,6 +135,30 @@ namespace ReconServiceLayer
 			catch (Exception e)
 			{ }
 			return ds;
+		}
+		public static DataTable themelistclonesrv(UserManagementModel.headerValue headerval, themelistmodel list, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				themedata objDS = new themedata();
+				ds = objDS.themelistclonedata(headerval, list, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+		public static DataTable clonethemeService(clonethemeModel objclonetheme, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable dt = new DataTable();
+			try
+			{
+				themedata objDS = new themedata();
+				dt = objDS.clonethemeData(objclonetheme, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return dt;
 		}
 	}
 }

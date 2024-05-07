@@ -56,7 +56,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_recon_code", Objmodel.recon_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_theme_type", Objmodel.theme_type, DbType.String));				
 				parameters.Add(dbManager.CreateParameter("in_source_dataset", Objmodel.source_dataset, DbType.String));
-				parameters.Add(dbManager.CreateParameter("in_comparison_dataset", Objmodel.comparison_dataset, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_comparison_dataset", Objmodel.comparison_dataset, DbType.String));				
 				parameters.Add(dbManager.CreateParameter("in_inactive_reason", Objmodel.inactive_reason, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_active_status", Objmodel.active_status, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action", Objmodel.in_action, DbType.String));
@@ -145,29 +145,7 @@ namespace ReconDataLayer
 				return ds;
 			}
 		}
-		public DataTable Themeclonefetchdata(UserManagementModel.headerValue headerval,string constring)
-		{
-			try
-			{
-				DBManager dbManager = new DBManager(constring);
-				Dictionary<string, Object> values = new Dictionary<string, object>();
-				MySqlDataAccess con = new MySqlDataAccess("");
-				parameters = new List<IDbDataParameter>();
-				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
-				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
-				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
-				ds = dbManager.execStoredProcedure("pr_get_themeclonelist", CommandType.StoredProcedure, parameters.ToArray());
-				result = ds.Tables[0];
-				return result;
-			}
-			catch (Exception ex)
-			{
-				CommonHeader objlog = new CommonHeader();
-				objlog.logger("SP:pr_get_themeclonelist" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_themeclonelist", headerval.user_code, constring);
-				return result;
-			}
-		}
+		
 		public DataTable ThemeConditionData(ThemeCondition objthemeCondition, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
@@ -361,6 +339,56 @@ namespace ReconDataLayer
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_datasetdetails" + "Error Message:" + ex.Message);
 				objlog.commonDataapi("", "SP", ex.Message, "pr_get_datasetdetails", headerval.user_code, constring);
+				return result;
+			}
+		}
+		public DataTable themelistclonedata(UserManagementModel.headerValue headerval, themelistmodel list, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_recon_code", list.recon_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				ds = dbManager.execStoredProcedure("pr_get_themelistclone", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_get_themelistclone" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_themelistclone", headerval.user_code, constring);
+				return result;
+			}
+		}
+		public DataTable clonethemeData(clonethemeModel objclonetheme, UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));				
+				parameters.Add(dbManager.CreateParameter("in_theme_name", objclonetheme.in_theme_name, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_clone_theme_code", objclonetheme.in_clone_theme_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_theme_code", "out", DbType.String, ParameterDirection.Output));
+				ds = dbManager.execStoredProcedure("pr_clone_theme", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_clone_theme" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_clone_theme", headerval.user_code, constring);
 				return result;
 			}
 		}
