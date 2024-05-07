@@ -36,7 +36,7 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_report_code", objgeneratereportmodel.in_report_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_report_param", objgeneratereportmodel.in_report_param, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_report_condition", objgeneratereportmodel.reportcondition, DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_ip_addr", objgeneratereportmodel.in_ip_addr, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_ip_addr", headerval.ip_address, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_user_code", objgeneratereportmodel.in_user_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_outputfile_flag", objgeneratereportmodel.in_outputfile_flag, DbType.Boolean));
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
@@ -65,13 +65,14 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_tran_date", objreconbetweenaccmodel.in_tran_date, DbType.Date));
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
                 parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
-                ds = dbManager.execStoredProcedure("pr_get_brs", CommandType.StoredProcedure, parameters.ToArray());
+				ds = dbManager.execStoredProcedure("pr_get_brs", CommandType.StoredProcedure, parameters.ToArray());
                 result = ds.Tables[0];
-                return result;
+				return result;
             }
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
+				Debugger.Break();
 				objlog.logger("SP:pr_get_brs" + "Error Message:" + ex.Message);
 				objlog.commonDataapi("", "SP", ex.Message, "pr_get_brs", headerval.user_code, constring);
 				throw ex;
@@ -169,7 +170,7 @@ namespace ReconDataLayer
         }
         // Report
 
-        public string[] ExectionReport(Report_model objmodel, string constring)
+        public string[] ExectionReport(Report_model objmodel, UserManagementModel.headerValue headerval, string constring)
         {
             string[] result = { };
             try
@@ -179,7 +180,7 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_report_code", objmodel.report_gid, DbType.Int32));
                 parameters.Add(dbManager.CreateParameter("in_recon_gid", objmodel.recon_gid, DbType.Int32));
                 parameters.Add(dbManager.CreateParameter("in_condition", objmodel.Report_condition, DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_ip_addr", objmodel.ip_address, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_ip_addr", headerval.ip_address, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_outputfile_flag", objmodel.report_gid, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_user_code", objmodel.user_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
@@ -325,6 +326,7 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_open_parentheses_flag", objreporttemplatefilter.in_open_parentheses_flag, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_close_parentheses_flag", objreporttemplatefilter.in_close_parentheses_flag, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_join_condition", objreporttemplatefilter.in_join_condition, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_last_system_flag", objreporttemplatefilter.in_last_system_flag, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_action", objreporttemplatefilter.in_action, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_action_by", headerval.user_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));

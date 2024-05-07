@@ -69,7 +69,8 @@ namespace ReconModels
             public string? in_filter_value { get; set; }
             public string? in_open_parentheses_flag { get; set; }
             public string? in_close_parentheses_flag { get; set; }
-            public string in_join_condition { get; set; }
+            public string? in_join_condition { get; set; }
+            public string? in_last_system_flag { get; set; }
             public string? in_action { get; set; }
             public String? in_active_status { get; set; }
         }

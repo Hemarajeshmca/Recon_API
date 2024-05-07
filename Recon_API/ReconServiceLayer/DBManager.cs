@@ -62,12 +62,14 @@ namespace ReconDataLayer
                         foreach (var parameter in parameters)
                         {
                             command.Parameters.Add(parameter);
-                        }
+							command.CommandTimeout = 0;
+						}
                     }
 
                     var dataset = new DataSet();
                     var dataAdaper = database.CreateAdapter(command);
-                    dataAdaper.Fill(dataset);
+					
+					dataAdaper.Fill(dataset);
 
                     if (parameters != null)
                     {
@@ -106,13 +108,13 @@ namespace ReconDataLayer
                         foreach (var parameter in parameters)
                         {
                             command.Parameters.Add(parameter);
-                        }
+							command.CommandTimeout = 0;
+						}
                     }
 
                     var dataset = new DataSet();
                     var dataAdaper = database.CreateAdapter(command);
                     dataAdaper.Fill(dataset);
-
                     return dataset;
                 }
             }

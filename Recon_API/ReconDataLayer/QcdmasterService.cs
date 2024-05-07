@@ -50,5 +50,20 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
+
+		//getallqcddata
+		public static DataTable getallqcdservice(Qcdgridread objgridread, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				QcdmastersData objqcd = new QcdmastersData();
+				ds = objqcd.getallqcddata(objgridread, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+
 	}
 }
