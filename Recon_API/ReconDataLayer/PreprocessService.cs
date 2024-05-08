@@ -123,5 +123,17 @@ namespace ReconServiceLayer
 			{ }
 			return dt;
 		}
+		public static DataTable getdatasetReconPreprocesssrv(getdataagainsRecon objdatarecon, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				PreprocessData objqcd = new PreprocessData();
+				ds = objqcd.getdatasetReconPreprocessdata(objdatarecon, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
 	}
 }
