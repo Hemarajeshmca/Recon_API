@@ -410,7 +410,8 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_report_code", objgetPageNoReport.in_report_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_recon_code", objgetPageNoReport.in_recon_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_rptsession_gid", objgetPageNoReport.in_rptsession_gid, DbType.Int32));
-                parameters.Add(dbManager.CreateParameter("in_page_no", objgetPageNoReport.in_page_no, DbType.Int32));
+				parameters.Add(dbManager.CreateParameter("in_condition", objgetPageNoReport.in_condition, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_page_no", objgetPageNoReport.in_page_no, DbType.Int32));
                 parameters.Add(dbManager.CreateParameter("in_page_size", objgetPageNoReport.in_page_size, DbType.Int32));
                 parameters.Add(dbManager.CreateParameter("in_tot_records", objgetPageNoReport.in_tot_records, DbType.Int32));
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
@@ -571,9 +572,18 @@ namespace ReconDataLayer
                 dataset = dbManager.execStoredProcedurelist("pr_run_dynamicreport", CommandType.StoredProcedure, parameters.ToArray());
                 if(objgeneratedynamicReport.in_outputfile_type == "csv")
                 {
-                    dt = dataset.Tables[0];
-                    return dt;
-                } else
+					string insertintojob = "";
+					dt = dataset.Tables[0];
+					var job_id = dataset.Tables[0].Rows[0]["result"];
+					var filename = job_id + "_" + objgeneratedynamicReport.in_report_name;
+					if (job_id != null)
+					{
+						insertintojob = insertfileName(filename, job_id, constring);
+						
+					}
+					return dt;
+
+				} else
                 {
                     string sourceFile = "";
                     var job_id = dataset.Tables[1].Rows[0]["result"];

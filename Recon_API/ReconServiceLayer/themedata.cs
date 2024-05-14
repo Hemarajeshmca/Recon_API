@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static ReconModels.DatasetModel;
+using static ReconModels.ProcessModel;
 using static ReconModels.ReconModel;
 using static ReconModels.RulesetupModel;
 using static ReconModels.theme_model;
@@ -391,6 +392,34 @@ namespace ReconDataLayer
 				objlog.commonDataapi("", "SP", ex.Message, "pr_clone_theme", headerval.user_code, constring);
 				return result;
 			}
+		}
+		public DataTable runreconthemeData(runreconthemeModel objrunrecontheme, UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				parameters = new List<IDbDataParameter>();
+
+				parameters.Add(dbManager.CreateParameter("in_recon_code", objrunrecontheme.in_recon_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_period_from", objrunrecontheme.in_period_from, DbType.Date));
+				parameters.Add(dbManager.CreateParameter("in_period_to", objrunrecontheme.in_period_to, DbType.Date));
+				parameters.Add(dbManager.CreateParameter("in_automatch_flag", objrunrecontheme.in_automatch_flag, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_ip_addr", headerval.ip_address, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+				ds = dbManager.execStoredProcedure("pr_run_theme", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_run_theme" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_run_theme", headerval.user_code, constring);
+				throw ex;
+			}
+
 		}
 	}
 }

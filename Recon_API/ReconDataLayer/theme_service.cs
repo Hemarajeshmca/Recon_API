@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static ReconModels.DatasetModel;
+using static ReconModels.ProcessModel;
 using static ReconModels.ReconModel;
 using static ReconModels.RulesetupModel;
 using static ReconModels.theme_model;
@@ -160,5 +161,19 @@ namespace ReconServiceLayer
 			{ }
 			return dt;
 		}
+
+		public static DataTable runreconthemeservice(runreconthemeModel objrunrecontheme, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable dt = new DataTable();
+			try
+			{
+				themedata objDS = new themedata();
+				dt = objDS.runreconthemeData(objrunrecontheme, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return dt;
+		}
+
 	}
 }
