@@ -90,7 +90,8 @@ namespace ReconModels
             public int? in_rptsession_gid { get; set; } 
             public int in_page_no { get; set; }
             public int in_page_size { get; set; }
-            public int in_tot_records { get; set; }
+            public string? in_condition { get; set; }
+			public int in_tot_records { get; set; }
             public string? in_recon_code { get; set; }
             public string? in_report_code { get; set; }
         }
