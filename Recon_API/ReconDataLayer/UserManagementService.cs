@@ -168,13 +168,13 @@ namespace ReconServiceLayer
 				{ }
 				return ds;
 			}
-            public static DataTable lastlogin_srv(UserManagementModel.getmenumodel objmodel, UserManagementModel.headerValue headerval, string constring)
+            public static DataTable lastsession_srv(UserManagementModel.getmenumodel1 objmodel, UserManagementModel.headerValue headerval, string constring)
             {
                 DataTable ds = new DataTable();
                 try
                 {
                     UserManagementData objproduct = new UserManagementData();
-                    ds = objproduct.lastlogin_db(objmodel, headerval, constring);
+                    ds = objproduct.lastsession_db(objmodel, headerval, constring);
                 }
                 catch (Exception e)
                 { }

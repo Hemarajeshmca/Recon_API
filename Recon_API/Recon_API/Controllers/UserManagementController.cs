@@ -298,8 +298,8 @@ namespace Recon_API.Controllers
 				return Problem(title: e.Message);
 			}
 		}
-        [HttpPost("lastlogin")]
-        public IActionResult lastlogin(getmenumodel objmodel)
+        [HttpPost("lastsession")]
+        public IActionResult lastsession(getmenumodel1 objmodel)
         {
             constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
             headerValue header_value = new headerValue();
@@ -312,7 +312,7 @@ namespace Recon_API.Controllers
                 header_value.user_code = getvalue;
                 header_value.lang_code = getlangCode;
                 header_value.role_code = getRoleCode;
-                response = login_serivce.lastlogin_srv(objmodel, header_value, constring);
+                response = login_serivce.lastsession_srv(objmodel, header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }

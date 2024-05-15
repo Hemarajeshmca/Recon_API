@@ -367,7 +367,7 @@ namespace ReconDataLayer
 				return ds;
 			}
 		}
-        public DataTable lastlogin_db(getmenumodel menumodel, headerValue Objmodel, string constring)
+        public DataTable lastsession_db(getmenumodel1 menumodel, headerValue Objmodel, string constring)
         {
             try
             {
@@ -376,15 +376,18 @@ namespace ReconDataLayer
                 MySqlDataAccess con = new MySqlDataAccess("ConnectionStrings");
                 parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_user_code", menumodel.user_code, DbType.String));
-                ds = dbManager.execStoredProcedurelist("pr_get_lastlogin", CommandType.StoredProcedure, parameters.ToArray());
+				parameters.Add(dbManager.CreateParameter("in_status_code", menumodel.status, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+				ds = dbManager.execStoredProcedure("pr_get_lastsession", CommandType.StoredProcedure, parameters.ToArray());
                 result = ds.Tables[0];
                 return result;
             }
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-				objlog.logger("SP:pr_getmenu" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_lastlogin", menumodel.user_code, constring);
+				objlog.logger("SP:pr_get_lastsession" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_lastsession", menumodel.user_code, constring);
 				return result;
             }
         }

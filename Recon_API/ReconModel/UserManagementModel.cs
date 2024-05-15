@@ -96,5 +96,10 @@ namespace ReconModels
 		{
 			public string user_code { get; set; }
 		}
+		public class getmenumodel1
+		{
+			public string user_code { get; set; }
+			public string status { get; set; }
+		}
 	}
 }
