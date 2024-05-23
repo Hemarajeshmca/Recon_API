@@ -31,5 +31,6 @@ namespace ReconModels
 		public string ParentMasterSyscode { get; set; }
 		public string depend_parent_master_syscode { get; set; }
 		public string depend_master_syscode { get; set; }
+		public string depend_flag { get; set; }
 	}
 }
