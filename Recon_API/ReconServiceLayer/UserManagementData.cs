@@ -120,7 +120,7 @@ namespace ReconDataLayer
 			catch (Exception ex)
 			{
 				CommonHeader objlog = new CommonHeader();
-				objlog.logger("SP:pr_get_loginvalidation_new" + "Error Message:" + ex.Message);
+				objlog.logger("SP:pr_fetch_userlist" + "Error Message:" + ex.Message);
 				objlog.commonDataapi("", "SP", ex.Message, "pr_fetch_userlist", Objmodel.user_code, constring);
 				return result;
 			}
