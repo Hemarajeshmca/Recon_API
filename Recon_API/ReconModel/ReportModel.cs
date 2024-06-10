@@ -156,5 +156,56 @@ namespace ReconModels
 
         }
 
+		public class Table1Row
+		{
+			public String? in_reporttemplate_code { get; set; }
+			public String? in_report_code { get; set; }
+			public String? in_recon_code { get; set; }
+			public String? in_report_param { get; set; }
+			public String? in_report_condition { get; set; }
+			public String? in_ip_addr { get; set; }
+			public Boolean? in_outputfile_flag { get; set; }
+			public String? in_outputfile_type { get; set; }
+			public string? in_user_code { get; set; }
+			public string? file_name { get; set; }
+			public string? in_report_name { get; set; }
+		}
+
+		public class Table2Row
+		{
+
+			public string? filter_seqno { get; set; }
+			public string? reportparam_value { get; set; }
+			public string? filter_criteria_desc { get; set; }
+			public string? filter_value { get; set; }
+			public string? open_parentheses_flag { get; set; }
+			public string? close_parentheses_flag { get; set; }
+			public string? join_condition { get; set; }
+		}
+
+		public class DataSet1
+		{
+			public List<Table1Row> Table1 { get; set; }
+		}
+
+		public class DataSet2
+		{
+			public List<Table2Row> Table2 { get; set; }
+		}
+
+		public class DataModel
+		{
+			public string Dataset1 { get; set; }
+			public string Dataset2 { get; set; }
+		}
+
+        //customReport_brsSummary
+
+        public class customReport_brsSummaryModel
+        {
+            public String? in_recon_code { get; set; }
+            public String? in_tran_date { get; set; }
+        }
+
     }
 }
