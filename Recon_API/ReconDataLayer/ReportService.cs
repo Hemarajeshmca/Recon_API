@@ -317,5 +317,33 @@ namespace ReconServiceLayer
             { }
             return dt;
         }
+
+        public static DataTable generatedynamicReportservice_new(DataModel objDataModel, string constring, UserManagementModel.headerValue headerval)
+		{
+			DataTable dt = new DataTable();
+			try
+			{
+				ReportData objreport = new ReportData();
+				dt = objreport.generatedynamicReportData_new(objDataModel, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return dt;
+		}
+
+        //customReport_brsSummaryservice
+
+        public static DataSet customReport_brsSummaryservice(customReport_brsSummaryModel objbrsSummaryModel, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                ReportData objreport = new ReportData();
+                ds = objreport.customReport_brsSummaryData(objbrsSummaryModel, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
     }
 }

@@ -139,7 +139,6 @@ namespace ReconDataLayer
 				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
-				//var data = "[\r\n    {\r\n        \"in_role_gid\": 4,\r\n        \"in_role_code\": \"RC002\",\r\n        \"in_menu_code\": \"12\",\r\n        \"in_add_flag\": \"y\",\r\n        \"in_modify_flag\": \"y\",\r\n        \"in_view_flag\": \"y\",\r\n        \"in_download_flag\": \"y\",\r\n        \"in_deny_flag\": \"y\",\r\n        \"in_active_status\": \"y\",\r\n        \"in_delete_flag\": \"y\",\r\n        \"in_action_by\": \"Hema\"\r\n    },\r\n    {\r\n        \"in_role_gid\": 5,\r\n        \"in_role_code\": \"RC003\",\r\n        \"in_menu_code\": \"12\",\r\n        \"in_add_flag\": \"y\",\r\n        \"in_modify_flag\": \"y\",\r\n        \"in_view_flag\": \"y\",\r\n        \"in_download_flag\": \"y\",\r\n        \"in_deny_flag\": \"y\",\r\n        \"in_active_status\": \"y\",\r\n        \"in_delete_flag\": \"y\",\r\n        \"in_action_by\": \"Hema\"\r\n    }\r\n]";
 				JsonData = JsonConvert.DeserializeObject<DataTable>(objsaveRoleAccessModel.roledetails);
 				for (int i = 0; i < JsonData.Rows.Count; i++)
 				{
