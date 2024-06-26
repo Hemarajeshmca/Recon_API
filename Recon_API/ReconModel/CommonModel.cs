@@ -16,13 +16,13 @@ namespace ReconModels
 			public string in_errorlog_text { get; set; }
 			public string user_code { get; set; }
 
-        }
+		}
 
-        public class configvalueModel
-        {
-            public string in_config_name { get; set; }
-		
-			}
+		public class configvalueModel
+		{
+			public string in_config_name { get; set; }
+
+		}
 		public class roleconfig
 		{
 			public string in_screen_code { get; set; }
@@ -33,6 +33,11 @@ namespace ReconModels
 			public string process { get; set; }
 			public string download { get; set; }
 			public string deny { get; set; }
+		}
+		public class reconmindate
+		{
+			public string in_recon_code { get; set; }
+
 		}
 	}
 }
