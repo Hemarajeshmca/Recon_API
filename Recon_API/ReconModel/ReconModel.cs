@@ -223,6 +223,10 @@ namespace ReconModels
             public string in_tran_date { get; set; }
         }
 
+        public class openingbalanceDatasetModel
+        {
+            public string in_recon_code { get; set; }
+        }
 
-    }
+	}
 }

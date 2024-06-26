@@ -180,5 +180,20 @@ namespace ReconServiceLayer
 				throw ex;
 			}
 		}
+
+		//getthemeagainstReconService
+
+		public DataTable getthemeagainstReconService(getthemeagainstReconmodel objgetthemeagainstRecon, UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DataTable ds = knockOffData.getthemeagainstReconData(objgetthemeagainstRecon, headerval, constring);
+				return ds;
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+		}
 	}
 }

@@ -130,5 +130,33 @@ namespace ReconServiceLayer
             return ds;
         }
 
-    }
+		//getaccbaldatasetService
+
+		public static DataTable getaccbaldatasetService(getaccbaldatasetModel objgetaccbaldataset, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				DatasetData objDS = new DatasetData();
+				ds = objDS.getaccbaldatasetData(objgetaccbaldataset, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+
+		//setAccountbalanceService
+		public static DataTable setAccountbalanceService(setAccountbalanceModel objsetAccountbalance, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				DatasetData objDS = new DatasetData();
+				ds = objDS.setAccountbalanceData(objsetAccountbalance, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+	}
 }

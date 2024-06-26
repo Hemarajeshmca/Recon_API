@@ -401,6 +401,7 @@ namespace ReconDataLayer
 				parameters = new List<IDbDataParameter>();
 
 				parameters.Add(dbManager.CreateParameter("in_recon_code", objrunrecontheme.in_recon_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_job_gid", objrunrecontheme.in_job_gid, DbType.Int32));
 				parameters.Add(dbManager.CreateParameter("in_period_from", objrunrecontheme.in_period_from, DbType.Date));
 				parameters.Add(dbManager.CreateParameter("in_period_to", objrunrecontheme.in_period_to, DbType.Date));
 				parameters.Add(dbManager.CreateParameter("in_automatch_flag", objrunrecontheme.in_automatch_flag, DbType.String));
