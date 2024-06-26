@@ -309,6 +309,29 @@ namespace ReconDataLayer
 			}
 		}
 
+		//getthemeagainstReconData
+		public DataTable getthemeagainstReconData(getthemeagainstReconmodel objgetthemeagainstRecon, UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_recon_code", objgetthemeagainstRecon.in_recon_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				ds = dbManager.execStoredProcedure("pr_get_themeagainstrecon", CommandType.StoredProcedure, parameters.ToArray());
+				dt = ds.Tables[0];
+				return dt;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_get_themeagainstrecon" + " " + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_themeagainstrecon", headerval.user_code, constring);
+				throw ex;
+			}
+		}
 	}
 }
 

@@ -241,5 +241,36 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
+
+		//getReconforOpeningBalanceService
+
+		public static DataTable getReconforOpeningBalanceService(UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				ReconData objqcd = new ReconData();
+				ds = objqcd.getReconforOpeningBalanceData(headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+
+		//getdatasetagainstReconService
+
+		public static DataTable getdatasetagainstReconService(openingbalanceDatasetModel objReconDataset, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				ReconData objqcd = new ReconData();
+				ds = objqcd.getdatasetagainstReconData(objReconDataset, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+
 	}
 }

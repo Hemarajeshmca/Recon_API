@@ -78,6 +78,22 @@ namespace ReconModels
 		{
 			public string in_recon_code { get; set; }
 		}
-    }
+
+		public class getaccbaldatasetModel
+		{
+			public string in_dataset_code { get; set; }
+
+		}
+
+		public class setAccountbalanceModel
+		{
+			public int in_accbal_gid { get; set; }
+			public String in_dataset_code { get; set; }
+			public DateOnly? in_tran_date { get; set; }
+			public Double? in_bal_value { get; set; }
+			public String in_action { get; set; }
+		}
+
+	}
 }
 

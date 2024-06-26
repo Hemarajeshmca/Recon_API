@@ -114,4 +114,11 @@ namespace ReconModels
     {
         public int in_job_gid { get; set; }
     }
-}
+
+    public class getthemeagainstReconmodel
+    {
+        public string in_recon_code { get; set; }
+    }
+    
+    }
+

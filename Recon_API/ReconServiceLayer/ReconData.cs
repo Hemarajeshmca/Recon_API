@@ -511,5 +511,57 @@ namespace ReconDataLayer
 				return result;
 			}
 		}
+
+		//getReconforOpeningBalanceData
+
+		public DataTable getReconforOpeningBalanceData(UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				ds = dbManager.execStoredProcedure("pr_get_recon_openingbalance", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_get_recon_openingbalance" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_recon_openingbalance", headerval.user_code, constring);
+				return result;
+			}
+		}
+		//getdatasetagainstReconData
+
+		public DataTable getdatasetagainstReconData(openingbalanceDatasetModel objReconDataset, UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_recon_code", objReconDataset.in_recon_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				ds = dbManager.execStoredProcedure("pr_get_dataset_againstRecon", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_get_dataset_againstRecon" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_dataset_againstRecon", headerval.user_code, constring);
+				return result;
+			}
+		}
 	}
 }

@@ -270,5 +270,65 @@ namespace ReconDataLayer
 				return result;
             }
         }
-    }
+
+		//getaccbaldatasetData
+		public DataTable getaccbaldatasetData(getaccbaldatasetModel objgetaccbaldataset, UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_dataset_code", objgetaccbaldataset.in_dataset_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				ds = dbManager.execStoredProcedure("pr_get_accbaldataset", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_get_accbaldataset" + " " + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_accbaldataset", headerval.user_code, constring);
+				return result;
+			}
+		}
+
+		//setAccountbalanceData
+
+		public DataTable setAccountbalanceData(setAccountbalanceModel objsetAccountbalance, UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_accbal_gid", objsetAccountbalance.in_accbal_gid, DbType.Int16,ParameterDirection.InputOutput));
+				parameters.Add(dbManager.CreateParameter("in_dataset_code", objsetAccountbalance.in_dataset_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_tran_date", objsetAccountbalance.in_tran_date, DbType.Date));
+				parameters.Add(dbManager.CreateParameter("in_bal_value", objsetAccountbalance.in_bal_value, DbType.Double));
+				parameters.Add(dbManager.CreateParameter("in_action", objsetAccountbalance.in_action, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_action_by", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+				ds = dbManager.execStoredProcedure("pr_set_recon_trn_taccbal", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_set_recon_trn_taccbal" + " " + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_set_recon_trn_taccbal", headerval.user_code, constring);
+				return result;
+			}
+		}
+
+	}
 }
