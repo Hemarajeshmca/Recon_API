@@ -93,7 +93,10 @@ namespace ReconModels
 			public Double? in_bal_value { get; set; }
 			public String in_action { get; set; }
 		}
-
+		public class datasethistoryModel
+		{
+			public string in_dataset_code { get; set; }
+		}
 	}
 }
 
