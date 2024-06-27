@@ -71,6 +71,11 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_parent_acc_mode", objrulesetupheader.in_parent_acc_mode, DbType.String));
 				// parameters.Add(dbManager.CreateParameter("in_reversal_flag", objrulesetupheader.in_reversal_flag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_group_flag", objrulesetupheader.in_group_flag, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_rule_automatch_partial", objrulesetupheader.in_rule_automatch_partial, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_threshold_flag", objrulesetupheader.thresholdflag, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_threshold_code", objrulesetupheader.threshold_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_threshold_plus_value", objrulesetupheader.in_threshold_plus_value, DbType.Decimal));
+				parameters.Add(dbManager.CreateParameter("in_threshold_minus_value", objrulesetupheader.in_threshold_minus_value, DbType.Decimal));
 				parameters.Add(dbManager.CreateParameter("in_active_status", objrulesetupheader.in_active_status, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action", objrulesetupheader.in_action, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action_by", objrulesetupheader.in_user_code, DbType.String));

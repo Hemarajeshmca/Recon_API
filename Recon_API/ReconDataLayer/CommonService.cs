@@ -29,18 +29,18 @@ namespace ReconServiceLayer
 
 
 
-        public static DataTable configvalueservice(configvalueModel objconfigvalue, UserManagementModel.headerValue headerval, string constring)
-        {
-            DataTable ds = new DataTable();
-            try
-            {
-                CommonHeader objDS = new CommonHeader();
-                ds = objDS.configvalueData(objconfigvalue, headerval, constring);
-            }
-            catch (Exception e)
-            { }
-            return ds;
-        }
+		public static DataTable configvalueservice(configvalueModel objconfigvalue, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				CommonHeader objDS = new CommonHeader();
+				ds = objDS.configvalueData(objconfigvalue, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
 		public static DataTable roleconfig_srv(roleconfig objconfigvalue, UserManagementModel.headerValue headerval, string constring)
 		{
 			DataTable ds = new DataTable();
@@ -53,6 +53,17 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
+		public static DataTable reconmindate_srv(reconmindate objconfigvalue, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				CommonHeader objDS = new CommonHeader();
+				ds = objDS.reconmindate_db(objconfigvalue, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
 	}
-
 }

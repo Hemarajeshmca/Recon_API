@@ -145,5 +145,24 @@ namespace ReconDataLayer
 				return result;
 			}
 		}
+		public DataTable reconmindate_db(reconmindate objconfigvalue, headerValue hv, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_recon_code", objconfigvalue.in_recon_code, DbType.String));
+				ds = dbManager.execStoredProcedure("pr_get_recon_mindate", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				logger("SP:pr_get_recon_mindate" + " " + "Error Message:" + ex.Message);
+				return result;
+			}
+		}
 	}
 }

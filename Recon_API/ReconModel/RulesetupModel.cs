@@ -41,6 +41,11 @@ namespace ReconModels
             public string? in_user_code { get; set; }
 			public string? in_inactive_reason { get; set; }
 			public string probableflag { get; set; }
+			public Double in_threshold_plus_value { get; set; }
+			public Double in_threshold_minus_value { get; set; }
+			public String threshold_code { get; set; }
+			public String thresholdflag { get; set; }
+			public String in_rule_automatch_partial { get; set; }
 		}
 
         public class Rulegrouping
