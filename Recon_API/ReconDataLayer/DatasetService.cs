@@ -129,6 +129,17 @@ namespace ReconServiceLayer
             { }
             return ds;
         }
-
-    }
+		public static DataTable datasethistoryService(datasethistoryModel objdatasethistory, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				DatasetData objDS = new DatasetData();
+				ds = objDS.datasethistoryData(objdatasethistory, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+	}
 }

@@ -78,6 +78,10 @@ namespace ReconModels
 		{
 			public string in_recon_code { get; set; }
 		}
-    }
+		public class datasethistoryModel
+		{
+			public string in_dataset_code { get; set; }
+		}
+	}
 }
 
