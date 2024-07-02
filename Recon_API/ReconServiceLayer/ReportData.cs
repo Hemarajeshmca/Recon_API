@@ -708,6 +708,7 @@ namespace ReconDataLayer
 		{
 			try
 			{
+                Debugger.Break();
 				DataTable JsonData = new DataTable();
                 DataTable sheetDt = new DataTable();
 				DataSet dataset = new DataSet();
@@ -794,6 +795,11 @@ namespace ReconDataLayer
                                 if (dataset.Tables[0].Rows.Count > 0)
                                 {
                                     worksheet.Cell(1, 1).InsertTable(dataset.Tables[0].AsEnumerable());
+									worksheet.Cells().Style.Protection.SetLocked(false);
+
+									// Lock the specific column (make it read-only)
+									worksheet.Column("B").Style.Protection.SetLocked(true);
+									worksheet.Protect();
 								}
                                 else
                                 {
@@ -867,5 +873,89 @@ namespace ReconDataLayer
             }
         }
 
-    }
+
+
+		//generatedynamicReport_typeCData
+		public DataSet generatedynamicReport_typeCData(generatedynamicReport_typeCmodel objgeneratedynamicReport, UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DataSet dataset = new DataSet();
+				DataTable dt = new DataTable();
+				DBManager dbManager = new DBManager(constring);
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_reporttemplate_code", objgeneratedynamicReport.in_reporttemplate_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_recon_code", objgeneratedynamicReport.in_recon_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_report_code", objgeneratedynamicReport.in_report_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_report_param", objgeneratedynamicReport.in_report_param, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_report_condition", objgeneratedynamicReport.in_report_condition, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_outputfile_flag", objgeneratedynamicReport.in_outputfile_flag, DbType.Boolean));
+				parameters.Add(dbManager.CreateParameter("in_outputfile_type", objgeneratedynamicReport.in_outputfile_type, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_ip_addr", headerval.ip_address, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+				dataset = dbManager.execStoredProcedurelist("pr_run_dynamicreport", CommandType.StoredProcedure, parameters.ToArray());
+                int getsheetcount = dataset.Tables[0].Rows.Count;
+				var job_id = dataset.Tables[0].Rows[0]["result"];
+				var filename = job_id + "_" + objgeneratedynamicReport.in_report_name;
+				string getdestFile = roleconfig_db("xlsx_folder_path", constring);
+				string sourceFile = roleconfig_db("temp_file_folder_path_dynamic", constring);
+				string destFile = getdestFile + filename + ".xlsx";
+				CreateExcelFile(dataset, sourceFile, destFile);			
+				return ds;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				Debugger.Break();
+				objlog.logger("SP:pr_run_dynamicreport" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_run_dynamicreport", headerval.user_code, constring);
+				throw ex;
+			}
+		}
+
+		private void CreateExcelFile(DataSet dataSet, string sourceFile, string destFile)
+		{
+			File.Copy(sourceFile, destFile, true);
+			using (var workbook = new XLWorkbook())
+			{
+				DataTable resultset1 = dataSet.Tables[1];
+				for (int i = 0; i < resultset1.Rows.Count; i++)
+				{
+					string sheetName = resultset1.Rows[i]["sheet_name"].ToString();
+					int dataSetIndex = i + 2; 
+					if (dataSet.Tables.Count > dataSetIndex)
+					{
+						DataTable dataTable = dataSet.Tables[dataSetIndex];
+						var worksheet = workbook.Worksheets.Add(sheetName);
+						worksheet.Clear(XLClearOptions.Contents);
+						try
+						{
+							if (dataTable.Rows.Count > 0)
+							{
+								worksheet.Cell(1, 1).InsertTable(dataTable.AsEnumerable());
+								//worksheet.Cells().Style.Protection.SetLocked(false);
+
+								//// Lock the specific column (make it read-only)
+								//worksheet.Column("B").Style.Protection.SetLocked(true);
+								//worksheet.Protect();
+
+							}
+							else
+							{
+								worksheet.Cell(1, 1).Value = "No Record Found";
+							}
+						}
+						catch (Exception ex)
+						{
+							Console.WriteLine($"An error occurred while inserting table into {sheetName}: {ex.Message}");
+							throw;
+						}
+					}
+				}
+				workbook.SaveAs(destFile);
+			}
+		}
+	}
 }
