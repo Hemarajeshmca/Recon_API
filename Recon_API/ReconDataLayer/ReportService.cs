@@ -345,5 +345,20 @@ namespace ReconServiceLayer
             { }
             return ds;
         }
-    }
+
+		//generatedynamicReport_typeCservice
+
+		public static DataSet generatedynamicReport_typeCservice(generatedynamicReport_typeCmodel objgeneratedynamicReport, string constring, UserManagementModel.headerValue headerval)
+		{
+			DataSet dt = new DataSet();
+			try
+			{
+				ReportData objreport = new ReportData();
+				dt = objreport.generatedynamicReport_typeCData(objgeneratedynamicReport, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return dt;
+		}
+	}
 }
