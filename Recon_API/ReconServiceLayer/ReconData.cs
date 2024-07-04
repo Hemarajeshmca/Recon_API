@@ -139,6 +139,38 @@ namespace ReconDataLayer
 				return result;
             }
         }
+
+		public DataTable recondatafielddata(datafieldmodel objdatafieldmodel, UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_reconfield_gid", objdatafieldmodel.in_reconfield_gid, DbType.Int16, ParameterDirection.InputOutput));
+				parameters.Add(dbManager.CreateParameter("in_recon_code", objdatafieldmodel.in_recon_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_field_name", objdatafieldmodel.in_recon_field_name, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_field_alias_name", objdatafieldmodel.in_recon_field_name, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_display_order", objdatafieldmodel.in_display_order, DbType.Decimal));
+				parameters.Add(dbManager.CreateParameter("in_active_status", objdatafieldmodel.in_active_status, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_action", objdatafieldmodel.in_action, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_action_by", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+				ds = dbManager.execStoredProcedure("pr_recon_mst_treconfield", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_recon_mst_treconfield" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_recon_mst_treconfield", headerval.user_code, constring);
+				return result;
+			}
+		}
+
 		public DataTable recondatamappingdelete(datamapping objdatamapping, UserManagementModel.headerValue headerval, string constring)
 		{
 			try

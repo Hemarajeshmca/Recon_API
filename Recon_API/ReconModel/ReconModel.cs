@@ -47,6 +47,18 @@ namespace ReconModels
 			public Int16? in_reconfieldmapping_gid { get; set; }
 			public string? in_action { get; set; }
 		}
+		public class datafieldmodel
+		{
+			public Int16? in_reconfield_gid { get; set; }
+			public string? in_recon_code { get; set; }
+			public string? in_recon_field_name { get; set; }
+			public Decimal? in_display_order { get; set; }
+			public string? in_active_status { get; set; }
+			public string? in_action { get; set; }
+			public string? in_user_code { get; set; }
+			public String? out_msg { get; set; }
+			public Int16? out_result { get; set; }
+		}
 		public class Recon
         {
             public Int16? in_recon_gid { get; set; }

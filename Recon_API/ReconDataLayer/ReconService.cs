@@ -67,6 +67,19 @@ namespace ReconServiceLayer
             { }
             return ds;
         }
+		public static DataTable recondatafieldsrv(datafieldmodel objdatafieldmodel, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				ReconData objqcd = new ReconData();
+				ds = objqcd.recondatafielddata(objdatafieldmodel, headerval, constring);
+
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
 		public static DataTable recondatamappingdelete(datamapping objdatamapping, UserManagementModel.headerValue headerval, string constring)
 		{
 			DataTable ds = new DataTable();
