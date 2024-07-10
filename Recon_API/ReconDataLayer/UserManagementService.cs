@@ -180,7 +180,18 @@ namespace ReconServiceLayer
                 { }
                 return ds;
             }
-            
-        }
+			public static DataTable lastlogin_srv(UserManagementModel.getcontexttmodel objmodel, UserManagementModel.headerValue headerval, string constring)
+			{
+				DataTable ds = new DataTable();
+				try
+				{
+					UserManagementData objproduct = new UserManagementData();
+					ds = objproduct.lastlogin_db(objmodel, headerval, constring);
+				}
+				catch (Exception e)
+				{ }
+				return ds;
+			}
+		}
     }
 }

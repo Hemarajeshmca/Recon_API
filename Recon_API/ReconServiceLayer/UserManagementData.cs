@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using static ReconModels.UserManagementModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using System.Security.Cryptography;
 
 namespace ReconDataLayer
 {
@@ -31,8 +32,8 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_password", Objmodel.password, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_ip_addr", Objmodel.ip, DbType.String));
                 ds = dbManager.execStoredProcedure("pr_get_loginvalidation_new", CommandType.StoredProcedure, parameters.ToArray());
-                result = ds.Tables[0];
-                return result;
+                result = ds.Tables[0];			
+				return result;
             }
             catch (Exception ex)
             {
@@ -42,8 +43,35 @@ namespace ReconDataLayer
                 return result;
             }
         }
-
-        public DataTable changepass_save(change_password Usermodel, headerValue hv, string constring)
+		private string Decrypt(string cipherText)
+		{
+			try
+			{
+				string EncryptionKey = "MAKV2SPBNI99212";
+				byte[] cipherBytes = Convert.FromBase64String(cipherText);
+				using (Aes encryptor = Aes.Create())
+				{
+					Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+					encryptor.Key = pdb.GetBytes(32);
+					encryptor.IV = pdb.GetBytes(16);
+					using (MemoryStream ms = new MemoryStream())
+					{
+						using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
+						{
+							cs.Write(cipherBytes, 0, cipherBytes.Length);
+							cs.Close();
+						}
+						cipherText = Encoding.Unicode.GetString(ms.ToArray());
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				return e.Message;
+			}
+			return cipherText;
+		}
+		public DataTable changepass_save(change_password Usermodel, headerValue hv, string constring)
         {
             try
             {
@@ -391,6 +419,26 @@ namespace ReconDataLayer
 				return result;
             }
         }
-        
-    }
+		public DataTable lastlogin_db(getcontexttmodel menumodel, headerValue Objmodel, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("ConnectionStrings");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_user_code", menumodel.user_code, DbType.String));	
+				ds = dbManager.execStoredProcedure("pr_get_lastlogin", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_get_lastlogin" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_lastlogin", menumodel.user_code, constring);
+				return result;
+			}
+		}
+	}
 }
