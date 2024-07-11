@@ -793,13 +793,13 @@ namespace ReconDataLayer
                             try
                             {
                                 if (dataset.Tables[0].Rows.Count > 0)
-                                {
-                                    worksheet.Cell(1, 1).InsertTable(dataset.Tables[0].AsEnumerable());
-									worksheet.Cells().Style.Protection.SetLocked(false);
+                                {							
+									worksheet.Cell(1, 1).InsertTable(dataset.Tables[0].AsEnumerable());
+									//worksheet.Cells().Style.Protection.SetLocked(false);
 
-									// Lock the specific column (make it read-only)
-									worksheet.Column("B").Style.Protection.SetLocked(true);
-									worksheet.Protect();
+									//// Lock the specific column (make it read-only)
+									//worksheet.Column("B").Style.Protection.SetLocked(true);
+									//worksheet.Protect();
 								}
                                 else
                                 {
