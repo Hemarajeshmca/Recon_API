@@ -26,5 +26,11 @@ namespace ReconModels
 			public string in_recon_code { get; set; }
 			public string in_version_code { get; set; }
 		}
-	}
+
+        public class ReconReportVersionhistoryModel
+        {
+            public string in_recon_code { get; set; }
+            public string in_version_code { get; set; }
+        }
+    }
 }

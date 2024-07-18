@@ -7,6 +7,7 @@ using log4net;
 using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using ReconDataLayer;
+using ReconServiceLayer;
 
 namespace Recon_API
 {
@@ -27,6 +28,7 @@ namespace Recon_API
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
+            services.AddScoped<ReconVersionSrv, ReconVersionSrv>();
             var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
             XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
         }
