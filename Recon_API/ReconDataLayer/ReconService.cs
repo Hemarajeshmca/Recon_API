@@ -284,6 +284,17 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
-
+		public static DataTable ReconDatasetmaplist_srv(fetchRecon objReconDataset, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				ReconData objqcd = new ReconData();
+				ds = objqcd.ReconDatasetmaplist_db(objReconDataset, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
 	}
 }

@@ -87,7 +87,7 @@ namespace ReconDataLayer
 			{
 				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
-				parameters = new List<IDbDataParameter>();
+				parameters = new List<IDbDataParameter>(); 
 				parameters.Add(dbManager.CreateParameter("in_themefilter_gid", Objmodel.themefilter_gid, DbType.Int32, ParameterDirection.InputOutput));
 				parameters.Add(dbManager.CreateParameter("in_themefilter_seqno", Objmodel.themefilter_seqno, DbType.Decimal));
 				parameters.Add(dbManager.CreateParameter("in_theme_code", Objmodel.theme_code, DbType.String));
@@ -95,6 +95,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_filter_field", Objmodel.filter_field, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_filter_criteria", Objmodel.filter_criteria, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_filter_value", Objmodel.filter_value, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_filter_value_flag", Objmodel.filter_value_flag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_open_flag", Objmodel.open_flag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_close_flag", Objmodel.close_flag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_join_condition", Objmodel.join_condition, DbType.String));

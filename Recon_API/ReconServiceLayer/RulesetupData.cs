@@ -144,6 +144,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_filter_field", objruleidentifier.in_filter_field, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_filter_criteria", objruleidentifier.in_filter_criteria, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_ident_criteria", objruleidentifier.in_ident_criteria, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_ident_value_flag", objruleidentifier.in_ident_value_flag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_ident_value", objruleidentifier.in_ident_value, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_open_flag", objruleidentifier.in_open_flag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_close_flag", objruleidentifier.in_close_flag, DbType.String));

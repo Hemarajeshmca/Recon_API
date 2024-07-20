@@ -63,6 +63,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_lookup_return_field", Objmodel.lookup_return_field, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_preprocess_order", Objmodel.preprocess_order, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_hold_flag", Objmodel.hold_flag, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_returnflag", Objmodel.in_returnflag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_active_status", Objmodel.active_status, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action", Objmodel.in_action, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action_by", Objmodel.in_action_by, DbType.String));
@@ -96,7 +97,8 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_recon_code", objfilterdata.in_recon_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_filter_seqno", objfilterdata.in_filter_seqno, DbType.Double));
 				parameters.Add(dbManager.CreateParameter("in_filter_field", objfilterdata.in_filter_field, DbType.String));
-				parameters.Add(dbManager.CreateParameter("in_filter_criteria", objfilterdata.in_filter_criteria, DbType.String));				
+				parameters.Add(dbManager.CreateParameter("in_filter_criteria", objfilterdata.in_filter_criteria, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_filter_value_flag", objfilterdata.in_ident_value_flag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_filter_value", objfilterdata.in_ident_value, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_open_flag", objfilterdata.in_open_flag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_close_flag", objfilterdata.in_close_flag, DbType.String));
@@ -170,6 +172,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_open_flag", objconditiondata.in_open_flag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_close_flag", objconditiondata.in_close_flag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_join_condition", objconditiondata.in_join_condition, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_returnflag", objconditiondata.in_returnflag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_active_status", objconditiondata.in_active_status, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action", objconditiondata.in_action, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action_by", headerval.user_code, DbType.String));
