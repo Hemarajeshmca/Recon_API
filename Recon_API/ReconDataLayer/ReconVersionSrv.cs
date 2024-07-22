@@ -1,4 +1,5 @@
-﻿using ReconDataLayer;
+﻿using Microsoft.AspNetCore.Mvc;
+using ReconDataLayer;
 using ReconModels;
 using System;
 using System.Collections.Generic;
@@ -50,5 +51,22 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
-	}
+
+        //ReconReportVersionhistoryService
+
+        public byte[] ReconReportVersionhistoryService(ReconReportVersionhistoryModel objReconReportVersionhistory, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                ReconversionData objDS = new ReconversionData();
+                byte[] pdfBytes = objDS.ReconReportVersionhistoryData(objReconReportVersionhistory, headerval, constring);
+				// return File(pdfBytes, "application/pdf", "Recon_Version.pdf");
+				return pdfBytes;
+            }
+            catch (Exception e)
+            { }
+            return null;
+        }
+    }
 }
