@@ -211,7 +211,7 @@ namespace ReconDataLayer
                     PdfPCell blankCell = new PdfPCell(new Phrase(" "))
                     {
                         Colspan = 3,
-                        FixedHeight = 20f, // Adjust height as needed
+                        FixedHeight = 15f, // Adjust height as needed
                         Border = PdfPCell.NO_BORDER
                     };
 
@@ -249,7 +249,7 @@ namespace ReconDataLayer
                     PdfPCell blankCell1 = new PdfPCell(new Phrase(" "))
                     {
                         Colspan = 3,
-                        FixedHeight = 20f, // Adjust height as needed
+                        FixedHeight = 15f, // Adjust height as needed
                         Border = PdfPCell.NO_BORDER
                     };
 
@@ -301,7 +301,7 @@ namespace ReconDataLayer
                     PdfPCell blankCell2 = new PdfPCell(new Phrase(" "))
                     {
                         Colspan = 3,
-                        FixedHeight = 20f, // Adjust height as needed
+                        FixedHeight = 15f, // Adjust height as needed
                         Border = PdfPCell.NO_BORDER
                     };
 
@@ -469,7 +469,7 @@ namespace ReconDataLayer
                                 PdfPTable spacerTableAfter = new PdfPTable(1);
                                 PdfPCell spacerCellAfter = new PdfPCell(new Phrase(" "))
                                 {
-                                    FixedHeight = 20f,
+                                    FixedHeight = 15f,
                                     Border = PdfPCell.NO_BORDER
                                 };
                                 spacerTableAfter.AddCell(spacerCellAfter);
@@ -487,7 +487,7 @@ namespace ReconDataLayer
                                 PdfPTable spacerTableAfter1 = new PdfPTable(1);
                                 PdfPCell spacerCellAfter1 = new PdfPCell(new Phrase(" "))
                                 {
-                                    FixedHeight = 20f,
+                                    FixedHeight = 15f,
                                     Border = PdfPCell.NO_BORDER
                                 };
                                 spacerTableAfter1.AddCell(spacerCellAfter1);
@@ -504,7 +504,7 @@ namespace ReconDataLayer
                                 PdfPTable spacerTableAfter2 = new PdfPTable(1);
                                 PdfPCell spacerCellAfter2 = new PdfPCell(new Phrase(" "))
                                 {
-                                    FixedHeight = 20f,
+                                    FixedHeight = 15f,
                                     Border = PdfPCell.NO_BORDER
                                 };
                                 spacerTableAfter2.AddCell(spacerCellAfter2);
@@ -522,7 +522,7 @@ namespace ReconDataLayer
                                 PdfPTable spacerTableAfter3 = new PdfPTable(1);
                                 PdfPCell spacerCellAfter3 = new PdfPCell(new Phrase(" "))
                                 {
-                                    FixedHeight = 20f,
+                                    FixedHeight = 15f,
                                     Border = PdfPCell.NO_BORDER
                                 };
                                 spacerTableAfter3.AddCell(spacerCellAfter3);
@@ -643,7 +643,7 @@ namespace ReconDataLayer
 								PdfPTable spacerTableAfter = new PdfPTable(1);
 								PdfPCell spacerCellAfter = new PdfPCell(new Phrase(" "))
 								{
-									FixedHeight = 20f,
+									FixedHeight = 15f,
 									Border = PdfPCell.NO_BORDER
 								};
 								spacerTableAfter.AddCell(spacerCellAfter);
@@ -660,7 +660,7 @@ namespace ReconDataLayer
 								PdfPTable spacerTableAfter3 = new PdfPTable(1);
 								PdfPCell spacerCellAfter3 = new PdfPCell(new Phrase(" "))
 								{
-									FixedHeight = 20f,
+									FixedHeight = 15f,
 									Border = PdfPCell.NO_BORDER
 								};
 								spacerTableAfter3.AddCell(spacerCellAfter3);
@@ -677,7 +677,7 @@ namespace ReconDataLayer
 								PdfPTable spacerTableAfter3 = new PdfPTable(1);
 								PdfPCell spacerCellAfter3 = new PdfPCell(new Phrase(" "))
 								{
-									FixedHeight = 20f,
+									FixedHeight = 15f,
 									Border = PdfPCell.NO_BORDER
 								};
 								spacerTableAfter3.AddCell(spacerCellAfter3);
@@ -895,7 +895,7 @@ namespace ReconDataLayer
 					PdfPCell blankCell = new PdfPCell(new Phrase(" "))
 					{
 						Colspan = 3,
-						FixedHeight = 20f, // Adjust height as needed
+						FixedHeight = 15f, // Adjust height as needed
 						Border = PdfPCell.NO_BORDER
 					};
 
@@ -933,7 +933,7 @@ namespace ReconDataLayer
 					PdfPCell blankCell1 = new PdfPCell(new Phrase(" "))
 					{
 						Colspan = 3,
-						FixedHeight = 20f, // Adjust height as needed
+						FixedHeight = 15f, // Adjust height as needed
 						Border = PdfPCell.NO_BORDER
 					};
 
@@ -984,7 +984,7 @@ namespace ReconDataLayer
 					PdfPCell blankCell2 = new PdfPCell(new Phrase(" "))
 					{
 						Colspan = 3,
-						FixedHeight = 20f, // Adjust height as needed
+						FixedHeight = 15f, // Adjust height as needed
 						Border = PdfPCell.NO_BORDER
 					};
 
@@ -1152,7 +1152,7 @@ namespace ReconDataLayer
 								PdfPTable spacerTableAfter = new PdfPTable(1);
 								PdfPCell spacerCellAfter = new PdfPCell(new Phrase(" "))
 								{
-									FixedHeight = 20f,
+									FixedHeight = 15f,
 									Border = PdfPCell.NO_BORDER
 								};
 								spacerTableAfter.AddCell(spacerCellAfter);
@@ -1171,7 +1171,7 @@ namespace ReconDataLayer
 								PdfPTable spacerTableAfter1 = new PdfPTable(1);
 								PdfPCell spacerCellAfter1 = new PdfPCell(new Phrase(" "))
 								{
-									FixedHeight = 20f,
+									FixedHeight = 15f,
 									Border = PdfPCell.NO_BORDER
 								};
 								spacerTableAfter1.AddCell(spacerCellAfter1);
@@ -1190,7 +1190,7 @@ namespace ReconDataLayer
 								PdfPTable spacerTableAfter2 = new PdfPTable(1);
 								PdfPCell spacerCellAfter2 = new PdfPCell(new Phrase(" "))
 								{
-									FixedHeight = 20f,
+									FixedHeight = 15f,
 									Border = PdfPCell.NO_BORDER
 								};
 								spacerTableAfter2.AddCell(spacerCellAfter2);
@@ -1209,7 +1209,7 @@ namespace ReconDataLayer
 								PdfPTable spacerTableAfter3 = new PdfPTable(1);
 								PdfPCell spacerCellAfter3 = new PdfPCell(new Phrase(" "))
 								{
-									FixedHeight = 20f,
+									FixedHeight = 15f,
 									Border = PdfPCell.NO_BORDER
 								};
 								spacerTableAfter3.AddCell(spacerCellAfter3);
@@ -1331,7 +1331,7 @@ namespace ReconDataLayer
 								PdfPTable spacerTableAfter = new PdfPTable(1);
 								PdfPCell spacerCellAfter = new PdfPCell(new Phrase(" "))
 								{
-									FixedHeight = 20f,
+									FixedHeight = 15f,
 									Border = PdfPCell.NO_BORDER
 								};
 								spacerTableAfter.AddCell(spacerCellAfter);
@@ -1348,7 +1348,7 @@ namespace ReconDataLayer
 								PdfPTable spacerTableAfter3 = new PdfPTable(1);
 								PdfPCell spacerCellAfter3 = new PdfPCell(new Phrase(" "))
 								{
-									FixedHeight = 20f,
+									FixedHeight = 15f,
 									Border = PdfPCell.NO_BORDER
 								};
 								spacerTableAfter3.AddCell(spacerCellAfter3);
@@ -1365,7 +1365,7 @@ namespace ReconDataLayer
 								PdfPTable spacerTableAfter3 = new PdfPTable(1);
 								PdfPCell spacerCellAfter3 = new PdfPCell(new Phrase(" "))
 								{
-									FixedHeight = 20f,
+									FixedHeight = 15f,
 									Border = PdfPCell.NO_BORDER
 								};
 								spacerTableAfter3.AddCell(spacerCellAfter3);
@@ -1383,7 +1383,7 @@ namespace ReconDataLayer
 
 
 					/* Table Starts PreProcess */
-					if(dt4.Rows.Count  > 0)
+					if (dt4.Rows.Count > 0)
 					{
 						for (int i = 0; i < dt4.Rows.Count; i++)
 						{
@@ -1468,12 +1468,112 @@ namespace ReconDataLayer
 							mainTable3.AddCell(new PdfPCell(new Phrase("")) { Border = PdfPCell.NO_BORDER });
 
 							document.Add(mainTable3);
+                            // Preprocess Filter
+
+                            if (ds.Tables[1].Rows.Count > 0)
+							{
+								document.Add(CreateTitle("PreProcess Filter"));
+								document.Add(PdfdynamicTableGenration(ds.Tables[1]));
+								PdfPTable spacerTableAfter3 = new PdfPTable(1);
+								PdfPCell spacerCellAfter3 = new PdfPCell(new Phrase(" "))
+								{
+									FixedHeight = 15f,
+									Border = PdfPCell.NO_BORDER
+								};
+								spacerTableAfter3.AddCell(spacerCellAfter3);
+								document.Add(spacerTableAfter3);
+							}
+							else
+							{
+								document.Add(CreateTitle("PreProcess Filter - No Records Found"));
+							}
+
+							// Query
+							if (dt4.Rows[i]["process_method_code"].ToString() == "QCD_QUERY")
+							{
+                                if (ds.Tables[5].Rows.Count > 0)
+                                {
+                                    document.Add(CreateTitle("Query"));
+                                    document.Add(PdfdynamicTableGenration(ds.Tables[5]));
+                                    PdfPTable spacerTableAfter3 = new PdfPTable(1);
+                                    PdfPCell spacerCellAfter3 = new PdfPCell(new Phrase(" "))
+                                    {
+                                        FixedHeight = 15f,
+                                        Border = PdfPCell.NO_BORDER
+                                    };
+                                    spacerTableAfter3.AddCell(spacerCellAfter3);
+                                    document.Add(spacerTableAfter3);
+                                }
+                                else
+                                {
+                                    document.Add(CreateTitle("Query - No Records Found"));
+                                }
+                            }
+
+                            // Lookup consition Header
+                            else if (dt4.Rows[i]["process_method_code"].ToString() == "QCD_LOOKUP")
+							{
+                                if (ds.Tables[3].Rows.Count > 0)
+                                {
+                                    document.Add(CreateTitle("Lookup Condition Header"));
+                                    document.Add(PdfdynamicTableGenration(ds.Tables[3]));
+                                    PdfPTable spacerTableAfter3 = new PdfPTable(1);
+                                    PdfPCell spacerCellAfter3 = new PdfPCell(new Phrase(" "))
+                                    {
+                                        FixedHeight = 15f,
+                                        Border = PdfPCell.NO_BORDER
+                                    };
+                                    spacerTableAfter3.AddCell(spacerCellAfter3);
+                                    document.Add(spacerTableAfter3);
+                                }
+                                else
+                                {
+                                    document.Add(CreateTitle("Lookup Condition Header - No Records Found"));
+                                }
+
+
+
+                                if (ds.Tables[4].Rows.Count > 0)
+                                {
+                                    document.Add(CreateTitle("Lookup Condition details"));
+                                    document.Add(PdfdynamicTableGenration(ds.Tables[4]));
+                                    PdfPTable spacerTableAfter3 = new PdfPTable(1);
+                                    PdfPCell spacerCellAfter3 = new PdfPCell(new Phrase(" "))
+                                    {
+                                        FixedHeight = 15f,
+                                        Border = PdfPCell.NO_BORDER
+                                    };
+                                    spacerTableAfter3.AddCell(spacerCellAfter3);
+                                    document.Add(spacerTableAfter3);
+                                }
+                                else
+                                {
+                                    document.Add(CreateTitle("Lookup Condition details - No Records Found"));
+                                }
+                            }
+							else if (dt4.Rows[i]["process_method_code"].ToString() == "QCD_FUNCTION")
+							{
+								if (ds.Tables[2].Rows.Count > 0)
+								{
+									document.Add(CreateTitle("Function"));
+									document.Add(PdfdynamicTableGenration(ds.Tables[2]));
+									PdfPTable spacerTableAfter3 = new PdfPTable(1);
+									PdfPCell spacerCellAfter3 = new PdfPCell(new Phrase(" "))
+									{
+										FixedHeight = 15f,
+										Border = PdfPCell.NO_BORDER
+									};
+									spacerTableAfter3.AddCell(spacerCellAfter3);
+									document.Add(spacerTableAfter3);
+								}
+								else
+								{
+									document.Add(CreateTitle("Function - No Records Found"));
+								}
+							}
 						}
 					}
-
-						/* Table Ends PreProcess */
-
-
+					/* Table Ends PreProcess */
 					document.Close();
 					byte[] pdfBytes = ms.ToArray();
 				}
