@@ -9,8 +9,11 @@ using static ReconModels.ReconVersionmodel;
 using Font = iTextSharp.text.Font;
 using DocumentFormat.OpenXml.Presentation;
 using System.Globalization;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using System.Diagnostics;
 using SixLabors.Fonts;
+using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace ReconDataLayer
 {
@@ -117,7 +120,7 @@ namespace ReconDataLayer
           private PdfPTable PdfdynamicTableGenration(DataTable dt)
         {
             PdfPTable table = new PdfPTable(dt.Columns.Count) { WidthPercentage = 100 };
-
+            BaseColor borderColor = new BaseColor(217, 222, 227); // Gray color
             foreach (DataColumn column in dt.Columns)
             {
                 Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 8, BaseColor.WHITE);
@@ -130,7 +133,10 @@ namespace ReconDataLayer
                 foreach (DataColumn column in dt.Columns)
                 {
                     Font dataFont = FontFactory.GetFont(FontFactory.HELVETICA, 8, BaseColor.BLACK);
-                    PdfPCell cell = new PdfPCell(new Phrase(row[column].ToString(), dataFont));
+                    PdfPCell cell = new PdfPCell(new Phrase(row[column].ToString(), dataFont))
+                    {
+                        BorderColor = borderColor
+                    };
                     if (column.Ordinal >= 2)
                     {
                         cell.HorizontalAlignment = Element.ALIGN_RIGHT;
@@ -159,6 +165,7 @@ namespace ReconDataLayer
                 HorizontalAlignment = Element.ALIGN_CENTER,
                 VerticalAlignment = Element.ALIGN_MIDDLE,
                 Padding = 5,
+                BorderColor = new BaseColor(217, 222,227)
             };
             return headerCell;
         }
@@ -263,7 +270,6 @@ namespace ReconDataLayer
                     ds.Tables[2].TableName = "themelist";
                     ds.Tables[3].TableName = "preprocesslist";
                 }
-
                 MemoryStream ms = new MemoryStream();
                 Rectangle rec = new Rectangle(PageSize.A4);
                 using (Document document = new Document(rec, 30f, 30f, 30f, 30f))
@@ -280,6 +286,15 @@ namespace ReconDataLayer
                     PdfWriter writer = PdfWriter.GetInstance(document, ms);
                     writer.PageEvent = new PdfWatermarkHandler();
                     document.Open();
+                    BaseColor borderColor = new BaseColor(169, 169, 169); // Gray color
+                    //// Add the image
+                    //string imagePath = "D:\\user\\hema\\Recon\\ReconWeb\\ReconWeb\\Recon\\Recon_proto\\wwwroot\\Assets\\images\\footerlogo_1.png";
+                    //Image img = Image.GetInstance(imagePath);
+                    //img.ScaleToFit(100f, 100f); // Scale the image to fit a specific size
+                    //img.Alignment = Element.ALIGN_CENTER; // Align the image
+
+                    //document.Add(img);
+
 
                     /* Header Start */
 
@@ -298,7 +313,7 @@ namespace ReconDataLayer
                     {
                         Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
                         BackgroundColor = new BaseColor(230, 230, 250),
-
+                        BorderColor = borderColor 
                     };
                     mainTable.AddCell(reconCodeCell);
 
@@ -313,7 +328,8 @@ namespace ReconDataLayer
                     PdfPCell reconNameCell = new PdfPCell(reconNameTable)
                     {
                         Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
-                        BackgroundColor = new BaseColor(230, 230, 250)
+                        BackgroundColor = new BaseColor(230, 230, 250),
+                        BorderColor = borderColor
                     };
                     mainTable.AddCell(reconNameCell);
 
@@ -337,7 +353,8 @@ namespace ReconDataLayer
                     PdfPCell historyVersionCell = new PdfPCell(historyVersionTable)
                     {
                         Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
-                        BackgroundColor = new BaseColor(230, 230, 250)
+                        BackgroundColor = new BaseColor(230, 230, 250),
+                        BorderColor = borderColor
                     };
                     mainTable.AddCell(historyVersionCell);
 
@@ -352,7 +369,8 @@ namespace ReconDataLayer
                     PdfPCell reconTypeCell = new PdfPCell(reconTypeTable)
                     {
                         Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
-                        BackgroundColor = new BaseColor(230, 230, 250)
+                        BackgroundColor = new BaseColor(230, 230, 250),
+                        BorderColor = borderColor
                     };
                     mainTable.AddCell(reconTypeCell);
 
@@ -374,7 +392,8 @@ namespace ReconDataLayer
                     PdfPCell periodFromTypeCell = new PdfPCell(periodFromTable)
                     {
                         Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
-                        BackgroundColor = new BaseColor(230, 230, 250)
+                        BackgroundColor = new BaseColor(230, 230, 250),
+                        BorderColor = borderColor
                     };
                     mainTable.AddCell(periodFromTypeCell);
 
@@ -390,7 +409,8 @@ namespace ReconDataLayer
                         PdfPCell periodToTypeCell = new PdfPCell(periodToTable)
                         {
                             Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
-                            BackgroundColor = new BaseColor(230, 230, 250)
+                            BackgroundColor = new BaseColor(230, 230, 250),
+                            BorderColor = borderColor
                         };
                         mainTable.AddCell(periodToTypeCell);
                     }
@@ -402,7 +422,8 @@ namespace ReconDataLayer
                         PdfPCell periodToTypeCell = new PdfPCell(periodToTable)
                         {
                             Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
-                            BackgroundColor = new BaseColor(230, 230, 250)
+                            BackgroundColor = new BaseColor(230, 230, 250),
+                            BorderColor = borderColor
                         };
                         mainTable.AddCell(periodToTypeCell);
                     }
@@ -417,6 +438,7 @@ namespace ReconDataLayer
                     };
 
                     mainTable.AddCell(blankCell2);
+
                     document.Add(mainTable);
                     /* Header Ends */
 
@@ -448,7 +470,7 @@ namespace ReconDataLayer
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
                                 BackgroundColor = new BaseColor(230, 230, 250),
-
+                                BorderColor = borderColor
                             };
                             mainTable1.AddCell(ruleCodeCell);
 
@@ -460,7 +482,8 @@ namespace ReconDataLayer
                             PdfPCell ruleNameCell = new PdfPCell(ruleNameTable)
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
-                                BackgroundColor = new BaseColor(230, 230, 250)
+                                BackgroundColor = new BaseColor(230, 230, 250),
+                                BorderColor = borderColor
                             };
                             mainTable1.AddCell(ruleNameCell);
 
@@ -472,7 +495,7 @@ namespace ReconDataLayer
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
                                 BackgroundColor = new BaseColor(230, 230, 250),
-
+                                BorderColor = borderColor
                             };
                             mainTable1.AddCell(ruleAppliedCell);
 
@@ -492,7 +515,8 @@ namespace ReconDataLayer
                             PdfPCell ruleSourceCell = new PdfPCell(ruleSourceTable)
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
-                                BackgroundColor = new BaseColor(230, 230, 250)
+                                BackgroundColor = new BaseColor(230, 230, 250),
+                                BorderColor = borderColor
                             };
                             mainTable1.AddCell(ruleSourceCell);
 
@@ -504,7 +528,8 @@ namespace ReconDataLayer
                             PdfPCell ruleSourceModeCell = new PdfPCell(ruleSourceModeTable)
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
-                                BackgroundColor = new BaseColor(230, 230, 250)
+                                BackgroundColor = new BaseColor(230, 230, 250),
+                                BorderColor = borderColor
                             };
                             mainTable1.AddCell(ruleSourceModeCell);
 
@@ -515,7 +540,8 @@ namespace ReconDataLayer
                             PdfPCell ruleComparisonCell = new PdfPCell(ruleComparisonTable)
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
-                                BackgroundColor = new BaseColor(230, 230, 250)
+                                BackgroundColor = new BaseColor(230, 230, 250),
+                                BorderColor = borderColor
                             };
                             mainTable1.AddCell(ruleComparisonCell);
 
@@ -535,7 +561,8 @@ namespace ReconDataLayer
                             PdfPCell ruleComparisonModeCell = new PdfPCell(ruleComparisonModeTable)
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
-                                BackgroundColor = new BaseColor(230, 230, 250)
+                                BackgroundColor = new BaseColor(230, 230, 250),
+                                BorderColor = borderColor
                             };
                             mainTable1.AddCell(ruleComparisonModeCell);
 
@@ -546,7 +573,8 @@ namespace ReconDataLayer
                             PdfPCell ruleGroupCell = new PdfPCell(ruleGroupTable)
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
-                                BackgroundColor = new BaseColor(230, 230, 250)
+                                BackgroundColor = new BaseColor(230, 230, 250),
+                                BorderColor = borderColor
                             };
                             mainTable1.AddCell(ruleGroupCell);
 
@@ -557,7 +585,8 @@ namespace ReconDataLayer
                             PdfPCell ruleOrderCell = new PdfPCell(ruleOrderTable)
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
-                                BackgroundColor = new BaseColor(230, 230, 250)
+                                BackgroundColor = new BaseColor(230, 230, 250),
+                                BorderColor = borderColor
                             };
                             mainTable1.AddCell(ruleOrderCell);
 
@@ -679,7 +708,7 @@ namespace ReconDataLayer
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
                                 BackgroundColor = new BaseColor(230, 230, 250),
-
+                                BorderColor = borderColor
                             };
                             mainTable2.AddCell(themeCodeCell);
 
@@ -690,7 +719,8 @@ namespace ReconDataLayer
                             PdfPCell themeNameCell = new PdfPCell(themeNameTable)
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
-                                BackgroundColor = new BaseColor(230, 230, 250)
+                                BackgroundColor = new BaseColor(230, 230, 250),
+                                BorderColor = borderColor
                             };
                             mainTable2.AddCell(themeNameCell);
 
@@ -702,7 +732,7 @@ namespace ReconDataLayer
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
                                 BackgroundColor = new BaseColor(230, 230, 250),
-
+                                BorderColor = borderColor
                             };
                             mainTable2.AddCell(themeOrderCell);
 
@@ -722,7 +752,8 @@ namespace ReconDataLayer
                             PdfPCell themeHoldCell = new PdfPCell(themeholdTable)
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
-                                BackgroundColor = new BaseColor(230, 230, 250)
+                                BackgroundColor = new BaseColor(230, 230, 250),
+                                BorderColor = borderColor
                             };
                             mainTable2.AddCell(themeHoldCell);
 
@@ -734,7 +765,8 @@ namespace ReconDataLayer
                             PdfPCell themeTypeCell = new PdfPCell(themeTypeTable)
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
-                                BackgroundColor = new BaseColor(230, 230, 250)
+                                BackgroundColor = new BaseColor(230, 230, 250),
+                                BorderColor = borderColor
                             };
                             mainTable2.AddCell(themeTypeCell);
 
@@ -839,7 +871,7 @@ namespace ReconDataLayer
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
                                 BackgroundColor = new BaseColor(230, 230, 250),
-
+                                BorderColor = borderColor
                             };
                             mainTable3.AddCell(preprocessCodeCell);
 
@@ -851,7 +883,7 @@ namespace ReconDataLayer
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
                                 BackgroundColor = new BaseColor(230, 230, 250),
-
+                                BorderColor = borderColor
                             };
                             mainTable3.AddCell(preprocessNameCell);
 
@@ -863,6 +895,7 @@ namespace ReconDataLayer
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
                                 BackgroundColor = new BaseColor(230, 230, 250),
+                                BorderColor = borderColor
                             };
                             mainTable3.AddCell(preprocessMethodCell);
 
@@ -883,6 +916,7 @@ namespace ReconDataLayer
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
                                 BackgroundColor = new BaseColor(230, 230, 250),
+                                BorderColor = borderColor
                             };
                             mainTable3.AddCell(preprocessHoldCell);
 
@@ -894,6 +928,7 @@ namespace ReconDataLayer
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
                                 BackgroundColor = new BaseColor(230, 230, 250),
+                                BorderColor = borderColor
                             };
                             mainTable3.AddCell(preprocessOrderCell);
 

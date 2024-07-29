@@ -580,7 +580,7 @@ namespace ReconDataLayer
                     var filename = job_id + "_" + objgeneratedynamicReport.in_report_name;
                     if (job_id != null)
                     {
-                        insertintojob = insertfileName(filename, job_id, constring);
+                        insertintojob = insertfileName(filename, job_id, constring, headerval.user_code);
 
                     }
                     return dt;
@@ -605,7 +605,7 @@ namespace ReconDataLayer
                     string insertintojob = "";
                     if (job_id != null)
                     {
-                        insertintojob = insertfileName(filename, job_id, constring);
+                        insertintojob = insertfileName(filename, job_id, constring, headerval.user_code);
                     }
 
                     if (insertintojob == "Success")
@@ -676,10 +676,11 @@ namespace ReconDataLayer
 
 
 
-        public string insertfileName(string file_name, object job_id, string constring)
+        public string insertfileName(string file_name, object job_id, string constring, string user_code)
         {
             try
             {
+                Debugger.Break();
                 DBManager dbManager = new DBManager(constring);
                 Dictionary<string, Object> values = new Dictionary<string, object>();
                 MySqlDataAccess con = new MySqlDataAccess("");
@@ -704,11 +705,38 @@ namespace ReconDataLayer
         }
 
 
-		public DataTable generatedynamicReportData_new(ReportModel.DataModel objDataModel, UserManagementModel.headerValue headerval, string constring)
+        public string UpdateJobStatus(object job_id, string job_status, string job_remark, string constring, string user_code)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                int getjobId = Convert.ToInt32(job_id.ToString());
+                parameters.Add(dbManager.CreateParameter("in_job_gid", job_id, DbType.Int64));
+                parameters.Add(dbManager.CreateParameter("in_job_status", job_status, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_job_remark", job_remark, DbType.String));
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                ds = dbManager.execStoredProcedure("pr_upd_job", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                string outMsgValue = parameters[2].Value.ToString();
+                return outMsgValue;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.commonDataapi("", "SP", ex.Message, "pr_get_configvalue", "", constring);
+                return "failed";
+            }
+        }
+
+
+        public DataTable generatedynamicReportData_new(ReportModel.DataModel objDataModel, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
-                Debugger.Break();
 				DataTable JsonData = new DataTable();
                 DataTable sheetDt = new DataTable();
 				DataSet dataset = new DataSet();
@@ -757,7 +785,7 @@ namespace ReconDataLayer
                     var filename = job_id + "_" + objgeneratedynamicReport["in_report_name"];
                     if (job_id != null)
                     {
-                        insertintojob = insertfileName(filename, job_id, constring);
+                        insertintojob = insertfileName(filename, job_id, constring, headerval.user_code);
                     }
                     return dt;
                 }
@@ -780,7 +808,7 @@ namespace ReconDataLayer
                     string insertintojob = "";
                     if (job_id != null)
                     {
-                        insertintojob = insertfileName(filename, job_id, constring);
+                        insertintojob = insertfileName(filename, job_id, constring, headerval.user_code);
                     }
                     if (insertintojob == "Success")
                     {
@@ -811,7 +839,6 @@ namespace ReconDataLayer
                                 Console.WriteLine($"An error occurred while inserting table: {ex.Message}");
                                 throw;
                             }
-
 							var worksheet2 = workbook.Worksheets.Add("Condition Criteria");
 							worksheet2.Clear(XLClearOptions.Contents);
 							try
@@ -831,8 +858,9 @@ namespace ReconDataLayer
 								throw;
 							}
 							workbook.SaveAs(destFile);
-						}
-					}
+                            UpdateJobStatus(job_id, "C", "Completed", constring, headerval.user_code);
+                        }
+                    }
 					dt = dataset.Tables[1];
                     return dt;
                 }
