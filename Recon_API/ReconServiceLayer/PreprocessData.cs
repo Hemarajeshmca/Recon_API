@@ -205,7 +205,8 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
 				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
 				ds = dbManager.execStoredProcedure("pr_run_sql", CommandType.StoredProcedure, parameters.ToArray());
-				result = ds.Tables[1];
+				result = ds.Tables[name: "outparam"];
+				//result = ds.Tables[0];
 				return result;
 			}
 			catch (Exception ex)
