@@ -28,6 +28,7 @@ namespace ReconModels
 			public string? lookup_dataset_code { get; set; }
 			public string? lookup_return_field { get; set; }
 			public string? in_returnflag { get; set; }
+			public string? lookup_multi_return_flag { get; set; }
 			public string? active_status { get; set; }
 			public string? in_action { get; set; }
 			public string? in_action_by { get; set; }
@@ -102,7 +103,19 @@ namespace ReconModels
 		{
 			public String? in_preprocess_name { get; set; }
 			public String? in_clone_preprocess_code { get; set; }
-
+		}
+		public class lookupfieldmodel
+		{
+			public int? in_preprocesslookup_gid { get; set; }
+			public string? in_preprocess_code { get; set; }
+			public Double in_lookup_seqno { get; set; }
+			public string? in_lookup_return_field { get; set; }
+			public string? in_set_recon_field { get; set; }
+			public string? in_active_status { get; set; }
+			public string? in_action { get; set; }
+			public string? in_user_code { get; set; }
+			public string? out_msg { get; set; }
+			public string? out_result { get; set; }
 		}
 	}
 }
