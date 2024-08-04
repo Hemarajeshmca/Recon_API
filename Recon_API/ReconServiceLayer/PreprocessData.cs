@@ -60,6 +60,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_process_query", Objmodel.process_query, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_process_function", Objmodel.process_function, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_lookup_dataset_code", Objmodel.lookup_dataset_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lookup_multi_return_flag", Objmodel.lookup_multi_return_flag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_lookup_return_field", Objmodel.lookup_return_field, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_preprocess_order", Objmodel.preprocess_order, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_hold_flag", Objmodel.hold_flag, DbType.String));
@@ -139,6 +140,7 @@ namespace ReconDataLayer
 				ds.Tables[0].TableName = "header";
 				ds.Tables[1].TableName = "filter";
 				ds.Tables[2].TableName = "condition";
+				ds.Tables[3].TableName = "lookup";
 				return ds;
 			}
 			catch (Exception ex)
@@ -306,6 +308,40 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
 				ds = dbManager.execStoredProcedure("pr_get_datasetpreprocess", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_get_datasetpreprocess" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message, "pr_get_datasetpreprocess", headerval.user_code, constring);
+				return result;
+			}
+		}
+		public DataTable lookupfieldsavedata(lookupfieldmodel objdatarecon, UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_preprocesslookup_gid", objdatarecon.in_preprocesslookup_gid, DbType.Int64, ParameterDirection.InputOutput));
+				parameters.Add(dbManager.CreateParameter("in_preprocess_code", objdatarecon.in_preprocess_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_setrecon_field", objdatarecon.in_set_recon_field, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lookup_seqno", objdatarecon.in_lookup_seqno, DbType.Double));
+				parameters.Add(dbManager.CreateParameter("in_lookup_return_field", objdatarecon.in_lookup_return_field, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_set_recon_field", objdatarecon.in_set_recon_field, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_active_status", objdatarecon.in_active_status, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_action", objdatarecon.in_action, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_action_by", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+				ds = dbManager.execStoredProcedure("pr_recon_mst_tpreprocesslookup", CommandType.StoredProcedure, parameters.ToArray());
 				result = ds.Tables[0];
 				return result;
 			}
