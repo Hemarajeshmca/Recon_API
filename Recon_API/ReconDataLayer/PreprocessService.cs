@@ -135,5 +135,17 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
+		public static DataTable lookupfieldsavesrv(lookupfieldmodel objdatarecon, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				PreprocessData objqcd = new PreprocessData();
+				ds = objqcd.lookupfieldsavedata(objdatarecon, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
 	}
 }
