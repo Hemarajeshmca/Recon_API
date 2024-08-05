@@ -1,24 +1,11 @@
 ﻿using ClosedXML.Excel;
-using DocumentFormat.OpenXml.Drawing.Diagrams;
-using DocumentFormat.OpenXml.Spreadsheet;
-using Google.Protobuf;
-using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Org.BouncyCastle.Asn1.Ocsp;
 using ReconModels;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static ReconModels.CommonModel;
-using static ReconModels.ProcessModel;
 using static ReconModels.ReconModel;
 using static ReconModels.ReportModel;
-using static ReconModels.UserManagementModel;
 
 namespace ReconDataLayer
 {
@@ -74,7 +61,6 @@ namespace ReconDataLayer
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-				Debugger.Break();
 				objlog.logger("SP:pr_get_brs" + "Error Message:" + ex.Message);
 				objlog.commonDataapi("", "SP", ex.Message, "pr_get_brs", headerval.user_code, constring);
 				throw ex;
@@ -680,7 +666,6 @@ namespace ReconDataLayer
         {
             try
             {
-                Debugger.Break();
                 DBManager dbManager = new DBManager(constring);
                 Dictionary<string, Object> values = new Dictionary<string, object>();
                 MySqlDataAccess con = new MySqlDataAccess("");
@@ -812,6 +797,7 @@ namespace ReconDataLayer
                     }
                     if (insertintojob == "Success")
                     {
+                        Debugger.Break();
                         string sheetName = "Data";
                         File.Copy(sourceFile, destFile, true);
                         using (var workbook = new XLWorkbook(destFile))
@@ -821,14 +807,15 @@ namespace ReconDataLayer
                             try
                             {
                                 if (dataset.Tables[0].Rows.Count > 0)
-                                {							
-									worksheet.Cell(1, 1).InsertTable(dataset.Tables[0].AsEnumerable());
-									//worksheet.Cells().Style.Protection.SetLocked(false);
+                                {
+                                    worksheet.Clear();
+                                    worksheet.Cell(1, 1).InsertTable(dataset.Tables[0].AsEnumerable());
+                                    //worksheet.Cells().Style.Protection.SetLocked(false);
 
-									//// Lock the specific column (make it read-only)
-									//worksheet.Column("B").Style.Protection.SetLocked(true);
-									//worksheet.Protect();
-								}
+                                    //// Lock the specific column (make it read-only)
+                                    //worksheet.Column("B").Style.Protection.SetLocked(true);
+                                    //worksheet.Protect();
+                                }
                                 else
                                 {
                                     worksheet.Cell(1, 1).InsertData("No Record Found");
@@ -839,25 +826,25 @@ namespace ReconDataLayer
                                 Console.WriteLine($"An error occurred while inserting table: {ex.Message}");
                                 throw;
                             }
-							var worksheet2 = workbook.Worksheets.Add("Condition Criteria");
-							worksheet2.Clear(XLClearOptions.Contents);
-							try
-							{
-								if (sheetDt.Rows.Count > 0)
-								{
-									worksheet2.Cell(1, 1).InsertTable(sheetDt.AsEnumerable());
-								}
-								else
-								{
-									worksheet2.Cell(1, 1).InsertData("No Record Found");
-								}
-							}
-							catch (Exception ex)
-							{
-								Console.WriteLine($"An error occurred while inserting table into {"Sheet2"}: {ex.Message}");
-								throw;
-							}
-							workbook.SaveAs(destFile);
+                            var worksheet2 = workbook.Worksheets.Add("Condition Criteria");
+                            worksheet2.Clear(XLClearOptions.Contents);
+                            try
+                            {
+                                if (sheetDt.Rows.Count > 0)
+                                {
+                                    worksheet2.Cell(1, 1).InsertTable(sheetDt.AsEnumerable());
+                                }
+                                else
+                                {
+                                    worksheet2.Cell(1, 1).InsertData("No Record Found");
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine($"An error occurred while inserting table into {"Sheet2"}: {ex.Message}");
+                                throw;
+                            }
+                            workbook.SaveAs(destFile);
                             UpdateJobStatus(job_id, "C", "Completed", constring, headerval.user_code);
                         }
                     }
@@ -894,7 +881,6 @@ namespace ReconDataLayer
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-                Debugger.Break();
                 objlog.logger("SP:pr_get_brs" + "Error Message:" + ex.Message);
                 objlog.commonDataapi("", "SP", ex.Message, "pr_get_brs", headerval.user_code, constring);
                 throw ex;
@@ -936,7 +922,6 @@ namespace ReconDataLayer
 			catch (Exception ex)
 			{
 				CommonHeader objlog = new CommonHeader();
-				Debugger.Break();
 				objlog.logger("SP:pr_run_dynamicreport" + "Error Message:" + ex.Message);
 				objlog.commonDataapi("", "SP", ex.Message, "pr_run_dynamicreport", headerval.user_code, constring);
 				throw ex;
