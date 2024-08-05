@@ -19,7 +19,6 @@ namespace ReconDataLayer
 {
     public class ReconversionData
     {
-        private Image _watermarkImage;
         DataSet ds = new DataSet();
         DataTable result = new DataTable();
         DBManager dbManager = new DBManager("ConnectionString");
@@ -29,7 +28,6 @@ namespace ReconDataLayer
             try
             {
                 DBManager dbManager = new DBManager(constring);
-                Dictionary<string, Object> values = new Dictionary<string, object>();
                 MySqlDataAccess con = new MySqlDataAccess("");
                 parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_recon_code", Objmodel.in_recon_code, DbType.String));
@@ -274,7 +272,6 @@ namespace ReconDataLayer
                 BaseColor ironbrown = new BaseColor(153, 0, 0);
                 string logoPath = "D:\\user\\hema\\Recon\\ReconWeb\\ReconWeb\\Recon\\Recon_proto\\wwwroot\\Assets\\images\\footerlogo_new.png";
                 DBManager dbManager = new DBManager(constring);
-                Dictionary<string, Object> values = new Dictionary<string, object>();
                 MySqlDataAccess con = new MySqlDataAccess("");
                 parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_recon_code", objReconReportVersionhistory.in_recon_code, DbType.String));
@@ -292,6 +289,7 @@ namespace ReconDataLayer
                 }
                 MemoryStream ms = new MemoryStream();
                 Rectangle rec = new Rectangle(PageSize.A4);
+                Dictionary<string, int> tocEntries = new Dictionary<string, int>();
                 using (Document document = new Document(rec, 30f, 30f, 30f, 30f))
                 {
                     // Dynamic Table data
@@ -303,18 +301,12 @@ namespace ReconDataLayer
                     dt2 = ds.Tables["Rulelist"];
                     dt3 = ds.Tables["themelist"];
                     dt4 = ds.Tables["preprocesslist"];
+                    // Track headings and their page numbers
+
                     PdfWriter writer = PdfWriter.GetInstance(document, ms);
                     writer.PageEvent = new PdfWatermarkHandler(logoPath);
                     document.Open();
-                    BaseColor borderColor = new BaseColor(169, 169, 169); // Gray color
-                    //// Add the image
-                    //string imagePath = "D:\\user\\hema\\Recon\\ReconWeb\\ReconWeb\\Recon\\Recon_proto\\wwwroot\\Assets\\images\\footerlogo_1.png";
-                    //Image img = Image.GetInstance(imagePath);
-                    //img.ScaleToFit(100f, 100f); // Scale the image to fit a specific size
-                    //img.Alignment = Element.ALIGN_CENTER; // Align the image
-
-                    //document.Add(img);
-
+                    BaseColor borderColor = new BaseColor(169, 169, 169);
 
                     /* Header Start */
 
@@ -324,6 +316,7 @@ namespace ReconDataLayer
 
                     // Title
                     document.Add(CreateMainTitle1("Recon Version History - " + objReconReportVersionhistory.in_version_code));
+                    tocEntries.Add("Recon Version History - " + objReconReportVersionhistory.in_version_code, writer.PageNumber);
 
                     // Recon Code Column
                     PdfPTable reconCodeTable = new PdfPTable(1);
@@ -465,7 +458,9 @@ namespace ReconDataLayer
 
                     if (dt4.Rows.Count > 0)
                     {
+                        string mainTitle = "PreProcess List";
                         document.Add(CreateTitle("PreProcess List", mustardYellow));
+                        tocEntries.Add(mainTitle, writer.PageNumber);
                         document.Add(PdfdynamicTableGenration(dt4));
                         PdfPTable spacerTableAfter = new PdfPTable(1);
                         PdfPCell spacerCellAfter = new PdfPCell(new Phrase(" "))
@@ -479,7 +474,9 @@ namespace ReconDataLayer
 
                     if (dt2.Rows.Count > 0)
                     {
+                        string mainTitle = "Rule List";
                         document.Add(CreateTitle("Rule List", mustardYellow));
+                        tocEntries.Add(mainTitle, writer.PageNumber);
                         document.Add(PdfdynamicTableGenration(dt2));
                         PdfPTable spacerTableAfter = new PdfPTable(1);
                         PdfPCell spacerCellAfter = new PdfPCell(new Phrase(" "))
@@ -493,7 +490,9 @@ namespace ReconDataLayer
 
                     if (dt3.Rows.Count > 0)
                     {
+                        string mainTitle = "Theme List";
                         document.Add(CreateTitle("Theme List", mustardYellow));
+                        tocEntries.Add(mainTitle, writer.PageNumber);
                         document.Add(PdfdynamicTableGenration(dt3));
                         PdfPTable spacerTableAfter = new PdfPTable(1);
                         PdfPCell spacerCellAfter = new PdfPCell(new Phrase(" "))
@@ -525,8 +524,9 @@ namespace ReconDataLayer
                             ds = dbManager.execStoredProcedure("pr_report_rulecondition", CommandType.StoredProcedure, parameters.ToArray());
 
                             // Rule Code Column
+                            string maintitle = i + 1 + ". " + "Rule Details";
                             document.Add(CreateTitle(i + 1 + ". " + "Rule Details" + " - " + dt2.Rows[i]["Rule Order"], grassGreen));
-
+                            tocEntries.Add(maintitle, writer.PageNumber);
                             PdfPTable ruleCodeTable = new PdfPTable(1);
                             ruleCodeTable.AddCell(CreateLabelCell("Rule Code : " + dt2.Rows[i]["Rule Code"], true));
 
@@ -566,7 +566,7 @@ namespace ReconDataLayer
                             PdfPCell blankCell3 = new PdfPCell(new Phrase(" "))
                             {
                                 Colspan = 3,
-                                FixedHeight = fh, // Adjust height as needed
+                                FixedHeight = fh,
                                 Border = PdfPCell.NO_BORDER
                             };
 
@@ -612,7 +612,7 @@ namespace ReconDataLayer
                             PdfPCell blankCell5 = new PdfPCell(new Phrase(" "))
                             {
                                 Colspan = 3,
-                                FixedHeight = fh, // Adjust height as needed
+                                FixedHeight = fh,
                                 Border = PdfPCell.NO_BORDER
                             };
 
@@ -657,7 +657,7 @@ namespace ReconDataLayer
                             PdfPCell blankCell4 = new PdfPCell(new Phrase(" "))
                             {
                                 Colspan = 3,
-                                FixedHeight = fh, // Adjust height as needed
+                                FixedHeight = fh,
                                 Border = PdfPCell.NO_BORDER
                             };
 
@@ -669,6 +669,7 @@ namespace ReconDataLayer
                             if (ds.Tables[0].Rows.Count > 0)
                             {
                                 document.Add(CreateTitle("Rule Condition", mustardYellow));
+                                // tocEntries.Add("Rule Conditionnnn", writer.PageNumber);
                                 document.Add(PdfdynamicTableGenration(ds.Tables[0]));
                                 PdfPTable spacerTableAfter = new PdfPTable(1);
                                 PdfPCell spacerCellAfter = new PdfPCell(new Phrase(" "))
@@ -683,7 +684,9 @@ namespace ReconDataLayer
                             //Table and space between
                             if (ds.Tables[1].Rows.Count > 0)
                             {
+                                string mainTitle = "Rule Source Filter";
                                 document.Add(CreateTitle("Rule Source Filter", mustardYellow));
+                                tocEntries.Add(mainTitle, writer.PageNumber);
                                 document.Add(PdfdynamicTableGenration(ds.Tables[1]));
                                 PdfPTable spacerTableAfter1 = new PdfPTable(1);
                                 PdfPCell spacerCellAfter1 = new PdfPCell(new Phrase(" "))
@@ -698,7 +701,9 @@ namespace ReconDataLayer
                             //Table and space between
                             if (ds.Tables[2].Rows.Count > 0)
                             {
+                                string mainTitle = "Rule Comparision Filter";
                                 document.Add(CreateTitle("Rule Comparision Filter", mustardYellow));
+                                tocEntries.Add(mainTitle, writer.PageNumber);
                                 document.Add(PdfdynamicTableGenration(ds.Tables[2]));
                                 PdfPTable spacerTableAfter2 = new PdfPTable(1);
                                 PdfPCell spacerCellAfter2 = new PdfPCell(new Phrase(" "))
@@ -713,7 +718,9 @@ namespace ReconDataLayer
                             //Table and space between
                             if (ds.Tables[2].Rows.Count > 0)
                             {
+                                string mainTitle = "Rule Group Filter";
                                 document.Add(CreateTitle("Rule Group Filter", mustardYellow));
+                                tocEntries.Add(mainTitle, writer.PageNumber);
                                 document.Add(PdfdynamicTableGenration(ds.Tables[3]));
                                 PdfPTable spacerTableAfter3 = new PdfPTable(1);
                                 PdfPCell spacerCellAfter3 = new PdfPCell(new Phrase(" "))
@@ -748,6 +755,8 @@ namespace ReconDataLayer
 
                             ds = dbManager.execStoredProcedure("pr_report_themedetails", CommandType.StoredProcedure, parameters.ToArray());
                             document.Add(CreateTitle(i + 1 + ". " + "Theme Details", reconPurpple));
+                            string mainTitle = i + 1 + "." + "Theme Details";
+                            tocEntries.Add(mainTitle, writer.PageNumber);
 
                             //Theme Code
                             PdfPTable themeCodeTable = new PdfPTable(1);
@@ -788,7 +797,7 @@ namespace ReconDataLayer
                             PdfPCell blankCell3 = new PdfPCell(new Phrase(" "))
                             {
                                 Colspan = 3,
-                                FixedHeight = fh, // Adjust height as needed
+                                FixedHeight = fh,
                                 Border = PdfPCell.NO_BORDER
                             };
 
@@ -819,11 +828,10 @@ namespace ReconDataLayer
                             mainTable2.AddCell(themeTypeCell);
 
                             // Add Empty Cell for Space
-
                             PdfPCell blankCellTheme = new PdfPCell(new Phrase(" "))
                             {
                                 Colspan = 3,
-                                FixedHeight = fh, // Adjust height as needed
+                                FixedHeight = fh,
                                 Border = PdfPCell.NO_BORDER
                             };
                             mainTable2.AddCell(blankCellTheme);
@@ -831,7 +839,7 @@ namespace ReconDataLayer
                             PdfPCell blankCell5 = new PdfPCell(new Phrase(" "))
                             {
                                 Colspan = 3,
-                                FixedHeight = fh, // Adjust height as needed
+                                FixedHeight = fh,
                                 Border = PdfPCell.NO_BORDER
                             };
                             mainTable2.AddCell(blankCell5);
@@ -839,7 +847,9 @@ namespace ReconDataLayer
                             document.Add(mainTable2);
                             if (ds.Tables[1].Rows.Count > 0)
                             {
+                                string mainTitle1 = "Theme Condition";
                                 document.Add(CreateTitle("Theme Condition", mustardYellow));
+                                tocEntries.Add(mainTitle1, writer.PageNumber);
                                 document.Add(PdfdynamicTableGenration(ds.Tables[1]));
                                 PdfPTable spacerTableAfter = new PdfPTable(1);
                                 PdfPCell spacerCellAfter = new PdfPCell(new Phrase(" "))
@@ -852,7 +862,9 @@ namespace ReconDataLayer
                             }
                             if (ds.Tables[2].Rows.Count > 0)
                             {
+                                string mainTitle1 = "Theme Source Identifier";
                                 document.Add(CreateTitle("Theme Source Identifier", mustardYellow));
+                                tocEntries.Add(mainTitle1, writer.PageNumber);
                                 document.Add(PdfdynamicTableGenration(ds.Tables[2]));
                                 PdfPTable spacerTableAfter3 = new PdfPTable(1);
                                 PdfPCell spacerCellAfter3 = new PdfPCell(new Phrase(" "))
@@ -865,7 +877,9 @@ namespace ReconDataLayer
                             }
                             if (ds.Tables[3].Rows.Count > 0)
                             {
+                                string maintitle = "Theme Comparision Identifier";
                                 document.Add(CreateTitle("Theme Comparision Identifier", mustardYellow));
+                                tocEntries.Add(maintitle, writer.PageNumber);
                                 document.Add(PdfdynamicTableGenration(ds.Tables[3]));
                                 PdfPTable spacerTableAfter3 = new PdfPTable(1);
                                 PdfPCell spacerCellAfter3 = new PdfPCell(new Phrase(" "))
@@ -877,11 +891,8 @@ namespace ReconDataLayer
                                 document.Add(spacerTableAfter3);
                             }
                         }
-
                     }
-
                     /* Table Ends Theme */
-
                     document.NewPage();
 
                     /* Table Starts PreProcess */
@@ -900,6 +911,9 @@ namespace ReconDataLayer
                             parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
                             ds = dbManager.execStoredProcedure("pr_report_preprocessdetails", CommandType.StoredProcedure, parameters.ToArray());
                             document.Add(CreateTitle(i + 1 + ". " + "Preprocess Details", ironbrown));
+                            string maintitle = i + 1 + ". " + "Preprocess Details";
+                            tocEntries.Add(maintitle, writer.PageNumber);
+
                             //PreProcess Code
                             PdfPTable preprocessCodeTable = new PdfPTable(1);
                             preprocessCodeTable.AddCell(CreateLabelCell("PreProcess Code : " + dt4.Rows[i]["Preprocess Code"], true));
@@ -939,7 +953,7 @@ namespace ReconDataLayer
                             PdfPCell blankCell4 = new PdfPCell(new Phrase(" "))
                             {
                                 Colspan = 3,
-                                FixedHeight = fh, // Adjust height as needed
+                                FixedHeight = fh,
                                 Border = PdfPCell.NO_BORDER
                             };
 
@@ -973,7 +987,7 @@ namespace ReconDataLayer
                             PdfPCell blankCellPreProcess = new PdfPCell(new Phrase(" "))
                             {
                                 Colspan = 3,
-                                FixedHeight = fh, // Adjust height as needed
+                                FixedHeight = fh,
                                 Border = PdfPCell.NO_BORDER
                             };
 
@@ -981,7 +995,7 @@ namespace ReconDataLayer
                             PdfPCell blankCell6 = new PdfPCell(new Phrase(" "))
                             {
                                 Colspan = 3,
-                                FixedHeight = fh, // Adjust height as needed
+                                FixedHeight = fh,
                                 Border = PdfPCell.NO_BORDER
                             };
                             mainTable3.AddCell(blankCell6);
@@ -1074,24 +1088,84 @@ namespace ReconDataLayer
                     /* Table Ends PreProcess */
                     document.Close();
                     byte[] pdfBytes = ms.ToArray();
-                    using (MemoryStream updatedMs = new MemoryStream())
+                    //using (MemoryStream updatedMs = new MemoryStream())
+                    //{
+                    //    PdfReader reader = new PdfReader(pdfBytes);
+                    //    using (PdfStamper stamper = new PdfStamper(reader, updatedMs))
+                    //    {
+                    //        PdfContentByte cb = stamper.GetOverContent(1);
+                    //        PdfPTable tocTable = new PdfPTable(2);
+                    //        tocTable.WidthPercentage = 100;
+                    //        tocTable.SetWidths(new float[] { 0.8f, 0.2f }); // Correctly set the widths as proportions of the table width
+                    //        Font tocFont = new Font(Font.FontFamily.HELVETICA, 12);
+                    //        float tableHeight = reader.GetPageSize(1).Height - 100 - 50;
+                    //        if (tableHeight <= 0)
+                    //        {
+                    //            throw new Exception("Not enough space for the table on the first page.");
+                    //        }
+
+                    //        Font tocFont1 = new Font(Font.FontFamily.HELVETICA, 12);
+                    //        foreach (var entry in tocEntries)
+                    //        {
+                    //            tocTable.AddCell(new PdfPCell(new Phrase(entry.Key, tocFont1)) { Border = PdfPCell.NO_BORDER });
+                    //            tocTable.AddCell(new PdfPCell(new Phrase(entry.Value.ToString(), tocFont1)) { Border = PdfPCell.NO_BORDER, HorizontalAlignment = Element.ALIGN_RIGHT });
+                    //        }
+
+                    //        ColumnText.ShowTextAligned(cb, Element.ALIGN_LEFT, new Phrase("Table of Contents", new Font(Font.FontFamily.HELVETICA, 20)), 50, reader.GetPageSize(1).Height - 50, 0);
+
+                    //        // Check table total width for debugging
+                    //        float[] tableWidths = tocTable.AbsoluteWidths;
+                    //        float totalWidth = 0;
+                    //        foreach (var width in tableWidths)
+                    //        {
+                    //            totalWidth += width;
+                    //        }
+
+                    //        // Debugging output
+                    //        Console.WriteLine($"Table total width: {totalWidth}");
+                    //        Console.WriteLine($"Available width: {reader.GetPageSize(1).Width - 100}");
+
+                    //        tocTable.WriteSelectedRows(0, -1, 50, reader.GetPageSize(1).Height - 100, cb);
+
+                    //        int totalPages = reader.NumberOfPages;
+                    //        for (int i = 1; i <= totalPages; i++)
+                    //        {
+                    //            PdfContentByte overContent = stamper.GetOverContent(i);
+                    //            ColumnText.ShowTextAligned(
+                    //                overContent,
+                    //                Element.ALIGN_LEFT,
+                    //                new Phrase($"Page {i} / {totalPages} - {DateTime.Now:dd/MM/yyyy HH:mm:ss}",
+                    //                new Font(BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.WINANSI, BaseFont.NOT_EMBEDDED), 8)),
+                    //            30, 10, 0);
+                    //        }
+                    //    }
+                    //    return updatedMs.ToArray();
+                    //}
+
+
+                    using (MemoryStream finalStream = new MemoryStream())
                     {
-                        PdfReader reader = new PdfReader(pdfBytes);
-                        using (PdfStamper stamper = new PdfStamper(reader, updatedMs))
+                        using (Document finalDocument = new Document(rec, 30f, 30f, 30f, 30f))
                         {
-                            int totalPages = reader.NumberOfPages;
-                            for (int i = 1; i <= totalPages; i++)
+                            PdfCopy pdfCopy = new PdfCopy(finalDocument, finalStream);
+                            finalDocument.Open();
+
+                            // Add TOC at the beginning
+                            PdfReader tocReader = new PdfReader(GenerateTocPdf(tocEntries));
+                            for (int i = 1; i <= tocReader.NumberOfPages; i++)
                             {
-                                PdfContentByte overContent = stamper.GetOverContent(i);
-                                ColumnText.ShowTextAligned(
-                                    overContent,
-                                    Element.ALIGN_LEFT,
-                                    new Phrase($"Page {i} / {totalPages} - {DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")}",
-                                    new Font(BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.WINANSI, BaseFont.NOT_EMBEDDED), 8)),
-                            30, 10, 0);
+                                pdfCopy.AddPage(pdfCopy.GetImportedPage(tocReader, i));
                             }
+
+                            // Add the main content
+                            PdfReader contentReader = new PdfReader(ms.ToArray());
+                            for (int i = 1; i <= contentReader.NumberOfPages; i++)
+                            {
+                                pdfCopy.AddPage(pdfCopy.GetImportedPage(contentReader, i));
+                            }
+                            finalDocument.Close();
                         }
-                        return updatedMs.ToArray();
+                        return finalStream.ToArray();
                     }
                 }
             }
@@ -1104,5 +1178,301 @@ namespace ReconDataLayer
             }
         }
 
+        public byte[] ReconReportVersionhistoryData1(ReconReportVersionhistoryModel objReconReportVersionhistory, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                float fh = 8f;
+                BaseColor mustardYellow = new BaseColor(235, 147, 22);
+                BaseColor grassGreen = new BaseColor(0, 102, 0);
+                BaseColor reconPurpple = new BaseColor(135, 46, 123);
+                BaseColor ironbrown = new BaseColor(153, 0, 0);
+                string logoPath = "D:\\user\\hema\\Recon\\ReconWeb\\ReconWeb\\Recon\\Recon_proto\\wwwroot\\Assets\\images\\footerlogo_new.png";
+                DBManager dbManager = new DBManager(constring);
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_recon_code", objReconReportVersionhistory.in_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_version_code", objReconReportVersionhistory.in_version_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+                ds = dbManager.execStoredProcedure("pr_report_reconversionhistory", CommandType.StoredProcedure, parameters.ToArray());
+                if (ds.Tables.Count >= 3)
+                {
+                    ds.Tables[0].TableName = "Recondetail";
+                    ds.Tables[1].TableName = "Rulelist";
+                    ds.Tables[2].TableName = "themelist";
+                    ds.Tables[3].TableName = "preprocesslist";
+                }
+                // Dynamic Table data
+                DataTable dt1 = new DataTable();
+                DataTable dt2 = new DataTable();
+                DataTable dt3 = new DataTable();
+                DataTable dt4 = new DataTable();
+                dt1 = ds.Tables["Recondetail"];
+                dt2 = ds.Tables["Rulelist"];
+                dt3 = ds.Tables["themelist"];
+                dt4 = ds.Tables["preprocesslist"];
+               // MemoryStream ms = new MemoryStream();
+                Rectangle rec = new Rectangle(PageSize.A4);
+                Dictionary<string, int> tocEntries = new Dictionary<string, int>();
+
+                // Create a temporary stream to hold the main content
+                MemoryStream ms = new MemoryStream();
+                using (Document document = new Document(rec, 30f, 30f, 30f, 30f))
+                {
+                    PdfWriter writer = PdfWriter.GetInstance(document, ms);
+                    writer.PageEvent = new PdfWatermarkHandler(logoPath);
+                    document.Open();
+                    BaseColor borderColor = new BaseColor(169, 169, 169);
+
+                    /* Header Start */
+
+                    // Input field
+                    PdfPTable mainTable = new PdfPTable(3) { WidthPercentage = 100 };
+                    mainTable.SetWidths(new float[] { 10f, 5f, 10f });
+
+                    // Title
+                    string mainTitle = "Recon Version History - " + objReconReportVersionhistory.in_version_code;
+                    document.Add(CreateMainTitle1(mainTitle));
+                    tocEntries.Add(mainTitle, writer.PageNumber);
+
+                    // Recon Code Column
+                    PdfPTable reconCodeTable = new PdfPTable(1);
+                    reconCodeTable.AddCell(CreateLabelCell("Recon Code : " + dt1.Rows[0]["Recon Code"], true));
+
+                    PdfPCell reconCodeCell = new PdfPCell(reconCodeTable)
+                    {
+                        Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
+                        BackgroundColor = new BaseColor(230, 230, 250),
+                        BorderColor = borderColor
+                    };
+                    mainTable.AddCell(reconCodeCell);
+
+                    // Add an empty blank space
+                    mainTable.AddCell(new PdfPCell(new Phrase("")) { Border = PdfPCell.NO_BORDER });
+
+                    // Recon Name Column
+                    PdfPTable reconNameTable = new PdfPTable(1);
+                    reconNameTable.AddCell(CreateLabelCell("Recon Name : " + dt1.Rows[0]["Recon Name"], true));
+
+                    PdfPCell reconNameCell = new PdfPCell(reconNameTable)
+                    {
+                        Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
+                        BackgroundColor = new BaseColor(230, 230, 250),
+                        BorderColor = borderColor
+                    };
+                    mainTable.AddCell(reconNameCell);
+
+                    // Empty Line
+
+                    PdfPCell blankCell = new PdfPCell(new Phrase(" "))
+                    {
+                        Colspan = 3,
+                        FixedHeight = 8f, // Adjust height as needed
+                        Border = PdfPCell.NO_BORDER
+                    };
+
+                    mainTable.AddCell(blankCell);
+
+                    // History Version Column
+                    PdfPTable historyVersionTable = new PdfPTable(1);
+                    historyVersionTable.AddCell(CreateLabelCell("History Version : " + objReconReportVersionhistory.in_version_code, true));
+
+                    PdfPCell historyVersionCell = new PdfPCell(historyVersionTable)
+                    {
+                        Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
+                        BackgroundColor = new BaseColor(230, 230, 250),
+                        BorderColor = borderColor
+                    };
+                    mainTable.AddCell(historyVersionCell);
+
+                    // Add an empty blank space
+                    mainTable.AddCell(new PdfPCell(new Phrase("")) { Border = PdfPCell.NO_BORDER });
+
+                    // Recon Type Column
+                    PdfPTable reconTypeTable = new PdfPTable(1);
+                    reconTypeTable.AddCell(CreateLabelCell("Recon Type : " + dt1.Rows[0]["Recon Type"], true));
+
+                    PdfPCell reconTypeCell = new PdfPCell(reconTypeTable)
+                    {
+                        Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
+                        BackgroundColor = new BaseColor(230, 230, 250),
+                        BorderColor = borderColor
+                    };
+                    mainTable.AddCell(reconTypeCell);
+
+                    // Empty Line
+
+                    PdfPCell blankCell1 = new PdfPCell(new Phrase(" "))
+                    {
+                        Colspan = 3,
+                        FixedHeight = fh,
+                        Border = PdfPCell.NO_BORDER
+                    };
+
+                    mainTable.AddCell(blankCell1);
+
+                    // Period From Column
+                    PdfPTable periodFromTable = new PdfPTable(1);
+                    periodFromTable.AddCell(CreateLabelCell("Active From : " + dt1.Rows[0]["Period From"], true));
+
+                    PdfPCell periodFromTypeCell = new PdfPCell(periodFromTable)
+                    {
+                        Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
+                        BackgroundColor = new BaseColor(230, 230, 250),
+                        BorderColor = borderColor
+                    };
+                    mainTable.AddCell(periodFromTypeCell);
+
+                    // Add an empty blank space
+                    mainTable.AddCell(new PdfPCell(new Phrase("")) { Border = PdfPCell.NO_BORDER });
+
+                    // Period To Column
+                    if (dt1.Rows[0]["until_active_flag"].ToString() == "YES")
+                    {
+                        PdfPTable periodToTable = new PdfPTable(1);
+                        periodToTable.AddCell(CreateLabelCell("Active To : " + "Until Inactive", true));
+
+                        PdfPCell periodToTypeCell = new PdfPCell(periodToTable)
+                        {
+                            Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
+                            BackgroundColor = new BaseColor(230, 230, 250),
+                            BorderColor = borderColor
+                        };
+                        mainTable.AddCell(periodToTypeCell);
+                    }
+                    else
+                    {
+                        PdfPTable periodToTable = new PdfPTable(1);
+                        periodToTable.AddCell(CreateLabelCell("Active To : " + dt1.Rows[0]["Period To"], true));
+
+                        PdfPCell periodToTypeCell = new PdfPCell(periodToTable)
+                        {
+                            Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
+                            BackgroundColor = new BaseColor(230, 230, 250),
+                            BorderColor = borderColor
+                        };
+                        mainTable.AddCell(periodToTypeCell);
+                    }
+
+                    // Adding Blank Space
+
+                    PdfPCell blankCell2 = new PdfPCell(new Phrase(" "))
+                    {
+                        Colspan = 3,
+                        FixedHeight = fh,
+                        Border = PdfPCell.NO_BORDER
+                    };
+
+                    mainTable.AddCell(blankCell2);
+
+                    document.Add(mainTable);
+                    /* Header Ends */
+
+                    // List Table for Rule ,Theme and PreProcess
+
+                    if (dt4.Rows.Count > 0)
+                    {
+                        string preprocessTitle = "PreProcess List";
+                        document.Add(CreateTitle(preprocessTitle, mustardYellow));
+                        tocEntries.Add(preprocessTitle, writer.PageNumber);
+                        document.Add(PdfdynamicTableGenration(dt4));
+                        PdfPTable spacerTableAfter = new PdfPTable(1);
+                        PdfPCell spacerCellAfter = new PdfPCell(new Phrase(" "))
+                        {
+                            FixedHeight = fh,
+                            Border = PdfPCell.NO_BORDER
+                        };
+                        spacerTableAfter.AddCell(spacerCellAfter);
+                        document.Add(spacerTableAfter);
+                    }
+
+                    if (dt2.Rows.Count > 0)
+                    {
+                        string ruleListTitle = "Rule List";
+                        document.Add(CreateTitle(ruleListTitle, mustardYellow));
+                        tocEntries.Add(ruleListTitle, writer.PageNumber);
+                        document.Add(PdfdynamicTableGenration(dt2));
+                        PdfPTable spacerTableAfter = new PdfPTable(1);
+                        PdfPCell spacerCellAfter = new PdfPCell(new Phrase(" "))
+                        {
+                            FixedHeight = fh,
+                            Border = PdfPCell.NO_BORDER
+                        };
+                        spacerTableAfter.AddCell(spacerCellAfter);
+                        document.Add(spacerTableAfter);
+                    }
+
+                    if (dt3.Rows.Count > 0)
+                    {
+                        string themeListTitle = "Theme List";
+                        document.Add(CreateTitle(themeListTitle, mustardYellow));
+                        tocEntries.Add(themeListTitle, writer.PageNumber);
+                        document.Add(PdfdynamicTableGenration(dt3));
+                    }
+
+
+
+
+                    document.Close();
+                }
+
+                // Now create the final document with the TOC
+                using (MemoryStream finalStream = new MemoryStream())
+                {
+                    using (Document finalDocument = new Document(rec, 30f, 30f, 30f, 30f))
+                    {
+                        PdfCopy pdfCopy = new PdfCopy(finalDocument, finalStream);
+                        finalDocument.Open();
+
+                        // Add TOC at the beginning
+                        PdfReader tocReader = new PdfReader(GenerateTocPdf(tocEntries));
+                        for (int i = 1; i <= tocReader.NumberOfPages; i++)
+                        {
+                            pdfCopy.AddPage(pdfCopy.GetImportedPage(tocReader, i));
+                        }
+
+                        // Add the main content
+                        PdfReader contentReader = new PdfReader(ms.ToArray());
+                        for (int i = 1; i <= contentReader.NumberOfPages; i++)
+                        {
+                            pdfCopy.AddPage(pdfCopy.GetImportedPage(contentReader, i));
+                        }
+                        finalDocument.Close();
+                    }
+                    return finalStream.ToArray();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions
+                throw new ApplicationException("Error generating PDF", ex);
+            }
+        }
+
+        private byte[] GenerateTocPdf(Dictionary<string, int> tocEntries)
+        {
+            using (MemoryStream tocStream = new MemoryStream())
+            {
+                using (Document tocDocument = new Document(PageSize.A4, 30f, 30f, 30f, 30f))
+                {
+                    PdfWriter tocWriter = PdfWriter.GetInstance(tocDocument, tocStream);
+                    tocDocument.Open();
+                    tocDocument.Add(new Paragraph("Table of Contents", new Font(Font.FontFamily.HELVETICA, 20)));
+
+                    foreach (var entry in tocEntries)
+                    {
+                        Paragraph p = new Paragraph($"{entry.Key} ....... {entry.Value}", new Font(Font.FontFamily.HELVETICA, 12));
+                        tocDocument.Add(p);
+                    }
+
+                    tocDocument.Close();
+                }
+                return tocStream.ToArray();
+            }
+        }
+
     }
 }
+
