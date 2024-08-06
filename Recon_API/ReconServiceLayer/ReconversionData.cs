@@ -14,6 +14,7 @@ using iTextSharp.text.pdf;
 using System.Diagnostics;
 using SixLabors.Fonts;
 using DocumentFormat.OpenXml.Office2010.Excel;
+using DocumentFormat.OpenXml.Bibliography;
 
 namespace ReconDataLayer
 {
@@ -113,8 +114,6 @@ namespace ReconDataLayer
             }
         }
 
-
-
         private PdfPTable PdfdynamicTableGenration(DataTable dt)
         {
             PdfPTable table = new PdfPTable(dt.Columns.Count) { WidthPercentage = 100 };
@@ -182,7 +181,6 @@ namespace ReconDataLayer
             };
             return headerCell;
         }
-
         private Paragraph CreateMainTitle(string title)
         {
             iTextSharp.text.Font boldFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10, iTextSharp.text.Font.BOLD);
@@ -197,7 +195,6 @@ namespace ReconDataLayer
             prgHeading.Add(headingChunk);
             return prgHeading;
         }
-
         private Paragraph CreateMainTitle1(string title)
         {
             iTextSharp.text.Font boldFont = new iTextSharp.text.Font();
@@ -249,7 +246,6 @@ namespace ReconDataLayer
 
             return prgHeading;
         }
-
         public static string ToInitialCaps(string title)
         {
             if (string.IsNullOrEmpty(title))
@@ -260,7 +256,6 @@ namespace ReconDataLayer
             TextInfo textInfo = CultureInfo.InvariantCulture.TextInfo;
             return textInfo.ToTitleCase(title.ToLowerInvariant());
         }
-
         public byte[] ReconReportVersionhistoryData(ReconReportVersionhistoryModel objReconReportVersionhistory, UserManagementModel.headerValue headerval, string constring)
         {
             try
@@ -304,8 +299,8 @@ namespace ReconDataLayer
                     // Track headings and their page numbers
 
                     PdfWriter writer = PdfWriter.GetInstance(document, ms);
-                    writer.PageEvent = new PdfWatermarkHandler(logoPath);
-                    document.Open();
+					writer.PageEvent = new PdfFooter(logoPath); 
+					document.Open();
                     BaseColor borderColor = new BaseColor(169, 169, 169);
 
                     /* Header Start */
@@ -329,15 +324,11 @@ namespace ReconDataLayer
                         BorderColor = borderColor
                     };
                     mainTable.AddCell(reconCodeCell);
-
                     // Add an empty blank space
                     mainTable.AddCell(new PdfPCell(new Phrase("")) { Border = PdfPCell.NO_BORDER });
-
-
                     // Recon Name Column
                     PdfPTable reconNameTable = new PdfPTable(1);
                     reconNameTable.AddCell(CreateLabelCell("Recon Name : " + dt1.Rows[0]["Recon Name"], true));
-
                     PdfPCell reconNameCell = new PdfPCell(reconNameTable)
                     {
                         Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
@@ -345,23 +336,17 @@ namespace ReconDataLayer
                         BorderColor = borderColor
                     };
                     mainTable.AddCell(reconNameCell);
-
-
                     // Empty Line
-
                     PdfPCell blankCell = new PdfPCell(new Phrase(" "))
                     {
                         Colspan = 3,
                         FixedHeight = 8f, // Adjust height as needed
                         Border = PdfPCell.NO_BORDER
                     };
-
                     mainTable.AddCell(blankCell);
-
                     // History Version Column
                     PdfPTable historyVersionTable = new PdfPTable(1);
                     historyVersionTable.AddCell(CreateLabelCell("History Version : " + objReconReportVersionhistory.in_version_code, true));
-
                     PdfPCell historyVersionCell = new PdfPCell(historyVersionTable)
                     {
                         Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
@@ -369,15 +354,11 @@ namespace ReconDataLayer
                         BorderColor = borderColor
                     };
                     mainTable.AddCell(historyVersionCell);
-
                     // Add an empty blank space
                     mainTable.AddCell(new PdfPCell(new Phrase("")) { Border = PdfPCell.NO_BORDER });
-
-
                     // Recon Type Column
                     PdfPTable reconTypeTable = new PdfPTable(1);
                     reconTypeTable.AddCell(CreateLabelCell("Recon Type : " + dt1.Rows[0]["Recon Type"], true));
-
                     PdfPCell reconTypeCell = new PdfPCell(reconTypeTable)
                     {
                         Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
@@ -385,22 +366,17 @@ namespace ReconDataLayer
                         BorderColor = borderColor
                     };
                     mainTable.AddCell(reconTypeCell);
-
                     // Empty Line
-
                     PdfPCell blankCell1 = new PdfPCell(new Phrase(" "))
                     {
                         Colspan = 3,
                         FixedHeight = fh,
                         Border = PdfPCell.NO_BORDER
                     };
-
                     mainTable.AddCell(blankCell1);
-
                     // Period From Column
                     PdfPTable periodFromTable = new PdfPTable(1);
                     periodFromTable.AddCell(CreateLabelCell("Active From : " + dt1.Rows[0]["Period From"], true));
-
                     PdfPCell periodFromTypeCell = new PdfPCell(periodFromTable)
                     {
                         Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
@@ -408,16 +384,13 @@ namespace ReconDataLayer
                         BorderColor = borderColor
                     };
                     mainTable.AddCell(periodFromTypeCell);
-
                     // Add an empty blank space
                     mainTable.AddCell(new PdfPCell(new Phrase("")) { Border = PdfPCell.NO_BORDER });
-
                     // Period To Column
                     if (dt1.Rows[0]["until_active_flag"].ToString() == "YES")
                     {
                         PdfPTable periodToTable = new PdfPTable(1);
                         periodToTable.AddCell(CreateLabelCell("Active To : " + "Until Inactive", true));
-
                         PdfPCell periodToTypeCell = new PdfPCell(periodToTable)
                         {
                             Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
@@ -439,18 +412,14 @@ namespace ReconDataLayer
                         };
                         mainTable.AddCell(periodToTypeCell);
                     }
-
                     // Adding Blank Space
-
                     PdfPCell blankCell2 = new PdfPCell(new Phrase(" "))
                     {
                         Colspan = 3,
                         FixedHeight = fh, // Adjust height as needed
                         Border = PdfPCell.NO_BORDER
                     };
-
                     mainTable.AddCell(blankCell2);
-
                     document.Add(mainTable);
                     /* Header Ends */
 
@@ -471,7 +440,6 @@ namespace ReconDataLayer
                         spacerTableAfter.AddCell(spacerCellAfter);
                         document.Add(spacerTableAfter);
                     }
-
                     if (dt2.Rows.Count > 0)
                     {
                         string mainTitle = "Rule List";
@@ -487,7 +455,6 @@ namespace ReconDataLayer
                         spacerTableAfter.AddCell(spacerCellAfter);
                         document.Add(spacerTableAfter);
                     }
-
                     if (dt3.Rows.Count > 0)
                     {
                         string mainTitle = "Theme List";
@@ -504,9 +471,7 @@ namespace ReconDataLayer
                         document.Add(spacerTableAfter);
                     }
                     document.NewPage();
-
                     /* Table Starts Rule */
-
                     if (dt2.Rows.Count > 0)
                     {
                         for (int i = 0; i < dt2.Rows.Count; i++)
@@ -520,16 +485,13 @@ namespace ReconDataLayer
                             parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
                             parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
                             parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
-
                             ds = dbManager.execStoredProcedure("pr_report_rulecondition", CommandType.StoredProcedure, parameters.ToArray());
-
                             // Rule Code Column
                             string maintitle = i + 1 + ". " + "Rule Details";
                             document.Add(CreateTitle(i + 1 + ". " + "Rule Details" + " - " + dt2.Rows[i]["Rule Order"], grassGreen));
                             tocEntries.Add(maintitle, writer.PageNumber);
                             PdfPTable ruleCodeTable = new PdfPTable(1);
                             ruleCodeTable.AddCell(CreateLabelCell("Rule Code : " + dt2.Rows[i]["Rule Code"], true));
-
                             PdfPCell ruleCodeCell = new PdfPCell(ruleCodeTable)
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
@@ -537,12 +499,9 @@ namespace ReconDataLayer
                                 BorderColor = borderColor
                             };
                             mainTable1.AddCell(ruleCodeCell);
-
                             // Rule Name column
-
                             PdfPTable ruleNameTable = new PdfPTable(1);
                             ruleNameTable.AddCell(CreateLabelCell("Rule Name : " + dt2.Rows[i]["Rule Name"], true));
-
                             PdfPCell ruleNameCell = new PdfPCell(ruleNameTable)
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
@@ -554,7 +513,6 @@ namespace ReconDataLayer
                             //Rule Applied Column
                             PdfPTable ruleAppliedTable = new PdfPTable(1);
                             ruleAppliedTable.AddCell(CreateLabelCell("Rule Applied On : " + dt2.Rows[i]["Rule Applied On"], true));
-
                             PdfPCell ruleAppliedCell = new PdfPCell(ruleAppliedTable)
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
@@ -562,20 +520,16 @@ namespace ReconDataLayer
                                 BorderColor = borderColor
                             };
                             mainTable1.AddCell(ruleAppliedCell);
-
                             PdfPCell blankCell3 = new PdfPCell(new Phrase(" "))
                             {
                                 Colspan = 3,
                                 FixedHeight = fh,
                                 Border = PdfPCell.NO_BORDER
                             };
-
                             mainTable1.AddCell(blankCell3);
-
                             // Source Dataset Column
                             PdfPTable ruleSourceTable = new PdfPTable(1);
                             ruleSourceTable.AddCell(CreateLabelCell("Source Dataset : " + dt2.Rows[i]["Source Dataset"], true));
-
                             PdfPCell ruleSourceCell = new PdfPCell(ruleSourceTable)
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
@@ -583,12 +537,9 @@ namespace ReconDataLayer
                                 BorderColor = borderColor
                             };
                             mainTable1.AddCell(ruleSourceCell);
-
-
                             // Source Account Mode Column
                             PdfPTable ruleSourceModeTable = new PdfPTable(1);
                             ruleSourceModeTable.AddCell(CreateLabelCell("Source Acc Mode : " + dt2.Rows[i]["Source Acc Mode"], true));
-
                             PdfPCell ruleSourceModeCell = new PdfPCell(ruleSourceModeTable)
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
@@ -596,11 +547,9 @@ namespace ReconDataLayer
                                 BorderColor = borderColor
                             };
                             mainTable1.AddCell(ruleSourceModeCell);
-
                             //Comparison Dataset
                             PdfPTable ruleComparisonTable = new PdfPTable(1);
                             ruleComparisonTable.AddCell(CreateLabelCell("Comparison Dataset : " + dt2.Rows[i]["Comparison Dataset"], true));
-
                             PdfPCell ruleComparisonCell = new PdfPCell(ruleComparisonTable)
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
@@ -608,20 +557,16 @@ namespace ReconDataLayer
                                 BorderColor = borderColor
                             };
                             mainTable1.AddCell(ruleComparisonCell);
-
                             PdfPCell blankCell5 = new PdfPCell(new Phrase(" "))
                             {
                                 Colspan = 3,
                                 FixedHeight = fh,
                                 Border = PdfPCell.NO_BORDER
                             };
-
                             mainTable1.AddCell(blankCell5);
-
                             //Comparison Account Mode Dataset
                             PdfPTable ruleComparisonModeTable = new PdfPTable(1);
                             ruleComparisonModeTable.AddCell(CreateLabelCell("Comparison Acc Mode : " + dt2.Rows[i]["Comparison Acc Mode"], true));
-
                             PdfPCell ruleComparisonModeCell = new PdfPCell(ruleComparisonModeTable)
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
@@ -629,11 +574,9 @@ namespace ReconDataLayer
                                 BorderColor = borderColor
                             };
                             mainTable1.AddCell(ruleComparisonModeCell);
-
                             // Group Flag Column
                             PdfPTable ruleGroupTable = new PdfPTable(1);
                             ruleGroupTable.AddCell(CreateLabelCell("Rule Group : " + dt2.Rows[i]["Group Flag"], true));
-
                             PdfPCell ruleGroupCell = new PdfPCell(ruleGroupTable)
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
@@ -641,11 +584,9 @@ namespace ReconDataLayer
                                 BorderColor = borderColor
                             };
                             mainTable1.AddCell(ruleGroupCell);
-
                             // Rule Order Column
                             PdfPTable ruleOrderTable = new PdfPTable(1);
                             ruleOrderTable.AddCell(CreateLabelCell("Rule Order : " + dt2.Rows[i]["Rule Order"], true));
-
                             PdfPCell ruleOrderCell = new PdfPCell(ruleOrderTable)
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
@@ -653,19 +594,15 @@ namespace ReconDataLayer
                                 BorderColor = borderColor
                             };
                             mainTable1.AddCell(ruleOrderCell);
-
                             PdfPCell blankCell4 = new PdfPCell(new Phrase(" "))
                             {
                                 Colspan = 3,
                                 FixedHeight = fh,
                                 Border = PdfPCell.NO_BORDER
                             };
-
                             mainTable1.AddCell(blankCell4);
-
                             document.Add(mainTable1);
-                            //Table and space between                            
-
+                            //Table and space between                           
                             if (ds.Tables[0].Rows.Count > 0)
                             {
                                 document.Add(CreateTitle("Rule Condition", mustardYellow));
@@ -680,7 +617,6 @@ namespace ReconDataLayer
                                 spacerTableAfter.AddCell(spacerCellAfter);
                                 document.Add(spacerTableAfter);
                             }
-
                             //Table and space between
                             if (ds.Tables[1].Rows.Count > 0)
                             {
@@ -697,7 +633,6 @@ namespace ReconDataLayer
                                 spacerTableAfter1.AddCell(spacerCellAfter1);
                                 document.Add(spacerTableAfter1);
                             }
-
                             //Table and space between
                             if (ds.Tables[2].Rows.Count > 0)
                             {
@@ -714,7 +649,6 @@ namespace ReconDataLayer
                                 spacerTableAfter2.AddCell(spacerCellAfter2);
                                 document.Add(spacerTableAfter2);
                             }
-
                             //Table and space between
                             if (ds.Tables[2].Rows.Count > 0)
                             {
@@ -733,12 +667,10 @@ namespace ReconDataLayer
                             }
                         }
                     }
-
                     /* Table Ends Rule */
 
                     /* Table Starts Theme */
                     document.NewPage();
-
                     if (dt3.Rows.Count > 0)
                     {
                         for (int i = 0; i < dt3.Rows.Count; i++)
@@ -752,16 +684,13 @@ namespace ReconDataLayer
                             parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
                             parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
                             parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
-
                             ds = dbManager.execStoredProcedure("pr_report_themedetails", CommandType.StoredProcedure, parameters.ToArray());
                             document.Add(CreateTitle(i + 1 + ". " + "Theme Details", reconPurpple));
                             string mainTitle = i + 1 + "." + "Theme Details";
                             tocEntries.Add(mainTitle, writer.PageNumber);
-
                             //Theme Code
                             PdfPTable themeCodeTable = new PdfPTable(1);
                             themeCodeTable.AddCell(CreateLabelCell("Theme Code : " + dt3.Rows[i]["Theme Code"], true));
-
                             PdfPCell themeCodeCell = new PdfPCell(themeCodeTable)
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
@@ -769,11 +698,9 @@ namespace ReconDataLayer
                                 BorderColor = borderColor
                             };
                             mainTable2.AddCell(themeCodeCell);
-
                             // Theme Name Column
                             PdfPTable themeNameTable = new PdfPTable(1);
                             themeNameTable.AddCell(CreateLabelCell("Theme Name : " + dt3.Rows[i]["Theme Name"], true));
-
                             PdfPCell themeNameCell = new PdfPCell(themeNameTable)
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
@@ -781,11 +708,9 @@ namespace ReconDataLayer
                                 BorderColor = borderColor
                             };
                             mainTable2.AddCell(themeNameCell);
-
                             //Theme Order
                             PdfPTable themeOrderTable = new PdfPTable(1);
                             themeOrderTable.AddCell(CreateLabelCell("Theme Order : " + dt3.Rows[i]["Theme Order"], true));
-
                             PdfPCell themeOrderCell = new PdfPCell(themeOrderTable)
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
@@ -793,20 +718,16 @@ namespace ReconDataLayer
                                 BorderColor = borderColor
                             };
                             mainTable2.AddCell(themeOrderCell);
-
                             PdfPCell blankCell3 = new PdfPCell(new Phrase(" "))
                             {
                                 Colspan = 3,
                                 FixedHeight = fh,
                                 Border = PdfPCell.NO_BORDER
                             };
-
                             mainTable2.AddCell(blankCell3);
-
                             // Hold Flag Column
                             PdfPTable themeholdTable = new PdfPTable(1);
                             themeholdTable.AddCell(CreateLabelCell("Hold Flag : " + dt3.Rows[i]["Hold Flag"], true));
-
                             PdfPCell themeHoldCell = new PdfPCell(themeholdTable)
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
@@ -814,7 +735,6 @@ namespace ReconDataLayer
                                 BorderColor = borderColor
                             };
                             mainTable2.AddCell(themeHoldCell);
-
                             // Theme Type Column
                             PdfPTable themeTypeTable = new PdfPTable(1);
                             themeTypeTable.AddCell(CreateLabelCell("Theme Type: " + dt3.Rows[i]["Theme Type"], true));
@@ -826,7 +746,6 @@ namespace ReconDataLayer
                                 BorderColor = borderColor
                             };
                             mainTable2.AddCell(themeTypeCell);
-
                             // Add Empty Cell for Space
                             PdfPCell blankCellTheme = new PdfPCell(new Phrase(" "))
                             {
@@ -835,7 +754,6 @@ namespace ReconDataLayer
                                 Border = PdfPCell.NO_BORDER
                             };
                             mainTable2.AddCell(blankCellTheme);
-
                             PdfPCell blankCell5 = new PdfPCell(new Phrase(" "))
                             {
                                 Colspan = 3,
@@ -843,7 +761,6 @@ namespace ReconDataLayer
                                 Border = PdfPCell.NO_BORDER
                             };
                             mainTable2.AddCell(blankCell5);
-
                             document.Add(mainTable2);
                             if (ds.Tables[1].Rows.Count > 0)
                             {
@@ -894,7 +811,6 @@ namespace ReconDataLayer
                     }
                     /* Table Ends Theme */
                     document.NewPage();
-
                     /* Table Starts PreProcess */
                     if (dt4.Rows.Count > 0)
                     {
@@ -917,7 +833,6 @@ namespace ReconDataLayer
                             //PreProcess Code
                             PdfPTable preprocessCodeTable = new PdfPTable(1);
                             preprocessCodeTable.AddCell(CreateLabelCell("PreProcess Code : " + dt4.Rows[i]["Preprocess Code"], true));
-
                             PdfPCell preprocessCodeCell = new PdfPCell(preprocessCodeTable)
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
@@ -925,11 +840,9 @@ namespace ReconDataLayer
                                 BorderColor = borderColor
                             };
                             mainTable3.AddCell(preprocessCodeCell);
-
                             //PreProcess Name
                             PdfPTable preprocessNameTable = new PdfPTable(1);
                             preprocessNameTable.AddCell(CreateLabelCell("PreProcess Name : " + dt4.Rows[i]["Preprocess Name"], true));
-
                             PdfPCell preprocessNameCell = new PdfPCell(preprocessNameTable)
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
@@ -937,11 +850,9 @@ namespace ReconDataLayer
                                 BorderColor = borderColor
                             };
                             mainTable3.AddCell(preprocessNameCell);
-
                             //PreProcess Method
                             PdfPTable preprocessMethodTable = new PdfPTable(1);
                             preprocessMethodTable.AddCell(CreateLabelCell("PreProcess Method : " + dt4.Rows[i]["Process Method Desc"], true));
-
                             PdfPCell preprocessMethodCell = new PdfPCell(preprocessMethodTable)
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
@@ -949,20 +860,16 @@ namespace ReconDataLayer
                                 BorderColor = borderColor
                             };
                             mainTable3.AddCell(preprocessMethodCell);
-
                             PdfPCell blankCell4 = new PdfPCell(new Phrase(" "))
                             {
                                 Colspan = 3,
                                 FixedHeight = fh,
                                 Border = PdfPCell.NO_BORDER
                             };
-
                             mainTable3.AddCell(blankCell4);
-
                             //Hold Flag
                             PdfPTable preprocessHoldTable = new PdfPTable(1);
                             preprocessHoldTable.AddCell(CreateLabelCell("Hold Flag : " + dt4.Rows[i]["Hold Flag"], true));
-
                             PdfPCell preprocessHoldCell = new PdfPCell(preprocessHoldTable)
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
@@ -970,11 +877,9 @@ namespace ReconDataLayer
                                 BorderColor = borderColor
                             };
                             mainTable3.AddCell(preprocessHoldCell);
-
                             //Preprocess Order
                             PdfPTable preprocessOrderTable = new PdfPTable(1);
                             preprocessOrderTable.AddCell(CreateLabelCell("Preprocess Order : " + dt4.Rows[i]["Preprocess Order"], true));
-
                             PdfPCell preprocessOrderCell = new PdfPCell(preprocessOrderTable)
                             {
                                 Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
@@ -982,7 +887,6 @@ namespace ReconDataLayer
                                 BorderColor = borderColor
                             };
                             mainTable3.AddCell(preprocessOrderCell);
-
                             // Add an empty blank space
                             PdfPCell blankCellPreProcess = new PdfPCell(new Phrase(" "))
                             {
@@ -990,8 +894,6 @@ namespace ReconDataLayer
                                 FixedHeight = fh,
                                 Border = PdfPCell.NO_BORDER
                             };
-
-
                             PdfPCell blankCell6 = new PdfPCell(new Phrase(" "))
                             {
                                 Colspan = 3,
@@ -999,12 +901,9 @@ namespace ReconDataLayer
                                 Border = PdfPCell.NO_BORDER
                             };
                             mainTable3.AddCell(blankCell6);
-
                             mainTable3.AddCell(blankCellPreProcess);
-
                             document.Add(mainTable3);
                             // Preprocess Filter
-
                             if (ds.Tables[1].Rows.Count > 0)
                             {
                                 document.Add(CreateTitle("PreProcess Filter", mustardYellow));
@@ -1018,7 +917,6 @@ namespace ReconDataLayer
                                 spacerTableAfter3.AddCell(spacerCellAfter3);
                                 document.Add(spacerTableAfter3);
                             }
-
                             // Query
                             if (dt4.Rows[i]["Process Method"].ToString() == "QCD_QUERY")
                             {
@@ -1036,7 +934,6 @@ namespace ReconDataLayer
                                     document.Add(spacerTableAfter3);
                                 }
                             }
-
                             // Lookup consition Header
                             else if (dt4.Rows[i]["Process Method"].ToString() == "QCD_LOOKUP")
                             {
@@ -1086,78 +983,23 @@ namespace ReconDataLayer
                         }
                     }
                     /* Table Ends PreProcess */
+
+
+
                     document.Close();
                     byte[] pdfBytes = ms.ToArray();
-                    //using (MemoryStream updatedMs = new MemoryStream())
-                    //{
-                    //    PdfReader reader = new PdfReader(pdfBytes);
-                    //    using (PdfStamper stamper = new PdfStamper(reader, updatedMs))
-                    //    {
-                    //        PdfContentByte cb = stamper.GetOverContent(1);
-                    //        PdfPTable tocTable = new PdfPTable(2);
-                    //        tocTable.WidthPercentage = 100;
-                    //        tocTable.SetWidths(new float[] { 0.8f, 0.2f }); // Correctly set the widths as proportions of the table width
-                    //        Font tocFont = new Font(Font.FontFamily.HELVETICA, 12);
-                    //        float tableHeight = reader.GetPageSize(1).Height - 100 - 50;
-                    //        if (tableHeight <= 0)
-                    //        {
-                    //            throw new Exception("Not enough space for the table on the first page.");
-                    //        }
-
-                    //        Font tocFont1 = new Font(Font.FontFamily.HELVETICA, 12);
-                    //        foreach (var entry in tocEntries)
-                    //        {
-                    //            tocTable.AddCell(new PdfPCell(new Phrase(entry.Key, tocFont1)) { Border = PdfPCell.NO_BORDER });
-                    //            tocTable.AddCell(new PdfPCell(new Phrase(entry.Value.ToString(), tocFont1)) { Border = PdfPCell.NO_BORDER, HorizontalAlignment = Element.ALIGN_RIGHT });
-                    //        }
-
-                    //        ColumnText.ShowTextAligned(cb, Element.ALIGN_LEFT, new Phrase("Table of Contents", new Font(Font.FontFamily.HELVETICA, 20)), 50, reader.GetPageSize(1).Height - 50, 0);
-
-                    //        // Check table total width for debugging
-                    //        float[] tableWidths = tocTable.AbsoluteWidths;
-                    //        float totalWidth = 0;
-                    //        foreach (var width in tableWidths)
-                    //        {
-                    //            totalWidth += width;
-                    //        }
-
-                    //        // Debugging output
-                    //        Console.WriteLine($"Table total width: {totalWidth}");
-                    //        Console.WriteLine($"Available width: {reader.GetPageSize(1).Width - 100}");
-
-                    //        tocTable.WriteSelectedRows(0, -1, 50, reader.GetPageSize(1).Height - 100, cb);
-
-                    //        int totalPages = reader.NumberOfPages;
-                    //        for (int i = 1; i <= totalPages; i++)
-                    //        {
-                    //            PdfContentByte overContent = stamper.GetOverContent(i);
-                    //            ColumnText.ShowTextAligned(
-                    //                overContent,
-                    //                Element.ALIGN_LEFT,
-                    //                new Phrase($"Page {i} / {totalPages} - {DateTime.Now:dd/MM/yyyy HH:mm:ss}",
-                    //                new Font(BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.WINANSI, BaseFont.NOT_EMBEDDED), 8)),
-                    //            30, 10, 0);
-                    //        }
-                    //    }
-                    //    return updatedMs.ToArray();
-                    //}
-
 
                     using (MemoryStream finalStream = new MemoryStream())
                     {
                         using (Document finalDocument = new Document(rec, 30f, 30f, 30f, 30f))
                         {
                             PdfCopy pdfCopy = new PdfCopy(finalDocument, finalStream);
-                            finalDocument.Open();
-
-                            // Add TOC at the beginning
+							finalDocument.Open();
                             PdfReader tocReader = new PdfReader(GenerateTocPdf(tocEntries));
                             for (int i = 1; i <= tocReader.NumberOfPages; i++)
                             {
                                 pdfCopy.AddPage(pdfCopy.GetImportedPage(tocReader, i));
                             }
-
-                            // Add the main content
                             PdfReader contentReader = new PdfReader(ms.ToArray());
                             for (int i = 1; i <= contentReader.NumberOfPages; i++)
                             {
@@ -1213,17 +1055,13 @@ namespace ReconDataLayer
                 dt2 = ds.Tables["Rulelist"];
                 dt3 = ds.Tables["themelist"];
                 dt4 = ds.Tables["preprocesslist"];
-               // MemoryStream ms = new MemoryStream();
                 Rectangle rec = new Rectangle(PageSize.A4);
                 Dictionary<string, int> tocEntries = new Dictionary<string, int>();
-
-                // Create a temporary stream to hold the main content
                 MemoryStream ms = new MemoryStream();
                 using (Document document = new Document(rec, 30f, 30f, 30f, 30f))
                 {
                     PdfWriter writer = PdfWriter.GetInstance(document, ms);
-                    writer.PageEvent = new PdfWatermarkHandler(logoPath);
-                    document.Open();
+					document.Open();
                     BaseColor borderColor = new BaseColor(169, 169, 169);
 
                     /* Header Start */
@@ -1411,10 +1249,6 @@ namespace ReconDataLayer
                         tocEntries.Add(themeListTitle, writer.PageNumber);
                         document.Add(PdfdynamicTableGenration(dt3));
                     }
-
-
-
-
                     document.Close();
                 }
 
@@ -1424,7 +1258,8 @@ namespace ReconDataLayer
                     using (Document finalDocument = new Document(rec, 30f, 30f, 30f, 30f))
                     {
                         PdfCopy pdfCopy = new PdfCopy(finalDocument, finalStream);
-                        finalDocument.Open();
+						PdfWriter writer = PdfWriter.GetInstance(finalDocument, finalStream);
+						finalDocument.Open();
 
                         // Add TOC at the beginning
                         PdfReader tocReader = new PdfReader(GenerateTocPdf(tocEntries));
@@ -1458,7 +1293,7 @@ namespace ReconDataLayer
                 using (Document tocDocument = new Document(PageSize.A4, 30f, 30f, 30f, 30f))
                 {
                     PdfWriter tocWriter = PdfWriter.GetInstance(tocDocument, tocStream);
-                    tocDocument.Open();
+					tocDocument.Open();
                     tocDocument.Add(new Paragraph("Table of Contents", new Font(Font.FontFamily.HELVETICA, 20)));
 
                     foreach (var entry in tocEntries)
