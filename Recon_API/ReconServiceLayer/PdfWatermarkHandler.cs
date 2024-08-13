@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DocumentFormat.OpenXml.Drawing.Diagrams;
-using iTextSharp.text;
+﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
 
 namespace ReconDataLayer
@@ -32,11 +26,11 @@ namespace ReconDataLayer
 		public override void OnEndPage(PdfWriter writer, Document document)
 		{
 			PdfContentByte content = writer.DirectContent;
-			Rectangle rectangle = new Rectangle(document.PageSize);
-			rectangle.Left += document.LeftMargin - 20;
-			rectangle.Right -= document.RightMargin - 20;
-			rectangle.Top -= document.TopMargin - 30;
-			rectangle.Bottom += document.BottomMargin - 30;
+			//Rectangle rectangle = new Rectangle(document.PageSize);
+			//rectangle.Left += document.LeftMargin - 20;
+			//rectangle.Right -= document.RightMargin - 20;
+			//rectangle.Top -= document.TopMargin - 30;
+			//rectangle.Bottom += document.BottomMargin - 30;
 
 			int pageN = writer.PageNumber;
 			String text = "Page " + pageN + " of ";
@@ -64,8 +58,8 @@ namespace ReconDataLayer
 				logo.SetAbsolutePosition(xPosition, yPosition);
 				content.AddImage(logo);
 			}
-			content.SetColorStroke(BaseColor.GRAY);
-			content.Rectangle(rectangle.Left, rectangle.Bottom, rectangle.Width, rectangle.Height);
+			//content.SetColorStroke(BaseColor.GRAY);
+			//content.Rectangle(rectangle.Left, rectangle.Bottom, rectangle.Width, rectangle.Height);
 			content.Stroke();
 		}
 
