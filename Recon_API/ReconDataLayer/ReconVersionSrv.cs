@@ -1,20 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.Extensions.Configuration;
 using ReconDataLayer;
 using ReconModels;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static ReconModels.DatasettoReconmodel;
 using static ReconModels.ReconVersionmodel;
 
 namespace ReconServiceLayer
 {
-	public class ReconVersionSrv
+    public class ReconVersionSrv
 	{
-		public static DataSet ReconVersionfetch(ReconVersionmodellist ReconVersionmodellist, UserManagementModel.headerValue headerval, string constring)
+        public static DataSet ReconVersionfetch(ReconVersionmodellist ReconVersionmodellist, UserManagementModel.headerValue headerval, string constring)
 		{
 			DataSet ds = new DataSet();
 			try
@@ -54,13 +48,13 @@ namespace ReconServiceLayer
 
         //ReconReportVersionhistoryService
 
-        public byte[] ReconReportVersionhistoryService(ReconReportVersionhistoryModel objReconReportVersionhistory, UserManagementModel.headerValue headerval, string constring)
+        public byte[] ReconReportVersionhistoryService(ReconReportVersionhistoryModel objReconReportVersionhistory, UserManagementModel.headerValue headerval, string constring, string logoPath)
         {
             DataSet ds = new DataSet();
             try
             {
                 ReconversionData objDS = new ReconversionData();
-                byte[] pdfBytes = objDS.ReconReportVersionhistoryData(objReconReportVersionhistory, headerval, constring);
+                byte[] pdfBytes = objDS.ReconReportVersionhistoryData(objReconReportVersionhistory, headerval, constring, logoPath);
 				// return File(pdfBytes, "application/pdf", "Recon_Version.pdf");
 				return pdfBytes;
             }

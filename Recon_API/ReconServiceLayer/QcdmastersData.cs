@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using static ReconModels.QcdmasterModel;
 using ReconModels;
 using static ReconModels.UserManagementModel;
+using Newtonsoft.Json;
 
 namespace ReconDataLayer
 {
@@ -34,7 +35,7 @@ namespace ReconDataLayer
 			{
                 CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_qcdparent" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_qcdparent", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(headerval), "pr_get_qcdparent", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -59,7 +60,7 @@ namespace ReconDataLayer
 			{
                 CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_qcdmaster" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_qcdmaster", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objgridread), "pr_get_qcdmaster", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -96,7 +97,7 @@ namespace ReconDataLayer
 			{
                 CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_recon_mst_tmaster" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_recon_mst_tmaster", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objmaster), "pr_recon_mst_tmaster", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -122,7 +123,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_allqcdmaster" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_allqcdmaster", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objgridread), "pr_get_allqcdmaster", headerval.user_code, constring);
 				return result;
 			}
 		}

@@ -1,4 +1,5 @@
-﻿using ReconModels;
+﻿using Newtonsoft.Json;
+using ReconModels;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -37,7 +38,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_recon_rule" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_recon_rule", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objrulesetuplist), "pr_get_recon_rule", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -67,9 +68,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_source_acc_mode", objrulesetupheader.in_source_acc_mode, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_comparison_acc_mode", objrulesetupheader.in_comparison_acc_mode, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_parent_dataset_code", objrulesetupheader.in_parent_dataset_code, DbType.String));
-				// parameters.Add(dbManager.CreateParameter("in_support_dataset_code", objrulesetupheader.in_support_dataset_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_parent_acc_mode", objrulesetupheader.in_parent_acc_mode, DbType.String));
-				// parameters.Add(dbManager.CreateParameter("in_reversal_flag", objrulesetupheader.in_reversal_flag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_group_flag", objrulesetupheader.in_group_flag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_rule_automatch_partial", objrulesetupheader.in_rule_automatch_partial, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_threshold_flag", objrulesetupheader.thresholdflag, DbType.String));
@@ -93,7 +92,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_recon_mst_trulesetup" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_recon_mst_trulesetup", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objrulesetupheader), "pr_recon_mst_trulesetup", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -125,7 +124,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_recon_mst_trulegrpfield" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_recon_mst_trulegrpfield", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objrulegrouping), "pr_recon_mst_trulegrpfield", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -165,7 +164,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_recon_mst_truleselefilter" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_recon_mst_truleselefilter", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objruleidentifier), "pr_recon_mst_truleselefilter", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -203,7 +202,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_recon_mst_trulecondition" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_recon_mst_trulecondition", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objrulecondition), "pr_recon_mst_trulecondition", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -233,7 +232,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_fetch_ruledetails" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_fetch_ruledetails", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objfetchrule), "pr_fetch_ruledetails", headerval.user_code, constring);
 				return ds;
 			}
 		}
@@ -259,7 +258,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_condition" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_condition", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objcondition), "pr_get_condition", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -283,7 +282,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_datasetdetails" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_datasetdetails", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objdatarecon), "pr_get_datasetdetails", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -297,13 +296,6 @@ namespace ReconDataLayer
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();
 				parameters.Add(dbManager.CreateParameter("in_recon_code", objRecon.in_recon_code, DbType.String));
-				//parameters.Add(dbManager.CreateParameter("in_rule_apply_on", objRecon.in_rule_apply_on, DbType.String));
-				//parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
-				//parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
-				//parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
-				//ds = dbManager.execStoredProcedure("pr_get_ruleagainstrecon", CommandType.StoredProcedure, parameters.ToArray());
-				//result = ds.Tables[0];
-				//return result;
 				ds = dbManager.execStoredProcedurelist("pr_get_ruleagainstrecon", CommandType.StoredProcedure, parameters.ToArray());
 				if (ds.Tables.Count >= 2)
 				{
@@ -316,7 +308,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_ruleagainstrecon" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_ruleagainstrecon", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objRecon), "pr_get_ruleagainstrecon", headerval.user_code, constring);
 				return ds;
 			}
 		}
@@ -350,7 +342,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_recon_mst_trulerecorder" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_recon_mst_trulerecorder", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objRulefieldorder), "pr_recon_mst_trulerecorder", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -375,7 +367,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_rulerecondetails" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_rulerecondetails", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objdatarecon), "pr_get_rulerecondetails", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -398,8 +390,6 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_clone_source_dataset_code", objcloneReconRule.in_clone_source_dataset_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_clone_comparison_dataset_code", objcloneReconRule.in_clone_comparison_dataset_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
-				//parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
-				//parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
 				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
 				ds = dbManager.execStoredProcedure("pr_clone_reconrule", CommandType.StoredProcedure, parameters.ToArray());
@@ -410,7 +400,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_clone_reconrule" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_clone_reconrule", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objcloneReconRule), "pr_clone_reconrule", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -434,7 +424,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_allrulelist" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_allrulelist", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(headerval), "pr_get_allrulelist", headerval.user_code, constring);
 				return result;
 			}
 		}

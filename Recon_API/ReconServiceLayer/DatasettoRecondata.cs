@@ -1,4 +1,5 @@
-﻿using ReconModels;
+﻿using Newtonsoft.Json;
+using ReconModels;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -34,7 +35,7 @@ namespace ReconDataLayer
 			{
                 CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_datasettorecon" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_datasettorecon", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(headerval), "pr_get_datasettorecon", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -61,7 +62,7 @@ namespace ReconDataLayer
 			{
                 CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_set_process_dataset" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_set_process_dataset", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(Objmodel), "pr_set_process_dataset", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -86,7 +87,7 @@ namespace ReconDataLayer
 			{
                 CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_datasettomanual" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_datasettomanual", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(headerval), "pr_get_datasettomanual", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -100,9 +101,6 @@ namespace ReconDataLayer
                 MySqlDataAccess con = new MySqlDataAccess("");
                 parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_scheduler_gid", objManualMatchinfo.in_scheduler_gid, DbType.Int32));
-                //parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
-                //parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
-                //parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
                 parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
                 ds = dbManager.execStoredProcedurelist("pr_get_manualinfo", CommandType.StoredProcedure, parameters.ToArray());
@@ -119,7 +117,7 @@ namespace ReconDataLayer
             {
                 CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_manualinfo" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_manualinfo", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objManualMatchinfo), "pr_get_manualinfo", headerval.user_code, constring);
 				return ds;
             }
         }
@@ -136,8 +134,6 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_scheduler_gid", objrunManualfile.in_scheduler_gid, DbType.Int32));
                 parameters.Add(dbManager.CreateParameter("in_ip_addr", objrunManualfile.in_ip_addr, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
-                //parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
-                //parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
                 parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
                 ds = dbManager.execStoredProcedure("pr_run_manualfile", CommandType.StoredProcedure, parameters.ToArray());
@@ -148,7 +144,7 @@ namespace ReconDataLayer
             {
                 CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_run_manualfile" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_run_manualfile", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objrunManualfile), "pr_run_manualfile", headerval.user_code, constring);
 				return result;
             }
         }
@@ -178,7 +174,7 @@ namespace ReconDataLayer
 			{
                 CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_set_process_dataset" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_set_process_dataset", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objrunProcessdataset), "pr_set_process_dataset", headerval.user_code, constring);
 				return result;
 			}
 		}

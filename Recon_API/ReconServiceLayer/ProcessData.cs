@@ -1,4 +1,5 @@
-﻿using ReconModels;
+﻿using Newtonsoft.Json;
+using ReconModels;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -30,9 +31,6 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_automatch_flag", objautomatchpreview.in_automatch_flag, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_ip_addr", objautomatchpreview.in_ip_addr, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_user_code", objautomatchpreview.in_user_code, DbType.String));
-                //parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
-                //parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
-                //parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
                 parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
                 ds = dbManager.execStoredProcedure("pr_run_match", CommandType.StoredProcedure, parameters.ToArray());
@@ -43,7 +41,7 @@ namespace ReconDataLayer
             {
                 CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_run_match" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_run_match", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objautomatchpreview), "pr_run_match", headerval.user_code, constring);
 				throw ex;
             }
 
@@ -64,9 +62,6 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_automatch_flag", objrunreconrule.in_automatch_flag, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_ip_addr", objrunreconrule.in_ip_addr, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_user_code", objrunreconrule.in_user_code, DbType.String));
-                //parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
-                //parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
-                //parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
                 parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
                 ds = dbManager.execStoredProcedure("pr_run_reconrule", CommandType.StoredProcedure, parameters.ToArray());
@@ -77,7 +72,7 @@ namespace ReconDataLayer
             {
                 CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_run_reconrule" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_run_reconrule", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objrunreconrule), "pr_run_reconrule", headerval.user_code, constring);
 				throw ex;
             }
 
@@ -95,9 +90,6 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_undo_job_reason", objundokojobmodel.in_undo_job_reason, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_ip_addr", objundokojobmodel.in_ip_addr, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_user_code", objundokojobmodel.in_user_code, DbType.String));
-                //parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
-                //parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
-                //parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
                 parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
                 ds = dbManager.execStoredProcedure("pr_set_undokojob", CommandType.StoredProcedure, parameters.ToArray());
@@ -108,7 +100,7 @@ namespace ReconDataLayer
             {
                 CommonHeader objlog = new CommonHeader();
                 objlog.logger("SP:pr_set_undokojob" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_set_undokojob", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objundokojobmodel), "pr_set_undokojob", headerval.user_code, constring);
 				throw ex;
             }
 
@@ -123,9 +115,6 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_ko_gid", objundokomodel.in_ko_gid, DbType.Int64));
                 parameters.Add(dbManager.CreateParameter("in_undo_ko_reason", objundokomodel.in_undo_ko_reason, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_user_code", objundokomodel.in_user_code, DbType.String));
-                //parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
-                //parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
-                //parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
                 parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
                 ds = dbManager.execStoredProcedure("pr_set_undoko", CommandType.StoredProcedure, parameters.ToArray());
@@ -136,7 +125,7 @@ namespace ReconDataLayer
             {
                 CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_set_undoko" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_set_undoko", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objundokomodel), "pr_set_undoko", headerval.user_code, constring);
 				throw ex;
             }
 
@@ -151,9 +140,6 @@ namespace ReconDataLayer
 				DBManager dbManager = new DBManager(constring);
 				parameters = new List<IDbDataParameter>();
 				parameters.Add(dbManager.CreateParameter("in_target_dataset_code", objpipeline.in_target_dataset_code, DbType.String));
-				//parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
-				//parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
-				//parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
 				ds = dbManager.execStoredProcedure("pr_get_pipelinelist", CommandType.StoredProcedure, parameters.ToArray());
 				result = ds.Tables[0];
 				return result;
@@ -162,7 +148,7 @@ namespace ReconDataLayer
 			{
                 CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_pipelinelist" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_pipelinelist", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objpipeline), "pr_get_pipelinelist", headerval.user_code, constring);
 				throw ex;
 			}
 

@@ -1,4 +1,5 @@
 ﻿using MySqlX.XDevAPI.Common;
+using Newtonsoft.Json;
 using ReconModels;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,7 @@ namespace ReconDataLayer
             {
                 CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_preprocesslist" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_preprocesslist", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objpreprocess), "pr_get_preprocesslist", headerval.user_code, constring);
 				return result;
             }
         }
@@ -81,7 +82,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_recon_mst_tpreprocess" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_recon_mst_tpreprocess", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(Objmodel), "pr_recon_mst_tpreprocess", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -120,7 +121,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_recon_mst_tpreprocessfilter" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_recon_mst_tpreprocessfilter", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objfilterdata), "pr_recon_mst_tpreprocessfilter", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -147,7 +148,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_preprocessfetch" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_preprocessfetch", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objpreprocessfetch), "pr_get_preprocessfetch", headerval.user_code, constring);
 				return ds;
 			}
 		}
@@ -191,7 +192,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_recon_mst_tpreprocesscondition" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_recon_mst_tpreprocesscondition", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objconditiondata), "pr_recon_mst_tpreprocesscondition", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -215,7 +216,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_run_sql" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_run_sql", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objValidatequerymodel), "pr_run_sql", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -241,7 +242,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_conditionlookup" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_conditionlookup", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objcondition), "pr_get_conditionlookup", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -265,7 +266,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_preprocesslistclone" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_preprocesslistclone", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objpreprocess), "pr_get_preprocesslistclone", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -291,7 +292,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_clone_preprocess" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_clone_preprocess", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objclonepreprocess), "pr_clone_preprocess", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -315,7 +316,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_datasetpreprocess" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_datasetpreprocess", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objdatarecon), "pr_get_datasetpreprocess", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -349,7 +350,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_datasetpreprocess" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_datasetpreprocess", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objdatarecon), "pr_get_datasetpreprocess", headerval.user_code, constring);
 				return result;
 			}
 		}

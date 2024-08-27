@@ -1,4 +1,5 @@
-﻿using ReconModels;
+﻿using Newtonsoft.Json;
+using ReconModels;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -38,7 +39,7 @@ namespace ReconDataLayer
 			{
                 CommonHeader objlog = new CommonHeader();
                 objlog.logger("SP:pr_get_jobstatus" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_jobstatus", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objobstatus), "pr_get_jobstatus", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -63,7 +64,7 @@ namespace ReconDataLayer
 			{
                 CommonHeader objlog = new CommonHeader();
                 objlog.logger("SP:pr_get_recon_jobtype" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_recon_jobtype", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(headerval), "pr_get_recon_jobtype", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -90,7 +91,7 @@ namespace ReconDataLayer
 			{
                 CommonHeader objlog = new CommonHeader();
                 objlog.logger("SP:pr_get_jobcompleted" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_jobcompleted", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objJobCompleted), "pr_get_jobcompleted", headerval.user_code, constring);
 				return result;
 			}
 		}
@@ -117,7 +118,7 @@ namespace ReconDataLayer
 			{
                 CommonHeader objlog = new CommonHeader();
                 objlog.logger("SP:pr_get_jobinProgress" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_jobinProgress", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objJobCompleted), "pr_get_jobinProgress", headerval.user_code, constring);
 				return result;
 			}
 		}

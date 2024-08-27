@@ -49,9 +49,7 @@ namespace ReconDataLayer
        
        public DataSet execStoredProcedure(string commandText, CommandType commandType, IDbDataParameter[]? parameters = null)
         {
-            var dynamicData = new Dictionary<string, object>();
-           // var connectionString = _configuration.GetSection("ConnectionStrings")["DefaultConnection"].ToString();
-            
+            var dynamicData = new Dictionary<string, object>();            
             using (var connection = database.CreateConnection())
             {
                 connection.Open();
@@ -96,8 +94,6 @@ namespace ReconDataLayer
         public DataSet execStoredProcedurelist(string commandText, CommandType commandType, IDbDataParameter[]? parameters = null)
         {
             var dynamicData = new Dictionary<string, object>();
-            // var connectionString = _configuration.GetSection("ConnectionStrings")["DefaultConnection"].ToString();
-
             using (var connection = database.CreateConnection())
             {
                 connection.Open();
