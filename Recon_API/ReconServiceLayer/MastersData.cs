@@ -1,10 +1,13 @@
-﻿using ReconModels;
+﻿using DocumentFormat.OpenXml.Drawing.Diagrams;
+using Newtonsoft.Json;
+using ReconModels;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ReconModels.UserManagementModel;
 
 namespace ReconDataLayer
 {
@@ -36,11 +39,10 @@ namespace ReconDataLayer
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_recon_mst_treconfieldmapping" + "Error Message:" + ex.Message);
-                throw ex;
-            }
-
-        }
+				objlog.logger("SP:pr_recon_mst_treconfieldmapping" + "Error Message:" + ex.Message);
+				throw ex;
+			}
+		}
 
 
         public DataSet Reconacc(Reconacc reconacc)
@@ -64,7 +66,7 @@ namespace ReconDataLayer
             {
                 CommonHeader objlog = new CommonHeader();
                 objlog.logger("SP:pr_recon_mst_treconacc" + "Error Message:" + ex.Message);
-                throw ex;
+				throw ex;
             }
 
         }

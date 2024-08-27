@@ -15,13 +15,16 @@ namespace Recon_API.Controllers
 	{
 		private IConfiguration _configuration;
         private ReconVersionSrv _reconVersionService;
+        private IWebHostEnvironment _webHostEnvironment;
 
-        public ReconVersionController(IConfiguration configuration, ReconVersionSrv reconVersionService)
+        public ReconVersionController(IWebHostEnvironment webHostEnvironment, IConfiguration configuration, ReconVersionSrv reconVersionService)
 		{
 			_configuration = configuration;
             _reconVersionService = reconVersionService;
+            _webHostEnvironment = webHostEnvironment;
         }
-		string constring = "";
+
+        string constring = "";
 		[HttpPost("ReconVersionfetch")]
 		public IActionResult ReconVersionfetch(ReconVersionmodellist ReconVersionmodellist)
 		{
@@ -108,7 +111,8 @@ namespace Recon_API.Controllers
                 header_value.user_code = getvalue;
                 header_value.lang_code = getlangCode;
                 header_value.role_code = getRoleCode;
-                byte[] pdfBytes = _reconVersionService.ReconReportVersionhistoryService(objReconReportVersionhistory, header_value, constring);
+                string imagePath = Path.Combine(_webHostEnvironment.ContentRootPath, "Image", "footerlogo_new.png");
+                byte[] pdfBytes = _reconVersionService.ReconReportVersionhistoryService(objReconReportVersionhistory, header_value, constring, imagePath);
                 //var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 //if (pdfBytes != null)
                 //{

@@ -225,5 +225,12 @@ namespace ReconModels
             public String? in_tran_date { get; set; }
         }
 
+        public class getReportFieldTypeModel
+        {
+            public String? in_reporttemplate_code { get; set; }
+            public String? in_recon_code { get; set; }
+            public String? in_report_code { get; set; }
+        }
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI.Common;
+using Newtonsoft.Json;
 using ReconModels;
 using System;
 using System.Collections.Generic;
@@ -41,7 +42,7 @@ namespace ReconDataLayer
             {
                 CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_recon_mst_tacc" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_recon_mst_tacc", reconMstTacc.in_action_by, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(reconMstTacc), "pr_recon_mst_tacc", reconMstTacc.in_action_by, constring);
 				throw ex;
             }
 
@@ -68,7 +69,7 @@ namespace ReconDataLayer
             {
                 CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_run_report" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_run_report", runReport.in_user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(runReport), "pr_run_report", runReport.in_user_code, constring);
 				throw ex;
             }
 
@@ -96,7 +97,7 @@ namespace ReconDataLayer
 			{
                 CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_kosumm" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_kosumm", objrunkosumm.in_user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objrunkosumm), "pr_get_kosumm", objrunkosumm.in_user_code, constring);
 				throw ex;
 			}
 		}
@@ -121,7 +122,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_recondatasetinfo" +" " + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_recondatasetinfo", "", constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objrecondatasetinfo), "pr_get_recondatasetinfo", "", constring);
 				throw ex;
 			}
 		}
@@ -149,7 +150,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_run_report" + " " + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_run_report", objrunreport.in_user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objrunreport), "pr_run_report", objrunreport.in_user_code, constring);
 				throw ex;
 			}
 		}
@@ -175,7 +176,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_set_undoko" + " " + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_set_undoko", objundoKO.in_user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objundoKO), "pr_set_undoko", objundoKO.in_user_code, constring);
 				throw ex;
 			}
 		}
@@ -198,7 +199,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_set_undoko" + " " + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_undojobprocess", "", constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objundoKO), "pr_get_undojobprocess", "", constring);
 				throw ex;
 			}
 		}
@@ -223,7 +224,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_set_undoko" + " " + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_set_undokojob", objundoKO.in_user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objundoKO), "pr_set_undokojob", objundoKO.in_user_code, constring);
 				throw ex;
 			}
 		}
@@ -249,7 +250,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_undokojobrule" + " " + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_undokojobrule", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objgetundojobrule), "pr_get_undokojobrule", headerval.user_code, constring);
 				throw ex;
 			}
 		}
@@ -268,7 +269,6 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_undo_job_reason", objsetundojobrule.in_undo_job_reason, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_ip_addr", headerval.ip_address, DbType.String));
-                // parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
                 parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
                 ds = dbManager.execStoredProcedure("pr_set_undokojobrule", CommandType.StoredProcedure, parameters.ToArray());
@@ -279,7 +279,7 @@ namespace ReconDataLayer
             {
                 CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_set_undokojobrule" + " " + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_set_undokojobrule", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objsetundojobrule), "pr_set_undokojobrule", headerval.user_code, constring);
 				throw ex;
             }
         }
@@ -304,7 +304,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_ruleagainstjob" + " " + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_ruleagainstjob", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objgetruleagainstjob), "pr_get_ruleagainstjob", headerval.user_code, constring);
 				throw ex;
 			}
 		}
@@ -328,7 +328,7 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_themeagainstrecon" + " " + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message, "pr_get_themeagainstrecon", headerval.user_code, constring);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objgetthemeagainstRecon), "pr_get_themeagainstrecon", headerval.user_code, constring);
 				throw ex;
 			}
 		}
