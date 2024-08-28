@@ -81,7 +81,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
-				ds = dbManager.execStoredProcedurelist("pr_fetch_recondetail1", CommandType.StoredProcedure, parameters.ToArray());
+				ds = dbManager.execStoredProcedurelist("pr_fetch_recondetail", CommandType.StoredProcedure, parameters.ToArray());
 				if (ds.Tables.Count >= 8)
 				{
 					ds.Tables[0].TableName = "ReconHeader";
