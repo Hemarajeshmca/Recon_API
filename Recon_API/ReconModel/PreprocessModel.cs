@@ -51,6 +51,7 @@ namespace ReconModels
 			public string? in_close_flag { get; set; }
 			public string? in_join_condition { get; set; }
 			public string? in_active_status { get; set; }
+			public string? in_filter_applied_on { get; set; }
 			public string? in_action { get; set; }
 			public string? in_user_code { get; set; }
 			public string? out_msg { get; set; }
@@ -81,6 +82,7 @@ namespace ReconModels
 			public string? in_lookup_field { get; set; }
 			public string? in_comparison_criteria { get; set; }
 			public string? in_comparison_filter { get; set; }
+			public string? in_source_field_type { get; set; }
 			public string? in_open_flag { get; set; }
 			public string? in_close_flag { get; set; }
 			public string? in_join_condition { get; set; }
