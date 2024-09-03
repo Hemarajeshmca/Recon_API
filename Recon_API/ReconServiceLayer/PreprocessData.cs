@@ -98,6 +98,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_preprocess_code", objfilterdata.in_preprocess_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_recon_code", objfilterdata.in_recon_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_filter_seqno", objfilterdata.in_filter_seqno, DbType.Double));
+				parameters.Add(dbManager.CreateParameter("in_filter_applied_on", objfilterdata.in_filter_applied_on, DbType.String));				
 				parameters.Add(dbManager.CreateParameter("in_filter_field", objfilterdata.in_filter_field, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_filter_criteria", objfilterdata.in_filter_criteria, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_filter_value_flag", objfilterdata.in_ident_value_flag, DbType.String));
@@ -142,6 +143,8 @@ namespace ReconDataLayer
 				ds.Tables[1].TableName = "filter";
 				ds.Tables[2].TableName = "condition";
 				ds.Tables[3].TableName = "lookup";
+				ds.Tables[4].TableName = "filterlookup";
+				ds.Tables[5].TableName = "conditionlookup";
 				return ds;
 			}
 			catch (Exception ex)
@@ -175,6 +178,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_open_flag", objconditiondata.in_open_flag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_close_flag", objconditiondata.in_close_flag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_join_condition", objconditiondata.in_join_condition, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_source_field_type", objconditiondata.in_source_field_type, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_returnflag", objconditiondata.in_returnflag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_active_status", objconditiondata.in_active_status, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action", objconditiondata.in_action, DbType.String));
