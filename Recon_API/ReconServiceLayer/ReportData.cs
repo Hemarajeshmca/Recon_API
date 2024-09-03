@@ -1,5 +1,7 @@
 ﻿using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Wordprocessing;
 using Google.Protobuf.WellKnownTypes;
 using Irony.Parsing;
 using Microsoft.Extensions.Configuration;
@@ -808,7 +810,7 @@ namespace ReconDataLayer
 					}
 					if (insertintojob == "Success")
 					{
-						Debugger.Break();
+						//Debugger.Break();
 						getfiledType = getReportFieldType(objDataModel, headerval, constring);
 						getDateFormat = configvalueData("excel_dateformat", headerval, constring);
 						getDateTimeFormat = configvalueData("excel_datetimeformat", headerval, constring);
@@ -835,6 +837,10 @@ namespace ReconDataLayer
 												dataType = getfiledType.Rows[i]["field_type"].ToString();
 												if (dataType == "DATE")
 												{
+													//column.Style.DateFormat.Format = "General";
+													//string dateFormat = getDateFormat.Rows[0]["out_config_value"].ToString();
+													//column.Style.DateFormat.Format = dateFormat;
+													//Hema start
 													foreach (var cell in column.CellsUsed())
 													{
 														if (DateTime.TryParse(cell.GetString(), out DateTime parsedDate))
@@ -843,9 +849,13 @@ namespace ReconDataLayer
 															cell.Style.DateFormat.Format = getDateFormat.Rows[0]["out_config_value"].ToString(); // Apply date format
 														}
 													}
+													//Hema end
+
 												}
 												else if (dataType == "DATETIME")
 												{
+													column.Style.DateFormat.Format = getDateFormat.Rows[0]["out_config_value"].ToString();
+
 													foreach (var cell in column.CellsUsed())
 													{
 														if (DateTime.TryParse(cell.GetString(), out DateTime parsedDate))
@@ -858,10 +868,13 @@ namespace ReconDataLayer
 												else if (dataType == "DECIMAL" || dataType == "NUMERIC")
 												{
 													column.Style.NumberFormat.Format = "#,##0.00";
+													//column.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+
 												}
 												else if (dataType == "INTEGER")
 												{
 													column.Style.NumberFormat.Format = "0";
+													//column.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
 												}
 												else
 												{
@@ -870,23 +883,6 @@ namespace ReconDataLayer
 											}
 										}
 									}
-									//for (int colIndex = 0; colIndex < dataset.Tables[0].Columns.Count; colIndex++)
-									//{
-									//    var column = table.Column(colIndex + 1); // ClosedXML columns are 1-based
-									//    var dataType = dataset.Tables[0].Columns[colIndex].DataType;
-									//    if (dataType == typeof(DateOnly) || dataType == typeof(DateTime))
-									//    {
-									//        column.Style.NumberFormat.Format = "yyyy-mm-dd"; // Adjust date format as needed
-									//    }
-									//    else if (dataType == typeof(decimal) || dataType == typeof(double) || dataType == typeof(float))
-									//    {
-									//        column.Style.NumberFormat.Format = "#,##0.00"; // Adjust number format as needed
-									//    }
-									//    else if (dataType == typeof(int) || dataType == typeof(long))
-									//    {
-									//        column.Style.NumberFormat.Format = "0"; // No decimal points
-									//    }
-									//}
 									//worksheet.Cells().Style.Protection.SetLocked(false);
 									//// Lock the specific column (make it read-only)
 									//worksheet.Column("B").Style.Protection.SetLocked(true);
