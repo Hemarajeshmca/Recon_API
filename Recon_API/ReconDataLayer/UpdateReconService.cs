@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using static ReconModels.UpdateReconModel;
 
-
 namespace ReconServiceLayer
 {
 	public class UpdateReconService
@@ -26,6 +25,31 @@ namespace ReconServiceLayer
 			return ds;
 		}
 
+		public static DataTable ReconUpdatePreprocessService(ReconUpdatePreprocessModel objReconUpdatePreprocess, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				UpdateReconData objqcd = new UpdateReconData();
+				ds = objqcd.ReconUpdatePreprocessData(objReconUpdatePreprocess, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+
+		public static DataTable ReconUpdateThemeService(ReconUpdateThemeModel objReconUpdateTheme, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				UpdateReconData objqcd = new UpdateReconData();
+				ds = objqcd.ReconUpdateThemeData(objReconUpdateTheme, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
 
 	}
 }
