@@ -36,6 +36,8 @@ namespace ReconModels
 			public string? out_result { get; set; }
 			public string? clone_process { get; set; }
 			public string? hold_flag { get; set; }
+			public string? expression { get; set; }
+			public string? postprocessflag { get; set; }
 		}
 		public class filterdata
 		{

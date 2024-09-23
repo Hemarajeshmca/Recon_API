@@ -22,6 +22,7 @@ namespace ReconModels
 			public string source_dataset { get; set; }
 			public string comparison_dataset { get; set; }
 			public string inactive_reason { get; set; }
+			public string themequery { get; set; }
 		}
 
 		public class themedetailmodel
