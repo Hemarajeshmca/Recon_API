@@ -46,6 +46,7 @@ namespace ReconModels
 			public String threshold_code { get; set; }
 			public String thresholdflag { get; set; }
 			public String in_rule_automatch_partial { get; set; }
+			public String ruleremark { get; set; }
 		}
 
         public class Rulegrouping

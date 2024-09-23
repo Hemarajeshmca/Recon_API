@@ -59,6 +59,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_set_recon_field", Objmodel.set_recon_field, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_process_method", Objmodel.process_method, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_process_query", Objmodel.process_query, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_expression", Objmodel.expression, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_process_function", Objmodel.process_function, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_lookup_dataset_code", Objmodel.lookup_dataset_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_lookup_multi_return_flag", Objmodel.lookup_multi_return_flag, DbType.String));
@@ -66,6 +67,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_preprocess_order", Objmodel.preprocess_order, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_hold_flag", Objmodel.hold_flag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_returnflag", Objmodel.in_returnflag, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_postprocessflag", Objmodel.postprocessflag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_active_status", Objmodel.active_status, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action", Objmodel.in_action, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action_by", Objmodel.in_action_by, DbType.String));
