@@ -17,6 +17,24 @@ namespace ReconModels
 			public string in_user_code { get; set; }
 		}
 
+		public class ReconUpdatePreprocessModel
+		{
+			public string in_base_recon_code { get; set; }
+			public string in_base_preprocess_code { get; set; }
+			public string in_update_recon_code { get; set; }
+			public string in_update_preprocess_code { get; set; }
+			public string in_user_code { get; set; }
+		}
+
+		public class ReconUpdateThemeModel
+		{
+			public string in_base_recon_code { get; set; }
+			public string in_base_theme_code { get; set; }
+			public string in_update_recon_code { get; set; }
+			public string in_update_theme_code { get; set; }
+			public string in_user_code { get; set; }
+		}
+
 	}
 	
 }

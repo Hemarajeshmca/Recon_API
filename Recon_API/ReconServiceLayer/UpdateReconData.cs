@@ -46,5 +46,61 @@ namespace ReconDataLayer
 			}
 		}
 
+		public DataTable ReconUpdatePreprocessData(ReconUpdatePreprocessModel objReconUpdatePreprocess, UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_base_recon_code", objReconUpdatePreprocess.in_base_recon_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_base_preprocess_code", objReconUpdatePreprocess.in_base_preprocess_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_update_recon_code", objReconUpdatePreprocess.in_update_recon_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_update_preprocess_code", objReconUpdatePreprocess.in_update_preprocess_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", objReconUpdatePreprocess.in_user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+				ds = dbManager.execStoredProcedure("pr_recon_upd_preprocess", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_recon_upd_preprocess" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message + "Param" + JsonConvert.SerializeObject(objReconUpdatePreprocess), "pr_recon_upd_preprocess", headerval.user_code, constring);
+				return result;
+			}
+		}
+
+		public DataTable ReconUpdateThemeData(ReconUpdateThemeModel objReconUpdateTheme, UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_base_recon_code", objReconUpdateTheme.in_base_recon_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_base_theme_code", objReconUpdateTheme.in_base_theme_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_update_recon_code", objReconUpdateTheme.in_update_recon_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_update_theme_code", objReconUpdateTheme.in_update_theme_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", objReconUpdateTheme.in_user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+				ds = dbManager.execStoredProcedure("pr_recon_upd_theme", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_recon_upd_theme" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message + "Param" + JsonConvert.SerializeObject(objReconUpdateTheme), "pr_recon_upd_theme", headerval.user_code, constring);
+				return result;
+			}
+		}
+
 	}
 }
