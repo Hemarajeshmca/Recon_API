@@ -31,7 +31,8 @@ namespace ReconModels
         public class undokomodel
         {
             public Int32? in_ko_gid { get; set; }
-            public String? in_undo_ko_reason { get; set; }
+			public String? in_recon_code { get; set; }
+			public String? in_undo_ko_reason { get; set; }
             public String? in_user_code { get; set; }
         }
 
