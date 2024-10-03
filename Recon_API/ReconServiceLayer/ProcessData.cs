@@ -113,7 +113,8 @@ namespace ReconDataLayer
 				parameters = new List<IDbDataParameter>();
 
                 parameters.Add(dbManager.CreateParameter("in_ko_gid", objundokomodel.in_ko_gid, DbType.Int64));
-                parameters.Add(dbManager.CreateParameter("in_undo_ko_reason", objundokomodel.in_undo_ko_reason, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_recon_code", objundokomodel.in_recon_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_undo_ko_reason", objundokomodel.in_undo_ko_reason, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_user_code", objundokomodel.in_user_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
                 parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));

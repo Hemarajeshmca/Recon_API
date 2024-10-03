@@ -164,6 +164,7 @@ namespace ReconDataLayer
 				DBManager dbManager = new DBManager(constring);
 				parameters = new List<IDbDataParameter>();
 				parameters.Add(dbManager.CreateParameter("in_ko_gid", objundoKO.in_ko_gid, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_recon_code", objundoKO.in_recon_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_undo_ko_reason", objundoKO.in_undo_ko_reason, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_user_code", objundoKO.in_user_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));

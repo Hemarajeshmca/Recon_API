@@ -70,6 +70,7 @@ namespace ReconModels
     }
     public class undoKOmodel
 	{
+		public string in_recon_code { get; set; }
 		public int in_ko_gid { get; set; }
 		public string in_undo_ko_reason { get; set; }
 		public string in_user_code { get; set; }
