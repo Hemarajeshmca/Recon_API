@@ -35,6 +35,20 @@ namespace ReconModels
 			public string in_user_code { get; set; }
 		}
 
+		public class ReconagainstRuleModel
+		{
+			public string in_rule_name { get; set; }
+		}
+
+		public class ReconagainstPreProcessModel
+		{
+			public string in_preprocess_name { get; set; }
+		}
+
+		public class ReconagainstThemeModel
+		{
+			public string in_theme_name { get; set; }
+		}
 	}
 	
 }

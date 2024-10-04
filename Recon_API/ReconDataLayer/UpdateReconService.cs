@@ -51,5 +51,45 @@ namespace ReconServiceLayer
 			return ds;
 		}
 
+		//ReconagainstRuleService
+
+		public static DataTable ReconagainstRuleService(ReconagainstRuleModel objReconagainstRule, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				UpdateReconData objqcd = new UpdateReconData();
+				ds = objqcd.ReconagainstRuleData(objReconagainstRule, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+		//ReconagainstPreProcessService
+		public static DataTable ReconagainstPreProcessService(ReconagainstPreProcessModel objReconagainstPreProcess, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				UpdateReconData objqcd = new UpdateReconData();
+				ds = objqcd.ReconagainstPreProcessData(objReconagainstPreProcess, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+		//ReconagainstThemeService
+		public static DataTable ReconagainstThemeService(ReconagainstThemeModel objReconagainstTheme, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				UpdateReconData objqcd = new UpdateReconData();
+				ds = objqcd.ReconagainstThemeData(objReconagainstTheme, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
 	}
 }
