@@ -895,25 +895,39 @@ namespace ReconDataLayer
 								Console.WriteLine($"An error occurred while inserting table: {ex.Message}");
 								throw;
 							}
-							var worksheet2 = workbook.Worksheets.Add("Condition Criteria");
-							worksheet2.Clear(XLClearOptions.Contents);
-							try
+							var sheetName2 = "Condition Criteria";
+							//var worksheet2 = workbook.Worksheets.Add("Condition Criteria");
+							var existingSheet = workbook.Worksheets.FirstOrDefault(ws => ws.Name == sheetName);
+							if (existingSheet != null)
 							{
-								if (sheetDt.Rows.Count > 0)
+								CommonHeader objlog = new CommonHeader();
+								objlog.logger("SP:pr_run_dynamicreport" + "Error Message:" + "Sheet Name should not have Condition Criteria");
+								objlog.commonDataapi("", "SP", "Sheet Name should not have Condition Criteria" + "Param:" + JsonConvert.SerializeObject(objDataModel), "pr_run_dynamicreport", headerval.user_code, constring);
+								// Sheet already exists, show an error message
+								// Console.WriteLine($"Error: The worksheet '{sheetName}' already exists.");
+							}
+							else
+							{
+								var worksheet2 = workbook.AddWorksheet(sheetName);
+								worksheet2.Clear(XLClearOptions.Contents);
+								try
 								{
-									var table = worksheet2.Cell(1, 1).InsertTable(sheetDt.AsEnumerable(), "MyTable", true);
+									if (sheetDt.Rows.Count > 0)
+									{
+										var table = worksheet2.Cell(1, 1).InsertTable(sheetDt.AsEnumerable(), "MyTable", true);
 
+									}
+									else
+									{
+										worksheet2.Cell(1, 1).InsertData("No Record Found");
+									}
 								}
-								else
+								catch (Exception ex)
 								{
-									worksheet2.Cell(1, 1).InsertData("No Record Found");
+									Console.WriteLine($"An error occurred while inserting table into {"Sheet2"}: {ex.Message}");
+									throw;
 								}
-							}
-							catch (Exception ex)
-							{
-								Console.WriteLine($"An error occurred while inserting table into {"Sheet2"}: {ex.Message}");
-								throw;
-							}
+							}							
 							workbook.SaveAs(destFile);
 							UpdateJobStatus(job_id, "C", "Completed", constring, headerval.user_code);
 						}

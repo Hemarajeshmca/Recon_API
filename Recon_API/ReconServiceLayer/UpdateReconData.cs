@@ -101,6 +101,76 @@ namespace ReconDataLayer
 				return result;
 			}
 		}
+		//ReconagainstRuleData
+		public DataTable ReconagainstRuleData(ReconagainstRuleModel objReconagainstRule, UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_rule_name", objReconagainstRule.in_rule_name, DbType.String));
+				ds = dbManager.execStoredProcedure("pr_get_reconagainstrule", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_get_reconagainstrule" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message + "Param" + JsonConvert.SerializeObject(objReconagainstRule), "pr_get_reconagainstrule", headerval.user_code, constring);
+				return result;
+			}
+		}
+
+		//ReconagainstPreProcessData
+
+		public DataTable ReconagainstPreProcessData(ReconagainstPreProcessModel objReconagainstPreProcess, UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_preprocess_name", objReconagainstPreProcess.in_preprocess_name, DbType.String));
+				ds = dbManager.execStoredProcedure("pr_get_reconagainstpreprocess", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_get_reconagainstpreprocess" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message + "Param" + JsonConvert.SerializeObject(objReconagainstPreProcess), "pr_get_reconagainstpreprocess", headerval.user_code, constring);
+				return result;
+			}
+		}
+
+
+		//ReconagainstThemeData
+		public DataTable ReconagainstThemeData(ReconagainstThemeModel objReconagainstTheme, UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_theme_name", objReconagainstTheme.in_theme_name, DbType.String));
+				ds = dbManager.execStoredProcedure("pr_get_reconagainsttheme", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_get_reconagainsttheme" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message + "Param" + JsonConvert.SerializeObject(objReconagainstTheme), "pr_get_reconagainsttheme", headerval.user_code, constring);
+				return result;
+			}
+		}
 
 	}
 }
