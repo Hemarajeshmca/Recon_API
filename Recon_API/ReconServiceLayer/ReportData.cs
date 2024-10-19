@@ -897,7 +897,7 @@ namespace ReconDataLayer
 							}
 							var sheetName2 = "Condition Criteria";
 							//var worksheet2 = workbook.Worksheets.Add("Condition Criteria");
-							var existingSheet = workbook.Worksheets.FirstOrDefault(ws => ws.Name == sheetName);
+							var existingSheet = workbook.Worksheets.FirstOrDefault(ws => ws.Name == sheetName2);
 							if (existingSheet != null)
 							{
 								CommonHeader objlog = new CommonHeader();
@@ -908,7 +908,7 @@ namespace ReconDataLayer
 							}
 							else
 							{
-								var worksheet2 = workbook.AddWorksheet(sheetName);
+								var worksheet2 = workbook.AddWorksheet(sheetName2);
 								worksheet2.Clear(XLClearOptions.Contents);
 								try
 								{
@@ -1118,6 +1118,7 @@ namespace ReconDataLayer
 	{13, "#,##0.00;[Red]-#,##0.00" }
 };
 
+		/* Start Testing for template and macro */
 		public DataTable generatedynamicReportData_new_template(ReportModel.DataModel objDataModel, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
@@ -1464,5 +1465,6 @@ namespace ReconDataLayer
 			}
 		}
 
+		/* Ends Testing for template and macro */
 	}
 }
