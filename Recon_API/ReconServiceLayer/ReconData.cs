@@ -98,7 +98,7 @@ namespace ReconDataLayer
 			catch (Exception ex)
 			{
 				CommonHeader objlog = new CommonHeader();
-				objlog.logger("SP:pr_fetch_recondetails" + "Error Message:" + ex.Message);
+				objlog.logger("SP:pr_fetch_recondetail" + "Error Message:" + ex.Message);
 				objlog.commonDataapi("", "SP", ex.Message + objfetch, "pr_fetch_recondetail", headerval.user_code, constring);
 				return ds;
 			}
@@ -214,6 +214,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_recon_automatch_partial", recon.in_recon_automatch_partial, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_period_from", recon.in_period_from, DbType.Date));
 				parameters.Add(dbManager.CreateParameter("in_period_to", recon.in_period_to, DbType.Date));
+				parameters.Add(dbManager.CreateParameter("in_closure_date", recon.closure_date, DbType.Date));
 				parameters.Add(dbManager.CreateParameter("in_until_active_flag", recon.in_until_active_flag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_recon_date_flag", recon.in_recon_date_flag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_recon_date_field", recon.in_recon_date_field, DbType.String));
