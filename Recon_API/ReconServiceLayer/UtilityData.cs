@@ -80,7 +80,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_start_date", objJobCompleted.in_start_date, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_end_date", objJobCompleted.in_end_date, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_jobtype_code", objJobCompleted.in_jobtype_code, DbType.String));
-				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", objJobCompleted.in_user_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
 				ds = dbManager.execStoredProcedure("pr_get_jobcompleted", CommandType.StoredProcedure, parameters.ToArray());
@@ -107,7 +107,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_start_date", objJobCompleted.in_start_date, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_end_date", objJobCompleted.in_end_date, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_jobtype_code", objJobCompleted.in_jobtype_code, DbType.String));
-				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", objJobCompleted.in_user_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
 				ds = dbManager.execStoredProcedure("pr_get_jobinProgress", CommandType.StoredProcedure, parameters.ToArray());
