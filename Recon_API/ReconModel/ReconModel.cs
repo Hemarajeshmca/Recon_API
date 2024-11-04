@@ -53,6 +53,10 @@ namespace ReconModels
 			public string? in_recon_code { get; set; }
 			public string? in_recon_field_name { get; set; }
 			public Decimal? in_display_order { get; set; }
+			public string? field_length { get; set; }
+			public int? precision_length { get; set; }
+			public int? scale_length { get; set; }
+			public string? field_type { get; set; }
 			public string? in_active_status { get; set; }
 			public string? in_action { get; set; }
 			public string? in_user_code { get; set; }
