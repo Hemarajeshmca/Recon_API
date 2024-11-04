@@ -147,5 +147,18 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
+		public static DataTable reconfieldordersrv(reconfieldorder objreconfieldorder, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				PreprocessData objqcd = new PreprocessData();
+				ds = objqcd.reconfieldorderData(objreconfieldorder, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+
 	}
 }

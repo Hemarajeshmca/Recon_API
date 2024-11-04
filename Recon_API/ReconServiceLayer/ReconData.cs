@@ -154,6 +154,10 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_field_name", objdatafieldmodel.in_recon_field_name, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_field_alias_name", objdatafieldmodel.in_recon_field_name, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_display_order", objdatafieldmodel.in_display_order, DbType.Decimal));
+				parameters.Add(dbManager.CreateParameter("in_field_type", objdatafieldmodel.field_type, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_field_length", objdatafieldmodel.field_length, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_precision_length", objdatafieldmodel.precision_length, DbType.Int64));
+				parameters.Add(dbManager.CreateParameter("in_scale_length", objdatafieldmodel.scale_length, DbType.Int64));
 				parameters.Add(dbManager.CreateParameter("in_active_status", objdatafieldmodel.in_active_status, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action", objdatafieldmodel.in_action, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action_by", headerval.user_code, DbType.String));
