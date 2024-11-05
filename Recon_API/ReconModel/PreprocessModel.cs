@@ -38,6 +38,7 @@ namespace ReconModels
 			public string? hold_flag { get; set; }
 			public string? expression { get; set; }
 			public string? postprocessflag { get; set; }
+			public string? in_cumulative_flag { get; set; }
 		}
 		public class filterdata
 		{
@@ -127,6 +128,18 @@ namespace ReconModels
 			public string? in_preprocess_code { get; set; }
 			public int? in_recorder_seqno { get; set; }
 			public string? in_recorder_field { get; set; }
+			public string? in_active_status { get; set; }
+			public string? in_action { get; set; }
+			public string? in_user_code { get; set; }
+			public string? out_msg { get; set; }
+			public string? out_result { get; set; }
+		}
+		public class aggexpmodel
+		{
+			public int? in_preprocessgrpfield_gid { get; set; }
+			public string? in_preprocess_code { get; set; }
+			public int? in_grpfield_seqno { get; set; }
+			public string? in_grp_field { get; set; }
 			public string? in_active_status { get; set; }
 			public string? in_action { get; set; }
 			public string? in_user_code { get; set; }

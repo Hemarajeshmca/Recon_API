@@ -159,6 +159,17 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
-
+		public static DataTable AggExpressionsrv(aggexpmodel objaggexpmodel, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				PreprocessData objqcd = new PreprocessData();
+				ds = objqcd.AggExpressionData(objaggexpmodel, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
 	}
 }

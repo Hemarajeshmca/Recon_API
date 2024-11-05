@@ -68,6 +68,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_hold_flag", Objmodel.hold_flag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_returnflag", Objmodel.in_returnflag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_postprocessflag", Objmodel.postprocessflag, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_cumulative_flag", Objmodel.in_cumulative_flag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_active_status", Objmodel.active_status, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action", Objmodel.in_action, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action_by", Objmodel.in_action_by, DbType.String));
@@ -148,6 +149,7 @@ namespace ReconDataLayer
 				ds.Tables[4].TableName = "filterlookup";
 				ds.Tables[5].TableName = "conditionlookup";
 				ds.Tables[6].TableName = "preprocessorder";
+				ds.Tables[7].TableName = "aggexp";
 				return ds;
 			}
 			catch (Exception ex)
@@ -391,6 +393,38 @@ namespace ReconDataLayer
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_recon_mst_tpreprocessrecorder" + "Error Message:" + ex.Message);
 				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objreconfieldorder), "pr_recon_mst_trulerecorder", headerval.user_code, constring);
+				return result;
+			}
+		}
+		public DataTable AggExpressionData(aggexpmodel objaggexpmodel, UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_preprocessgrpfield_gid", objaggexpmodel.in_preprocessgrpfield_gid, DbType.Int64, ParameterDirection.InputOutput));
+				parameters.Add(dbManager.CreateParameter("in_preprocess_code", objaggexpmodel.in_preprocess_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_grpfield_seqno", objaggexpmodel.in_grpfield_seqno, DbType.Decimal));
+				parameters.Add(dbManager.CreateParameter("in_grp_field", objaggexpmodel.in_grp_field, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_active_status", objaggexpmodel.in_active_status, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_action", objaggexpmodel.in_action, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_action_by", objaggexpmodel.in_user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+				ds = dbManager.execStoredProcedure("pr_recon_mst_tpreprocessagg", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_recon_mst_tpreprocessrecorder" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objaggexpmodel), "pr_recon_mst_trulerecorder", headerval.user_code, constring);
 				return result;
 			}
 		}
