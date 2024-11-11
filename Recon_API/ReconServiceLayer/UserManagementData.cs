@@ -88,12 +88,13 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
                 parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
                 DS = dbManager.execStoredProcedurelist("pr_get_dashboard", CommandType.StoredProcedure, parameters.ToArray());
-                if (DS.Tables.Count >= 3)
+                if (DS.Tables.Count >= 4)
                 {
                     DS.Tables[0].TableName = "DataSet1";
                     DS.Tables[1].TableName = "DataSet2";
                     DS.Tables[2].TableName = "DataSet3";
-                }
+					DS.Tables[3].TableName = "DataSet4";
+				}
                 return DS;
             }
             catch (Exception ex)
