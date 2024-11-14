@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using static ReconModels.DatasetModel;
 using static ReconModels.ReconModel;
 using static ReconModels.RulesetupModel;
+using static ReconModels.theme_model;
 using static ReconModels.UserManagementModel;
 
 namespace ReconDataLayer
@@ -227,6 +228,8 @@ namespace ReconDataLayer
 				ds.Tables[4].TableName = "comparisionidentifier";				
 				ds.Tables[5].TableName = "RulefieldorderSource";
 				ds.Tables[6].TableName = "Rulefieldordercomparison";
+				ds.Tables[7].TableName = "Ruleaggfunction";
+				ds.Tables[8].TableName = "Ruleaggcondition";
 				return ds;
 			}
 			catch (Exception ex)
@@ -426,6 +429,106 @@ namespace ReconDataLayer
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_get_allrulelist" + "Error Message:" + ex.Message);
 				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(headerval), "pr_get_allrulelist", headerval.user_code, constring);
+				return result;
+			}
+		}
+		public DataTable ruleaggfunData(ruleAggfunction objAggfunction, UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_ruleaggfield_gid", objAggfunction.ruleaggfield_gid, DbType.Int64, ParameterDirection.InputOutput));
+				parameters.Add(dbManager.CreateParameter("in_rule_code", objAggfunction.in_rule_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_recon_field", objAggfunction.recon_field, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_ruleaggfield_seqno", objAggfunction.ruleaggfield_seqno, DbType.Decimal));
+				parameters.Add(dbManager.CreateParameter("in_ruleaggfield_applied_on", objAggfunction.ruleaggfield_applied_on, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_ruleaggfield_desc", objAggfunction.ruleaggfield_desc, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_ruleagg_function", objAggfunction.ruleagg_function, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_active_status", objAggfunction.in_active_status, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_action", objAggfunction.in_action, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_action_by", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+				ds = dbManager.execStoredProcedure("pr_recon_mst_truleaggfun", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_recon_mst_truleaggfun" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objAggfunction), "pr_recon_mst_truleaggfun", headerval.user_code, constring);
+				return result;
+			}
+		}
+		public DataTable ruleaggconditionData(ruleAggcondition objAggcondition, UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_ruleaggcondition_gid", objAggcondition.ruleaggcondition_gid, DbType.Int64, ParameterDirection.InputOutput));
+				parameters.Add(dbManager.CreateParameter("in_rule_code", objAggcondition.in_rule_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_ruleaggcondition_seqno", objAggcondition.ruleaggcondition_seqno, DbType.Decimal));
+				parameters.Add(dbManager.CreateParameter("in_ruleagg_applied_on", objAggcondition.ruleagg_applied_on, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_ruleagg_field", objAggcondition.ruleagg_field, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_ruleagg_criteria", objAggcondition.ruleagg_criteria, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_ruleagg_value_flag", objAggcondition.ruleagg_value_flag, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_ruleagg_value", objAggcondition.ruleagg_value, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_open_flag", objAggcondition.in_open_flag, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_close_flag", objAggcondition.in_close_flag, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_join_condition", objAggcondition.in_join_condition, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_active_status", objAggcondition.in_active_status, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_action", objAggcondition.in_action, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_action_by", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+				ds = dbManager.execStoredProcedure("pr_recon_mst_truleaggcon", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_recon_mst_truleaggcon" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objAggcondition), "pr_recon_mst_truleaggcon", headerval.user_code, constring);
+				return result;
+			}
+		}
+		public DataTable getConditioncriteriaruleData(getConditionrule objcondition, UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_condition_type", objcondition.in_condition_type, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_field_type", objcondition.in_field_type, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_rule_code", objcondition.in_rule_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				ds = dbManager.execStoredProcedure("pr_get_conditionrule", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_get_conditionrule" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objcondition), "pr_get_conditionrule", headerval.user_code, constring);
 				return result;
 			}
 		}

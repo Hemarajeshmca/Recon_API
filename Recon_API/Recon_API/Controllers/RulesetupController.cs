@@ -6,6 +6,7 @@ using static ReconModels.RulesetupModel;
 using System.Data;
 using static ReconModels.UserManagementModel;
 using static ReconModels.ReconModel;
+using static ReconModels.theme_model;
 
 namespace Recon_API.Controllers
 {
@@ -335,6 +336,74 @@ namespace Recon_API.Controllers
 				return Problem(title: e.Message);
 			}
 		}
-
+		[HttpPost("ruleaggfun")]
+		public IActionResult themeaggfun(ruleAggfunction objAggfunction)
+		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+			headerValue header_value = new headerValue();
+			DataTable response = new DataTable();
+			try
+			{
+				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+				header_value.user_code = getvalue;
+				header_value.lang_code = getlangCode;
+				header_value.role_code = getRoleCode;
+				response = RulesetupService.ruleaggfunsrv(objAggfunction, header_value, constring);
+				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
+				return Ok(serializedProduct);
+			}
+			catch (Exception e)
+			{
+				return Problem(title: e.Message);
+			}
+		}
+		[HttpPost("ruleaggcondition")]
+		public IActionResult ruleaggcondition(ruleAggcondition objAggcondition)
+		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+			headerValue header_value = new headerValue();
+			DataTable response = new DataTable();
+			try
+			{
+				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+				header_value.user_code = getvalue;
+				header_value.lang_code = getlangCode;
+				header_value.role_code = getRoleCode;
+				response = RulesetupService.ruleaggconditionsrv(objAggcondition, header_value, constring);
+				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
+				return Ok(serializedProduct);
+			}
+			catch (Exception e)
+			{
+				return Problem(title: e.Message);
+			}
+		}
+		[HttpPost("getConditioncriteriarule")]
+		public IActionResult getConditioncriteriarule(getConditionrule objcondition)
+		{
+			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+			headerValue header_value = new headerValue();
+			DataTable response = new DataTable();
+			try
+			{
+				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+				var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+				var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+				header_value.user_code = getvalue;
+				header_value.lang_code = getlangCode;
+				header_value.role_code = getRoleCode;
+				response = RulesetupService.getConditioncriteriarulesrv(objcondition, header_value, constring);
+				var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
+				return Ok(serializedProduct);
+			}
+			catch (Exception e)
+			{
+				return Problem(title: e.Message);
+			}
+		}
 	}
 }
