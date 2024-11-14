@@ -122,5 +122,46 @@ namespace ReconModels
             public string in_clone_source_dataset_code { get; set; }
             public string in_clone_comparison_dataset_code { get; set; }
 		}
-    }
+		public class ruleAggfunction
+		{
+			public int? ruleaggfield_gid { get; set; }
+			public Decimal? ruleaggfield_seqno { get; set; }
+			public string? recon_field { get; set; }
+			public string? ruleaggfield_applied_on { get; set; }
+			public string? ruleaggfield_desc { get; set; }
+			public string? ruleagg_function { get; set; }
+			public string? in_rule_code { get; set; }
+			public string? in_active_status { get; set; }
+			public string? in_action { get; set; }
+			public string? in_action_by { get; set; }
+			public string? out_msg { get; set; }
+			public string? out_result { get; set; }
+		}
+		public class ruleAggcondition
+		{
+			public int? ruleaggcondition_gid { get; set; }
+			public Decimal? ruleaggcondition_seqno { get; set; }
+			public string? ruleagg_applied_on { get; set; }
+			public string? ruleagg_field { get; set; }
+			public string? ruleagg_criteria { get; set; }
+			public string? ruleagg_value_flag { get; set; }
+			public string? ruleagg_value { get; set; }
+			public string? in_rule_code { get; set; }
+			public string? in_open_flag { get; set; }
+			public string? in_close_flag { get; set; }
+			public string? in_join_condition { get; set; }
+			public string? in_active_status { get; set; }
+			public string? in_action { get; set; }
+			public string? in_action_by { get; set; }
+			public string? out_msg { get; set; }
+			public string? out_result { get; set; }
+		}
+		public class getConditionrule
+		{
+			public String? in_condition_type { get; set; }
+			public String? in_field_type { get; set; }
+			public String? in_rule_code { get; set; }
+
+		}
+	}
 }

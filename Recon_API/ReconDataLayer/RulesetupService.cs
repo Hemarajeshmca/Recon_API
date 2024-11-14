@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using static ReconModels.ReconModel;
 using static ReconModels.RulesetupModel;
+using static ReconModels.theme_model;
 using static ReconModels.UserManagementModel;
 
 namespace ReconServiceLayer
@@ -184,6 +185,41 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
-
+		public static DataTable ruleaggfunsrv(ruleAggfunction objAggfunction, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				RulesetupData objDS = new RulesetupData();
+				ds = objDS.ruleaggfunData(objAggfunction, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+		public static DataTable ruleaggconditionsrv(ruleAggcondition objAggcondition, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				RulesetupData objDS = new RulesetupData();
+				ds = objDS.ruleaggconditionData(objAggcondition, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+		public static DataTable getConditioncriteriarulesrv(getConditionrule objcondition, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				RulesetupData objDS = new RulesetupData();
+				ds = objDS.getConditioncriteriaruleData(objcondition, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
 	}
 }
