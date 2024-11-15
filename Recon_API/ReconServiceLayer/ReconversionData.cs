@@ -800,8 +800,8 @@ namespace ReconDataLayer
 								};
 								spacerTableAfter5.AddCell(spacerCellAfter5);
 								document.Add(spacerTableAfter5);
-
-							}
+                                rulealphabet = rulealphabet + 1;
+                            }
                             //Table and space between for Aggregation Function
                             if (ds.Tables[6].Rows.Count > 0)
                             {
@@ -818,7 +818,7 @@ namespace ReconDataLayer
                                 };
                                 spacerTableAfter6.AddCell(spacerCellAfter6);
                                 document.Add(spacerTableAfter6);
-
+                                rulealphabet = rulealphabet + 1;
                             }
                             //Table and space between for Aggregation Condition
                             if (ds.Tables[7].Rows.Count > 0)
@@ -836,7 +836,7 @@ namespace ReconDataLayer
                                 };
                                 spacerTableAfter7.AddCell(spacerCellAfter7);
                                 document.Add(spacerTableAfter7);
-
+                                rulealphabet = rulealphabet + 1;
                             }
                         }
 					}
