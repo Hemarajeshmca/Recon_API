@@ -724,7 +724,7 @@ namespace ReconDataLayer
 			}
 		}
 
-		public DataTable generatedynamicReportData_new(ReportModel.DataModel objDataModel, UserManagementModel.headerValue headerval, string constring)
+		public DataTable generatedynamicReportData_new_working(ReportModel.DataModel objDataModel, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
 			{
@@ -786,7 +786,6 @@ namespace ReconDataLayer
 				else
 				{
 					string sourceFile = "";
-					//string sourceFile = @"D:\Recon_files\Template\template.xltx";
 					var job_id = dataset.Tables[1].Rows[0]["result"];
 					var filename = job_id + "_" + objgeneratedynamicReport["in_report_name"];
 					string getsourcefolderpath = roleconfig_db("folder_path", constring);
@@ -1302,169 +1301,229 @@ namespace ReconDataLayer
 			}
 		}
 
-		public DataTable generatedynamicReportData_new_macrotemplate(ReportModel.DataModel objDataModel, UserManagementModel.headerValue headerval, string constring)
-		{
-			try
-			{
-				DataTable getfiledType = new DataTable();
-				DataTable getDateFormat = new DataTable();
-				DataTable getDateTimeFormat = new DataTable();
-				DataTable JsonData = new DataTable();
-				DataTable sheetDt = new DataTable();
-				DataSet dataset = new DataSet();
-				DataTable dt = new DataTable();
-				JsonData = JsonConvert.DeserializeObject<DataTable>(objDataModel.Dataset1);
-				JArray jsonArray = JArray.Parse(objDataModel.Dataset2);
-				sheetDt.Columns.Add("Filter Seq No", typeof(int));
-				sheetDt.Columns.Add("(", typeof(string));
-				sheetDt.Columns.Add("Filter Field", typeof(string));
-				sheetDt.Columns.Add("Filter Criteria", typeof(string));
-				sheetDt.Columns.Add("Filter Value", typeof(string));
-				sheetDt.Columns.Add(")", typeof(string));
-				sheetDt.Columns.Add("Joins", typeof(string));
-				foreach (JObject obj in jsonArray)
-				{
-					DataRow newRow = sheetDt.NewRow();
-					newRow["Filter Seq No"] = (int)obj["filter_seqno"];
-					newRow["("] = (string)obj["open_parentheses_flag"];
-					newRow["Filter Field"] = (string)obj["reportparam_value"];
-					newRow["Filter Criteria"] = (string)obj["filter_criteria_desc"];
-					newRow["Filter Value"] = (string)obj["filter_value"];
-					newRow[")"] = (string)obj["close_parentheses_flag"];
-					newRow["Joins"] = (string)obj["join_condition"];
-					sheetDt.Rows.Add(newRow);
-				}
-				var objgeneratedynamicReport = JsonData.Rows[0];
-				DBManager dbManager = new DBManager(constring);
-				parameters = new List<IDbDataParameter>();
-				parameters.Add(dbManager.CreateParameter("in_reporttemplate_code", objgeneratedynamicReport["in_reporttemplate_code"], DbType.String));
-				parameters.Add(dbManager.CreateParameter("in_recon_code", objgeneratedynamicReport["in_recon_code"], DbType.String));
-				parameters.Add(dbManager.CreateParameter("in_report_code", objgeneratedynamicReport["in_report_code"], DbType.String));
-				parameters.Add(dbManager.CreateParameter("in_report_param", objgeneratedynamicReport["in_report_param"], DbType.String));
-				parameters.Add(dbManager.CreateParameter("in_report_condition", objgeneratedynamicReport["in_report_condition"], DbType.String));
-				parameters.Add(dbManager.CreateParameter("in_outputfile_flag", objgeneratedynamicReport["in_outputfile_flag"], DbType.Boolean));
-				parameters.Add(dbManager.CreateParameter("in_outputfile_type", objgeneratedynamicReport["in_outputfile_type"], DbType.String));
-				parameters.Add(dbManager.CreateParameter("in_ip_addr", headerval.ip_address, DbType.String));
-				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
-				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
-				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
-				dataset = dbManager.execStoredProcedurelist("pr_run_dynamicreport", CommandType.StoredProcedure, parameters.ToArray());
-				if (objgeneratedynamicReport["in_outputfile_type"] == "csv")
-				{
-					string insertintojob = "";
-					dt = dataset.Tables[0];
-					var job_id = dataset.Tables[0].Rows[0]["result"];
-					var filename = job_id + "_" + objgeneratedynamicReport["in_report_name"];
-					if (job_id != null)
-					{
-						insertintojob = insertfileName(filename, job_id, constring, headerval.user_code);
-					}
-					return dt;
-				}
-				else
-				{
-					string sourceFile = @"D:\Recon_files\Template\macro_template2.xltm";
-					var job_id = dataset.Tables[1].Rows[0]["result"];
-					var filename = job_id + "_" + objgeneratedynamicReport["in_report_name"];
-					string getdestFile = roleconfig_db("xlsx_folder_path", constring);
-					string destFile = getdestFile + filename + ".xlsx";
-					string insertintojob = "";
-					if (job_id != null)
-					{
-						insertintojob = insertfileName(filename, job_id, constring, headerval.user_code);
-					}
-					if (insertintojob == "Success")
-					{
-						//Debugger.Break();
-						getfiledType = getReportFieldType(objDataModel, headerval, constring);
-						//getDateFormat = configvalueData("excel_dateformat", headerval, constring);
-						//getDateTimeFormat = configvalueData("excel_datetimeformat", headerval, constring);
-						string sheetName = "Sheet1";
-						DataTable table = dataset.Tables[0];
-						//File.Copy(sourceFile, destFile, true);
-						using (var workbook = new XLWorkbook(sourceFile))
-						{
-							var worksheet = workbook.Worksheet(sheetName);
+        public DataTable generatedynamicReportData_new(ReportModel.DataModel objDataModel, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DataTable getfiledType = new DataTable();
+                DataTable getDateFormat = new DataTable();
+                DataTable getDateTimeFormat = new DataTable();
+                DataTable JsonData = new DataTable();
+                DataTable sheetDt = new DataTable();
+                DataSet dataset = new DataSet();
+                DataTable dt = new DataTable();
+                JsonData = JsonConvert.DeserializeObject<DataTable>(objDataModel.Dataset1);
+                JArray jsonArray = JArray.Parse(objDataModel.Dataset2);
+                sheetDt.Columns.Add("Filter Seq No", typeof(int));
+                sheetDt.Columns.Add("(", typeof(string));
+                sheetDt.Columns.Add("Filter Field", typeof(string));
+                sheetDt.Columns.Add("Filter Criteria", typeof(string));
+                sheetDt.Columns.Add("Filter Value", typeof(string));
+                sheetDt.Columns.Add(")", typeof(string));
+                sheetDt.Columns.Add("Joins", typeof(string));
+                foreach (JObject obj in jsonArray)
+                {
+                    DataRow newRow = sheetDt.NewRow();
+                    newRow["Filter Seq No"] = (int)obj["filter_seqno"];
+                    newRow["("] = (string)obj["open_parentheses_flag"];
+                    newRow["Filter Field"] = (string)obj["reportparam_value"];
+                    newRow["Filter Criteria"] = (string)obj["filter_criteria_desc"];
+                    newRow["Filter Value"] = (string)obj["filter_value"];
+                    newRow[")"] = (string)obj["close_parentheses_flag"];
+                    newRow["Joins"] = (string)obj["join_condition"];
+                    sheetDt.Rows.Add(newRow);
+                }
+                var objgeneratedynamicReport = JsonData.Rows[0];
+                DBManager dbManager = new DBManager(constring);
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_reporttemplate_code", objgeneratedynamicReport["in_reporttemplate_code"], DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_recon_code", objgeneratedynamicReport["in_recon_code"], DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_report_code", objgeneratedynamicReport["in_report_code"], DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_report_param", objgeneratedynamicReport["in_report_param"], DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_report_condition", objgeneratedynamicReport["in_report_condition"], DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_outputfile_flag", objgeneratedynamicReport["in_outputfile_flag"], DbType.Boolean));
+                parameters.Add(dbManager.CreateParameter("in_outputfile_type", objgeneratedynamicReport["in_outputfile_type"], DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_ip_addr", headerval.ip_address, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                dataset = dbManager.execStoredProcedurelist("pr_run_dynamicreport", CommandType.StoredProcedure, parameters.ToArray());
+                if (objgeneratedynamicReport["in_outputfile_type"] == "csv")
+                {
+                    string insertintojob = "";
+                    dt = dataset.Tables[0];
+                    var job_id = dataset.Tables[0].Rows[0]["result"];
+                    var filename = job_id + "_" + objgeneratedynamicReport["in_report_name"];
+                    if (job_id != null)
+                    {
+                        insertintojob = insertfileName(filename, job_id, constring, headerval.user_code);
+                    }
+                    return dt;
+                }
+                else
+                {
+                    string uploadedFileName = objgeneratedynamicReport["file_name"].ToString();
+					string fileExtension = "";
+                    fileExtension = System.IO.Path.GetExtension(uploadedFileName);
+                    string sourceFile = "";
+                    var job_id = dataset.Tables[1].Rows[0]["result"];
+                    var filename = job_id + "_" + objgeneratedynamicReport["in_report_name"];
+                    string getsourcefolderpath = roleconfig_db("folder_path", constring);
+                    if (objgeneratedynamicReport["file_name"] == "" || objgeneratedynamicReport["in_reporttemplate_code"] == "")
+                    {
+                        sourceFile = roleconfig_db("temp_file_folder_path", constring);
+                    }
+                    else
+                    {
+                        sourceFile = getsourcefolderpath + objgeneratedynamicReport["in_reporttemplate_code"] + fileExtension;
+                    }
+                    string getdestFile = roleconfig_db("xlsx_folder_path", constring);
+					string getFileExtension = fileExtension == "" ? ".xlsx" : fileExtension;
+                    string destFile = getdestFile + filename + getFileExtension;
+                    string insertintojob = "";
+                    if (job_id != null)
+                    {
+                        insertintojob = insertfileName(filename, job_id, constring, headerval.user_code);
+                    }
+                    if (insertintojob == "Success")
+                    {
+                        //Debugger.Break();
+                        getfiledType = getReportFieldType(objDataModel, headerval, constring);
+                        getDateFormat = configvalueData("excel_dateformat", headerval, constring);
+                        getDateTimeFormat = configvalueData("excel_datetimeformat", headerval, constring);
+                        string sheetName = "Data";
+                        File.Copy(sourceFile, destFile, true);
+                        using (var workbook = new XLWorkbook(destFile))
+                        {
+                            var worksheet = workbook.Worksheet(sheetName);
+                            worksheet.Clear(XLClearOptions.Contents);
+                            try
+                            {
+                                if (dataset.Tables[0].Rows.Count > 0)
+                                {
+                                    worksheet.Clear();
+                                    var table = worksheet.Cell(1, 1).InsertTable(dataset.Tables[0].AsEnumerable(), "MyTable", true);
+                                    for (int j = 0; j < dataset.Tables[0].Columns.Count; j++)
+                                    {
+                                        for (int i = 0; i < getfiledType.Rows.Count; i++)
+                                        {
+                                            var column = table.Column(i + 1);
+                                            var dataType = "";
+                                            if (dataset.Tables[0].Columns[j].ColumnName.ToString() == getfiledType.Rows[i]["field_alias_name"].ToString())
+                                            {
+                                                dataType = getfiledType.Rows[i]["field_type"].ToString();
+                                                if (dataType == "DATE")
+                                                {
+                                                    //column.Style.DateFormat.Format = "General";
+                                                    //string dateFormat = getDateFormat.Rows[0]["out_config_value"].ToString();
+                                                    //column.Style.DateFormat.Format = dateFormat;
+                                                    //Hema start
+                                                    foreach (var cell in column.CellsUsed())
+                                                    {
+                                                        if (DateTime.TryParse(cell.GetString(), out DateTime parsedDate))
+                                                        {
+                                                            cell.Value = parsedDate;
+                                                            cell.Style.DateFormat.Format = getDateFormat.Rows[0]["out_config_value"].ToString(); // Apply date format
+                                                        }
+                                                    }
+                                                    //Hema end
 
-							// Check if the DataTable has rows
-							if (table.Rows.Count > 0)
-							{
-								int startRow = 2; // Data starts from the second row
-								int startColumn = 1; // Assuming data starts at column A
+                                                }
+                                                else if (dataType == "DATETIME")
+                                                {
+                                                    column.Style.DateFormat.Format = getDateFormat.Rows[0]["out_config_value"].ToString();
 
-								for (int i = 0; i < table.Rows.Count; i++)
-								{
-									DataRow dataRow = table.Rows[i];
-									for (int j = 0; j < table.Columns.Count; j++)
-									{
-										var cell = worksheet.Cell(startRow + i, startColumn + j);
-										string cellValue = dataRow[j]?.ToString() ?? "";
+                                                    foreach (var cell in column.CellsUsed())
+                                                    {
+                                                        if (DateTime.TryParse(cell.GetString(), out DateTime parsedDate))
+                                                        {
+                                                            cell.Value = parsedDate;
+                                                            cell.Style.DateFormat.Format = getDateTimeFormat.Rows[0]["out_config_value"].ToString(); // Apply date format
+                                                        }
+                                                    }
+                                                }
+                                                else if (dataType == "DECIMAL" || dataType == "NUMERIC")
+                                                {
+                                                    column.Style.NumberFormat.Format = "#,##0.00";
+                                                    //column.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
 
-										// Check if there's a predefined format for this column
-										columnFormats.TryGetValue(startColumn + j, out string predefinedFormat);
+                                                }
+                                                else if (dataType == "INTEGER")
+                                                {
+                                                    column.Style.NumberFormat.Format = "0";
+                                                    //column.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                                                }
+                                                else
+                                                {
+                                                    column.Style.NumberFormat.Format = "";
+                                                }
+                                            }
+                                        }
+                                    }
+                                    //worksheet.Cells().Style.Protection.SetLocked(false);
+                                    //// Lock the specific column (make it read-only)
+                                    //worksheet.Column("B").Style.Protection.SetLocked(true);
+                                    //worksheet.Protect();
+                                }
+                                else
+                                {
+                                    worksheet.Cell(1, 1).InsertData("No Record Found");
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine($"An error occurred while inserting table: {ex.Message}");
+                                throw;
+                            }
+                            var sheetName2 = "Condition Criteria";
+                            //var worksheet2 = workbook.Worksheets.Add("Condition Criteria");
+                            var existingSheet = workbook.Worksheets.FirstOrDefault(ws => ws.Name == sheetName2);
+                            if (existingSheet != null)
+                            {
+                                CommonHeader objlog = new CommonHeader();
+                                objlog.logger("SP:pr_run_dynamicreport" + "Error Message:" + "Sheet Name should not have Condition Criteria");
+                                objlog.commonDataapi("", "SP", "Sheet Name should not have Condition Criteria" + "Param:" + JsonConvert.SerializeObject(objDataModel), "pr_run_dynamicreport", headerval.user_code, constring);
+                                // Sheet already exists, show an error message
+                                // Console.WriteLine($"Error: The worksheet '{sheetName}' already exists.");
+                            }
+                            else
+                            {
+                                var worksheet2 = workbook.AddWorksheet(sheetName2);
+                                worksheet2.Clear(XLClearOptions.Contents);
+                                try
+                                {
+                                    if (sheetDt.Rows.Count > 0)
+                                    {
+                                        var table = worksheet2.Cell(1, 1).InsertTable(sheetDt.AsEnumerable(), "MyTable", true);
+                                    }
+                                    else
+                                    {
+                                        worksheet2.Cell(1, 1).InsertData("No Record Found");
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine($"An error occurred while inserting table into {"Sheet2"}: {ex.Message}");
+                                    throw;
+                                }
+                            }
+                            workbook.SaveAs(destFile);
+                            UpdateJobStatus(job_id, "C", "Completed", constring, headerval.user_code);
+                        }
+                    }
+                    dt = dataset.Tables[1];
+                    return dt;
+                }
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_run_dynamicreport" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objDataModel), "pr_run_dynamicreport", headerval.user_code, constring);
+                throw ex;
+            }
+        }
 
-										bool valueAssigned = false;
-
-										// Handle numeric conversion if the predefined format is numeric or custom format for numbers
-										if (predefinedFormat != null && predefinedFormat.Contains("#"))
-										{
-											if (double.TryParse(cellValue, out double parsedNumber))
-											{
-												cell.Value = parsedNumber;
-												valueAssigned = true;
-												cell.Style.NumberFormat.Format = predefinedFormat;
-											}
-										}
-
-										// Handle date conversion explicitly if the format is for a date
-										if (!valueAssigned && predefinedFormat != null && predefinedFormat.Contains("yyyy"))
-										{
-											if (DateTime.TryParse(cellValue, out DateTime parsedDate))
-											{
-												cell.Value = parsedDate;
-												valueAssigned = true;
-												cell.Style.NumberFormat.Format = predefinedFormat;
-											}
-										}
-
-										// If neither date nor number format matched, assign the original text value
-										if (!valueAssigned)
-										{
-											cell.Value = cellValue;
-										}
-
-										// Ensure numeric values are right-aligned (default for numbers)
-										if (valueAssigned && predefinedFormat != null && predefinedFormat.Contains("#"))
-										{
-											cell.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
-										}
-									}
-								}
-							}
-							else
-							{
-								worksheet.Cell(1, 1).Value = "No Record Found";
-							}
-
-							// Save as .xlsx
-							workbook.SaveAs(destFile);
-						}
-						// Update job status
-						UpdateJobStatus(job_id, "C", "Completed", constring, headerval.user_code);
-					}
-					dt = dataset.Tables[1];
-					return dt;
-				}
-			}
-			catch (Exception ex)
-			{
-				CommonHeader objlog = new CommonHeader();
-				objlog.logger("SP:pr_run_dynamicreport" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objDataModel), "pr_run_dynamicreport", headerval.user_code, constring);
-				throw ex;
-			}
-		}
-
-		/* Ends Testing for template and macro */
-	}
+        /* Ends Testing for template and macro */
+    }
 }
