@@ -240,7 +240,7 @@ namespace ReconDataLayer
 			try
 			{
 				// String array with alphabets
-				string[] alphabet = new string[] { ".1", ".2", ".3", ".4", ".5" };
+				string[] alphabet = new string[] { ".1", ".2", ".3", ".4", ".5", ".6", ".7", ".8", ".9", ".10",".11", ".12", ".13", ".14", ".15", ".16", ".17", ".18" };
 				string tab1 = "     ";
 				string tab2 = "          ";
 				float fh = 8f;
@@ -407,7 +407,43 @@ namespace ReconDataLayer
 						Border = PdfPCell.NO_BORDER
 					};
 					mainTable.AddCell(blankCell2);
-					document.Add(mainTable);
+
+                    // Recon Closure Date
+                    PdfPTable reconClosureTable = new PdfPTable(1);
+                    reconClosureTable.AddCell(CreateLabelCell("Recon Closure Date : " + dt1.Rows[0]["Recon Closure Date"], true));
+                    PdfPCell reconClosureCell = new PdfPCell(reconClosureTable)
+                    {
+                        Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
+                        BackgroundColor = new BaseColor(230, 230, 250),
+                        BorderColor = borderColor
+                    };
+                    mainTable.AddCell(reconClosureCell);
+
+                    PdfPCell blankCell3 = new PdfPCell(new Phrase(" "))
+                    {
+                        Colspan = 3,
+                        FixedHeight = fh,
+                        Border = PdfPCell.NO_BORDER
+                    };
+                    mainTable.AddCell(blankCell3);
+
+                    PdfPCell blankCell4 = new PdfPCell(new Phrase(" "))
+                    {
+                        Colspan = 3,
+                        FixedHeight = fh,
+                        Border = PdfPCell.NO_BORDER
+                    };
+                    mainTable.AddCell(blankCell4);
+
+                    PdfPCell blankCell5 = new PdfPCell(new Phrase(" "))
+                    {
+                        Colspan = 3,
+                        FixedHeight = fh, // Adjust height as needed
+                        Border = PdfPCell.NO_BORDER
+                    };
+                    mainTable.AddCell(blankCell5);
+
+                    document.Add(mainTable);
 					/* Header Ends */
 
 					// List Table for Rule ,Theme and PreProcess
@@ -475,6 +511,7 @@ namespace ReconDataLayer
 							parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
 							parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
 							ds = dbManager.execStoredProcedure("pr_report_rulecondition", CommandType.StoredProcedure, parameters.ToArray());
+
 							// Rule Code Column
 							string maintitle = tab1 + (i + 1) + ". " + "Rule Details"; // Using spaces for indentation
 							document.Add(CreateTitle(i + 1 + ". " + "Rule Details" + " - " + dt2.Rows[i]["Rule Order"], grassGreen));
@@ -488,6 +525,7 @@ namespace ReconDataLayer
 								BorderColor = borderColor
 							};
 							mainTable1.AddCell(ruleCodeCell);
+
 							// Rule Name column
 							PdfPTable ruleNameTable = new PdfPTable(1);
 							ruleNameTable.AddCell(CreateLabelCell("Rule Name : " + dt2.Rows[i]["Rule Name"], true));
@@ -499,23 +537,26 @@ namespace ReconDataLayer
 							};
 							mainTable1.AddCell(ruleNameCell);
 
-							//Rule Applied Column
-							PdfPTable ruleAppliedTable = new PdfPTable(1);
-							ruleAppliedTable.AddCell(CreateLabelCell("Rule Applied On : " + dt2.Rows[i]["Rule Applied On"], true));
-							PdfPCell ruleAppliedCell = new PdfPCell(ruleAppliedTable)
+							// Rule Applied On
+
+							PdfPTable ruleAppliedOn = new PdfPTable(1);
+							ruleAppliedOn.AddCell(CreateLabelCell("Rule Applied On : " + dt2.Rows[i]["Rule Applied On"], true));
+							PdfPCell RuleAppliedOnCell = new PdfPCell(ruleAppliedOn)
 							{
 								Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
 								BackgroundColor = new BaseColor(230, 230, 250),
 								BorderColor = borderColor
 							};
-							mainTable1.AddCell(ruleAppliedCell);
-							PdfPCell blankCell3 = new PdfPCell(new Phrase(" "))
+							mainTable1.AddCell(RuleAppliedOnCell);
+
+							PdfPCell blankCelll3 = new PdfPCell(new Phrase(" "))
 							{
 								Colspan = 3,
 								FixedHeight = fh,
 								Border = PdfPCell.NO_BORDER
 							};
-							mainTable1.AddCell(blankCell3);
+							mainTable1.AddCell(blankCelll3);
+
 							// Source Dataset Column
 							PdfPTable ruleSourceTable = new PdfPTable(1);
 							ruleSourceTable.AddCell(CreateLabelCell("Source Dataset : " + dt2.Rows[i]["Source Dataset"], true));
@@ -526,6 +567,7 @@ namespace ReconDataLayer
 								BorderColor = borderColor
 							};
 							mainTable1.AddCell(ruleSourceCell);
+
 							// Source Account Mode Column
 							PdfPTable ruleSourceModeTable = new PdfPTable(1);
 							ruleSourceModeTable.AddCell(CreateLabelCell("Source Acc Mode : " + dt2.Rows[i]["Source Acc Mode"], true));
@@ -536,6 +578,7 @@ namespace ReconDataLayer
 								BorderColor = borderColor
 							};
 							mainTable1.AddCell(ruleSourceModeCell);
+
 							//Comparison Dataset
 							PdfPTable ruleComparisonTable = new PdfPTable(1);
 							ruleComparisonTable.AddCell(CreateLabelCell("Comparison Dataset : " + dt2.Rows[i]["Comparison Dataset"], true));
@@ -546,13 +589,14 @@ namespace ReconDataLayer
 								BorderColor = borderColor
 							};
 							mainTable1.AddCell(ruleComparisonCell);
-							PdfPCell blankCell5 = new PdfPCell(new Phrase(" "))
+							PdfPCell blankCell15 = new PdfPCell(new Phrase(" "))
 							{
 								Colspan = 3,
 								FixedHeight = fh,
 								Border = PdfPCell.NO_BORDER
 							};
-							mainTable1.AddCell(blankCell5);
+							mainTable1.AddCell(blankCell15);
+
 							//Comparison Account Mode Dataset
 							PdfPTable ruleComparisonModeTable = new PdfPTable(1);
 							ruleComparisonModeTable.AddCell(CreateLabelCell("Comparison Acc Mode : " + dt2.Rows[i]["Comparison Acc Mode"], true));
@@ -563,6 +607,7 @@ namespace ReconDataLayer
 								BorderColor = borderColor
 							};
 							mainTable1.AddCell(ruleComparisonModeCell);
+
 							// Group Flag Column
 							PdfPTable ruleGroupTable = new PdfPTable(1);
 							ruleGroupTable.AddCell(CreateLabelCell("Rule Group : " + dt2.Rows[i]["Group Flag"], true));
@@ -573,6 +618,7 @@ namespace ReconDataLayer
 								BorderColor = borderColor
 							};
 							mainTable1.AddCell(ruleGroupCell);
+
 							// Rule Order Column
 							PdfPTable ruleOrderTable = new PdfPTable(1);
 							ruleOrderTable.AddCell(CreateLabelCell("Rule Order : " + dt2.Rows[i]["Rule Order"], true));
@@ -583,13 +629,64 @@ namespace ReconDataLayer
 								BorderColor = borderColor
 							};
 							mainTable1.AddCell(ruleOrderCell);
-							PdfPCell blankCell4 = new PdfPCell(new Phrase(" "))
+							PdfPCell blankCella4 = new PdfPCell(new Phrase(" "))
 							{
 								Colspan = 3,
 								FixedHeight = fh,
 								Border = PdfPCell.NO_BORDER
 							};
-							mainTable1.AddCell(blankCell4);
+							mainTable1.AddCell(blankCella4);
+
+							// Probable match
+
+							PdfPTable probableMatch = new PdfPTable(1);
+							probableMatch.AddCell(CreateLabelCell("Probable Match : " + dt2.Rows[i]["Probable Flag"], true));
+							PdfPCell probableMatchCell = new PdfPCell(probableMatch)
+							{
+								Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
+								BackgroundColor = new BaseColor(230, 230, 250),
+								BorderColor = borderColor
+							};
+							mainTable1.AddCell(probableMatchCell);
+
+							// Rule Remark
+
+							PdfPTable ruleRemark = new PdfPTable(1);
+							ruleRemark.AddCell(CreateLabelCell("Rule Remark : " + dt2.Rows[i]["Rule Remark"], true));
+							PdfPCell ruleRemarkCell = new PdfPCell(ruleRemark)
+							{
+								Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
+								BackgroundColor = new BaseColor(230, 230, 250),
+								BorderColor = borderColor
+							};
+							mainTable1.AddCell(ruleRemarkCell);
+
+							//Period From
+							PdfPTable PeriodFromTable = new PdfPTable(1);
+							string periodTo = dt2.Rows[i]["Period To"] == DBNull.Value ? string.Empty : dt2.Rows[i]["Period To"].ToString();
+
+							if (string.IsNullOrEmpty(periodTo))
+							{
+								periodTo = "Until Inactive";
+							}
+							var period = dt2.Rows[i]["Period From"].ToString() + "-" + periodTo;
+							PeriodFromTable.AddCell(CreateLabelCell("Period : " + period, true));
+							PdfPCell periodFromCell = new PdfPCell(PeriodFromTable)
+							{
+								Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
+								BackgroundColor = new BaseColor(230, 230, 250),
+								BorderColor = borderColor
+							};
+							mainTable1.AddCell(periodFromCell);
+
+							PdfPCell blankCell6 = new PdfPCell(new Phrase(" "))
+							{
+								Colspan = 3,
+								FixedHeight = fh,
+								Border = PdfPCell.NO_BORDER
+							};
+							mainTable1.AddCell(blankCell6);
+
 							document.Add(mainTable1);
 							//Table and space between
 
@@ -612,7 +709,6 @@ namespace ReconDataLayer
 								rulealphabet = rulealphabet + 1;
 							}
 							//Table and space between
-
 							if (ds.Tables[1].Rows.Count > 0)
 							{
 								string _alpha = alphabet[rulealphabet];
@@ -650,8 +746,8 @@ namespace ReconDataLayer
 								rulealphabet = rulealphabet + 1;
 
 							}
-							//Table and space between
-							if (ds.Tables[2].Rows.Count > 0)
+							//Table and space between Group Filter
+							if (ds.Tables[3].Rows.Count > 0)
 							{
 								string _alpha = alphabet[rulealphabet];
 								string mainTitle = tab2 + (i + 1) + _alpha + " Rule Group Filter";
@@ -666,9 +762,83 @@ namespace ReconDataLayer
 								};
 								spacerTableAfter3.AddCell(spacerCellAfter3);
 								document.Add(spacerTableAfter3);
+                                rulealphabet = rulealphabet + 1;
+
+                            }
+                            //Table and space between for Source Processing
+                            if (ds.Tables[4].Rows.Count > 0)
+							{
+								string _alpha = alphabet[rulealphabet];
+								string mainTitle = tab2 + (i + 1) + _alpha + " Source Processing Order";
+								document.Add(CreateTitle("Source Processing Order", mustardYellow));
+								tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
+								document.Add(PdfdynamicTableGenration(ds.Tables[4]));
+								PdfPTable spacerTableAfter4 = new PdfPTable(1);
+								PdfPCell spacerCellAfter4 = new PdfPCell(new Phrase(" "))
+								{
+									FixedHeight = fh,
+									Border = PdfPCell.NO_BORDER
+								};
+								spacerTableAfter4.AddCell(spacerCellAfter4);
+								document.Add(spacerTableAfter4);
+                                rulealphabet = rulealphabet + 1;
+
+                            }
+                            //Table and space between for Target Processing
+                            if (ds.Tables[5].Rows.Count > 0)
+							{
+								string _alpha = alphabet[rulealphabet];
+								string mainTitle = tab2 + (i + 1) + _alpha + " Target Processing Order";
+								document.Add(CreateTitle("Target Processing Order", mustardYellow));
+								tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
+								document.Add(PdfdynamicTableGenration(ds.Tables[5]));
+								PdfPTable spacerTableAfter5 = new PdfPTable(1);
+								PdfPCell spacerCellAfter5 = new PdfPCell(new Phrase(" "))
+								{
+									FixedHeight = fh,
+									Border = PdfPCell.NO_BORDER
+								};
+								spacerTableAfter5.AddCell(spacerCellAfter5);
+								document.Add(spacerTableAfter5);
 
 							}
-						}
+                            //Table and space between for Aggregation Function
+                            if (ds.Tables[6].Rows.Count > 0)
+                            {
+                                string _alpha = alphabet[rulealphabet];
+                                string mainTitle = tab2 + (i + 1) + _alpha + " Aggregation Function";
+                                document.Add(CreateTitle("Aggregation Function", mustardYellow));
+                                tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
+                                document.Add(PdfdynamicTableGenration(ds.Tables[6]));
+                                PdfPTable spacerTableAfter6 = new PdfPTable(1);
+                                PdfPCell spacerCellAfter6 = new PdfPCell(new Phrase(" "))
+                                {
+                                    FixedHeight = fh,
+                                    Border = PdfPCell.NO_BORDER
+                                };
+                                spacerTableAfter6.AddCell(spacerCellAfter6);
+                                document.Add(spacerTableAfter6);
+
+                            }
+                            //Table and space between for Aggregation Condition
+                            if (ds.Tables[7].Rows.Count > 0)
+                            {
+                                string _alpha = alphabet[rulealphabet];
+                                string mainTitle = tab2 + (i + 1) + _alpha + " Aggregation Condition";
+                                document.Add(CreateTitle("Aggregation Condition", mustardYellow));
+                                tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
+                                document.Add(PdfdynamicTableGenration(ds.Tables[7]));
+                                PdfPTable spacerTableAfter7 = new PdfPTable(1);
+                                PdfPCell spacerCellAfter7 = new PdfPCell(new Phrase(" "))
+                                {
+                                    FixedHeight = fh,
+                                    Border = PdfPCell.NO_BORDER
+                                };
+                                spacerTableAfter7.AddCell(spacerCellAfter7);
+                                document.Add(spacerTableAfter7);
+
+                            }
+                        }
 					}
 					/* Table Ends Rule */
 
@@ -723,13 +893,13 @@ namespace ReconDataLayer
 								BorderColor = borderColor
 							};
 							mainTable2.AddCell(themeOrderCell);
-							PdfPCell blankCell3 = new PdfPCell(new Phrase(" "))
+							PdfPCell blankCell13 = new PdfPCell(new Phrase(" "))
 							{
 								Colspan = 3,
 								FixedHeight = fh,
 								Border = PdfPCell.NO_BORDER
 							};
-							mainTable2.AddCell(blankCell3);
+							mainTable2.AddCell(blankCell13);
 							// Hold Flag Column
 							PdfPTable themeholdTable = new PdfPTable(1);
 							themeholdTable.AddCell(CreateLabelCell("Hold Flag : " + dt3.Rows[i]["Hold Flag"], true));
@@ -751,6 +921,7 @@ namespace ReconDataLayer
 								BorderColor = borderColor
 							};
 							mainTable2.AddCell(themeTypeCell);
+
 							// Add Empty Cell for Space
 							PdfPCell blankCellTheme = new PdfPCell(new Phrase(" "))
 							{
@@ -759,13 +930,13 @@ namespace ReconDataLayer
 								Border = PdfPCell.NO_BORDER
 							};
 							mainTable2.AddCell(blankCellTheme);
-							PdfPCell blankCell5 = new PdfPCell(new Phrase(" "))
+							PdfPCell blankCella15 = new PdfPCell(new Phrase(" "))
 							{
 								Colspan = 3,
 								FixedHeight = fh,
 								Border = PdfPCell.NO_BORDER
 							};
-							mainTable2.AddCell(blankCell5);
+							mainTable2.AddCell(blankCella15);
 							document.Add(mainTable2);
 							if (ds.Tables[1].Rows.Count > 0)
 							{
@@ -819,14 +990,82 @@ namespace ReconDataLayer
 								document.Add(spacerTableAfter3);
 								themealphabet = themealphabet + 1;
 							}
+							if (ds.Tables[4].Rows.Count > 0)
+							{
+								string _alpha = alphabet[themealphabet];
+								string maintitle = tab2 + (i + 1) + _alpha + " Additional Grouping Field";
+								document.Add(CreateTitle("Additional Grouping Field", mustardYellow));
+								tocEntries.Add(new TOCEntry(maintitle, writer.PageNumber));
+								document.Add(PdfdynamicTableGenration(ds.Tables[4]));
+								PdfPTable spacerTableAfter4 = new PdfPTable(1);
+								PdfPCell spacerCellAfter4 = new PdfPCell(new Phrase(" "))
+								{
+									FixedHeight = fh,
+									Border = PdfPCell.NO_BORDER
+								};
+								spacerTableAfter4.AddCell(spacerCellAfter4);
+								document.Add(spacerTableAfter4);
+								themealphabet = themealphabet + 1;
+							}
+							if (ds.Tables[5].Rows.Count > 0)
+							{
+								string _alpha = alphabet[themealphabet];
+								string maintitle = tab2 + (i + 1) + _alpha + " Aggregate Function";
+								document.Add(CreateTitle("Aggregate Function", mustardYellow));
+								tocEntries.Add(new TOCEntry(maintitle, writer.PageNumber));
+								document.Add(PdfdynamicTableGenration(ds.Tables[5]));
+								PdfPTable spacerTableAfter5 = new PdfPTable(1);
+								PdfPCell spacerCellAfter5 = new PdfPCell(new Phrase(" "))
+								{
+									FixedHeight = fh,
+									Border = PdfPCell.NO_BORDER
+								};
+								spacerTableAfter5.AddCell(spacerCellAfter5);
+								document.Add(spacerTableAfter5);
+								themealphabet = themealphabet + 1;
+							}
+							if (ds.Tables[6].Rows.Count > 0)
+							{
+								string _alpha = alphabet[themealphabet];
+								string maintitle = tab2 + (i + 1) + _alpha + " Aggregate Condition";
+								document.Add(CreateTitle("Aggregate Condition", mustardYellow));
+								tocEntries.Add(new TOCEntry(maintitle, writer.PageNumber));
+								document.Add(PdfdynamicTableGenration(ds.Tables[6]));
+								PdfPTable spacerTableAfter6 = new PdfPTable(1);
+								PdfPCell spacerCellAfter6 = new PdfPCell(new Phrase(" "))
+								{
+									FixedHeight = fh,
+									Border = PdfPCell.NO_BORDER
+								};
+								spacerTableAfter6.AddCell(spacerCellAfter6);
+								document.Add(spacerTableAfter6);
+								themealphabet = themealphabet + 1;
+							}
+							if (dt3.Rows[i]["Theme Type"].ToString() == "Query" && ds.Tables[7].Rows.Count > 0)
+							{
+								string _alpha = alphabet[themealphabet];
+								string maintitle = tab2 + (i + 1) + _alpha + " Theme Query";
+								document.Add(CreateTitle("Theme Query", mustardYellow));
+								tocEntries.Add(new TOCEntry(maintitle, writer.PageNumber));
+								document.Add(PdfdynamicTableGenration(ds.Tables[7]));
+								PdfPTable spacerTableAfter7 = new PdfPTable(1);
+								PdfPCell spacerCellAfter7 = new PdfPCell(new Phrase(" "))
+								{
+									FixedHeight = fh,
+									Border = PdfPCell.NO_BORDER
+								};
+								spacerTableAfter7.AddCell(spacerCellAfter7);
+								document.Add(spacerTableAfter7);
+								themealphabet = themealphabet + 1;
+							}
 						}
 					}
 					/* Table Ends Theme */
-					document.NewPage();
 					/* Table Starts PreProcess */
+					document.NewPage();
 					if (dt4.Rows.Count > 0)
 					{
-						int preprocessalphabet;
+							int preprocessalphabet;
 						for (int i = 0; i < dt4.Rows.Count; i++)
 						{
 							preprocessalphabet = 0;
@@ -874,13 +1113,13 @@ namespace ReconDataLayer
 								BorderColor = borderColor
 							};
 							mainTable3.AddCell(preprocessMethodCell);
-							PdfPCell blankCell4 = new PdfPCell(new Phrase(" "))
+							PdfPCell blankCella4 = new PdfPCell(new Phrase(" "))
 							{
 								Colspan = 3,
 								FixedHeight = fh,
 								Border = PdfPCell.NO_BORDER
 							};
-							mainTable3.AddCell(blankCell4);
+							mainTable3.AddCell(blankCella4);
 							//Hold Flag
 							PdfPTable preprocessHoldTable = new PdfPTable(1);
 							preprocessHoldTable.AddCell(CreateLabelCell("Hold Flag : " + dt4.Rows[i]["Hold Flag"], true));
@@ -917,12 +1156,12 @@ namespace ReconDataLayer
 							mainTable3.AddCell(blankCell6);
 							mainTable3.AddCell(blankCellPreProcess);
 							document.Add(mainTable3);
-							// Preprocess Filter
+							// Lookup Dataset
 							if (ds.Tables[1].Rows.Count > 0)
 							{
 								string _alpha = alphabet[preprocessalphabet];
-								string mainTitle = tab2 + (i + 1) + _alpha + " PreProcess Filter";
-								document.Add(CreateTitle("PreProcess Filter", mustardYellow));
+								string mainTitle = tab2 + (i + 1) + _alpha + " Lookup Dataset";
+								document.Add(CreateTitle("Lookup Dataset", mustardYellow));
 								tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
 								document.Add(PdfdynamicTableGenration(ds.Tables[1]));
 								PdfPTable spacerTableAfter3 = new PdfPTable(1);
@@ -935,85 +1174,215 @@ namespace ReconDataLayer
 								document.Add(spacerTableAfter3);
 								preprocessalphabet = preprocessalphabet + 1;
 							}
-							// Query
-							if (dt4.Rows[i]["Process Method"].ToString() == "QCD_QUERY")
+							// Recon (VS) look up condition
+							if (ds.Tables[2].Rows.Count > 0)
 							{
-								if (ds.Tables[5].Rows.Count > 0)
+								string _alpha = alphabet[preprocessalphabet];
+								string mainTitle = tab2 + (i + 1) + _alpha + " Recon Vs Lookup Condition";
+								document.Add(CreateTitle("Recon Vs Lookup Condition", mustardYellow));
+								tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
+								document.Add(PdfdynamicTableGenration(ds.Tables[2]));
+								PdfPTable spacerTableAfter3 = new PdfPTable(1);
+								PdfPCell spacerCellAfter3 = new PdfPCell(new Phrase(" "))
 								{
-									string _alpha = alphabet[preprocessalphabet];
-									string mainTitle = tab2 + (i + 1) + _alpha + " Query";
-									document.Add(CreateTitle("Query", mustardYellow));
-									tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
-									document.Add(PdfdynamicTableGenration(ds.Tables[5]));
-									PdfPTable spacerTableAfter3 = new PdfPTable(1);
-									PdfPCell spacerCellAfter3 = new PdfPCell(new Phrase(" "))
-									{
-										FixedHeight = fh,
-										Border = PdfPCell.NO_BORDER
-									};
-									spacerTableAfter3.AddCell(spacerCellAfter3);
-									document.Add(spacerTableAfter3);
-									preprocessalphabet = preprocessalphabet + 1;
-								}
+									FixedHeight = fh,
+									Border = PdfPCell.NO_BORDER
+								};
+								spacerTableAfter3.AddCell(spacerCellAfter3);
+								document.Add(spacerTableAfter3);
+								preprocessalphabet = preprocessalphabet + 1;
 							}
-							// Lookup consition Header
-							else if (dt4.Rows[i]["Process Method"].ToString() == "QCD_LOOKUP")
+							//Lookup Vs Recon
+
+							if (ds.Tables[3].Rows.Count > 0)
 							{
-								if (ds.Tables[3].Rows.Count > 0)
+								string _alpha = alphabet[preprocessalphabet];
+								string mainTitle = tab2 + (i + 1) + _alpha + " Lookup Vs Recon";
+								document.Add(CreateTitle("Lookup Vs Recon", mustardYellow));
+								tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
+								document.Add(PdfdynamicTableGenration(ds.Tables[3]));
+								PdfPTable spacerTableAfter4 = new PdfPTable(1);
+								PdfPCell spacerCellAfter4 = new PdfPCell(new Phrase(" "))
 								{
-									string _alpha = alphabet[preprocessalphabet];
-									string mainTitle = tab2 + (i + 1) + _alpha + " Lookup Condition Header";
-									document.Add(CreateTitle("Lookup Condition Header", mustardYellow));
-									tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
-									document.Add(PdfdynamicTableGenration(ds.Tables[3]));
-									PdfPTable spacerTableAfter3 = new PdfPTable(1);
-									PdfPCell spacerCellAfter3 = new PdfPCell(new Phrase(" "))
-									{
-										FixedHeight = fh,
-										Border = PdfPCell.NO_BORDER
-									};
-									spacerTableAfter3.AddCell(spacerCellAfter3);
-									document.Add(spacerTableAfter3);
-									preprocessalphabet = preprocessalphabet + 1;
-								}
-								if (ds.Tables[4].Rows.Count > 0)
-								{
-									string _alpha = alphabet[preprocessalphabet];
-									string mainTitle = tab2 + (i + 1) + _alpha + " Lookup Condition details";
-									document.Add(CreateTitle("Lookup Condition details", mustardYellow));
-									tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
-									document.Add(PdfdynamicTableGenration(ds.Tables[4]));
-									PdfPTable spacerTableAfter3 = new PdfPTable(1);
-									PdfPCell spacerCellAfter3 = new PdfPCell(new Phrase(" "))
-									{
-										FixedHeight = fh,
-										Border = PdfPCell.NO_BORDER
-									};
-									spacerTableAfter3.AddCell(spacerCellAfter3);
-									document.Add(spacerTableAfter3);
-									preprocessalphabet = preprocessalphabet + 1;
-								}
+									FixedHeight = fh,
+									Border = PdfPCell.NO_BORDER
+								};
+								spacerTableAfter4.AddCell(spacerCellAfter4);
+								document.Add(spacerTableAfter4);
+								preprocessalphabet = preprocessalphabet + 1;
 							}
-							else if (dt4.Rows[i]["Process Method"].ToString() == "QCD_FUNCTION")
+							// Lookup Filter
+
+							if (ds.Tables[4].Rows.Count > 0)
 							{
-								if (ds.Tables[2].Rows.Count > 0)
+								string _alpha = alphabet[preprocessalphabet];
+								string mainTitle = tab2 + (i + 1) + _alpha + " Lookup Filter";
+								document.Add(CreateTitle("Lookup Filter", mustardYellow));
+								tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
+								document.Add(PdfdynamicTableGenration(ds.Tables[4]));
+								PdfPTable spacerTableAfter5 = new PdfPTable(1);
+								PdfPCell spacerCellAfter5 = new PdfPCell(new Phrase(" "))
 								{
-									string _alpha = alphabet[preprocessalphabet];
-									string mainTitle = tab2 + (i + 1) + _alpha + " Function";
-									document.Add(CreateTitle("Function", mustardYellow));
-									tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));	
-									document.Add(PdfdynamicTableGenration(ds.Tables[2]));
-									PdfPTable spacerTableAfter3 = new PdfPTable(1);
-									PdfPCell spacerCellAfter3 = new PdfPCell(new Phrase(" "))
-									{
-										FixedHeight = fh,
-										Border = PdfPCell.NO_BORDER
-									};
-									spacerTableAfter3.AddCell(spacerCellAfter3);
-									document.Add(spacerTableAfter3);
-									preprocessalphabet = preprocessalphabet + 1;
-								}
+									FixedHeight = fh,
+									Border = PdfPCell.NO_BORDER
+								};
+								spacerTableAfter5.AddCell(spacerCellAfter5);
+								document.Add(spacerTableAfter5);
+								preprocessalphabet = preprocessalphabet + 1;
 							}
+							//Recon Filter
+							if (ds.Tables[5].Rows.Count > 0)
+							{
+								string _alpha = alphabet[preprocessalphabet];
+								string mainTitle = tab2 + (i + 1) + _alpha + " Recon Filter";
+								document.Add(CreateTitle("Recon Filter", mustardYellow));
+								tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
+								document.Add(PdfdynamicTableGenration(ds.Tables[5]));
+								PdfPTable spacerTableAfter6 = new PdfPTable(1);
+								PdfPCell spacerCellAfter6 = new PdfPCell(new Phrase(" "))
+								{
+									FixedHeight = fh,
+									Border = PdfPCell.NO_BORDER
+								};
+								spacerTableAfter6.AddCell(spacerCellAfter6);
+								document.Add(spacerTableAfter6);
+								preprocessalphabet = preprocessalphabet + 1;
+							}
+							// Query 
+
+							if (dt4.Rows[i]["Process Method"].ToString() == "QCD_QUERY" && ds.Tables[6].Rows.Count > 0)
+							{
+								string _alpha = alphabet[preprocessalphabet];
+								string mainTitle = tab2 + (i + 1) + _alpha + " Query";
+								document.Add(CreateTitle("Query", mustardYellow));
+								tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
+								document.Add(PdfdynamicTableGenration(ds.Tables[6]));
+								PdfPTable spacerTableAfter7 = new PdfPTable(1);
+								PdfPCell spacerCellAfter7 = new PdfPCell(new Phrase(" "))
+								{
+									FixedHeight = fh,
+									Border = PdfPCell.NO_BORDER
+								};
+								spacerTableAfter7.AddCell(spacerCellAfter7);
+								document.Add(spacerTableAfter7);
+								preprocessalphabet = preprocessalphabet + 1;
+							}
+
+                            // Expression 
+
+                            if (dt4.Rows[i]["Process Method"].ToString() == "QCD_EXPRESSION" && ds.Tables[7].Rows.Count > 0)
+							{
+								string _alpha = alphabet[preprocessalphabet];
+								string mainTitle = tab2 + (i + 1) + _alpha + " Expression";
+								document.Add(CreateTitle("Expression", mustardYellow));
+								tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
+								document.Add(PdfdynamicTableGenration(ds.Tables[7]));
+								PdfPTable spacerTableAfter8 = new PdfPTable(1);
+								PdfPCell spacerCellAfter8 = new PdfPCell(new Phrase(" "))
+								{
+									FixedHeight = fh,
+									Border = PdfPCell.NO_BORDER
+								};
+								spacerTableAfter8.AddCell(spacerCellAfter8);
+								document.Add(spacerTableAfter8);
+								preprocessalphabet = preprocessalphabet + 1;
+							}
+							// Cumulative order / Recon Order
+							if (ds.Tables[8].Rows.Count > 0)
+							{
+								string _alpha = alphabet[preprocessalphabet];
+								string mainTitle = tab2 + (i + 1) + _alpha + " Recon Order";
+								document.Add(CreateTitle("Recon Order", mustardYellow));
+								tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
+								document.Add(PdfdynamicTableGenration(ds.Tables[8]));
+								PdfPTable spacerTableAfter9 = new PdfPTable(1);
+								PdfPCell spacerCellAfter9 = new PdfPCell(new Phrase(" "))
+								{
+									FixedHeight = fh,
+									Border = PdfPCell.NO_BORDER
+								};
+								spacerTableAfter9.AddCell(spacerCellAfter9);
+								document.Add(spacerTableAfter9);
+								preprocessalphabet = preprocessalphabet + 1;
+							}
+							// Aggregation
+							if (ds.Tables[9].Rows.Count > 0)
+							{
+								string _alpha = alphabet[preprocessalphabet];
+								string mainTitle = tab2 + (i + 1) + _alpha + " Aggregation";
+								document.Add(CreateTitle("Aggregation", mustardYellow));
+								tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
+								document.Add(PdfdynamicTableGenration(ds.Tables[9]));
+								PdfPTable spacerTableAfter10 = new PdfPTable(1);
+								PdfPCell spacerCellAfter10 = new PdfPCell(new Phrase(" "))
+								{
+									FixedHeight = fh,
+									Border = PdfPCell.NO_BORDER
+								};
+								spacerTableAfter10.AddCell(spacerCellAfter10);
+								document.Add(spacerTableAfter10);
+								preprocessalphabet = preprocessalphabet + 1;
+							}
+
+
+							//                       //                     // Lookup consition Header
+							//                       //                     else if (dt4.Rows[i]["Process Method"].ToString() == "QCD_LOOKUP")
+							//                       //{
+							//                       //	if (ds.Tables[3].Rows.Count > 0)
+							//                       //	{
+							//                       //		string _alpha = alphabet[preprocessalphabet];
+							//                       //		string mainTitle = tab2 + (i + 1) + _alpha + " Lookup Condition Header";
+							//                       //		document.Add(CreateTitle("Lookup Condition Header", mustardYellow));
+							//                       //		tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
+							//                       //		document.Add(PdfdynamicTableGenration(ds.Tables[3]));
+							//                       //		PdfPTable spacerTableAfter3 = new PdfPTable(1);
+							//                       //		PdfPCell spacerCellAfter3 = new PdfPCell(new Phrase(" "))
+							//                       //		{
+							//                       //			FixedHeight = fh,
+							//                       //			Border = PdfPCell.NO_BORDER
+							//                       //		};
+							//                       //		spacerTableAfter3.AddCell(spacerCellAfter3);
+							//                       //		document.Add(spacerTableAfter3);
+							//                       //		preprocessalphabet = preprocessalphabet + 1;
+							//                       //	}
+							//                       //	if (ds.Tables[4].Rows.Count > 0)
+							//                       //	{
+							//                       //		string _alpha = alphabet[preprocessalphabet];
+							//                       //		string mainTitle = tab2 + (i + 1) + _alpha + " Lookup Condition details";
+							//                       //		document.Add(CreateTitle("Lookup Condition details", mustardYellow));
+							//                       //		tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
+							//                       //		document.Add(PdfdynamicTableGenration(ds.Tables[4]));
+							//                       //		PdfPTable spacerTableAfter3 = new PdfPTable(1);
+							//                       //		PdfPCell spacerCellAfter3 = new PdfPCell(new Phrase(" "))
+							//                       //		{
+							//                       //			FixedHeight = fh,
+							//                       //			Border = PdfPCell.NO_BORDER
+							//                       //		};
+							//                       //		spacerTableAfter3.AddCell(spacerCellAfter3);
+							//                       //		document.Add(spacerTableAfter3);
+							//                       //		preprocessalphabet = preprocessalphabet + 1;
+							//                       //	}
+							//                       //}
+							//                       //else if (dt4.Rows[i]["Process Method"].ToString() == "QCD_FUNCTION")
+							//                       //{
+							//                       //	if (ds.Tables[2].Rows.Count > 0)
+							//                       //	{
+							//                       //		string _alpha = alphabet[preprocessalphabet];
+							//                       //		string mainTitle = tab2 + (i + 1) + _alpha + " Function";
+							//                       //		document.Add(CreateTitle("Function", mustardYellow));
+							//                       //		tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));	
+							//                       //		document.Add(PdfdynamicTableGenration(ds.Tables[2]));
+							//                       //		PdfPTable spacerTableAfter3 = new PdfPTable(1);
+							//                       //		PdfPCell spacerCellAfter3 = new PdfPCell(new Phrase(" "))
+							//                       //		{
+							//                       //			FixedHeight = fh,
+							//                       //			Border = PdfPCell.NO_BORDER
+							//                       //		};
+							//                       //		spacerTableAfter3.AddCell(spacerCellAfter3);
+							//                       //		document.Add(spacerTableAfter3);
+							//                       //		preprocessalphabet = preprocessalphabet + 1;
+							//                       //	}
+							//                       //}
 						}
 					}
 					/* Table Ends PreProcess */
