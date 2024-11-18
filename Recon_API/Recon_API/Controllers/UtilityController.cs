@@ -142,13 +142,13 @@ namespace Recon_API.Controllers
             }
         }
 		[HttpPost("SuspendKoQueue")]
-		public IActionResult SuspendKoQueue(KoQueued objJobQueued)
+		public IActionResult SuspendKoQueue(KoQueued objJobQueued) 
 		{
 			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
 			headerValue header_value = new headerValue();
 			DataTable response = new DataTable();
 			try
-			{
+			{ 
 				var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
 				var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
 				var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";

@@ -149,7 +149,7 @@ namespace ReconDataLayer
             }
         }
         public DataTable SuspendKoQueueData(KoQueued objkoQue, UserManagementModel.headerValue headerval, string constring)
-        {
+        { 
             try
             {
                 DBManager dbManager = new DBManager(constring);
