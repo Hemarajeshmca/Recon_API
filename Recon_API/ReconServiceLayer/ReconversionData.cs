@@ -174,20 +174,6 @@ namespace ReconDataLayer
 			};
 			return headerCell;
 		}
-		private Paragraph CreateMainTitle(string title)
-		{
-			iTextSharp.text.Font boldFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10, iTextSharp.text.Font.BOLD);
-			Paragraph prgHeading = new Paragraph("", boldFont)
-			{
-				Alignment = Element.ALIGN_CENTER,
-				SpacingBefore = 10f,
-				SpacingAfter = 0
-			};
-			Chunk headingChunk = new Chunk(title.ToUpper(), boldFont);
-			headingChunk.SetUnderline(0.5f, -1.5f);
-			prgHeading.Add(headingChunk);
-			return prgHeading;
-		}
 		private Paragraph CreateMainTitle1(string title)
 		{
 			iTextSharp.text.Font boldFont = new iTextSharp.text.Font();
@@ -1495,7 +1481,20 @@ namespace ReconDataLayer
                 PageInfo = pageInfo;
             }
         }
-
+        private Paragraph CreateMainTitle(string title)
+        {
+            iTextSharp.text.Font boldFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10, iTextSharp.text.Font.BOLD);
+            Paragraph prgHeading = new Paragraph("", boldFont)
+            {
+                Alignment = Element.ALIGN_CENTER,
+                SpacingBefore = 10f,
+                SpacingAfter = 0
+            };
+            Chunk headingChunk = new Chunk(title.ToUpper(), boldFont);
+            headingChunk.SetUnderline(0.5f, -1.5f);
+            prgHeading.Add(headingChunk);
+            return prgHeading;
+        }
     }
 }
 

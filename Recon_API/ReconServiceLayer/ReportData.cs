@@ -995,7 +995,17 @@ namespace ReconDataLayer
 				var job_id = dataset.Tables[0].Rows[0]["result"];
 				var filename = job_id + "_" + objgeneratedynamicReport.in_report_name;
 				string getdestFile = roleconfig_db("xlsx_folder_path", constring);
-				string sourceFile = roleconfig_db("temp_file_folder_path_dynamic", constring);
+				//string getdestFile = roleconfig_db("folder_path", constring);
+				string sourceFolder = roleconfig_db("folder_path", constring);
+				string reportTemplateName = "";
+				string sourceFile = "";
+				if (objgeneratedynamicReport.in_reporttemplate_code != "") {
+					//reportTemplateName = objgeneratedynamicReport.in_reporttemplate_code;
+					sourceFile = sourceFolder + objgeneratedynamicReport.in_reporttemplate_code + ".xlsx";
+				} else
+				{
+					sourceFile = roleconfig_db("temp_file_folder_path", constring);
+				}
 				string destFile = getdestFile + filename + ".xlsx";
 				CreateExcelFile(dataset, sourceFile, destFile);
 				return ds;
@@ -1009,7 +1019,7 @@ namespace ReconDataLayer
 			}
 		}
 
-		private void CreateExcelFile(DataSet dataSet, string sourceFile, string destFile)
+		private void CreateExcelFile_working(DataSet dataSet, string sourceFile, string destFile)
 		{
 			File.Copy(sourceFile, destFile, true);
 			using (var workbook = new XLWorkbook())
@@ -1023,17 +1033,11 @@ namespace ReconDataLayer
 					{
 						DataTable dataTable = dataSet.Tables[dataSetIndex];
 						var worksheet = workbook.Worksheets.Add(sheetName);
-						worksheet.Clear(XLClearOptions.Contents);
 						try
 						{
 							if (dataTable.Rows.Count > 0)
 							{
 								worksheet.Cell(1, 1).InsertTable(dataTable.AsEnumerable());
-								//worksheet.Cells().Style.Protection.SetLocked(false);
-
-								//// Lock the specific column (make it read-only)
-								//worksheet.Column("B").Style.Protection.SetLocked(true);
-								//worksheet.Protect();
 
 							}
 							else
@@ -1524,6 +1528,74 @@ namespace ReconDataLayer
             }
         }
 
-        /* Ends Testing for template and macro */
-    }
+		/* Ends Testing for template and macro */
+
+		private void CreateExcelFile(DataSet dataSet, string sourceFile, string destFile)
+		{
+			File.Copy(sourceFile, destFile, true);
+			using (var workbook = new XLWorkbook(sourceFile))
+			{
+				var sheetNames = workbook.Worksheets.Select(ws => ws.Name).ToList(); // Get sheet names from source file
+				DataTable resultset1 = dataSet.Tables[1];
+
+				for (int i = 0; i < resultset1.Rows.Count; i++)
+				{
+					string sheetName = resultset1.Rows[i]["sheet_name"].ToString();
+					int dataSetIndex = i + 2;
+
+					if (sheetNames.Contains(sheetName))
+					{
+						var worksheet = workbook.Worksheet(sheetName);
+						worksheet.Clear(XLClearOptions.Contents);
+						if (worksheet != null && dataSet.Tables.Count > dataSetIndex)
+						{
+							DataTable dataTable = dataSet.Tables[dataSetIndex];
+							try
+							{
+								if (dataTable.Rows.Count > 0)
+								{
+									worksheet.Cell(1, 1).InsertTable(dataTable.AsEnumerable());
+								} else {
+									worksheet.Cell(1, 1).Value = "No Record Found";
+								}
+							}
+							catch (Exception ex)
+							{
+								Console.WriteLine($"An error occurred while updating {sheetName}: {ex.Message}");
+								throw;
+							}
+						}
+					}
+					else
+					{
+						if (dataSet.Tables.Count > dataSetIndex)
+						{
+							DataTable dataTable = dataSet.Tables[dataSetIndex];
+							var worksheet = workbook.Worksheets.Add(sheetName);
+							try
+							{
+								if (dataTable.Rows.Count > 0)
+								{
+									worksheet.Cell(1, 1).InsertTable(dataTable.AsEnumerable());
+								}
+								else
+								{
+									worksheet.Cell(1, 1).Value = "No Record Found";
+								}
+							}
+							catch (Exception ex)
+							{
+								Console.WriteLine($"An error occurred while creating {sheetName}: {ex.Message}");
+								throw;
+							}
+						}
+					}
+				}
+				workbook.SaveAs(destFile);
+			}
+
+		}
+
+
+	}
 }
