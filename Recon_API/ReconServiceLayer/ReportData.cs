@@ -994,20 +994,32 @@ namespace ReconDataLayer
 				int getsheetcount = dataset.Tables[0].Rows.Count;
 				var job_id = dataset.Tables[0].Rows[0]["result"];
 				var filename = job_id + "_" + objgeneratedynamicReport.in_report_name;
-				string getdestFile = roleconfig_db("xlsx_folder_path", constring);
-				//string getdestFile = roleconfig_db("folder_path", constring);
-				string sourceFolder = roleconfig_db("folder_path", constring);
-				string reportTemplateName = "";
-				string sourceFile = "";
-				if (objgeneratedynamicReport.in_reporttemplate_code != "") {
-					//reportTemplateName = objgeneratedynamicReport.in_reporttemplate_code;
-					sourceFile = sourceFolder + objgeneratedynamicReport.in_reporttemplate_code + ".xlsx";
-				} else
+				var insertintojob = "";
+				if (job_id != null)
 				{
-					sourceFile = roleconfig_db("temp_file_folder_path", constring);
+					insertintojob = insertfileName(filename, job_id, constring, headerval.user_code);
+
 				}
-				string destFile = getdestFile + filename + ".xlsx";
-				CreateExcelFile(dataset, sourceFile, destFile);
+				if (insertintojob == "Success")
+				{
+					string getdestFile = roleconfig_db("xlsx_folder_path", constring);
+					//string getdestFile = roleconfig_db("folder_path", constring);
+					string sourceFolder = roleconfig_db("folder_path", constring);
+					string reportTemplateName = "";
+					string sourceFile = "";
+					if (objgeneratedynamicReport.in_reporttemplate_code != "")
+					{
+						//reportTemplateName = objgeneratedynamicReport.in_reporttemplate_code;
+						sourceFile = sourceFolder + objgeneratedynamicReport.in_reporttemplate_code + ".xlsx";
+					}
+					else
+					{
+						sourceFile = roleconfig_db("temp_file_folder_path", constring);
+					}
+					string destFile = getdestFile + filename + ".xlsx";
+					CreateExcelFile(dataset, sourceFile, destFile);
+					UpdateJobStatus(job_id, "C", "Completed", constring, headerval.user_code);
+				}
 				return ds;
 			}
 			catch (Exception ex)
@@ -1019,42 +1031,42 @@ namespace ReconDataLayer
 			}
 		}
 
-		private void CreateExcelFile_working(DataSet dataSet, string sourceFile, string destFile)
-		{
-			File.Copy(sourceFile, destFile, true);
-			using (var workbook = new XLWorkbook())
-			{
-				DataTable resultset1 = dataSet.Tables[1];
-				for (int i = 0; i < resultset1.Rows.Count; i++)
-				{
-					string sheetName = resultset1.Rows[i]["sheet_name"].ToString();
-					int dataSetIndex = i + 2;
-					if (dataSet.Tables.Count > dataSetIndex)
-					{
-						DataTable dataTable = dataSet.Tables[dataSetIndex];
-						var worksheet = workbook.Worksheets.Add(sheetName);
-						try
-						{
-							if (dataTable.Rows.Count > 0)
-							{
-								worksheet.Cell(1, 1).InsertTable(dataTable.AsEnumerable());
+		//private void CreateExcelFile_working(DataSet dataSet, string sourceFile, string destFile)
+		//{
+		//	File.Copy(sourceFile, destFile, true);
+		//	using (var workbook = new XLWorkbook())
+		//	{
+		//		DataTable resultset1 = dataSet.Tables[1];
+		//		for (int i = 0; i < resultset1.Rows.Count; i++)
+		//		{
+		//			string sheetName = resultset1.Rows[i]["sheet_name"].ToString();
+		//			int dataSetIndex = i + 2;
+		//			if (dataSet.Tables.Count > dataSetIndex)
+		//			{
+		//				DataTable dataTable = dataSet.Tables[dataSetIndex];
+		//				var worksheet = workbook.Worksheets.Add(sheetName);
+		//				try
+		//				{
+		//					if (dataTable.Rows.Count > 0)
+		//					{
+		//						worksheet.Cell(1, 1).InsertTable(dataTable.AsEnumerable());
 
-							}
-							else
-							{
-								worksheet.Cell(1, 1).Value = "No Record Found";
-							}
-						}
-						catch (Exception ex)
-						{
-							Console.WriteLine($"An error occurred while inserting table into {sheetName}: {ex.Message}");
-							throw;
-						}
-					}
-				}
-				workbook.SaveAs(destFile);
-			}
-		}
+		//					}
+		//					else
+		//					{
+		//						worksheet.Cell(1, 1).Value = "No Record Found";
+		//					}
+		//				}
+		//				catch (Exception ex)
+		//				{
+		//					Console.WriteLine($"An error occurred while inserting table into {sheetName}: {ex.Message}");
+		//					throw;
+		//				}
+		//			}
+		//		}
+		//		workbook.SaveAs(destFile);
+		//	}
+		//}
 
 		public DataTable getReportFieldType(ReportModel.DataModel objDataModel, UserManagementModel.headerValue headerval, string constring)
 		{
@@ -1535,7 +1547,7 @@ namespace ReconDataLayer
 			File.Copy(sourceFile, destFile, true);
 			using (var workbook = new XLWorkbook(sourceFile))
 			{
-				var sheetNames = workbook.Worksheets.Select(ws => ws.Name).ToList(); // Get sheet names from source file
+				var sheetNames = workbook.Worksheets.Select(ws => ws.Name).ToList();
 				DataTable resultset1 = dataSet.Tables[1];
 
 				for (int i = 0; i < resultset1.Rows.Count; i++)
