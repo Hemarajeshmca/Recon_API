@@ -225,6 +225,7 @@ namespace Recon_API.Controllers
                 var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
                 header_value.user_code = getvalue;
                 header_value.lang_code = getlangCode;
+                header_value.lang_code = getlangCode;
                 header_value.role_code = getRoleCode;
                 response = DatasetService.datasetAgainstReconService(objdatasetAgainstRecon, header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);

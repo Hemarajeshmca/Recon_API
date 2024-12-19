@@ -49,6 +49,26 @@ namespace ReconModels
 		{
 			public string in_theme_name { get; set; }
 		}
+
+        public class datasetmapModel
+        {
+            public int? in_datasetmap_gid { get; set; }
+            public string? in_recon_code { get; set; }
+            public string? in_active_status { get; set; }
+            public string? in_action { get; set; }
+            public string? in_action_by { get; set; }
+            public string? in_user_code { get; set; }
+
+        }
+
+		public class datasetlistmappedModel
+		{
+			public string? in_recon_code { get; set; }
+			public string? in_target_recon_code { get; set; }
+
+		}
+
+
 	}
-	
+
 }
