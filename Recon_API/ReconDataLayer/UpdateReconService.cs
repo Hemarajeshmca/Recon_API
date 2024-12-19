@@ -91,5 +91,35 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
+
+        //datasetmapService
+        public static DataTable datasetmapService(datasetmapModel objdatasetmap, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                UpdateReconData objqcd = new UpdateReconData();
+                ds = objqcd.datasetmapData(objdatasetmap, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+
+		//datasetlistmappedService
+
+		public static DataTable datasetlistmappedService(datasetlistmappedModel objdatasetlistmapped, UserManagementModel.headerValue headerval, string constring)
+		{
+			DataTable ds = new DataTable();
+			try
+			{
+				UpdateReconData objqcd = new UpdateReconData();
+				ds = objqcd.datasetlistmappedData(objdatasetlistmapped, headerval, constring);
+			}
+			catch (Exception e)
+			{ }
+			return ds;
+		}
+
 	}
 }
