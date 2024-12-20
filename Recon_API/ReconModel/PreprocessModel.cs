@@ -39,7 +39,11 @@ namespace ReconModels
 			public string? expression { get; set; }
 			public string? postprocessflag { get; set; }
 			public string? in_cumulative_flag { get; set; }
-		}
+			public string? in_opening_flag { get; set; }
+            public string? source_dataset_code { get; set; }
+            public string? comparison_dataset_code { get; set; }
+            public string? recorderby_type { get; set; }
+        }
 		public class filterdata
 		{
 			public int? in_preprocessfilter_gid { get; set; }
@@ -121,7 +125,8 @@ namespace ReconModels
 			public string? in_user_code { get; set; }
 			public string? out_msg { get; set; }
 			public string? out_result { get; set; }
-		}
+            public string? reverse_update_flag { get; set; }
+        }
 		public class reconfieldorder
 		{
 			public int? in_preprocessrecorder_gid { get; set; }
@@ -146,5 +151,26 @@ namespace ReconModels
 			public string? out_msg { get; set; }
 			public string? out_result { get; set; }
 		}
-	}
+        public class preprocessconditiondata
+        {
+            public int? in_preprocesscondition_gid { get; set; }
+            public string? in_preprocess_code { get; set; }
+            public Double in_condition_seqno { get; set; }
+            public string? in_extraction_criteria { get; set; }
+            public string? in_extraction_filter { get; set; }
+            public string? in_comparison_criteria { get; set; }
+            public string? in_comparison_filter { get; set; }
+            public string? source_field { get; set; }
+            public string? comparison_field { get; set; }
+            public string? in_open_flag { get; set; }
+            public string? in_close_flag { get; set; }
+            public string? in_join_condition { get; set; }
+            public string? in_source_field_type { get; set; }
+            public string? in_active_status { get; set; }
+            public string? in_action { get; set; }
+            public string? in_action_by { get; set; }
+            public string? out_msg { get; set; }
+            public string? out_result { get; set; }
+        }
+    }
 }

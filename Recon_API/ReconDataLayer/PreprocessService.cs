@@ -171,5 +171,17 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
-	}
+        public static DataTable preprocesscomparsionsrv(preprocessconditiondata objconditiondata, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                PreprocessData objDS = new PreprocessData();
+                ds = objDS.preprocesscomparsionData(objconditiondata, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+    }
 }

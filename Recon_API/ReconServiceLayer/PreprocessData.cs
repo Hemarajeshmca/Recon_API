@@ -69,8 +69,12 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_returnflag", Objmodel.in_returnflag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_postprocessflag", Objmodel.postprocessflag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_cumulative_flag", Objmodel.in_cumulative_flag, DbType.String));
-				parameters.Add(dbManager.CreateParameter("in_active_status", Objmodel.active_status, DbType.String));
-				parameters.Add(dbManager.CreateParameter("in_action", Objmodel.in_action, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_source_dataset_code", Objmodel.source_dataset_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_comparison_dataset_code", Objmodel.comparison_dataset_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_opening_flag", Objmodel.in_opening_flag, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_recorderby_type", Objmodel.recorderby_type, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_active_status", Objmodel.active_status, DbType.String));               
+                parameters.Add(dbManager.CreateParameter("in_action", Objmodel.in_action, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action_by", Objmodel.in_action_by, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
@@ -150,7 +154,10 @@ namespace ReconDataLayer
 				ds.Tables[5].TableName = "conditionlookup";
 				ds.Tables[6].TableName = "preprocessorder";
 				ds.Tables[7].TableName = "aggexp";
-				return ds;
+                ds.Tables[8].TableName = "preprocesscondition";
+                ds.Tables[9].TableName = "sourcefilter";
+                ds.Tables[10].TableName = "comparsionfilter";
+                return ds;
 			}
 			catch (Exception ex)
 			{
@@ -343,7 +350,8 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_lookup_seqno", objdatarecon.in_lookup_seqno, DbType.Double));
 				parameters.Add(dbManager.CreateParameter("in_lookup_return_field", objdatarecon.in_lookup_return_field, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_set_recon_field", objdatarecon.in_set_recon_field, DbType.String));
-				parameters.Add(dbManager.CreateParameter("in_active_status", objdatarecon.in_active_status, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_reverse_update_flag", objdatarecon.reverse_update_flag, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_active_status", objdatarecon.in_active_status, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action", objdatarecon.in_action, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action_by", headerval.user_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
@@ -428,5 +436,46 @@ namespace ReconDataLayer
 				return result;
 			}
 		}
-	}
+        public DataTable preprocesscomparsionData(preprocessconditiondata objconditiondata, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_preprocesscondition_gid", objconditiondata.in_preprocesscondition_gid, DbType.Int64, ParameterDirection.InputOutput));
+                parameters.Add(dbManager.CreateParameter("in_preprocess_code", objconditiondata.in_preprocess_code, DbType.String));                
+                parameters.Add(dbManager.CreateParameter("in_condition_seqno", objconditiondata.in_condition_seqno, DbType.Double));
+                parameters.Add(dbManager.CreateParameter("in_source_field", objconditiondata.source_field, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_comparison_field", objconditiondata.comparison_field, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_extraction_criteria", objconditiondata.in_extraction_criteria, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_extraction_filter", objconditiondata.in_extraction_filter, DbType.String));                
+                parameters.Add(dbManager.CreateParameter("in_comparison_criteria", objconditiondata.in_comparison_criteria, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_comparison_filter", objconditiondata.in_comparison_filter, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_open_flag", objconditiondata.in_open_flag, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_close_flag", objconditiondata.in_close_flag, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_join_condition", objconditiondata.in_join_condition, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_source_field_type", objconditiondata.in_source_field_type, DbType.String));               
+                parameters.Add(dbManager.CreateParameter("in_active_status", objconditiondata.in_active_status, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_action", objconditiondata.in_action, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_action_by", headerval.user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                ds = dbManager.execStoredProcedure("pr_recon_mst_tpreprocesscomparison", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_recon_mst_tpreprocesscondition" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objconditiondata), "pr_recon_mst_tpreprocesscondition", headerval.user_code, constring);
+                return result;
+            }
+        }
+    }
 }

@@ -26,5 +26,12 @@ namespace ReconModels
 			public string? in_user_code { get; set; }
 
 		}
-	}
+        public class KoQueued
+        {
+            public String? in_koqueue_remark { get; set; }
+            public int in_koqueue_gid { get; set; }
+            public string? in_user_code { get; set; }
+
+        }
+    }
 }
