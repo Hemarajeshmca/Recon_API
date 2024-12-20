@@ -831,10 +831,6 @@ namespace ReconDataLayer
 												dataType = getfiledType.Rows[i]["field_type"].ToString();
 												if (dataType == "DATE")
 												{
-													//column.Style.DateFormat.Format = "General";
-													//string dateFormat = getDateFormat.Rows[0]["out_config_value"].ToString();
-													//column.Style.DateFormat.Format = dateFormat;
-													//Hema start
 													foreach (var cell in column.CellsUsed())
 													{
 														if (DateTime.TryParse(cell.GetString(), out DateTime parsedDate))
@@ -843,8 +839,6 @@ namespace ReconDataLayer
 															cell.Style.DateFormat.Format = getDateFormat.Rows[0]["out_config_value"].ToString(); // Apply date format
 														}
 													}
-													//Hema end
-
 												}
 												else if (dataType == "DATETIME")
 												{
@@ -862,13 +856,10 @@ namespace ReconDataLayer
 												else if (dataType == "DECIMAL" || dataType == "NUMERIC")
 												{
 													column.Style.NumberFormat.Format = "#,##0.00";
-													//column.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
-
 												}
 												else if (dataType == "INTEGER")
 												{
 													column.Style.NumberFormat.Format = "0";
-													//column.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
 												}
 												else
 												{
@@ -877,10 +868,6 @@ namespace ReconDataLayer
 											}
 										}
 									}
-									//worksheet.Cells().Style.Protection.SetLocked(false);
-									//// Lock the specific column (make it read-only)
-									//worksheet.Column("B").Style.Protection.SetLocked(true);
-									//worksheet.Protect();
 								}
 								else
 								{
@@ -893,15 +880,12 @@ namespace ReconDataLayer
 								throw;
 							}
 							var sheetName2 = "Condition Criteria";
-							//var worksheet2 = workbook.Worksheets.Add("Condition Criteria");
 							var existingSheet = workbook.Worksheets.FirstOrDefault(ws => ws.Name == sheetName2);
 							if (existingSheet != null)
 							{
 								CommonHeader objlog = new CommonHeader();
 								objlog.logger("SP:pr_run_dynamicreport" + "Error Message:" + "Sheet Name should not have Condition Criteria");
 								objlog.commonDataapi("", "SP", "Sheet Name should not have Condition Criteria" + "Param:" + JsonConvert.SerializeObject(objDataModel), "pr_run_dynamicreport", headerval.user_code, constring);
-								// Sheet already exists, show an error message
-								// Console.WriteLine($"Error: The worksheet '{sheetName}' already exists.");
 							}
 							else
 							{
@@ -912,7 +896,6 @@ namespace ReconDataLayer
 									if (sheetDt.Rows.Count > 0)
 									{
 										var table = worksheet2.Cell(1, 1).InsertTable(sheetDt.AsEnumerable(), "MyTable", true);
-
 									}
 									else
 									{
@@ -996,18 +979,15 @@ namespace ReconDataLayer
 				if (job_id != null)
 				{
 					insertintojob = insertfileName(filename, job_id, constring, headerval.user_code);
-
 				}
 				if (insertintojob == "Success")
 				{
 					string getdestFile = roleconfig_db("xlsx_folder_path", constring);
-					//string getdestFile = roleconfig_db("folder_path", constring);
 					string sourceFolder = roleconfig_db("folder_path", constring);
 					string reportTemplateName = "";
 					string sourceFile = "";
 					if (objgeneratedynamicReport.in_reporttemplate_code != "")
 					{
-						//reportTemplateName = objgeneratedynamicReport.in_reporttemplate_code;
 						sourceFile = sourceFolder + objgeneratedynamicReport.in_reporttemplate_code + ".xlsx";
 					}
 					else
@@ -1028,43 +1008,6 @@ namespace ReconDataLayer
 				throw ex;
 			}
 		}
-
-		//private void CreateExcelFile_working(DataSet dataSet, string sourceFile, string destFile)
-		//{
-		//	File.Copy(sourceFile, destFile, true);
-		//	using (var workbook = new XLWorkbook())
-		//	{
-		//		DataTable resultset1 = dataSet.Tables[1];
-		//		for (int i = 0; i < resultset1.Rows.Count; i++)
-		//		{
-		//			string sheetName = resultset1.Rows[i]["sheet_name"].ToString();
-		//			int dataSetIndex = i + 2;
-		//			if (dataSet.Tables.Count > dataSetIndex)
-		//			{
-		//				DataTable dataTable = dataSet.Tables[dataSetIndex];
-		//				var worksheet = workbook.Worksheets.Add(sheetName);
-		//				try
-		//				{
-		//					if (dataTable.Rows.Count > 0)
-		//					{
-		//						worksheet.Cell(1, 1).InsertTable(dataTable.AsEnumerable());
-
-		//					}
-		//					else
-		//					{
-		//						worksheet.Cell(1, 1).Value = "No Record Found";
-		//					}
-		//				}
-		//				catch (Exception ex)
-		//				{
-		//					Console.WriteLine($"An error occurred while inserting table into {sheetName}: {ex.Message}");
-		//					throw;
-		//				}
-		//			}
-		//		}
-		//		workbook.SaveAs(destFile);
-		//	}
-		//}
 
 		public DataTable getReportFieldType(ReportModel.DataModel objDataModel, UserManagementModel.headerValue headerval, string constring)
 		{
@@ -1401,114 +1344,116 @@ namespace ReconDataLayer
                     }
                     if (insertintojob == "Success")
                     {
-                        //Debugger.Break();
                         getfiledType = getReportFieldType(objDataModel, headerval, constring);
                         getDateFormat = configvalueData("excel_dateformat", headerval, constring);
                         getDateTimeFormat = configvalueData("excel_datetimeformat", headerval, constring);
                         string sheetName = "Data";
                         File.Copy(sourceFile, destFile, true);
-                        using (var workbook = new XLWorkbook(destFile))
+                        using (var workbook = new XLWorkbook(sourceFile))
                         {
-                            var worksheet = workbook.Worksheet(sheetName);
-                            worksheet.Clear(XLClearOptions.Contents);
+							var sheetNames = workbook.Worksheets.Select(ws => ws.Name).ToList();
                             try
                             {
-                                if (dataset.Tables[0].Rows.Count > 0)
-                                {
-                                    worksheet.Clear();
-                                    var table = worksheet.Cell(1, 1).InsertTable(dataset.Tables[0].AsEnumerable(), "MyTable", true);
-                                    for (int j = 0; j < dataset.Tables[0].Columns.Count; j++)
-                                    {
-                                        for (int i = 0; i < getfiledType.Rows.Count; i++)
-                                        {
-                                            var column = table.Column(i + 1);
-                                            var dataType = "";
-                                            if (dataset.Tables[0].Columns[j].ColumnName.ToString() == getfiledType.Rows[i]["field_alias_name"].ToString())
-                                            {
-                                                dataType = getfiledType.Rows[i]["field_type"].ToString();
-                                                if (dataType == "DATE")
-                                                {
-                                                    //column.Style.DateFormat.Format = "General";
-                                                    //string dateFormat = getDateFormat.Rows[0]["out_config_value"].ToString();
-                                                    //column.Style.DateFormat.Format = dateFormat;
-                                                    //Hema start
-                                                    foreach (var cell in column.CellsUsed())
-                                                    {
-                                                        if (DateTime.TryParse(cell.GetString(), out DateTime parsedDate))
-                                                        {
-                                                            cell.Value = parsedDate;
-                                                            cell.Style.DateFormat.Format = getDateFormat.Rows[0]["out_config_value"].ToString(); // Apply date format
-                                                        }
-                                                    }
-                                                    //Hema end
+								IXLWorksheet? worksheet = null;
+								if (sheetNames.Contains(sheetName))
+								{
+									worksheet = workbook.Worksheet(sheetName);
+									worksheet.Clear(XLClearOptions.Contents);
+								} else
+								{
+									worksheet = workbook.Worksheets.Add(sheetName);
+								}
+								
+								if (dataset.Tables[0].Rows.Count > 0)
+									{
+									formatingexcelsheet(dataset.Tables[0], worksheet, getfiledType);
 
-                                                }
-                                                else if (dataType == "DATETIME")
-                                                {
-                                                    column.Style.DateFormat.Format = getDateFormat.Rows[0]["out_config_value"].ToString();
+										//worksheet.Clear();
+										//var table = worksheet.Cell(1, 1).InsertTable(dataset.Tables[0].AsEnumerable(), "MyTable", true);
+										//for (int j = 0; j < dataset.Tables[0].Columns.Count; j++)
+										//{
+										//	for (int i = 0; i < getfiledType.Rows.Count; i++)
+										//	{
+										//		var column = table.Column(i + 1);
+										//		var dataType = "";
+										//		if (dataset.Tables[0].Columns[j].ColumnName.ToString() == getfiledType.Rows[i]["field_alias_name"].ToString())
+										//		{
+										//			dataType = getfiledType.Rows[i]["field_type"].ToString();
+										//			if (dataType == "DATE")
+										//			{
+										//				//column.Style.DateFormat.Format = "General";
+										//				//string dateFormat = getDateFormat.Rows[0]["out_config_value"].ToString();
+										//				//column.Style.DateFormat.Format = dateFormat;
+										//				//Hema start
+										//				foreach (var cell in column.CellsUsed())
+										//				{
+										//					if (DateTime.TryParse(cell.GetString(), out DateTime parsedDate))
+										//					{
+										//						cell.Value = parsedDate;
+										//						cell.Style.DateFormat.Format = getDateFormat.Rows[0]["out_config_value"].ToString(); // Apply date format
+										//					}
+										//				}
+										//				//Hema end
 
-                                                    foreach (var cell in column.CellsUsed())
-                                                    {
-                                                        if (DateTime.TryParse(cell.GetString(), out DateTime parsedDate))
-                                                        {
-                                                            cell.Value = parsedDate;
-                                                            cell.Style.DateFormat.Format = getDateTimeFormat.Rows[0]["out_config_value"].ToString(); // Apply date format
-                                                        }
-                                                    }
-                                                }
-                                                else if (dataType == "DECIMAL" || dataType == "NUMERIC")
-                                                {
-                                                    column.Style.NumberFormat.Format = "#,##0.00";
-                                                    //column.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+										//			}
+										//			else if (dataType == "DATETIME")
+										//			{
+										//				column.Style.DateFormat.Format = getDateFormat.Rows[0]["out_config_value"].ToString();
 
-                                                }
-                                                else if (dataType == "INTEGER")
-                                                {
-                                                    column.Style.NumberFormat.Format = "0";
-                                                    //column.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
-                                                }
-                                                else
-                                                {
-                                                    column.Style.NumberFormat.Format = "";
-                                                }
-                                            }
-                                        }
-                                    }
-                                    //worksheet.Cells().Style.Protection.SetLocked(false);
-                                    //// Lock the specific column (make it read-only)
-                                    //worksheet.Column("B").Style.Protection.SetLocked(true);
-                                    //worksheet.Protect();
-                                }
-                                else
-                                {
-                                    worksheet.Cell(1, 1).InsertData("No Record Found");
-                                }
-                            }
+										//				foreach (var cell in column.CellsUsed())
+										//				{
+										//					if (DateTime.TryParse(cell.GetString(), out DateTime parsedDate))
+										//					{
+										//						cell.Value = parsedDate;
+										//						cell.Style.DateFormat.Format = getDateTimeFormat.Rows[0]["out_config_value"].ToString(); // Apply date format
+										//					}
+										//				}
+										//			}
+										//			else if (dataType == "DECIMAL" || dataType == "NUMERIC")
+										//			{
+										//				column.Style.NumberFormat.Format = "#,##0.00";
+										//				//column.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+
+										//			}
+										//			else if (dataType == "INTEGER")
+										//			{
+										//				column.Style.NumberFormat.Format = "0";
+										//				//column.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+										//			}
+										//			else
+										//			{
+										//				column.Style.NumberFormat.Format = "";
+										//			}
+										//		}
+										//	}
+										//}
+									} else {
+										worksheet.Cell(1, 1).InsertData("No Record Found");
+									}								
+								}
                             catch (Exception ex)
                             {
                                 Console.WriteLine($"An error occurred while inserting table: {ex.Message}");
                                 throw;
                             }
                             var sheetName2 = "Condition Criteria";
-                            //var worksheet2 = workbook.Worksheets.Add("Condition Criteria");
-                            var existingSheet = workbook.Worksheets.FirstOrDefault(ws => ws.Name == sheetName2);
-                            if (existingSheet != null)
-                            {
-                                CommonHeader objlog = new CommonHeader();
-                                objlog.logger("SP:pr_run_dynamicreport" + "Error Message:" + "Sheet Name should not have Condition Criteria");
-                                objlog.commonDataapi("", "SP", "Sheet Name should not have Condition Criteria" + "Param:" + JsonConvert.SerializeObject(objDataModel), "pr_run_dynamicreport", headerval.user_code, constring);
-                                // Sheet already exists, show an error message
-                                // Console.WriteLine($"Error: The worksheet '{sheetName}' already exists.");
-                            }
-                            else
-                            {
-                                var worksheet2 = workbook.AddWorksheet(sheetName2);
-                                worksheet2.Clear(XLClearOptions.Contents);
+							IXLWorksheet? worksheet2 = null;
+							var existingSheet = workbook.Worksheets.FirstOrDefault(ws => ws.Name == sheetName2);
+							if (existingSheet != null)
+							{
+								worksheet2 = workbook.Worksheet(sheetName);
+								worksheet2.Clear(XLClearOptions.Contents);
+							}
+							else
+							{
+								worksheet2 = workbook.AddWorksheet(sheetName2);
+								worksheet2.Clear(XLClearOptions.Contents);
+							}
                                 try
                                 {
                                     if (sheetDt.Rows.Count > 0)
                                     {
-                                        var table = worksheet2.Cell(1, 1).InsertTable(sheetDt.AsEnumerable(), "MyTable", true);
+									var table = worksheet2.Cell(1, 1).InsertTable(sheetDt.AsEnumerable(), "MyTable", true);
                                     }
                                     else
                                     {
@@ -1520,7 +1465,6 @@ namespace ReconDataLayer
                                     Console.WriteLine($"An error occurred while inserting table into {"Sheet2"}: {ex.Message}");
                                     throw;
                                 }
-                            }
                             workbook.SaveAs(destFile);
                             UpdateJobStatus(job_id, "C", "Completed", constring, headerval.user_code);
                         }
@@ -1557,6 +1501,15 @@ namespace ReconDataLayer
 					{
 						var worksheet = workbook.Worksheet(sheetName);
 						worksheet.Clear(XLClearOptions.Contents);
+						//if(sheetNames.Contains("Dashboard"))
+						//{
+						//	string imagePath = "D:\\HEMA Personal\\Image\\Screenshot_2019-04-23-11-43-50-371_com.facebook.katana.png";
+						//	var imageStream = new FileStream(imagePath, FileMode.Open, FileAccess.Read);
+						//	worksheet.AddPicture(imageStream)
+						//			.MoveTo(worksheet.Cell("A1"))  // Set the position of the image
+						//			.WithSize(200, 200);  // Set the image size (optional)
+
+						//}
 						if (worksheet != null && dataSet.Tables.Count > dataSetIndex)
 						{
 							DataTable dataTable = dataSet.Tables[dataSetIndex];
@@ -1564,6 +1517,7 @@ namespace ReconDataLayer
 							{
 								if (dataTable.Rows.Count > 0)
 								{
+									//formatingexcelsheet(dataTable, worksheet, getfiledType);
 									worksheet.Cell(1, 1).InsertTable(dataTable.AsEnumerable());
 								} else {
 									worksheet.Cell(1, 1).Value = "No Record Found";
@@ -1606,6 +1560,61 @@ namespace ReconDataLayer
 
 		}
 
+		private void formatingexcelsheet(DataTable data, IXLWorksheet? worksheet, DataTable getfiledType)
+		{
+			DataTable getDateFormat = new DataTable();
+			DataTable getDateTimeFormat = new DataTable();
+			worksheet.Clear();
+			var table = worksheet.Cell(1, 1).InsertTable(data.AsEnumerable(), "MyTable", true);
+			for (int j = 0; j < data.Columns.Count; j++)
+			{
+				for (int i = 0; i < getfiledType.Rows.Count; i++)
+				{
+					var column = table.Column(i + 1);
+					var dataType = "";
+					if (data.Columns[j].ColumnName.ToString() == getfiledType.Rows[i]["field_alias_name"].ToString())
+					{
+						dataType = getfiledType.Rows[i]["field_type"].ToString();
+						if (dataType == "DATE")
+						{
+							foreach (var cell in column.CellsUsed())
+							{
+								if (DateTime.TryParse(cell.GetString(), out DateTime parsedDate))
+								{
+									cell.Value = parsedDate;
+									cell.Style.DateFormat.Format = getDateFormat.Rows[0]["out_config_value"].ToString(); // Apply date format
+								}
+							}
+						}
+						else if (dataType == "DATETIME")
+						{
+							column.Style.DateFormat.Format = getDateFormat.Rows[0]["out_config_value"].ToString();
+
+							foreach (var cell in column.CellsUsed())
+							{
+								if (DateTime.TryParse(cell.GetString(), out DateTime parsedDate))
+								{
+									cell.Value = parsedDate;
+									cell.Style.DateFormat.Format = getDateTimeFormat.Rows[0]["out_config_value"].ToString(); // Apply date format
+								}
+							}
+						}
+						else if (dataType == "DECIMAL" || dataType == "NUMERIC")
+						{
+							column.Style.NumberFormat.Format = "#,##0.00";
+						}
+						else if (dataType == "INTEGER")
+						{
+							column.Style.NumberFormat.Format = "0";
+						}
+						else
+						{
+							column.Style.NumberFormat.Format = "";
+						}
+					}
+				}
+			}
+		}
 
 	}
 }

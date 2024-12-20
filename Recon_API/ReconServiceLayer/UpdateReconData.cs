@@ -172,5 +172,63 @@ namespace ReconDataLayer
 			}
 		}
 
+        //datasetmapData
+
+        public DataTable datasetmapData(datasetmapModel objdatasetmap, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_datasetmap_gid", objdatasetmap.in_datasetmap_gid, DbType.Int16, ParameterDirection.InputOutput));
+                parameters.Add(dbManager.CreateParameter("in_recon_code", objdatasetmap.in_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_active_status", objdatasetmap.in_active_status, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_action", objdatasetmap.in_action, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_action_by", objdatasetmap.in_action_by, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_code", objdatasetmap.in_user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                ds = dbManager.execStoredProcedure("pr_recon_mst_tdatasetmap", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_recon_mst_tdatasetmap" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param" + JsonConvert.SerializeObject(objdatasetmap), "pr_recon_mst_tdatasetmap", headerval.user_code, constring);
+                return result;
+            }
+        }
+
+
+		//datasetlistmappedData
+		public DataTable datasetlistmappedData(datasetlistmappedModel objdatasetlistmapped, UserManagementModel.headerValue headerval, string constring)
+		{
+			try
+			{
+				DBManager dbManager = new DBManager(constring);
+				Dictionary<string, Object> values = new Dictionary<string, object>();
+				MySqlDataAccess con = new MySqlDataAccess("");
+				parameters = new List<IDbDataParameter>();
+				parameters.Add(dbManager.CreateParameter("in_recon_code", objdatasetlistmapped.in_recon_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_target_recon_code", objdatasetlistmapped.in_target_recon_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+				ds = dbManager.execStoredProcedure("pr_get_datasetmapped_recon", CommandType.StoredProcedure, parameters.ToArray());
+				result = ds.Tables[0];
+				return result;
+			}
+			catch (Exception ex)
+			{
+				CommonHeader objlog = new CommonHeader();
+				objlog.logger("SP:pr_get_datasetmapped_recon" + "Error Message:" + ex.Message);
+				objlog.commonDataapi("", "SP", ex.Message + "Param" + JsonConvert.SerializeObject(objdatasetlistmapped), "pr_get_datasetmapped_recon", headerval.user_code, constring);
+				return result;
+			}
+		}
 	}
 }
