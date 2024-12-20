@@ -113,5 +113,29 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
-	}
+        public static DataTable jobinQueueservice(JobCompleted objJobCompleted, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                UtilityData objutility = new UtilityData();
+                ds = objutility.jobinQueueData(objJobCompleted, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+        public static DataTable SuspendKoQueueService(KoQueued objkoQueued, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                UtilityData objutility = new UtilityData();
+                ds = objutility.SuspendKoQueueData(objkoQueued, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+    }
 }
