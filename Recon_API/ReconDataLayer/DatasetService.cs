@@ -170,5 +170,29 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
-	}
+        public static DataTable Datasetindexsrv(Datasetindexmodel Datasetindexmodel, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                DatasetData objDS = new DatasetData();
+                ds = objDS.Datasetindexdata(Datasetindexmodel, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+        public static DataTable Datasetindexlistsrv(Datasetindexlist Datasetindexlist, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                DatasetData objDS = new DatasetData();
+                ds = objDS.Datasetindexlistdata(Datasetindexlist, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+    }
 }

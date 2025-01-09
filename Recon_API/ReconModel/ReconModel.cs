@@ -229,7 +229,8 @@ namespace ReconModels
         {
             public string in_recon_code { get; set; }
 			public string in_dataset_code { get; set; }
-			public string in_parent_dataset_code { get; set; }
+            public string in_dataset_type { get; set; }
+            public string in_parent_dataset_code { get; set; }
 			public string in_clone_recon_code { get; set; }
 			public string in_clone_dataset_code { get; set; }
 		}

@@ -97,6 +97,25 @@ namespace ReconModels
 		{
 			public string in_dataset_code { get; set; }
 		}
-	}
+        public class Datasetindexmodel
+        {
+            public string? in_dataset_code { get; set; }
+            public int in_datasetindex_gid { get; set; }
+            public string? in_datasetindex_code { get; set; }
+            public string? in_index_desc { get; set; }
+            public int? in_index_seqno { get; set; }           
+            public string? in_dataset_field { get; set; }
+            public string? in_active_status { get; set; }
+            public string? in_action { get; set; }
+            public string? in_action_by { get; set; }
+            public string? out_msg { get; set; }
+            public string? out_result { get; set; }
+        }
+        public class Datasetindexlist
+        {
+            public string? in_datasetindex_code { get; set; }
+            public string? in_user_code { get; set; }
+        }
+    }
 }
 

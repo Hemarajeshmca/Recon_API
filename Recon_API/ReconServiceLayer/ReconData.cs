@@ -476,7 +476,8 @@ namespace ReconDataLayer
 				//parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_recon_code", objcloneReconDataset.in_recon_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_dataset_code", objcloneReconDataset.in_dataset_code, DbType.String));
-				parameters.Add(dbManager.CreateParameter("in_parent_dataset_code", objcloneReconDataset.in_parent_dataset_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_dataset_type", objcloneReconDataset.in_dataset_type, DbType.String));  
+                parameters.Add(dbManager.CreateParameter("in_parent_dataset_code", objcloneReconDataset.in_parent_dataset_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_clone_dataset_code", objcloneReconDataset.in_clone_dataset_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_clone_recon_code", objcloneReconDataset.in_clone_recon_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
