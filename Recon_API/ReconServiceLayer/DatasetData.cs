@@ -120,11 +120,12 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
 				ds = dbManager.execStoredProcedure("pr_get_Datasetdetail", CommandType.StoredProcedure, parameters.ToArray());
-				if (ds.Tables.Count >= 2)
+				if (ds.Tables.Count >= 3)
 				{
 					ds.Tables[0].TableName = "Header";
 					ds.Tables[1].TableName = "DataSet";
-				}
+                    ds.Tables[2].TableName = "DataSetindex";
+                }
 				return ds;
 			}
 			catch (Exception ex)
@@ -354,5 +355,61 @@ namespace ReconDataLayer
 				return result;
 			}
 		}
-	}
+
+        public DataTable Datasetindexdata(Datasetindexmodel Objmodel, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_datasetindex_gid", Objmodel.in_datasetindex_gid, DbType.Int64, ParameterDirection.InputOutput));
+                parameters.Add(dbManager.CreateParameter("in_dataset_code", Objmodel.in_dataset_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_datasetindex_code", Objmodel.in_datasetindex_code, DbType.String));               
+                parameters.Add(dbManager.CreateParameter("in_index_seqno", Objmodel.in_index_seqno, DbType.Int64));
+                parameters.Add(dbManager.CreateParameter("in_index_desc", Objmodel.in_index_desc, DbType.String));                              
+                parameters.Add(dbManager.CreateParameter("in_dataset_field", Objmodel.in_dataset_field, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_active_status", Objmodel.in_active_status, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_action", Objmodel.in_action, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_action_by", headerval.user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                ds = dbManager.execStoredProcedure("pr_recon_mst_tdatasetindex", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_recon_mst_tdatasetindex" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(Objmodel), "pr_recon_mst_tdatasetindex", headerval.user_code, constring);
+                return result;
+            }
+        }
+        public DataTable Datasetindexlistdata(Datasetindexlist Objmodel, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_datasetindex_code", Objmodel.in_datasetindex_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_code", Objmodel.in_user_code, DbType.String));               
+                ds = dbManager.execStoredProcedure("pr_get_tdatasetindex", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_get_tdatasetindex" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(headerval), "pr_get_tdatasetindex", headerval.user_code, constring);
+                return result;
+            }
+        }
+    }
 }
