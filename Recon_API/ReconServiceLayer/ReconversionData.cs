@@ -318,7 +318,7 @@ namespace ReconDataLayer
 			try
 			{
 				// String array with alphabets
-				string[] alphabet = new string[] { ".1", ".2", ".3", ".4", ".5", ".6", ".7", ".8", ".9", ".10", ".11", ".12", ".13", ".14", ".15", ".16", ".17", ".18" };
+				string[] alphabet = new string[] { ".1", ".2", ".3", ".4", ".5", ".6", ".7", ".8", ".9", ".10", ".11", ".12", ".13", ".14", ".15", ".16", ".17", ".18", ".19", ".20", ".21", ".22", ".23", ".24", ".25", ".26", ".27", ".28", ".29", ".30", ".31", ".32", ".33", ".34", ".35", ".36" };
 				string tab1 = "     ";
 				string tab2 = "          ";
 				float fh = 8f;
@@ -326,9 +326,6 @@ namespace ReconDataLayer
 				BaseColor grassGreen = new BaseColor(0, 102, 0);
 				BaseColor reconPurpple = new BaseColor(135, 46, 123);
 				BaseColor ironbrown = new BaseColor(153, 0, 0);
-				//string logoPath = Path.Combine(_webHostEnvironment.WebRootPath, "Assets", "images", "footerlogo_new.png");
-				//string logoPath = "D:\\user\\hema\\Recon\\ReconWeb\\ReconWeb\\Recon\\Recon_proto\\wwwroot\\Assets\\images\\footerlogo_new.png";
-				//string logoPath = "D:\\user\\hema\\Recon\\Recon_API\\Recon_API\\Recon_API\\Image\\footerlogo_new.png";
 				DBManager dbManager = new DBManager(constring);
 				MySqlDataAccess con = new MySqlDataAccess("");
 				parameters = new List<IDbDataParameter>();
@@ -600,7 +597,7 @@ namespace ReconDataLayer
 							ds = dbManager.execStoredProcedure("pr_report_rulecondition", CommandType.StoredProcedure, parameters.ToArray());
 
 							// Rule Code Column
-							string maintitle = tab1 + (i) + ". " + "Rule Details";
+							string maintitle = tab1 + (i) + ". " + dt2.Rows[i]["Rule Name"] + " - Details";
 							document.Add(CreateTitle(i + ". " + "Rule Details" + " - " + dt2.Rows[i]["Rule Order"], grassGreen));
 							tocEntries.Add(new TOCEntry(maintitle, writer.PageNumber));
 							PdfPTable ruleCodeTable = new PdfPTable(1);
@@ -946,8 +943,8 @@ namespace ReconDataLayer
 							parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
 							parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
 							ds = dbManager.execStoredProcedure("pr_report_themedetails", CommandType.StoredProcedure, parameters.ToArray());
-							document.Add(CreateTitle(i + ". " + "Theme Details", reconPurpple));
-							string mainTitle = tab1 + (i) + ". " + "Theme Details";
+							document.Add(CreateTitle(i + ". " + "Theme Details" + " - " + dt3.Rows[i]["Theme Order"], reconPurpple));
+							string mainTitle = tab1 + (i) + ". " + dt3.Rows[i]["Theme Name"] + " - Details";
 							tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
 							//Theme Code
 							PdfPTable themeCodeTable = new PdfPTable(1);
@@ -996,6 +993,7 @@ namespace ReconDataLayer
 								BorderColor = borderColor
 							};
 							mainTable2.AddCell(themeHoldCell);
+
 							// Theme Type Column
 							PdfPTable themeTypeTable = new PdfPTable(1);
 							themeTypeTable.AddCell(CreateLabelCell("Theme Type: " + dt3.Rows[i]["Theme Type"], true));
@@ -1008,14 +1006,67 @@ namespace ReconDataLayer
 							};
 							mainTable2.AddCell(themeTypeCell);
 
-							// Add Empty Cell for Space
-							PdfPCell blankCellTheme = new PdfPCell(new Phrase(" "))
+							// Theme Source Dataset
+							PdfPTable themeSourceDatasetTable = new PdfPTable(1);
+							themeSourceDatasetTable.AddCell(CreateLabelCell("Source Dataset: " + dt3.Rows[i]["Source Dataset"], true));
+
+							PdfPCell themeSourceCell = new PdfPCell(themeSourceDatasetTable)
 							{
-								Colspan = 3,
-								FixedHeight = fh,
-								Border = PdfPCell.NO_BORDER
+								Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
+								BackgroundColor = new BaseColor(230, 230, 250),
+								BorderColor = borderColor
 							};
-							mainTable2.AddCell(blankCellTheme);
+							mainTable2.AddCell(themeSourceCell);
+
+                            // Add Empty Cell for Space
+                            PdfPCell blankCell14 = new PdfPCell(new Phrase(" "))
+                            {
+                                Colspan = 3,
+                                FixedHeight = fh,
+                                Border = PdfPCell.NO_BORDER
+                            };
+                            mainTable2.AddCell(blankCell14);
+
+                            // Theme Comparision Dataset
+                            PdfPTable themeComparisonDatasetTable = new PdfPTable(1);
+                            themeComparisonDatasetTable.AddCell(CreateLabelCell("Comparision Dataset: " + dt3.Rows[i]["Comparison Dataset"], true));
+
+							PdfPCell themeComparisonCell = new PdfPCell(themeComparisonDatasetTable)
+							{
+								Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
+								BackgroundColor = new BaseColor(230, 230, 250),
+								BorderColor = borderColor
+							};
+							mainTable2.AddCell(themeComparisonCell);
+
+                            //Blank Cell
+
+                            PdfPCell blankCell15 = new PdfPCell(new Phrase(" "))
+                            {
+                                Colspan = 3,
+                                FixedHeight = fh,
+                                Border = PdfPCell.NO_BORDER
+                            };
+                            mainTable2.AddCell(blankCell15);
+
+                            ////Blank Line
+
+                            //PdfPCell blankCell16 = new PdfPCell(new Phrase(" "))
+                            //{
+                            //    Colspan = 3,
+                            //    FixedHeight = fh,
+                            //    Border = PdfPCell.NO_BORDER
+                            //};
+                            //mainTable2.AddCell(blankCell16);
+
+       //                     // Add Empty Cell for Space
+       //                     PdfPCell blankCellTheme = new PdfPCell(new Phrase(" "))
+							//{
+							//	Colspan = 3,
+							//	FixedHeight = fh,
+							//	Border = PdfPCell.NO_BORDER
+							//};
+							//mainTable2.AddCell(blankCellTheme);
 							PdfPCell blankCella15 = new PdfPCell(new Phrase(" "))
 							{
 								Colspan = 3,
@@ -1165,8 +1216,8 @@ namespace ReconDataLayer
 							parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
 							parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
 							ds = dbManager.execStoredProcedure("pr_report_preprocessdetails", CommandType.StoredProcedure, parameters.ToArray());
-							document.Add(CreateTitle(i + ". " + "Preprocess Details", ironbrown));
-							string maintitle = tab1 + (i) + ". " + "Preprocess Details";
+							document.Add(CreateTitle(i + ". " + "Preprocess Details" + " - " + dt3.Rows[i]["Preprocess Order"], ironbrown));
+							string maintitle = tab1 + (i) + ". " + dt4.Rows[i]["Preprocess Name"] + " - Details";
 							tocEntries.Add(new TOCEntry(maintitle, writer.PageNumber));
 
 							//PreProcess Code

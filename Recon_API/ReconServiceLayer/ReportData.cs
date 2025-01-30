@@ -618,7 +618,7 @@ namespace ReconDataLayer
                             {
                                 if (dataset.Tables[0].Rows.Count > 0)
                                 {
-                                    worksheet.Cell(1, 1).InsertTable(dataset.Tables[0].AsEnumerable(), "MyTable", true);
+                                    worksheet.Cell(1, 1).InsertTable(dataset.Tables[0].AsEnumerable().Take(1048500).CopyToDataTable(), "MyTable", true);
                                 }
                                 else
                                 {
@@ -822,7 +822,7 @@ namespace ReconDataLayer
                                 if (dataset.Tables[0].Rows.Count > 0)
                                 {
                                     worksheet.Clear();
-                                    var table = worksheet.Cell(1, 1).InsertTable(dataset.Tables[0].AsEnumerable(), "MyTable", true);
+                                    var table = worksheet.Cell(1, 1).InsertTable(dataset.Tables[0].AsEnumerable().Take(1048500).CopyToDataTable(), "MyTable", true);
                                     for (int j = 0; j < dataset.Tables[0].Columns.Count; j++)
                                     {
                                         for (int i = 0; i < getfiledType.Rows.Count; i++)
@@ -898,7 +898,7 @@ namespace ReconDataLayer
                                 {
                                     if (sheetDt.Rows.Count > 0)
                                     {
-                                        var table = worksheet2.Cell(1, 1).InsertTable(sheetDt.AsEnumerable(), "MyTable", true);
+                                        var table = worksheet2.Cell(1, 1).InsertTable(sheetDt.AsEnumerable().Take(1048500).CopyToDataTable(), "MyTable", true);
                                     }
                                     else
                                     {
@@ -1462,7 +1462,7 @@ namespace ReconDataLayer
                             {
                                 if (sheetDt.Rows.Count > 0)
                                 {
-                                    var table = worksheet2.Cell(1, 1).InsertTable(sheetDt.AsEnumerable(), "MyTable", true);
+                                    var table = worksheet2.Cell(1, 1).InsertTable(sheetDt.AsEnumerable().Take(1048500).CopyToDataTable(), "MyTable", true);
                                 }
                                 else
                                 {
@@ -1527,7 +1527,7 @@ namespace ReconDataLayer
                                 if (dataTable.Rows.Count > 0)
                                 {
                                     //formatingexcelsheet(dataTable, worksheet, getfiledType);
-                                    worksheet.Cell(1, 1).InsertTable(dataTable.AsEnumerable());
+                                    worksheet.Cell(1, 1).InsertTable(dataTable.AsEnumerable().Take(1048500).CopyToDataTable());
                                 }
                                 else
                                 {
@@ -1551,7 +1551,7 @@ namespace ReconDataLayer
                             {
                                 if (dataTable.Rows.Count > 0)
                                 {
-                                    worksheet.Cell(1, 1).InsertTable(dataTable.AsEnumerable());
+                                    worksheet.Cell(1, 1).InsertTable(dataTable.AsEnumerable().Take(1048500).CopyToDataTable());
                                 }
                                 else
                                 {
@@ -1576,7 +1576,7 @@ namespace ReconDataLayer
             DataTable getDateFormat = getDateFormat1;
             DataTable getDateTimeFormat = getDatetimeFormat1;
             worksheet.Clear();
-            var table = worksheet.Cell(1, 1).InsertTable(data.AsEnumerable(), "MyTable", true);
+            var table = worksheet.Cell(1, 1).InsertTable(data.AsEnumerable().Take(1048500).CopyToDataTable(), "MyTable", true);
             for (int j = 0; j < data.Columns.Count; j++)
             {
                 for (int i = 0; i < getfiledType.Rows.Count; i++)
