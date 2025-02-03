@@ -73,7 +73,8 @@ namespace ReconModels
             public DateOnly in_period_from { get; set; }
             public DateOnly in_period_to { get; set; }
 			public DateOnly closure_date { get; set; }
-			public String in_until_active_flag { get; set; }
+            public DateOnly cycle_date { get; set; }
+            public String in_until_active_flag { get; set; }
             public String in_active_status { get; set; }            
             public String in_recon_date_flag { get; set; }
             public String in_recon_date_field { get; set; }
@@ -222,6 +223,7 @@ namespace ReconModels
         {
             public string in_recon_name { get; set; }
             public string in_clone_recon_code { get; set; }
+            public string in_datasetmap { get; set; }
 
         }
 
