@@ -219,7 +219,8 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_period_from", recon.in_period_from, DbType.Date));
 				parameters.Add(dbManager.CreateParameter("in_period_to", recon.in_period_to, DbType.Date));
 				parameters.Add(dbManager.CreateParameter("in_closure_date", recon.closure_date, DbType.Date));
-				parameters.Add(dbManager.CreateParameter("in_until_active_flag", recon.in_until_active_flag, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_cycle_date", recon.cycle_date, DbType.Date));
+                parameters.Add(dbManager.CreateParameter("in_until_active_flag", recon.in_until_active_flag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_recon_date_flag", recon.in_recon_date_flag, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_recon_date_field", recon.in_recon_date_field, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_recon_value_flag", recon.in_recon_value_flag, DbType.String));
@@ -440,13 +441,14 @@ namespace ReconDataLayer
 				DBManager dbManager = new DBManager(constring);
 				Dictionary<string, Object> values = new Dictionary<string, object>();
 				MySqlDataAccess con = new MySqlDataAccess("");
-				parameters = new List<IDbDataParameter>();
-				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+				parameters = new List<IDbDataParameter>();				
 				//parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
 				//parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_recon_name", objcloneRecon.in_recon_name, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_clone_recon_code", objcloneRecon.in_clone_recon_code, DbType.String));
-				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("in_datasetmap", objcloneRecon.in_datasetmap, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
 				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
 				parameters.Add(dbManager.CreateParameter("out_recon_code", "out", DbType.String, ParameterDirection.Output));
 				ds = dbManager.execStoredProcedure("pr_clone_recon", CommandType.StoredProcedure, parameters.ToArray());
