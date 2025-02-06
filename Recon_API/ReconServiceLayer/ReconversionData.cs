@@ -104,54 +104,6 @@ namespace ReconDataLayer
 				return result;
 			}
 		}
-		private PdfPTable PdfdynamicTableGenration_old(DataTable dt)
-		{
-			PdfPTable table = new PdfPTable(dt.Columns.Count) { WidthPercentage = 100 };
-			BaseColor borderColor = new BaseColor(217, 222, 227); // Gray color
-
-			foreach (DataColumn column in dt.Columns)
-			{
-				if (column.ColumnName == "-")
-				{
-					column.ColumnName = " ";
-				}
-				else if (column.ColumnName == "--")
-				{
-					column.ColumnName = "   ";
-				}
-				Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 8, BaseColor.WHITE);
-				table.AddCell(CreateHeaderCell(column.ColumnName, headerFont, new BaseColor(70, 130, 180)));
-			}
-			// Add rows
-			foreach (DataRow row in dt.Rows)
-			{
-				foreach (DataColumn column in dt.Columns)
-				{
-					Font dataFont = FontFactory.GetFont(FontFactory.HELVETICA, 8, BaseColor.BLACK);
-
-					PdfPCell cell = new PdfPCell(new Phrase(row[column].ToString(), dataFont))
-					{
-						BorderColor = borderColor
-					};
-					if (column.DataType == typeof(string))
-					{
-						cell.HorizontalAlignment = Element.ALIGN_LEFT;
-					}
-					else if (column.DataType == typeof(int) || column.DataType == typeof(float) || column.DataType == typeof(double) || column.DataType == typeof(decimal))
-					{
-						cell.HorizontalAlignment = Element.ALIGN_RIGHT;
-					}
-
-					// Vertical alignment
-					cell.VerticalAlignment = Element.ALIGN_MIDDLE;
-
-					table.AddCell(cell);
-				}
-			}
-
-			return table;
-		}
-
 		private PdfPTable PdfdynamicTableGenration(DataTable dt)
 		{
 			PdfPTable table = new PdfPTable(dt.Columns.Count) { WidthPercentage = 100 };
@@ -379,10 +331,11 @@ namespace ReconDataLayer
 					PdfPTable mainTable = new PdfPTable(3) { WidthPercentage = 100 };
 					mainTable.SetWidths(new float[] { 10f, 5f, 10f });
 
-					// Title
-					document.Add(CreateMainTitle1("Recon Version History - " + objReconReportVersionhistory.in_version_code));
-					tocEntries.Add(new TOCEntry("Content", "Page"));
-					tocEntries.Add(new TOCEntry("Recon Version History - " + objReconReportVersionhistory.in_version_code, writer.PageNumber));
+                    // Title
+                    string recon_name = dt1.Rows[0]["Recon Name"].ToString();
+                    document.Add(CreateMainTitle1(recon_name + " - " + "Version History - " + objReconReportVersionhistory.in_version_code));
+					tocEntries.Add(new TOCEntry("Content", "Page"));					
+                    tocEntries.Add(new TOCEntry(recon_name + " - " +"Version History - " + objReconReportVersionhistory.in_version_code, writer.PageNumber));
 
 					// Recon Code Column
 					PdfPTable reconCodeTable = new PdfPTable(1);
@@ -577,12 +530,345 @@ namespace ReconDataLayer
 						spacerTableAfter.AddCell(spacerCellAfter);
 						document.Add(spacerTableAfter);
 					}
-					document.NewPage();
-					/* Table Starts Rule */
-					if (dt2.Rows.Count > 1)
+                    /* Table Starts PreProcess */
+                    document.NewPage();
+                    if (dt4.Rows.Count > 1)
+                    {
+                        int preprocessalphabet;
+                        string Preprocessmaintitle = "PreProcess Details";
+                        tocEntries.Add(new TOCEntry(Preprocessmaintitle, writer.PageNumber));
+                        for (int i = 1; i < dt4.Rows.Count; i++)
+                        {
+                            preprocessalphabet = 0;
+                            PdfPTable mainTable3 = new PdfPTable(3) { WidthPercentage = 100 }; // PdfPTable(3) Number of columns
+                            mainTable3.SetWidths(new float[] { 10f, 10f, 10f }); // set width for the three column
+                            parameters = new List<IDbDataParameter>();
+                            parameters.Add(dbManager.CreateParameter("in_preprocess_code", Convert.ToString(dt4.Rows[i]["Preprocess Code"]), DbType.String));
+                            parameters.Add(dbManager.CreateParameter("in_recon_code", Convert.ToString(objReconReportVersionhistory.in_recon_code), DbType.String));
+                            parameters.Add(dbManager.CreateParameter("in_version_code", Convert.ToString(objReconReportVersionhistory.in_version_code), DbType.String));
+                            parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+                            parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+                            parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+                            ds = dbManager.execStoredProcedure("pr_report_preprocessdetails", CommandType.StoredProcedure, parameters.ToArray());
+                            document.Add(CreateTitle(i + ". " + "Preprocess Details" + " - " + dt4.Rows[i]["Preprocess Order"], ironbrown));
+                            string maintitle = tab1 + (i) + ". " + dt4.Rows[i]["Preprocess Name"] + " - Details";
+                            tocEntries.Add(new TOCEntry(maintitle, writer.PageNumber));
+
+                            //PreProcess Code
+                            PdfPTable preprocessCodeTable = new PdfPTable(1);
+                            preprocessCodeTable.AddCell(CreateLabelCell("PreProcess Code : " + dt4.Rows[i]["Preprocess Code"], true));
+                            PdfPCell preprocessCodeCell = new PdfPCell(preprocessCodeTable)
+                            {
+                                Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
+                                BackgroundColor = new BaseColor(230, 230, 250),
+                                BorderColor = borderColor
+                            };
+                            mainTable3.AddCell(preprocessCodeCell);
+                            //PreProcess Name
+                            PdfPTable preprocessNameTable = new PdfPTable(1);
+                            preprocessNameTable.AddCell(CreateLabelCell("PreProcess Name : " + dt4.Rows[i]["Preprocess Name"], true));
+                            PdfPCell preprocessNameCell = new PdfPCell(preprocessNameTable)
+                            {
+                                Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
+                                BackgroundColor = new BaseColor(230, 230, 250),
+                                BorderColor = borderColor
+                            };
+                            mainTable3.AddCell(preprocessNameCell);
+                            //PreProcess Method
+                            PdfPTable preprocessMethodTable = new PdfPTable(1);
+                            preprocessMethodTable.AddCell(CreateLabelCell("PreProcess Method : " + dt4.Rows[i]["Process Method Desc"], true));
+                            PdfPCell preprocessMethodCell = new PdfPCell(preprocessMethodTable)
+                            {
+                                Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
+                                BackgroundColor = new BaseColor(230, 230, 250),
+                                BorderColor = borderColor
+                            };
+                            mainTable3.AddCell(preprocessMethodCell);
+                            PdfPCell blankCella4 = new PdfPCell(new Phrase(" "))
+                            {
+                                Colspan = 3,
+                                FixedHeight = fh,
+                                Border = PdfPCell.NO_BORDER
+                            };
+                            mainTable3.AddCell(blankCella4);
+                            //Hold Flag
+                            PdfPTable preprocessHoldTable = new PdfPTable(1);
+                            preprocessHoldTable.AddCell(CreateLabelCell("Hold Flag : " + dt4.Rows[i]["Hold Flag"], true));
+                            PdfPCell preprocessHoldCell = new PdfPCell(preprocessHoldTable)
+                            {
+                                Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
+                                BackgroundColor = new BaseColor(230, 230, 250),
+                                BorderColor = borderColor
+                            };
+                            mainTable3.AddCell(preprocessHoldCell);
+                            //Preprocess Order
+                            PdfPTable preprocessOrderTable = new PdfPTable(1);
+                            preprocessOrderTable.AddCell(CreateLabelCell("Preprocess Order : " + dt4.Rows[i]["Preprocess Order"], true));
+                            PdfPCell preprocessOrderCell = new PdfPCell(preprocessOrderTable)
+                            {
+                                Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
+                                BackgroundColor = new BaseColor(230, 230, 250),
+                                BorderColor = borderColor
+                            };
+                            mainTable3.AddCell(preprocessOrderCell);
+                            // PostProcess Flag
+                            PdfPTable postProcessTable = new PdfPTable(1);
+                            postProcessTable.AddCell(CreateLabelCell("Post Process : " + dt4.Rows[i]["Post Process"], true));
+                            PdfPCell postProcessCell = new PdfPCell(postProcessTable)
+                            {
+                                Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
+                                BackgroundColor = new BaseColor(230, 230, 250),
+                                BorderColor = borderColor
+                            };
+                            mainTable3.AddCell(postProcessCell);
+                            // Space
+
+                            PdfPCell blankCella5 = new PdfPCell(new Phrase(" "))
+                            {
+                                Colspan = 3,
+                                FixedHeight = fh,
+                                Border = PdfPCell.NO_BORDER
+                            };
+                            mainTable3.AddCell(blankCella5);
+                            //Preprocess source Dataset
+                            PdfPTable sourceDatasetTable = new PdfPTable(1);
+                            sourceDatasetTable.AddCell(CreateLabelCell("Source Dataset : " + dt4.Rows[i]["Source Dataset"], true));
+                            PdfPCell sourceDatasetCell = new PdfPCell(sourceDatasetTable)
+                            {
+                                Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
+                                BackgroundColor = new BaseColor(230, 230, 250),
+                                BorderColor = borderColor
+                            };
+                            mainTable3.AddCell(sourceDatasetCell);
+
+                            // Preprocess Comparision Dataset
+                            PdfPTable comparisonDatasetTable = new PdfPTable(1);
+                            comparisonDatasetTable.AddCell(CreateLabelCell("Comparison Dataset : " + dt4.Rows[i]["Comparison Dataset"], true));
+                            PdfPCell comparisonDatasetCell = new PdfPCell(comparisonDatasetTable)
+                            {
+                                Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
+                                BackgroundColor = new BaseColor(230, 230, 250),
+                                BorderColor = borderColor
+                            };
+                            mainTable3.AddCell(comparisonDatasetCell);
+
+                            // Lookup Dataset
+                            PdfPTable lookupDatasetTable = new PdfPTable(1);
+                            lookupDatasetTable.AddCell(CreateLabelCell("Lookup Dataset : " + dt4.Rows[i]["Lookup Dataset"], true));
+                            PdfPCell lookupDatasetCell = new PdfPCell(lookupDatasetTable)
+                            {
+                                Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
+                                BackgroundColor = new BaseColor(230, 230, 250),
+                                BorderColor = borderColor
+                            };
+                            mainTable3.AddCell(lookupDatasetCell);
+                            // Space
+                            PdfPCell blankCell6 = new PdfPCell(new Phrase(" "))
+                            {
+                                Colspan = 3,
+                                FixedHeight = fh,
+                                Border = PdfPCell.NO_BORDER
+                            };
+                            mainTable3.AddCell(blankCell6);
+                            document.Add(mainTable3);
+                            // Lookup Dataset
+                            if (ds.Tables[1].Rows.Count > 1 && dt4.Rows[i]["Process Method"].ToString() == "QCD_LOOKUP")
+                            {
+                                string _alpha = alphabet[preprocessalphabet];
+                                string mainTitle = tab2 + (i) + _alpha + " Lookup Dataset";
+                                document.Add(CreateTitle("Lookup Dataset", mustardYellow));
+                                tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
+                                document.Add(PdfdynamicTableGenration(ds.Tables[1]));
+                                PdfPTable spacerTableAfter3 = new PdfPTable(1);
+                                PdfPCell spacerCellAfter3 = new PdfPCell(new Phrase(" "))
+                                {
+                                    FixedHeight = fh,
+                                    Border = PdfPCell.NO_BORDER
+                                };
+                                spacerTableAfter3.AddCell(spacerCellAfter3);
+                                document.Add(spacerTableAfter3);
+                                preprocessalphabet = preprocessalphabet + 1;
+                            }
+                            // Recon (VS) look up condition
+                            if (ds.Tables[2].Rows.Count > 1)
+                            {
+                                string _alpha = alphabet[preprocessalphabet];
+                                string mainTitle = tab2 + (i) + _alpha + " Recon Vs Lookup Condition";
+                                document.Add(CreateTitle("Recon Vs Lookup Condition", mustardYellow));
+                                tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
+                                document.Add(PdfdynamicTableGenration(ds.Tables[2]));
+                                PdfPTable spacerTableAfter3 = new PdfPTable(1);
+                                PdfPCell spacerCellAfter3 = new PdfPCell(new Phrase(" "))
+                                {
+                                    FixedHeight = fh,
+                                    Border = PdfPCell.NO_BORDER
+                                };
+                                spacerTableAfter3.AddCell(spacerCellAfter3);
+                                document.Add(spacerTableAfter3);
+                                preprocessalphabet = preprocessalphabet + 1;
+                            }
+                            //Lookup Vs Recon
+
+                            if (ds.Tables[3].Rows.Count > 1)
+                            {
+                                string _alpha = alphabet[preprocessalphabet];
+                                string mainTitle = tab2 + (i) + _alpha + " Lookup Vs Recon";
+                                document.Add(CreateTitle("Lookup Vs Recon", mustardYellow));
+                                tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
+                                document.Add(PdfdynamicTableGenration(ds.Tables[3]));
+                                PdfPTable spacerTableAfter4 = new PdfPTable(1);
+                                PdfPCell spacerCellAfter4 = new PdfPCell(new Phrase(" "))
+                                {
+                                    FixedHeight = fh,
+                                    Border = PdfPCell.NO_BORDER
+                                };
+                                spacerTableAfter4.AddCell(spacerCellAfter4);
+                                document.Add(spacerTableAfter4);
+                                preprocessalphabet = preprocessalphabet + 1;
+                            }
+                            // Lookup Filter
+
+                            if (ds.Tables[4].Rows.Count > 1)
+                            {
+                                string _alpha = alphabet[preprocessalphabet];
+                                string mainTitle = tab2 + (i) + _alpha + " Lookup Filter";
+                                document.Add(CreateTitle("Lookup Filter", mustardYellow));
+                                tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
+                                document.Add(PdfdynamicTableGenration(ds.Tables[4]));
+                                PdfPTable spacerTableAfter5 = new PdfPTable(1);
+                                PdfPCell spacerCellAfter5 = new PdfPCell(new Phrase(" "))
+                                {
+                                    FixedHeight = fh,
+                                    Border = PdfPCell.NO_BORDER
+                                };
+                                spacerTableAfter5.AddCell(spacerCellAfter5);
+                                document.Add(spacerTableAfter5);
+                                preprocessalphabet = preprocessalphabet + 1;
+                            }
+                            //Recon Filter
+                            if (ds.Tables[5].Rows.Count > 1)
+                            {
+                                string _alpha = alphabet[preprocessalphabet];
+                                string mainTitle = tab2 + (i) + _alpha + " Recon Filter";
+                                document.Add(CreateTitle("Recon Filter", mustardYellow));
+                                tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
+                                document.Add(PdfdynamicTableGenration(ds.Tables[5]));
+                                PdfPTable spacerTableAfter6 = new PdfPTable(1);
+                                PdfPCell spacerCellAfter6 = new PdfPCell(new Phrase(" "))
+                                {
+                                    FixedHeight = fh,
+                                    Border = PdfPCell.NO_BORDER
+                                };
+                                spacerTableAfter6.AddCell(spacerCellAfter6);
+                                document.Add(spacerTableAfter6);
+                                preprocessalphabet = preprocessalphabet + 1;
+                            }
+                            // Query 
+
+                            if (dt4.Rows[i]["Process Method"].ToString() == "QCD_QUERY" && ds.Tables[6].Rows.Count > 1)
+                            {
+                                string _alpha = alphabet[preprocessalphabet];
+                                string mainTitle = tab2 + (i) + _alpha + " Query";
+                                document.Add(CreateTitle("Query", mustardYellow));
+                                tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
+                                document.Add(PdfdynamicTableGenration(ds.Tables[6]));
+                                PdfPTable spacerTableAfter7 = new PdfPTable(1);
+                                PdfPCell spacerCellAfter7 = new PdfPCell(new Phrase(" "))
+                                {
+                                    FixedHeight = fh,
+                                    Border = PdfPCell.NO_BORDER
+                                };
+                                spacerTableAfter7.AddCell(spacerCellAfter7);
+                                document.Add(spacerTableAfter7);
+                                preprocessalphabet = preprocessalphabet + 1;
+                            }
+
+                            // Expression 
+
+                            if (dt4.Rows[i]["Process Method"].ToString() == "QCD_EXPRESSION" && ds.Tables[7].Rows.Count > 1)
+                            {
+                                string _alpha = alphabet[preprocessalphabet];
+                                string mainTitle = tab2 + (i) + _alpha + " Expression";
+                                document.Add(CreateTitle("Expression", mustardYellow));
+                                tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
+                                document.Add(PdfdynamicTableGenration(ds.Tables[7]));
+                                PdfPTable spacerTableAfter8 = new PdfPTable(1);
+                                PdfPCell spacerCellAfter8 = new PdfPCell(new Phrase(" "))
+                                {
+                                    FixedHeight = fh,
+                                    Border = PdfPCell.NO_BORDER
+                                };
+                                spacerTableAfter8.AddCell(spacerCellAfter8);
+                                document.Add(spacerTableAfter8);
+                                preprocessalphabet = preprocessalphabet + 1;
+                            }
+                            // Cumulative order / Recon Order
+                            if (ds.Tables[8].Rows.Count > 1)
+                            {
+                                string _alpha = alphabet[preprocessalphabet];
+                                string mainTitle = tab2 + (i) + _alpha + " Recon Order";
+                                document.Add(CreateTitle("Recon Order", mustardYellow));
+                                tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
+                                document.Add(PdfdynamicTableGenration(ds.Tables[8]));
+                                PdfPTable spacerTableAfter9 = new PdfPTable(1);
+                                PdfPCell spacerCellAfter9 = new PdfPCell(new Phrase(" "))
+                                {
+                                    FixedHeight = fh,
+                                    Border = PdfPCell.NO_BORDER
+                                };
+                                spacerTableAfter9.AddCell(spacerCellAfter9);
+                                document.Add(spacerTableAfter9);
+                                preprocessalphabet = preprocessalphabet + 1;
+                            }
+                            // Aggregation
+                            if (ds.Tables[9].Rows.Count > 1)
+                            {
+                                string _alpha = alphabet[preprocessalphabet];
+                                string mainTitle = tab2 + (i) + _alpha + " Aggregation";
+                                document.Add(CreateTitle("Aggregation", mustardYellow));
+                                tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
+                                document.Add(PdfdynamicTableGenration(ds.Tables[9]));
+                                PdfPTable spacerTableAfter10 = new PdfPTable(1);
+                                PdfPCell spacerCellAfter10 = new PdfPCell(new Phrase(" "))
+                                {
+                                    FixedHeight = fh,
+                                    Border = PdfPCell.NO_BORDER
+                                };
+                                spacerTableAfter10.AddCell(spacerCellAfter10);
+                                document.Add(spacerTableAfter10);
+                                preprocessalphabet = preprocessalphabet + 1;
+                            }
+
+                            // Function
+                            if (ds.Tables[10].Rows.Count > 1)
+                            {
+                                string _alpha = alphabet[preprocessalphabet];
+                                string mainTitle = tab2 + (i) + _alpha + " Function";
+                                document.Add(CreateTitle("Function", mustardYellow));
+                                tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
+                                document.Add(PdfdynamicTableGenration(ds.Tables[10]));
+                                PdfPTable spacerTableAfter11 = new PdfPTable(1);
+                                PdfPCell spacerCellAfter11 = new PdfPCell(new Phrase(" "))
+                                {
+                                    FixedHeight = fh,
+                                    Border = PdfPCell.NO_BORDER
+                                };
+                                spacerTableAfter11.AddCell(spacerCellAfter11);
+                                document.Add(spacerTableAfter11);
+                                preprocessalphabet = preprocessalphabet + 1;
+                            }
+                        }
+                    }
+                    /* Table Ends PreProcess */
+
+                    /* Table Starts Rule */
+                    document.NewPage();
+                    if (dt2.Rows.Count > 1)
 					{
 						int rulealphabet;
-						for (int i = 1; i < dt2.Rows.Count; i++)
+                        string Rulemaintitle = "Rule Details";
+                        tocEntries.Add(new TOCEntry(Rulemaintitle, writer.PageNumber));
+                        for (int i = 1; i < dt2.Rows.Count; i++)
 						{
 							rulealphabet = 0;
 							PdfPTable mainTable1 = new PdfPTable(3) { WidthPercentage = 100 };
@@ -930,7 +1216,9 @@ namespace ReconDataLayer
 					if (dt3.Rows.Count > 1)
 					{
 						int themealphabet;
-						for (int i = 1; i < dt3.Rows.Count; i++)
+                        string Thememaintitle = "Theme Details";
+                        tocEntries.Add(new TOCEntry(Thememaintitle, writer.PageNumber));
+                        for (int i = 1; i < dt3.Rows.Count; i++)
 						{
 							themealphabet = 0;
 							PdfPTable mainTable2 = new PdfPTable(3) { WidthPercentage = 100 }; // PdfPTable(3) Number of columns
@@ -1198,271 +1486,7 @@ namespace ReconDataLayer
 						}
 					}
 					/* Table Ends Theme */
-					/* Table Starts PreProcess */
-					document.NewPage();
-					if (dt4.Rows.Count > 1)
-					{
-						int preprocessalphabet;
-						for (int i = 1; i < dt4.Rows.Count; i++)
-						{
-							preprocessalphabet = 0;
-							PdfPTable mainTable3 = new PdfPTable(3) { WidthPercentage = 100 }; // PdfPTable(3) Number of columns
-							mainTable3.SetWidths(new float[] { 10f, 10f, 10f }); // set width for the three column
-							parameters = new List<IDbDataParameter>();
-							parameters.Add(dbManager.CreateParameter("in_preprocess_code", Convert.ToString(dt4.Rows[i]["Preprocess Code"]), DbType.String));
-							parameters.Add(dbManager.CreateParameter("in_recon_code", Convert.ToString(objReconReportVersionhistory.in_recon_code), DbType.String));
-							parameters.Add(dbManager.CreateParameter("in_version_code", Convert.ToString(objReconReportVersionhistory.in_version_code), DbType.String));
-							parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
-							parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
-							parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
-							ds = dbManager.execStoredProcedure("pr_report_preprocessdetails", CommandType.StoredProcedure, parameters.ToArray());
-							document.Add(CreateTitle(i + ". " + "Preprocess Details" + " - " + dt3.Rows[i]["Preprocess Order"], ironbrown));
-							string maintitle = tab1 + (i) + ". " + dt4.Rows[i]["Preprocess Name"] + " - Details";
-							tocEntries.Add(new TOCEntry(maintitle, writer.PageNumber));
-
-							//PreProcess Code
-							PdfPTable preprocessCodeTable = new PdfPTable(1);
-							preprocessCodeTable.AddCell(CreateLabelCell("PreProcess Code : " + dt4.Rows[i]["Preprocess Code"], true));
-							PdfPCell preprocessCodeCell = new PdfPCell(preprocessCodeTable)
-							{
-								Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
-								BackgroundColor = new BaseColor(230, 230, 250),
-								BorderColor = borderColor
-							};
-							mainTable3.AddCell(preprocessCodeCell);
-							//PreProcess Name
-							PdfPTable preprocessNameTable = new PdfPTable(1);
-							preprocessNameTable.AddCell(CreateLabelCell("PreProcess Name : " + dt4.Rows[i]["Preprocess Name"], true));
-							PdfPCell preprocessNameCell = new PdfPCell(preprocessNameTable)
-							{
-								Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
-								BackgroundColor = new BaseColor(230, 230, 250),
-								BorderColor = borderColor
-							};
-							mainTable3.AddCell(preprocessNameCell);
-							//PreProcess Method
-							PdfPTable preprocessMethodTable = new PdfPTable(1);
-							preprocessMethodTable.AddCell(CreateLabelCell("PreProcess Method : " + dt4.Rows[i]["Process Method Desc"], true));
-							PdfPCell preprocessMethodCell = new PdfPCell(preprocessMethodTable)
-							{
-								Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
-								BackgroundColor = new BaseColor(230, 230, 250),
-								BorderColor = borderColor
-							};
-							mainTable3.AddCell(preprocessMethodCell);
-							PdfPCell blankCella4 = new PdfPCell(new Phrase(" "))
-							{
-								Colspan = 3,
-								FixedHeight = fh,
-								Border = PdfPCell.NO_BORDER
-							};
-							mainTable3.AddCell(blankCella4);
-							//Hold Flag
-							PdfPTable preprocessHoldTable = new PdfPTable(1);
-							preprocessHoldTable.AddCell(CreateLabelCell("Hold Flag : " + dt4.Rows[i]["Hold Flag"], true));
-							PdfPCell preprocessHoldCell = new PdfPCell(preprocessHoldTable)
-							{
-								Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
-								BackgroundColor = new BaseColor(230, 230, 250),
-								BorderColor = borderColor
-							};
-							mainTable3.AddCell(preprocessHoldCell);
-							//Preprocess Order
-							PdfPTable preprocessOrderTable = new PdfPTable(1);
-							preprocessOrderTable.AddCell(CreateLabelCell("Preprocess Order : " + dt4.Rows[i]["Preprocess Order"], true));
-							PdfPCell preprocessOrderCell = new PdfPCell(preprocessOrderTable)
-							{
-								Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
-								BackgroundColor = new BaseColor(230, 230, 250),
-								BorderColor = borderColor
-							};
-							mainTable3.AddCell(preprocessOrderCell);
-							// Add an empty blank space
-							PdfPCell blankCellPreProcess = new PdfPCell(new Phrase(" "))
-							{
-								Colspan = 3,
-								FixedHeight = fh,
-								Border = PdfPCell.NO_BORDER
-							};
-							PdfPCell blankCell6 = new PdfPCell(new Phrase(" "))
-							{
-								Colspan = 3,
-								FixedHeight = fh,
-								Border = PdfPCell.NO_BORDER
-							};
-							mainTable3.AddCell(blankCell6);
-							mainTable3.AddCell(blankCellPreProcess);
-							document.Add(mainTable3);
-							// Lookup Dataset
-							if (ds.Tables[1].Rows.Count > 1)
-							{
-								string _alpha = alphabet[preprocessalphabet];
-								string mainTitle = tab2 + (i) + _alpha + " Lookup Dataset";
-								document.Add(CreateTitle("Lookup Dataset", mustardYellow));
-								tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
-								document.Add(PdfdynamicTableGenration(ds.Tables[1]));
-								PdfPTable spacerTableAfter3 = new PdfPTable(1);
-								PdfPCell spacerCellAfter3 = new PdfPCell(new Phrase(" "))
-								{
-									FixedHeight = fh,
-									Border = PdfPCell.NO_BORDER
-								};
-								spacerTableAfter3.AddCell(spacerCellAfter3);
-								document.Add(spacerTableAfter3);
-								preprocessalphabet = preprocessalphabet + 1;
-							}
-							// Recon (VS) look up condition
-							if (ds.Tables[2].Rows.Count > 1)
-							{
-								string _alpha = alphabet[preprocessalphabet];
-								string mainTitle = tab2 + (i) + _alpha + " Recon Vs Lookup Condition";
-								document.Add(CreateTitle("Recon Vs Lookup Condition", mustardYellow));
-								tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
-								document.Add(PdfdynamicTableGenration(ds.Tables[2]));
-								PdfPTable spacerTableAfter3 = new PdfPTable(1);
-								PdfPCell spacerCellAfter3 = new PdfPCell(new Phrase(" "))
-								{
-									FixedHeight = fh,
-									Border = PdfPCell.NO_BORDER
-								};
-								spacerTableAfter3.AddCell(spacerCellAfter3);
-								document.Add(spacerTableAfter3);
-								preprocessalphabet = preprocessalphabet + 1;
-							}
-							//Lookup Vs Recon
-
-							if (ds.Tables[3].Rows.Count > 1)
-							{
-								string _alpha = alphabet[preprocessalphabet];
-								string mainTitle = tab2 + (i) + _alpha + " Lookup Vs Recon";
-								document.Add(CreateTitle("Lookup Vs Recon", mustardYellow));
-								tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
-								document.Add(PdfdynamicTableGenration(ds.Tables[3]));
-								PdfPTable spacerTableAfter4 = new PdfPTable(1);
-								PdfPCell spacerCellAfter4 = new PdfPCell(new Phrase(" "))
-								{
-									FixedHeight = fh,
-									Border = PdfPCell.NO_BORDER
-								};
-								spacerTableAfter4.AddCell(spacerCellAfter4);
-								document.Add(spacerTableAfter4);
-								preprocessalphabet = preprocessalphabet + 1;
-							}
-							// Lookup Filter
-
-							if (ds.Tables[4].Rows.Count > 1)
-							{
-								string _alpha = alphabet[preprocessalphabet];
-								string mainTitle = tab2 + (i) + _alpha + " Lookup Filter";
-								document.Add(CreateTitle("Lookup Filter", mustardYellow));
-								tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
-								document.Add(PdfdynamicTableGenration(ds.Tables[4]));
-								PdfPTable spacerTableAfter5 = new PdfPTable(1);
-								PdfPCell spacerCellAfter5 = new PdfPCell(new Phrase(" "))
-								{
-									FixedHeight = fh,
-									Border = PdfPCell.NO_BORDER
-								};
-								spacerTableAfter5.AddCell(spacerCellAfter5);
-								document.Add(spacerTableAfter5);
-								preprocessalphabet = preprocessalphabet + 1;
-							}
-							//Recon Filter
-							if (ds.Tables[5].Rows.Count > 1)
-							{
-								string _alpha = alphabet[preprocessalphabet];
-								string mainTitle = tab2 + (i) + _alpha + " Recon Filter";
-								document.Add(CreateTitle("Recon Filter", mustardYellow));
-								tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
-								document.Add(PdfdynamicTableGenration(ds.Tables[5]));
-								PdfPTable spacerTableAfter6 = new PdfPTable(1);
-								PdfPCell spacerCellAfter6 = new PdfPCell(new Phrase(" "))
-								{
-									FixedHeight = fh,
-									Border = PdfPCell.NO_BORDER
-								};
-								spacerTableAfter6.AddCell(spacerCellAfter6);
-								document.Add(spacerTableAfter6);
-								preprocessalphabet = preprocessalphabet + 1;
-							}
-							// Query 
-
-							if (dt4.Rows[i]["Process Method"].ToString() == "QCD_QUERY" && ds.Tables[6].Rows.Count > 1)
-							{
-								string _alpha = alphabet[preprocessalphabet];
-								string mainTitle = tab2 + (i) + _alpha + " Query";
-								document.Add(CreateTitle("Query", mustardYellow));
-								tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
-								document.Add(PdfdynamicTableGenration(ds.Tables[6]));
-								PdfPTable spacerTableAfter7 = new PdfPTable(1);
-								PdfPCell spacerCellAfter7 = new PdfPCell(new Phrase(" "))
-								{
-									FixedHeight = fh,
-									Border = PdfPCell.NO_BORDER
-								};
-								spacerTableAfter7.AddCell(spacerCellAfter7);
-								document.Add(spacerTableAfter7);
-								preprocessalphabet = preprocessalphabet + 1;
-							}
-
-							// Expression 
-
-							if (dt4.Rows[i]["Process Method"].ToString() == "QCD_EXPRESSION" && ds.Tables[7].Rows.Count > 1)
-							{
-								string _alpha = alphabet[preprocessalphabet];
-								string mainTitle = tab2 + (i) + _alpha + " Expression";
-								document.Add(CreateTitle("Expression", mustardYellow));
-								tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
-								document.Add(PdfdynamicTableGenration(ds.Tables[7]));
-								PdfPTable spacerTableAfter8 = new PdfPTable(1);
-								PdfPCell spacerCellAfter8 = new PdfPCell(new Phrase(" "))
-								{
-									FixedHeight = fh,
-									Border = PdfPCell.NO_BORDER
-								};
-								spacerTableAfter8.AddCell(spacerCellAfter8);
-								document.Add(spacerTableAfter8);
-								preprocessalphabet = preprocessalphabet + 1;
-							}
-							// Cumulative order / Recon Order
-							if (ds.Tables[8].Rows.Count > 1)
-							{
-								string _alpha = alphabet[preprocessalphabet];
-								string mainTitle = tab2 + (i) + _alpha + " Recon Order";
-								document.Add(CreateTitle("Recon Order", mustardYellow));
-								tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
-								document.Add(PdfdynamicTableGenration(ds.Tables[8]));
-								PdfPTable spacerTableAfter9 = new PdfPTable(1);
-								PdfPCell spacerCellAfter9 = new PdfPCell(new Phrase(" "))
-								{
-									FixedHeight = fh,
-									Border = PdfPCell.NO_BORDER
-								};
-								spacerTableAfter9.AddCell(spacerCellAfter9);
-								document.Add(spacerTableAfter9);
-								preprocessalphabet = preprocessalphabet + 1;
-							}
-							// Aggregation
-							if (ds.Tables[9].Rows.Count > 1)
-							{
-								string _alpha = alphabet[preprocessalphabet];
-								string mainTitle = tab2 + (i) + _alpha + " Aggregation";
-								document.Add(CreateTitle("Aggregation", mustardYellow));
-								tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
-								document.Add(PdfdynamicTableGenration(ds.Tables[9]));
-								PdfPTable spacerTableAfter10 = new PdfPTable(1);
-								PdfPCell spacerCellAfter10 = new PdfPCell(new Phrase(" "))
-								{
-									FixedHeight = fh,
-									Border = PdfPCell.NO_BORDER
-								};
-								spacerTableAfter10.AddCell(spacerCellAfter10);
-								document.Add(spacerTableAfter10);
-								preprocessalphabet = preprocessalphabet + 1;
-							}
-						}
-					}
-					/* Table Ends PreProcess */
+					
 					document.Close();
 					byte[] pdfBytes = ms.ToArray();
 
@@ -1573,20 +1597,6 @@ namespace ReconDataLayer
 				Title = title;
 				PageInfo = pageInfo;
 			}
-		}
-		private Paragraph CreateMainTitle(string title)
-		{
-			iTextSharp.text.Font boldFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10, iTextSharp.text.Font.BOLD);
-			Paragraph prgHeading = new Paragraph("", boldFont)
-			{
-				Alignment = Element.ALIGN_CENTER,
-				SpacingBefore = 10f,
-				SpacingAfter = 0
-			};
-			Chunk headingChunk = new Chunk(title.ToUpper(), boldFont);
-			headingChunk.SetUnderline(0.5f, -1.5f);
-			prgHeading.Add(headingChunk);
-			return prgHeading;
 		}
 	}
 }
