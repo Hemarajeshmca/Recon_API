@@ -181,7 +181,6 @@ namespace ReconModels
             public string import_date { get; set; }
             public int file_gid { get; set; }
             public string file_name { get; set; }
-
             public string particular { get; set; }
             public string amount { get; set; }
             public string accmode { get; set; }
@@ -241,6 +240,11 @@ namespace ReconModels
         {
             public string in_recon_code { get; set; }
             public string in_tran_date { get; set; }
+        }
+
+        public class openingbalanceDatasetModel
+        {
+            public string in_recon_code { get; set; }
         }
 
         public class ArcheiveReconobj
