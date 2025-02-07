@@ -296,7 +296,6 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
-
         //ArcheiveReconService
 
         public static DataTable ArcheiveReconService(ArcheiveReconobj objArcheiveRecon, UserManagementModel.headerValue headerval, string constring)

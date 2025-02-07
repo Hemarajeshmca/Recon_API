@@ -181,6 +181,7 @@ namespace ReconModels
             public string import_date { get; set; }
             public int file_gid { get; set; }
             public string file_name { get; set; }
+
             public string particular { get; set; }
             public string amount { get; set; }
             public string accmode { get; set; }
