@@ -10,16 +10,16 @@ namespace ReconModels
     {
         public class Recontype
         {
-  
+
         }
-		public class Datasetfieldlist
-		{
-			public string? datasetCode { get; set; }
-		}
-		public class Reconlist
+        public class Datasetfieldlist
+        {
+            public string? datasetCode { get; set; }
+        }
+        public class Reconlist
         {
             public string? in_user_code { get; set; }
-           
+
         }
 
         public class fetchRecon
@@ -42,28 +42,28 @@ namespace ReconModels
             public string? in_user_code { get; set; }
 
         }
-		public class datamappingdel
-		{			
-			public Int16? in_reconfieldmapping_gid { get; set; }
-			public string? in_action { get; set; }
-		}
-		public class datafieldmodel
-		{
-			public Int16? in_reconfield_gid { get; set; }
-			public string? in_recon_code { get; set; }
-			public string? in_recon_field_name { get; set; }
-			public Decimal? in_display_order { get; set; }
-			public string? field_length { get; set; }
-			public int? precision_length { get; set; }
-			public int? scale_length { get; set; }
-			public string? field_type { get; set; }
-			public string? in_active_status { get; set; }
-			public string? in_action { get; set; }
-			public string? in_user_code { get; set; }
-			public String? out_msg { get; set; }
-			public Int16? out_result { get; set; }
-		}
-		public class Recon
+        public class datamappingdel
+        {
+            public Int16? in_reconfieldmapping_gid { get; set; }
+            public string? in_action { get; set; }
+        }
+        public class datafieldmodel
+        {
+            public Int16? in_reconfield_gid { get; set; }
+            public string? in_recon_code { get; set; }
+            public string? in_recon_field_name { get; set; }
+            public Decimal? in_display_order { get; set; }
+            public string? field_length { get; set; }
+            public int? precision_length { get; set; }
+            public int? scale_length { get; set; }
+            public string? field_type { get; set; }
+            public string? in_active_status { get; set; }
+            public string? in_action { get; set; }
+            public string? in_user_code { get; set; }
+            public String? out_msg { get; set; }
+            public Int16? out_result { get; set; }
+        }
+        public class Recon
         {
             public Int16? in_recon_gid { get; set; }
             public String in_recon_code { get; set; }
@@ -72,20 +72,20 @@ namespace ReconModels
             public String in_recon_automatch_partial { get; set; }
             public DateOnly in_period_from { get; set; }
             public DateOnly in_period_to { get; set; }
-			public DateOnly closure_date { get; set; }
+            public DateOnly closure_date { get; set; }
             public DateOnly cycle_date { get; set; }
             public String in_until_active_flag { get; set; }
-            public String in_active_status { get; set; }            
+            public String in_active_status { get; set; }
             public String in_recon_date_flag { get; set; }
             public String in_recon_date_field { get; set; }
             public String in_recon_value_flag { get; set; }
             public String in_recon_value_field { get; set; }
             public Double in_threshold_plus_value { get; set; }
             public Double in_threshold_minus_value { get; set; }
-			public String in_active_reason { get; set; }
+            public String in_active_reason { get; set; }
 
-			public String threshold_code { get; set; }
-			public String in_action { get; set; }
+            public String threshold_code { get; set; }
+            public String in_action { get; set; }
             public String in_action_by { get; set; }
             public String? out_msg { get; set; }
             public Int16? out_result { get; set; }
@@ -109,16 +109,16 @@ namespace ReconModels
         {
             public String? in_recon_code { get; set; }
             public String? in_recon_field_name { get; set; }
-			public String? in_dataset_code { get; set; }
-		}
+            public String? in_dataset_code { get; set; }
+        }
 
         public class getCondition
         {
             public String? in_condition_type { get; set; }
-            public String? in_field_type { get; set;}
+            public String? in_field_type { get; set; }
             public String? in_recon_code { get; set; }
 
-		}
+        }
 
         public class getdataagainsRecon
         {
@@ -128,18 +128,18 @@ namespace ReconModels
         public class getFieldAgainstReconList
         {
             public String? in_recon_code { get; set; }
-		}
+        }
 
         public class getruleagainstRecon
         {
-			public String? in_recon_code { get; set; }
+            public String? in_recon_code { get; set; }
             // public String? in_rule_apply_on { get; set; }
-		}
+        }
 
         public class Reconagainsttypecode
         {
-			public string? in_recontype_code { get; set; }
-		}
+            public string? in_recontype_code { get; set; }
+        }
 
         public class Report_model
         {
@@ -230,12 +230,12 @@ namespace ReconModels
         public class cloneReconDatasetModel
         {
             public string in_recon_code { get; set; }
-			public string in_dataset_code { get; set; }
+            public string in_dataset_code { get; set; }
             public string in_dataset_type { get; set; }
             public string in_parent_dataset_code { get; set; }
-			public string in_clone_recon_code { get; set; }
-			public string in_clone_dataset_code { get; set; }
-		}
+            public string in_clone_recon_code { get; set; }
+            public string in_clone_dataset_code { get; set; }
+        }
 
         public class MonthendReportModel
         {
@@ -248,5 +248,11 @@ namespace ReconModels
             public string in_recon_code { get; set; }
         }
 
-	}
+        public class ArcheiveReconobj
+        {
+            public string in_recon_code { get; set; }
+            public string in_user_code { get; set; }
+        }
+
+    }
 }

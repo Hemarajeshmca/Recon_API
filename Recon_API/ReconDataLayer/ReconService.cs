@@ -296,5 +296,20 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
-	}
+        //ArcheiveReconService
+
+        public static DataTable ArcheiveReconService(ArcheiveReconobj objArcheiveRecon, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                ReconData objqcd = new ReconData();
+                ds = objqcd.ArcheiveReconData(objArcheiveRecon, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+
+    }
 }
