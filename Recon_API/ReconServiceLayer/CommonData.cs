@@ -1,4 +1,5 @@
-﻿using ReconModels;
+﻿using DocumentFormat.OpenXml.Drawing.Diagrams;
+using ReconModels;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -44,9 +45,9 @@ namespace ReconDataLayer
 			}
 		}
 
-        public void logger(string sMessage)
+        public void logger_old(string sMessage)
         {
-            string logFilePath = "D:\\recon_logger\\error.log"; // "D:\\DMS Error Log\\error.log";
+            string logFilePath = "D:\\recon_logger\\error.log";
 
             string[] parts = sMessage.Split(new string[] { "SP:", "Message:" }, StringSplitOptions.None);
             string result = parts[1].Trim();
@@ -57,23 +58,35 @@ namespace ReconDataLayer
             objmodel.in_source_name = "SP";
             objmodel.user_code = "Hema";
             commonData(objmodel, constring1);
-            // Ensure the directory exists
             string logDirectory = Path.GetDirectoryName(logFilePath);
             if (!Directory.Exists(logDirectory))
             {
                 Directory.CreateDirectory(logDirectory);
             }
-
-            // Append the error information to the log file
             using (StreamWriter writer = new StreamWriter(logFilePath, true))
             {
                 writer.WriteLine($"Timestamp: {DateTime.Now}");
-
                 writer.WriteLine($"Message: {sMessage}");
-                writer.WriteLine(new string('-', 40)); // Separator between entries
+                writer.WriteLine(new string('-', 40)); 
             }
+
         }
 
+		public void logger(string sMessage)
+		{
+            string log_folderpath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Errorlog");
+            string errorlogfilePath = log_folderpath + '/' + "error_log.txt";
+            if (!Directory.Exists(log_folderpath))
+            {
+                Directory.CreateDirectory(log_folderpath);
+            }
+            using (StreamWriter writer = new StreamWriter(errorlogfilePath, true))
+            {
+                writer.WriteLine($"Timestamp: {DateTime.Now}");
+                writer.WriteLine($"Message: {sMessage}");
+                writer.WriteLine(new string('-', 40));
+            }
+        }
 
         //configvalueData
         public DataTable configvalueData(configvalueModel objconfigvalue, headerValue hv, string constring)

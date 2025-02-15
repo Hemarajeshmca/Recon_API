@@ -6,6 +6,7 @@ using static ReconModels.DatasettoReconmodel;
 using static ReconModels.UserManagementModel;
 using System.Data;
 using static ReconModels.ReconVersionmodel;
+using ReconDataLayer;
 
 namespace Recon_API.Controllers
 {
@@ -113,23 +114,13 @@ namespace Recon_API.Controllers
                 header_value.role_code = getRoleCode;
                 string imagePath = Path.Combine(_webHostEnvironment.ContentRootPath, "Image", "footerlogo_new.png");
                 byte[] pdfBytes = _reconVersionService.ReconReportVersionhistoryService(objReconReportVersionhistory, header_value, constring, imagePath);
-                //var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
-                //if (pdfBytes != null)
-                //{
-                //    return File(pdfBytes, "application/pdf", "Recon_Version.pdf");
-                //}
-                //else
-                //{
-                //    // Handle the case where pdfBytes is null
-                //    byte[] errorBytes = System.Text.Encoding.UTF8.GetBytes("Error generating PDF");
-                //    return File(errorBytes, "application/pdf", "Error.pdf");
-                //}
                 return File(pdfBytes, "application/pdf", "Recon_Version.pdf");
-                //return pdfBytes;
             }
             catch (Exception ex)
             {
-                return null;
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("ReconReportVersionhistory_Controller" + "Error Message:" + ex.Message);
+                throw ex;
             }
         }
 

@@ -55,7 +55,6 @@ namespace ReconServiceLayer
             {
                 ReconversionData objDS = new ReconversionData();
                 byte[] pdfBytes = objDS.ReconReportVersionhistoryData(objReconReportVersionhistory, headerval, constring, logoPath);
-				// return File(pdfBytes, "application/pdf", "Recon_Version.pdf");
 				return pdfBytes;
             }
             catch (Exception e)
