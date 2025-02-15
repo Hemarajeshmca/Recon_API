@@ -44,7 +44,6 @@ namespace ReconDataLayer
 				return ds;
 			}
 		}
-
 		public DataSet ReconVersionhistorydata(ReconVersionhsitorylist Objmodel, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
@@ -70,12 +69,11 @@ namespace ReconDataLayer
 			catch (Exception ex)
 			{
 				CommonHeader objlog = new CommonHeader();
-				objlog.logger("SP:pr_fetch_reconversionhistory" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(Objmodel), "pr_fetch_reconversionhistory", headerval.user_code, constring);
+                objlog.logger("SP:pr_fetch_reconversionhistory" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(Objmodel), "pr_fetch_reconversionhistory", headerval.user_code, constring);
 				return ds;
 			}
 		}
-
 		public DataTable ReconVersionsavedata(ReconVersionmodelsave Objmodel, UserManagementModel.headerValue headerval, string constring)
 		{
 			try
@@ -112,13 +110,10 @@ namespace ReconDataLayer
 			for (int i = 0; i < dt.Columns.Count; i++)
 			{
 				string colName = dt.Columns[i].ColumnName;
-
-				// Skip the 'index_order' column
 				if (colName == "index_order")
 				{
-					continue; // Skip the logic for setting the column width and adding the header
+					continue; 
 				}
-
 				string widthValue = dt.Rows[0][i].ToString().Trim();
 				if (widthValue.EndsWith("f", StringComparison.OrdinalIgnoreCase))
 				{
@@ -194,7 +189,6 @@ namespace ReconDataLayer
 			}
 			return table;
 		}
-
 		private PdfPCell CreateLabelCell(string labelText, bool isRequired)
 		{
 			Font font = new Font(Font.FontFamily.HELVETICA, 8f, Font.NORMAL);
@@ -267,9 +261,9 @@ namespace ReconDataLayer
 		}
 		public byte[] ReconReportVersionhistoryData(ReconReportVersionhistoryModel objReconReportVersionhistory, UserManagementModel.headerValue headerval, string constring, string logoPath)
 		{
-			try
+            int lineNumber = 0;
+            try
 			{
-				// String array with alphabets
 				string[] alphabet = new string[] { ".1", ".2", ".3", ".4", ".5", ".6", ".7", ".8", ".9", ".10", ".11", ".12", ".13", ".14", ".15", ".16", ".17", ".18", ".19", ".20", ".21", ".22", ".23", ".24", ".25", ".26", ".27", ".28", ".29", ".30", ".31", ".32", ".33", ".34", ".35", ".36" };
 				string tab1 = "     ";
 				string tab2 = "          ";
@@ -319,29 +313,29 @@ namespace ReconDataLayer
 					dt6 = ds.Tables["preprocesstablelist"];
 					dt7 = ds.Tables["themetablelist"];
 					// Track headings and their page numbers
-
-					PdfWriter writer = PdfWriter.GetInstance(document, ms);
-					writer.PageEvent = new PdfFooter(logoPath);
+					lineNumber = 316;
+                    PdfWriter writer = PdfWriter.GetInstance(document, ms);
+					// writer.PageEvent = new PdfFooter(logoPath);
 					document.Open();
 					BaseColor borderColor = new BaseColor(169, 169, 169);
+                    lineNumber = 320;
+                    /* Header Start */
 
-					/* Header Start */
-
-					// Input field
-					PdfPTable mainTable = new PdfPTable(3) { WidthPercentage = 100 };
+                    // Input field
+                    PdfPTable mainTable = new PdfPTable(3) { WidthPercentage = 100 };
 					mainTable.SetWidths(new float[] { 10f, 5f, 10f });
-
+                    lineNumber = 326;
                     // Title
                     string recon_name = dt1.Rows[0]["Recon Name"].ToString();
                     document.Add(CreateMainTitle1(recon_name + " - " + "Version History - " + objReconReportVersionhistory.in_version_code));
 					tocEntries.Add(new TOCEntry("Content", "Page"));					
                     tocEntries.Add(new TOCEntry(recon_name + " - " +"Version History - " + objReconReportVersionhistory.in_version_code, writer.PageNumber));
-
-					// Recon Code Column
-					PdfPTable reconCodeTable = new PdfPTable(1);
+                    lineNumber = 332;
+                    // Recon Code Column
+                    PdfPTable reconCodeTable = new PdfPTable(1);
 					reconCodeTable.AddCell(CreateLabelCell("Recon Code : " + dt1.Rows[0]["Recon Code"], true));
-
-					PdfPCell reconCodeCell = new PdfPCell(reconCodeTable)
+                    lineNumber = 336;
+                    PdfPCell reconCodeCell = new PdfPCell(reconCodeTable)
 					{
 						Border = PdfPCell.BOTTOM_BORDER | PdfPCell.TOP_BORDER | PdfPCell.LEFT_BORDER | PdfPCell.RIGHT_BORDER,
 						BackgroundColor = new BaseColor(230, 230, 250),
@@ -487,7 +481,8 @@ namespace ReconDataLayer
 
 					if (dt6.Rows.Count > 1)
 					{
-						string mainTitle = "PreProcess List";
+                        lineNumber = 484;
+                        string mainTitle = "PreProcess List";
 						document.Add(CreateTitle("PreProcess List", mustardYellow));
 						tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
 						document.Add(PdfdynamicTableGenration(dt6));
@@ -502,7 +497,8 @@ namespace ReconDataLayer
 					}
 					if (dt5.Rows.Count > 1)
 					{
-						string mainTitle = "Rule List";
+                        lineNumber = 500;
+                        string mainTitle = "Rule List";
 						document.Add(CreateTitle("Rule List", mustardYellow));
 						tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
 						document.Add(PdfdynamicTableGenration(dt5));
@@ -517,7 +513,8 @@ namespace ReconDataLayer
 					}
 					if (dt7.Rows.Count > 1)
 					{
-						string mainTitle = "Theme List";
+                        lineNumber = 516;
+                        string mainTitle = "Theme List";
 						document.Add(CreateTitle("Theme List", mustardYellow));
 						tocEntries.Add(new TOCEntry(mainTitle, writer.PageNumber));
 						document.Add(PdfdynamicTableGenration(dt7));
@@ -534,6 +531,7 @@ namespace ReconDataLayer
                     document.NewPage();
                     if (dt4.Rows.Count > 1)
                     {
+                        lineNumber = 534;
                         int preprocessalphabet;
                         string Preprocessmaintitle = "PreProcess Details";
                         tocEntries.Add(new TOCEntry(Preprocessmaintitle, writer.PageNumber));
@@ -865,7 +863,8 @@ namespace ReconDataLayer
                     document.NewPage();
                     if (dt2.Rows.Count > 1)
 					{
-						int rulealphabet;
+                        lineNumber = 866;
+                        int rulealphabet;
                         string Rulemaintitle = "Rule Details";
                         tocEntries.Add(new TOCEntry(Rulemaintitle, writer.PageNumber));
                         for (int i = 1; i < dt2.Rows.Count; i++)
@@ -1215,7 +1214,8 @@ namespace ReconDataLayer
 					document.NewPage();
 					if (dt3.Rows.Count > 1)
 					{
-						int themealphabet;
+                        lineNumber = 1217;
+                        int themealphabet;
                         string Thememaintitle = "Theme Details";
                         tocEntries.Add(new TOCEntry(Thememaintitle, writer.PageNumber));
                         for (int i = 1; i < dt3.Rows.Count; i++)
@@ -1484,20 +1484,26 @@ namespace ReconDataLayer
 								themealphabet = themealphabet + 1;
 							}
 						}
-					}
-					/* Table Ends Theme */
-					
-					document.Close();
-					byte[] pdfBytes = ms.ToArray();
-
-					using (MemoryStream finalStream = new MemoryStream())
+                        lineNumber = 1487;
+                    }
+                    /* Table Ends Theme */
+                    lineNumber = 1490;
+                    document.Close();
+                    lineNumber = 1491;
+                    byte[] pdfBytes = ms.ToArray();
+                    lineNumber = 1493;
+                    using (MemoryStream finalStream = new MemoryStream())
 					{
-						using (Document finalDocument = new Document(rec, 30f, 30f, 30f, 30f))
+                        lineNumber = 1496;
+                        using (Document finalDocument = new Document(rec, 30f, 30f, 30f, 30f))
 						{
-							PdfCopy pdfCopy = new PdfCopy(finalDocument, finalStream);
+                            lineNumber = 1499;
+                            PdfCopy pdfCopy = new PdfCopy(finalDocument, finalStream);
 							finalDocument.Open();
-							PdfReader tocReader = new PdfReader(GenerateTocPdf(tocEntries));
-							for (int i = 1; i <= tocReader.NumberOfPages; i++)
+                            lineNumber = 1495;
+                            PdfReader tocReader = new PdfReader(GenerateTocPdf(tocEntries));
+                            lineNumber = 1496;
+                            for (int i = 1; i <= tocReader.NumberOfPages; i++)
 							{
 								pdfCopy.AddPage(pdfCopy.GetImportedPage(tocReader, i));
 							}
@@ -1516,13 +1522,25 @@ namespace ReconDataLayer
 			{
 				CommonHeader objlog = new CommonHeader();
 				objlog.logger("SP:pr_report_reconversionhistory" + "Error Message:" + ex.Message);
-				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objReconReportVersionhistory), "pr_report_reconversionhistory", headerval.user_code, constring);
+                var stackTrace = new System.Diagnostics.StackTrace(ex, true); // 'true' to include file info
+                var frame = stackTrace.GetFrame(0); // Get the first stack frame (i.e., where the exception occurred)
+				
+                //if (frame != null)
+                //{
+                //    lineNumber = frame.GetFileLineNumber(); // Get the line number where the exception occurred
+                //    Console.WriteLine($"Exception occurred at line number: {lineNumber}");
+                //}
+                //else
+                //{
+                //    Console.WriteLine("Unable to get line number.");
+                //}
+                objlog.commonDataapi("", "SP", lineNumber.ToString() + ex.Message + "Param:" + JsonConvert.SerializeObject(objReconReportVersionhistory), "pr_report_reconversionhistory", headerval.user_code, constring);
 				return null;
 			}
 		}
 		private byte[] GenerateTocPdf(List<TOCEntry> tocEntries)
 		{
-			using (MemoryStream tocStream = new MemoryStream())
+            using (MemoryStream tocStream = new MemoryStream())
 			{
 				using (Document tocDocument = new Document(PageSize.A4, 30f, 30f, 30f, 30f))
 				{

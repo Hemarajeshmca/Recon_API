@@ -304,8 +304,8 @@ namespace ReconDataLayer
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_fetch_reporttemplate" + "Error Message:" + ex.Message);
                 objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objfetchReportTemplate), "pr_fetch_reporttemplate", headerval.user_code, constring);
+                objlog.logger("SP:pr_fetch_reporttemplate" + "Error Message:" + ex.Message);
                 throw ex;
             }
 
@@ -975,6 +975,9 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
                 parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
                 dataset = dbManager.execStoredProcedurelist("pr_run_dynamicreport", CommandType.StoredProcedure, parameters.ToArray());
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_run_dynamicreport" + "Response.Tables[0]:" + dataset.Tables[0].Rows);
+                objlog.logger("SP:pr_run_dynamicreport" + "Response.Tables[0]:" + dataset.Tables[0].Rows);
                 int getsheetcount = dataset.Tables[0].Rows.Count;
                 var job_id = dataset.Tables[0].Rows[0]["result"];
                 var filename = job_id + "_" + objgeneratedynamicReport.in_report_name;
@@ -1006,8 +1009,8 @@ namespace ReconDataLayer
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_run_dynamicreport" + "Error Message:" + ex.Message);
                 objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objgeneratedynamicReport), "pr_run_dynamicreport", headerval.user_code, constring);
+                objlog.logger("SP:pr_run_dynamicreport" + "Error Message:" + ex.Message);
                 throw ex;
             }
         }
@@ -1351,6 +1354,9 @@ namespace ReconDataLayer
                         getDateFormat = configvalueData("excel_dateformat", headerval, constring);
                         getDateTimeFormat = configvalueData("excel_datetimeformat", headerval, constring);
                         string sheetName = "Data";
+                        CommonHeader objlog = new CommonHeader();
+                        objlog.logger("SP:pr_run_dynamicreport" + "Source File:" + sourceFile);
+                        objlog.logger("SP:pr_run_dynamicreport" + "Destination File:" + destFile);
                         File.Copy(sourceFile, destFile, true);
                         using (var workbook = new XLWorkbook(sourceFile))
                         {
@@ -1442,7 +1448,7 @@ namespace ReconDataLayer
                             }
                             catch (Exception ex)
                             {
-                                Console.WriteLine($"An error occurred while inserting table: {ex.Message}");
+                                objlog.logger("SP:pr_run_dynamicreport" + "Excel write:" + ex.Message);
                                 throw;
                             }
                             var sheetName2 = "Condition Criteria";
@@ -1471,7 +1477,7 @@ namespace ReconDataLayer
                             }
                             catch (Exception ex)
                             {
-                                Console.WriteLine($"An error occurred while inserting table into {"Sheet2"}: {ex.Message}");
+                                objlog.logger("SP:pr_run_dynamicreport" + "Excel write1:" + ex.Message);
                                 throw;
                             }
                             workbook.SaveAs(destFile);
@@ -1536,7 +1542,8 @@ namespace ReconDataLayer
                             }
                             catch (Exception ex)
                             {
-                                Console.WriteLine($"An error occurred while updating {sheetName}: {ex.Message}");
+                                CommonHeader objlog = new CommonHeader();
+                                objlog.logger("SP:pr_run_dynamicreport" + "Function:CreateExcelFile1" + ex.Message);
                                 throw;
                             }
                         }
@@ -1560,7 +1567,8 @@ namespace ReconDataLayer
                             }
                             catch (Exception ex)
                             {
-                                Console.WriteLine($"An error occurred while creating {sheetName}: {ex.Message}");
+                                CommonHeader objlog = new CommonHeader();
+                                objlog.logger("SP:pr_run_dynamicreport" + "Function:CreateExcelFile2" + ex.Message);
                                 throw;
                             }
                         }
