@@ -1524,16 +1524,6 @@ namespace ReconDataLayer
 				objlog.logger("SP:pr_report_reconversionhistory" + "Error Message:" + ex.Message);
                 var stackTrace = new System.Diagnostics.StackTrace(ex, true); // 'true' to include file info
                 var frame = stackTrace.GetFrame(0); // Get the first stack frame (i.e., where the exception occurred)
-				
-                //if (frame != null)
-                //{
-                //    lineNumber = frame.GetFileLineNumber(); // Get the line number where the exception occurred
-                //    Console.WriteLine($"Exception occurred at line number: {lineNumber}");
-                //}
-                //else
-                //{
-                //    Console.WriteLine("Unable to get line number.");
-                //}
                 objlog.commonDataapi("", "SP", lineNumber.ToString() + ex.Message + "Param:" + JsonConvert.SerializeObject(objReconReportVersionhistory), "pr_report_reconversionhistory", headerval.user_code, constring);
 				return null;
 			}
@@ -1546,7 +1536,6 @@ namespace ReconDataLayer
 				{
 					PdfWriter tocWriter = PdfWriter.GetInstance(tocDocument, tocStream);
 					tocDocument.Open();
-					//tocDocument.Add(new Paragraph("Table of Contents", new Font(Font.FontFamily.HELVETICA, 20)));
 					tocDocument.Add(CreateMainTitle1("Table of Content"));
 
 					PdfPTable tocTable = new PdfPTable(2);
