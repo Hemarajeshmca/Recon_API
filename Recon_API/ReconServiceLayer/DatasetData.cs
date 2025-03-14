@@ -87,7 +87,8 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_field_length", Objmodel.field_length, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_precision_length", Objmodel.precision_length, DbType.Int64));
 				parameters.Add(dbManager.CreateParameter("in_scale_length", Objmodel.scale_length, DbType.Int64));
-				parameters.Add(dbManager.CreateParameter("in_field_mandatory", Objmodel.field_mandatory, DbType.String));				
+                parameters.Add(dbManager.CreateParameter("in_seq_no", Objmodel.seq_no, DbType.Int64));
+                parameters.Add(dbManager.CreateParameter("in_field_mandatory", Objmodel.field_mandatory, DbType.String));				
 				parameters.Add(dbManager.CreateParameter("in_action", Objmodel.in_action, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action_by", headerval.user_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
@@ -95,7 +96,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
 				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
-				ds = dbManager.execStoredProcedure("pr_recon_mst_tdatasetfield", CommandType.StoredProcedure, parameters.ToArray());
+				ds = dbManager.execStoredProcedure("pr_recon_mst_tdatasetfieldnew", CommandType.StoredProcedure, parameters.ToArray());
 				result = ds.Tables[0];
 				return result;
 			}

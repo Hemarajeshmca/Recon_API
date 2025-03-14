@@ -43,7 +43,8 @@ namespace ReconModels
 			public string? field_length { get; set; }
 			public int? precision_length { get; set; }
 			public int? scale_length { get; set; }
-			public string? field_mandatory { get; set; }
+            public int? seq_no { get; set; }
+            public string? field_mandatory { get; set; }
 			public string? in_action { get; set; }
 			public string? in_action_by { get; set; }
 			public string? out_msg { get; set; }
