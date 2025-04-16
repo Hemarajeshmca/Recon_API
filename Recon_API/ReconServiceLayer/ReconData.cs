@@ -452,7 +452,20 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
                 parameters.Add(dbManager.CreateParameter("out_recon_code", "out", DbType.String, ParameterDirection.Output));
                 ds = dbManager.execStoredProcedure("pr_clone_recon", CommandType.StoredProcedure, parameters.ToArray());
-                result = ds.Tables[0];
+                result = ds.Tables[2];
+                DataTable dt1 = new DataTable();
+                DataTable dt2 = new DataTable();
+                dt1 = ds.Tables[0];
+                dt2 = ds.Tables[1];
+                string clonefilepath = dt2.Rows[0]["config_value"].ToString();
+                
+                for (int i = 0; i < dt1.Rows.Count; i++)
+                {
+                    string clone_file_name = dt1.Rows[i]["clone"].ToString();
+                    string new_file_name = dt1.Rows[i]["new"].ToString();
+                    string file_name = dt1.Rows[i]["file_name"].ToString();
+                    CopyAndRenameFile(clone_file_name, new_file_name, clonefilepath, file_name);
+                }
                 return result;
             }
             catch (Exception ex)
@@ -463,7 +476,33 @@ namespace ReconDataLayer
                 return result;
             }
         }
+        public void CopyAndRenameFile(string sourceFileName, string destinationFileName, string clonefilepath,string file_name)
+        {
+            try
+            {
+                //string[] lastIndex = sourceFileName.Split(".");
+                //string fileExtension = lastIndex[1];
 
+                string fileExtension = file_name.Substring(file_name.LastIndexOf('.'));
+                destinationFileName = clonefilepath + destinationFileName + fileExtension;
+                sourceFileName = clonefilepath + sourceFileName + fileExtension;
+
+                // Check if the source file exists
+                if (System.IO.File.Exists(sourceFileName))
+                {
+                    // Copy the file to the destination and overwrite if it already exists
+                    System.IO.File.Copy(sourceFileName, destinationFileName, true);
+                }
+                else
+                {
+                    Console.WriteLine("Source file does not exist.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
+        }
         //cloneReconDatasetData
         public DataTable cloneReconDatasetData(cloneReconDatasetModel objcloneReconDataset, UserManagementModel.headerValue headerval, string constring)
         {

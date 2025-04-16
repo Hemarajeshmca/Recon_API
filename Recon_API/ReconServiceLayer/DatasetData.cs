@@ -87,7 +87,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_field_length", Objmodel.field_length, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_precision_length", Objmodel.precision_length, DbType.Int64));
 				parameters.Add(dbManager.CreateParameter("in_scale_length", Objmodel.scale_length, DbType.Int64));
-                parameters.Add(dbManager.CreateParameter("in_seq_no", Objmodel.seq_no, DbType.Int64));
+                parameters.Add(dbManager.CreateParameter("in_seq_no", Objmodel.seq_no, DbType.Decimal));
                 parameters.Add(dbManager.CreateParameter("in_field_mandatory", Objmodel.field_mandatory, DbType.String));				
 				parameters.Add(dbManager.CreateParameter("in_action", Objmodel.in_action, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action_by", headerval.user_code, DbType.String));
@@ -367,7 +367,7 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_datasetindex_gid", Objmodel.in_datasetindex_gid, DbType.Int64, ParameterDirection.InputOutput));
                 parameters.Add(dbManager.CreateParameter("in_dataset_code", Objmodel.in_dataset_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_datasetindex_code", Objmodel.in_datasetindex_code, DbType.String));               
-                parameters.Add(dbManager.CreateParameter("in_index_seqno", Objmodel.in_index_seqno, DbType.Int64));
+                parameters.Add(dbManager.CreateParameter("in_index_seqno", Objmodel.in_index_seqno, DbType.Decimal));
                 parameters.Add(dbManager.CreateParameter("in_index_desc", Objmodel.in_index_desc, DbType.String));                              
                 parameters.Add(dbManager.CreateParameter("in_dataset_field", Objmodel.in_dataset_field, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_active_status", Objmodel.in_active_status, DbType.String));

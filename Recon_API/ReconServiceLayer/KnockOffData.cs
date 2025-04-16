@@ -201,33 +201,33 @@ namespace ReconDataLayer
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_set_undoko" + " " + "Error Message:" + ex.Message);
+                objlog.logger("SP:pr_get_undojobprocess" + " " + "Error Message:" + ex.Message);
                 objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objundoKO), "pr_get_undojobprocess", "", constring);
                 throw ex;
             }
-        }
+        }       
         public DataTable undomatchjobData(undomatchmodel objundoKO, string constring)
         {
             try
             {
                 DBManager dbManager = new DBManager(constring);
                 parameters = new List<IDbDataParameter>();
-                parameters.Add(dbManager.CreateParameter("in_job_gid", objundoKO.job_id, DbType.Int32));
+                parameters.Add(dbManager.CreateParameter("in_jobrollback_gid", objundoKO.job_id, DbType.Int32));
                 parameters.Add(dbManager.CreateParameter("in_recon_code", objundoKO.reconcode, DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_undo_job_reason", objundoKO.undo_job_reason, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_jobrollback_reason", objundoKO.undo_job_reason, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_ip_addr", objundoKO.in_ip_addr, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_user_code", objundoKO.in_user_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
                 parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
-                ds = dbManager.execStoredProcedure("pr_set_undokojob", CommandType.StoredProcedure, parameters.ToArray());
+                ds = dbManager.execStoredProcedure("pr_set_kojobrollback", CommandType.StoredProcedure, parameters.ToArray());
                 dt = ds.Tables[0];
                 return dt;
             }
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_set_undoko" + " " + "Error Message:" + ex.Message);
-                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objundoKO), "pr_set_undokojob", objundoKO.in_user_code, constring);
+                objlog.logger("SP:pr_set_kojobrollback" + " " + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objundoKO), "pr_set_kojobrollback", objundoKO.in_user_code, constring);
                 throw ex;
             }
         }
@@ -332,6 +332,75 @@ namespace ReconDataLayer
                 CommonHeader objlog = new CommonHeader();
                 objlog.logger("SP:pr_get_themeagainstrecon" + " " + "Error Message:" + ex.Message);
                 objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objgetthemeagainstRecon), "pr_get_themeagainstrecon", headerval.user_code, constring);
+                throw ex;
+            }
+        }
+        public DataTable setundoIUTData(undoIUTModel objundoIUTModel, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_recon_code", objundoIUTModel.in_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_iutentryref_no", objundoIUTModel.in_iut_ref_no, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_code", objundoIUTModel.in_user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                ds = dbManager.execStoredProcedure("pr_set_undoiutentry", CommandType.StoredProcedure, parameters.ToArray());
+                dt = ds.Tables[0];
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_set_undoiutentry" + " " + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objundoIUTModel), "pr_set_undoiutentry", headerval.user_code, constring);
+                throw ex;
+            }
+        }
+        public DataTable setundoIUTfetchData(undoIUTModelfetch objundoIUTModel, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_recon_code", objundoIUTModel.in_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_iutentryref_no", objundoIUTModel.in_iut_ref_no, DbType.String));               
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                ds = dbManager.execStoredProcedure("pr_get_iutentry", CommandType.StoredProcedure, parameters.ToArray());
+                dt = ds.Tables[0];
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_get_iutentry" + " " + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objundoIUTModel), "pr_get_iutentry", headerval.user_code, constring);
+                throw ex;
+            }
+        }
+        public DataTable getJobidsData(undomatchmodel objundoKO, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_job_gid", objundoKO.job_id, DbType.Int32));
+                parameters.Add(dbManager.CreateParameter("in_recon_code", objundoKO.reconcode, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_ip_addr", objundoKO.in_ip_addr, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_code", objundoKO.in_user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                ds = dbManager.execStoredProcedure("pr_get_jobids", CommandType.StoredProcedure, parameters.ToArray());
+                dt = ds.Tables[0];
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_get_jobids" + " " + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objundoKO), "pr_get_jobids", objundoKO.in_user_code, constring);
                 throw ex;
             }
         }
