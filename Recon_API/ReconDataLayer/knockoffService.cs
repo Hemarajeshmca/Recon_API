@@ -195,5 +195,41 @@ namespace ReconServiceLayer
 				throw ex;
 			}
 		}
-	}
+        public DataTable undoIUTModelService(undoIUTModel objundoIUTModel, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DataTable dt = knockOffData.setundoIUTData(objundoIUTModel, headerval, constring);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public DataTable undoIUTfetchService(undoIUTModelfetch objundoIUTModel, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DataTable dt = knockOffData.setundoIUTfetchData(objundoIUTModel, headerval, constring);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public DataTable getJobidsService(undomatchmodel objundoKO, string constring)
+        {
+            try
+            {
+                DataTable dt = knockOffData.getJobidsData(objundoKO, constring);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+    }
 }

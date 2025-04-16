@@ -67,8 +67,12 @@ namespace ReconModels
 			public string? in_target_recon_code { get; set; }
 
 		}
+        public class Reconalllistmodel
+        {
+            public string? in_user_code { get; set; }
+        }
 
 
-	}
+    }
 
 }

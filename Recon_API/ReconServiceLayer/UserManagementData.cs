@@ -214,7 +214,7 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_user_name", Usermodel.user_name, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_user_contactno", Usermodel.user_contact_no, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_user_emailid", Usermodel.user_emailid, DbType.String));
-                parameters.Add(dbManager.CreateParameter("user_password", Usermodel.user_password, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_password", Usermodel.user_password, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_role_code", Usermodel.role_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_action", Usermodel.action, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_action_by", Usermodel.action_by, DbType.String));

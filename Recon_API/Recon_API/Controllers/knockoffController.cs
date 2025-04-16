@@ -285,8 +285,75 @@ namespace Recon_API.Controllers
 			}
 		}
 
+        [HttpPost("undoIUT")]
+        public IActionResult setundoIUT(undoIUTModel objundoIUTModel)
+        {
+            constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+            headerValue header_value = new headerValue();
+            DataTable response = new DataTable();
+            try
+            {
+                var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+                var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+                var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+                var ip_Address = Request.Headers.TryGetValue("ipaddress", out var ipaddress) ? ipaddress.First() : "";
+                header_value.user_code = getvalue;
+                header_value.lang_code = getlangCode;
+                header_value.role_code = getRoleCode;
+                header_value.ip_address = ip_Address;
+                response = knockOffService.undoIUTModelService(objundoIUTModel, header_value, constring);
+                var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
+                return Ok(serializedProduct);
+            }
+            catch (Exception e)
+            {
+                return Problem(title: e.Message);
+            }
+        }
+        [HttpPost("undoIUTfetch")]
+        public IActionResult setundoIUTfetch(undoIUTModelfetch objundoIUTModel)
+        {
+            constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+            headerValue header_value = new headerValue();
+            DataTable response = new DataTable();
+            try
+            {
+                var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+                var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+                var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+                var ip_Address = Request.Headers.TryGetValue("ipaddress", out var ipaddress) ? ipaddress.First() : "";
+                header_value.user_code = getvalue;
+                header_value.lang_code = getlangCode;
+                header_value.role_code = getRoleCode;
+                header_value.ip_address = ip_Address;
+                response = knockOffService.undoIUTfetchService(objundoIUTModel, header_value, constring);
+                var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
+                return Ok(serializedProduct);
+            }
+            catch (Exception e)
+            {
+                return Problem(title: e.Message);
+            }
+        }
 
 
-	}
+        [HttpPost("getJobids")]
+        public IActionResult getJobids([FromBody] undomatchmodel objundoKO)
+        {
+            try
+            {
+                constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+                DataTable dt = knockOffService.getJobidsService(objundoKO, constring);
+                var serializedProduct = JsonConvert.SerializeObject(dt, Newtonsoft.Json.Formatting.Indented);
+                return Ok(serializedProduct);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                return Problem(title: ex.Message);
+            }
+
+        }
+    }
 }
 
