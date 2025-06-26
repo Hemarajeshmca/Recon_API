@@ -228,6 +228,7 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_threshold_code", recon.threshold_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_threshold_plus_value", recon.in_threshold_plus_value, DbType.Double));
                 parameters.Add(dbManager.CreateParameter("in_threshold_minus_value", recon.in_threshold_minus_value, DbType.Double));
+                parameters.Add(dbManager.CreateParameter("in_processing_method", recon.in_processing_method, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_active_reason", recon.in_active_reason, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_active_status", recon.in_active_status, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
@@ -682,6 +683,29 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
                 parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
                 ds = dbManager.execStoredProcedure("pr_set_reconarchival", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_set_reconarchival" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objArcheiveRecon), "pr_set_reconarchival", headerval.user_code, constring);
+                return result;
+            }
+        }
+
+        public DataTable ArcheiveReconlistData(ArcheiveReconobj objArcheiveRecon, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_recon_code", objArcheiveRecon.in_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_code", objArcheiveRecon.in_user_code, DbType.String));               
+                ds = dbManager.execStoredProcedure("pr_get_reconarchivallist", CommandType.StoredProcedure, parameters.ToArray());
                 result = ds.Tables[0];
                 return result;
             }

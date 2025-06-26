@@ -221,5 +221,46 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
-	}
+        //getdatasetFieldService
+        public static DataTable getdatasetFieldService(getdatasetFieldModel objgetdatasetField, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                RulesetupData objDS = new RulesetupData();
+                ds = objDS.getdatasetFieldData(objgetdatasetField, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+
+        //getDSConditionService
+
+        public static DataTable getDSConditionService(getDSConditionModel objgetDSCondition, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                RulesetupData objrule = new RulesetupData();
+                ds = objrule.getDSConditionData(objgetDSCondition, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+
+        public static DataSet Rulefetch_new(fetchRule objfetchrule, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                RulesetupData objrule = new RulesetupData();
+                ds = objrule.fetchRuleData_new(objfetchrule, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+    }
 }

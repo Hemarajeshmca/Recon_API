@@ -360,5 +360,18 @@ namespace ReconServiceLayer
 			{ }
 			return dt;
 		}
-	}
+        //checkQueryService
+        public static DataTable checkQueryService(checkQueryModel objcheckQuery, string constring, UserManagementModel.headerValue headerval)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                ReportData objreport = new ReportData();
+                dt = objreport.checkQueryData(objcheckQuery, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return dt;
+        }
+    }
 }
