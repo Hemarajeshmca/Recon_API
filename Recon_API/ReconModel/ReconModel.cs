@@ -83,7 +83,7 @@ namespace ReconModels
             public Double in_threshold_plus_value { get; set; }
             public Double in_threshold_minus_value { get; set; }
             public String in_active_reason { get; set; }
-
+            public String in_processing_method { get; set; }
             public String threshold_code { get; set; }
             public String in_action { get; set; }
             public String in_action_by { get; set; }
@@ -253,6 +253,12 @@ namespace ReconModels
             public string in_recon_code { get; set; }
             public string in_user_code { get; set; }
         }
+        public class getDSConditionModel
+        {
+            public String? in_condition_type { get; set; }
+            public String? in_field_type { get; set; }
+            public String? in_dataset_code { get; set; }
 
+        }
     }
 }
