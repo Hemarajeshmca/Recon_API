@@ -351,6 +351,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_lookup_return_field", objdatarecon.in_lookup_return_field, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_set_recon_field", objdatarecon.in_set_recon_field, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_reverse_update_flag", objdatarecon.reverse_update_flag, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_value_flag", objdatarecon.in_value_flag, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_active_status", objdatarecon.in_active_status, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action", objdatarecon.in_action, DbType.String));
 				parameters.Add(dbManager.CreateParameter("in_action_by", headerval.user_code, DbType.String));

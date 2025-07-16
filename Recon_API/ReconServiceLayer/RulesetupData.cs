@@ -297,7 +297,8 @@ namespace ReconDataLayer
 				{
 					ds.Tables[0].TableName = "ReconRule";
 					ds.Tables[1].TableName = "ReconDataSet";
-				}
+                    ds.Tables[2].TableName = "Reconversion";
+                }
 				return ds;
 			}
 			catch (Exception ex)
