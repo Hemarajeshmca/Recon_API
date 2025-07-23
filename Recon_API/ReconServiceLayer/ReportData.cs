@@ -1430,6 +1430,27 @@ namespace ReconDataLayer
                 throw ex;
             }
         }
+        //getstandardreportlistservice
+        public DataTable getstandardreportlistData(getsreport objgetsreportlist, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_recon_code", objgetsreportlist.in_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+                ds = dbManager.execStoredProcedure("pr_get_standardreportlist", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_get_reportlist" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(headerval), "pr_get_reportlist", headerval.user_code, constring);
+                throw ex;
+            }
 
+        }
     }
 }
