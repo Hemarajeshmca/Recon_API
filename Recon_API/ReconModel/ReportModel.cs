@@ -240,5 +240,10 @@ namespace ReconModels
             public string? in_report_condition { get; set; }
             public string? in_user_code { get; set; }
         }
+        public class getsreport
+        {
+            public String? in_recon_code { get; set; }
+            public string? in_user_code { get; set; }
+        }
     }
 }
