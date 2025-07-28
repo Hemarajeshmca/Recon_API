@@ -177,5 +177,35 @@ namespace ReconDataLayer
 				return result;
 			}
 		}
-	}
+
+        // testdata
+        public DataTable testdata( headerValue hv, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                // ds = dbManager.execStoredProcedure("pr_get_result", CommandType.StoredProcedure, parameters.ToArray());
+                // result = ds.Tables[0];
+                result.Columns.Add("Id", typeof(int));
+                result.Columns.Add("Name", typeof(string));
+                result.Columns.Add("Status", typeof(string));
+
+                // Add rows (hardcoded values)
+                result.Rows.Add(1, "Apple", "Active");
+                result.Rows.Add(2, "Orange", "Inactive");
+                result.Rows.Add(3, "Banana", "Active");
+                return result;
+            }
+            catch (Exception ex)
+            {
+                logger("SP:pr_get_result" + " " + "Error Message:" + ex.Message);
+                return result;
+            }
+        }
+
+
+    }
 }
