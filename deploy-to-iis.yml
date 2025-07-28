@@ -1,0 +1,45 @@
+name: Deploy to Local IIS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'  # Change if you're using .NET 7 or 6
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build the app
+        run: dotnet build --configuration Release
+
+      - name: Publish the app
+        run: dotnet publish --configuration Release --output ./publish
+
+      - name: Deploy to IIS folder
+        run: |
+          $iisPath = "C:\inetpub\wwwroot\Recon_API"
+          if (Test-Path $iisPath) {
+            Remove-Item "$iisPath\*" -Recurse -Force
+          } else {
+            New-Item -ItemType Directory -Path $iisPath
+          }
+          Copy-Item -Path ".\publish\*" -Destination $iisPath -Recurse -Force
+        shell: powershell
+
+      - name: Restart IIS App Pool
+        run: |
+          Import-Module WebAdministration
+          Restart-WebAppPool -Name "DefaultAppPool"  # Change if you're using a custom app pool
+        shell: powershell
