@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ReconServiceLayer;
@@ -113,8 +113,9 @@ namespace Recon_API.Controllers
                 return Problem(title: e.Message);
             }
         }
-        [HttpPost("Schedulerupload")]      
-        public IActionResult Scheduleruploadfile(IFormFile file,string in_file_path, string initiated_by)
+
+        [HttpPost("Schedulerupload")]
+        public IActionResult Scheduleruploadfile(IFormFile file, string in_file_path, string initiated_by)
         {
             string msg = "";
             var src_filename = "";
@@ -126,8 +127,8 @@ namespace Recon_API.Controllers
                 {
                     Directory.CreateDirectory(in_file_path);
                 }
-                 src_filename = file.FileName;               
-               
+                src_filename = file.FileName;
+
                 var targetFilePath = System.IO.Path.Combine(in_file_path, src_filename);
                 using (var stream = new FileStream(targetFilePath, FileMode.Create))
                 {
@@ -149,13 +150,13 @@ namespace Recon_API.Controllers
             string folderPath = folder_path;
             var directories = Directory.GetDirectories(folderPath)
                     .Select(dirPath => new FileSystemItem
-                {
-                 Name = Path.GetFileName(dirPath),
-              FullPath = dirPath,
-              Type = "Folder",
-             Created = Directory.GetCreationTime(dirPath),
-             SizeBytes = null
-             });
+                    {
+                        Name = Path.GetFileName(dirPath),
+                        FullPath = dirPath,
+                        Type = "Folder",
+                        Created = Directory.GetCreationTime(dirPath),
+                        SizeBytes = null
+                    });
 
             var files = Directory.GetFiles(folderPath)
                 .Select(filePath => new FileSystemItem
@@ -179,5 +180,6 @@ namespace Recon_API.Controllers
             public DateTime Created { get; set; }
             public long? SizeBytes { get; set; } // Nullable: only used for files
         }
+
     }
 }

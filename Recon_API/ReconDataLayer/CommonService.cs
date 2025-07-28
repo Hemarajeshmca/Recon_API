@@ -65,5 +65,18 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
-	}
+        //TestService
+        public static DataTable TestService(UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                CommonHeader objDS = new CommonHeader();
+                ds = objDS.testdata(headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+    }
 }
