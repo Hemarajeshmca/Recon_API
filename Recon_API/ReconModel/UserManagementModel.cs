@@ -68,6 +68,8 @@ namespace ReconModels
             public string master_name { get; set; }
             public string parent_code { get; set; }
             public string id { get; set; }
+            public int gid { get; set; }
+            public string unitDependCode { get; set; }
         }
         public class usermappingmodel
         {

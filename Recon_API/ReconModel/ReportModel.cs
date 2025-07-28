@@ -77,6 +77,7 @@ namespace ReconModels
 
         public class runPageReportModel
         {
+            public string? in_archival_code { get; set; }
             public string? in_reporttemplate_code { get; set; }
             public string? in_report_condition { get; set; }
             public string? in_recon_code { get; set; }
@@ -153,14 +154,15 @@ namespace ReconModels
             public string? in_user_code { get; set; }
             public string? file_name { get; set; }
             public string? in_report_name { get; set; }
+            public string? in_archival_code { get; set; }
 
         }
 
 		//generatedynamicReport_typeCmodel
 		public class generatedynamicReport_typeCmodel
 		{
-
-			public String? in_reporttemplate_code { get; set; }
+            public string? in_archival_code { get; set; }
+            public String? in_reporttemplate_code { get; set; }
 			public string? in_report_code { get; set; }
 			public string? in_recon_code { get; set; }
 			public String? in_report_param { get; set; }
@@ -231,6 +233,17 @@ namespace ReconModels
             public String? in_recon_code { get; set; }
             public String? in_report_code { get; set; }
         }
-
+        public class checkQueryModel
+        {
+            public string? in_recon_code { get; set; }
+            public string? in_report_code { get; set; }
+            public string? in_report_condition { get; set; }
+            public string? in_user_code { get; set; }
+        }
+        public class getsreport
+        {
+            public String? in_recon_code { get; set; }
+            public string? in_user_code { get; set; }
+        }
     }
 }

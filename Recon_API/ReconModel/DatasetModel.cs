@@ -43,7 +43,8 @@ namespace ReconModels
 			public string? field_length { get; set; }
 			public int? precision_length { get; set; }
 			public int? scale_length { get; set; }
-			public string? field_mandatory { get; set; }
+            public Decimal? seq_no { get; set; }
+            public string? field_mandatory { get; set; }
 			public string? in_action { get; set; }
 			public string? in_action_by { get; set; }
 			public string? out_msg { get; set; }
@@ -103,7 +104,7 @@ namespace ReconModels
             public int in_datasetindex_gid { get; set; }
             public string? in_datasetindex_code { get; set; }
             public string? in_index_desc { get; set; }
-            public int? in_index_seqno { get; set; }           
+            public Decimal? in_index_seqno { get; set; }           
             public string? in_dataset_field { get; set; }
             public string? in_active_status { get; set; }
             public string? in_action { get; set; }

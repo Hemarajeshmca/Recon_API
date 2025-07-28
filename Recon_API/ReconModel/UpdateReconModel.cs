@@ -67,8 +67,19 @@ namespace ReconModels
 			public string? in_target_recon_code { get; set; }
 
 		}
+        public class Reconalllistmodel
+        {
+            public string? in_user_code { get; set; }
+        }
+        public class ReconUpdatecusrptModel
+        {
+            public string? in_base_recon_code { get; set; }
+            public string? in_base_report_code { get; set; }
+            public string? in_update_recon_code { get; set; }
+            public string? in_update_report_name { get; set; }
+            public string? in_user_code { get; set; }
+        }
 
-
-	}
+    }
 
 }

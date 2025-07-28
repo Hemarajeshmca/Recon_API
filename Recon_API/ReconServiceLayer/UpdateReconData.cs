@@ -230,5 +230,55 @@ namespace ReconDataLayer
 				return result;
 			}
 		}
-	}
+        public DataTable reconalllistData(Reconalllistmodel objReconalllistmodel, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_user_code", objReconalllistmodel.in_user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+                ds = dbManager.execStoredProcedure("pr_fecth_allreconlist", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_recon_mst_trecon_list" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + JsonConvert.SerializeObject(objReconalllistmodel), "pr_recon_mst_trecon_list", headerval.user_code, constring);
+                return result;
+            }
+        }
+        public DataTable ReconUpdatecusrptData(ReconUpdatecusrptModel objReconUpdatePreprocess, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_base_recon_code", objReconUpdatePreprocess.in_base_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_base_report_code", objReconUpdatePreprocess.in_base_report_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_update_recon_code", objReconUpdatePreprocess.in_update_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_update_report_name", objReconUpdatePreprocess.in_update_report_name, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_code", objReconUpdatePreprocess.in_user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                ds = dbManager.execStoredProcedure("pr_recon_cusrpt_clone", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_recon_cusrpt_clone" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param" + JsonConvert.SerializeObject(objReconUpdatePreprocess), "pr_recon_cusrpt_clone", headerval.user_code, constring);
+                return result;
+            }
+        }
+    }
 }

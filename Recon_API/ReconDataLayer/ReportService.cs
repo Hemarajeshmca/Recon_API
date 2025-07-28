@@ -360,5 +360,32 @@ namespace ReconServiceLayer
 			{ }
 			return dt;
 		}
-	}
+        //checkQueryService
+        public static DataTable checkQueryService(checkQueryModel objcheckQuery, string constring, UserManagementModel.headerValue headerval)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                ReportData objreport = new ReportData();
+                dt = objreport.checkQueryData(objcheckQuery, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return dt;
+        }
+
+        //getstandardreportlistservice
+        public static DataTable getstandardreportlistservice(getsreport objgetsreportlist,UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                ReportData objreport = new ReportData();
+                ds = objreport.getstandardreportlistData(objgetsreportlist,headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+    }
 }

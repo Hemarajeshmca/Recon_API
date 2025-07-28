@@ -163,5 +163,11 @@ namespace ReconModels
 			public String? in_rule_code { get; set; }
 
 		}
-	}
+        public class getdatasetFieldModel
+        {
+            public String? in_dataset_code { get; set; }
+            public string? in_recon_code { get; set; }
+            public String? in_user_code { get; set; }
+        }
+    }
 }

@@ -1,20 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using System.Data;
+using Newtonsoft.Json;
 using ReconModels;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static ReconModels.DatasetModel;
 using static ReconModels.ReconModel;
 using static ReconModels.RulesetupModel;
-using static ReconModels.theme_model;
-using static ReconModels.UserManagementModel;
 
 namespace ReconDataLayer
 {
-	public class RulesetupData
+    public class RulesetupData
 	{
 		DataSet ds = new DataSet();
 		DataTable result = new DataTable();
@@ -305,7 +297,8 @@ namespace ReconDataLayer
 				{
 					ds.Tables[0].TableName = "ReconRule";
 					ds.Tables[1].TableName = "ReconDataSet";
-				}
+                    ds.Tables[2].TableName = "Reconversion";
+                }
 				return ds;
 			}
 			catch (Exception ex)
@@ -532,6 +525,92 @@ namespace ReconDataLayer
 				return result;
 			}
 		}
-	}
+      
+        //getdatasetFieldData
+        public DataTable getdatasetFieldData(getdatasetFieldModel objgetdatasetField, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_recon_code", objgetdatasetField.in_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_dataset_code", objgetdatasetField.in_dataset_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_code", objgetdatasetField.in_user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+                ds = dbManager.execStoredProcedure("pr_get_recondatasetfielddetail", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_get_recondatasetfielddetail" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objgetdatasetField), "pr_get_recondatasetfielddetail", headerval.user_code, constring);
+                return result;
+            }
+        }
+        //getDSConditionData
+        public DataTable getDSConditionData(getDSConditionModel objgetDSCondition, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_condition_type", objgetDSCondition.in_condition_type, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_field_type", objgetDSCondition.in_field_type, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_dataset_code", objgetDSCondition.in_dataset_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+                ds = dbManager.execStoredProcedure("pr_get_DSCondition", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_get_DSCondition" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objgetDSCondition), "pr_get_condition", headerval.user_code, constring);
+                return result;
+            }
+        }
 
+        public DataSet fetchRuleData_new(fetchRule objfetchrule, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_rule_gid", objfetchrule.in_rule_gid, DbType.Int16));
+                parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+                ds = dbManager.execStoredProcedurelist("pr_fetch_ruledetails_new", CommandType.StoredProcedure, parameters.ToArray());
+                ds.Tables[0].TableName = "RuleHeader";
+                ds.Tables[1].TableName = "RuleCondition";
+                ds.Tables[2].TableName = "RuleGrouping";
+                ds.Tables[3].TableName = "sourceidentifier";
+                ds.Tables[4].TableName = "comparisionidentifier";
+                ds.Tables[5].TableName = "RulefieldorderSource";
+                ds.Tables[6].TableName = "Rulefieldordercomparison";
+                ds.Tables[7].TableName = "Ruleaggfunction";
+                ds.Tables[8].TableName = "Ruleaggcondition";
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_fetch_ruledetails_new" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objfetchrule), "pr_fetch_ruledetails_new", headerval.user_code, constring);
+                return ds;
+            }
+        }
+    }
 }
