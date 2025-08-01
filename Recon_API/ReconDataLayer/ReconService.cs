@@ -311,5 +311,17 @@ namespace ReconServiceLayer
             return ds;
         }
 
+        public static DataTable ArcheiveReconlistService(ArcheiveReconobj objArcheiveRecon, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                ReconData objqcd = new ReconData();
+                ds = objqcd.ArcheiveReconlistData(objArcheiveRecon, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
     }
 }

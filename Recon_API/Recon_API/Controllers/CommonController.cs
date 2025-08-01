@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ReconServiceLayer;
@@ -181,6 +181,5 @@ namespace Recon_API.Controllers
             public long? SizeBytes { get; set; } // Nullable: only used for files
         }
 
-        // Hema test
     }
 }

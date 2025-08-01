@@ -122,6 +122,18 @@ namespace ReconModels
     {
         public string in_recon_code { get; set; }
     }
-
+    public class undoIUTModelfetch
+    {
+        public String in_recon_code { get; set; }
+        public string in_iut_ref_no { get; set; }
+        public string in_user_code { get; set; }
+    }
+    public class undoIUTModel
+    {
+        public String in_recon_code { get; set; }
+        public string in_iut_ref_no { get; set; }
+        public string in_undo_reason { get; set; }
+        public string in_user_code { get; set; }
+    }
 }
 

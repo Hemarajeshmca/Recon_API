@@ -120,6 +120,29 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
-
-	}
+        public static DataTable reconalllistService(Reconalllistmodel objReconalllistmodel, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                UpdateReconData objqcd = new UpdateReconData();
+                ds = objqcd.reconalllistData(objReconalllistmodel, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+        public static DataTable ReconUpdatecusrptService(ReconUpdatecusrptModel objReconalllistmodel, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                UpdateReconData objqcd = new UpdateReconData();
+                ds = objqcd.ReconUpdatecusrptData(objReconalllistmodel, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+    }
 }
