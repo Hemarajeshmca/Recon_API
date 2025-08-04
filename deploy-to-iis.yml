@@ -29,7 +29,7 @@ jobs:
 
       - name: Deploy to IIS folder
         run: |
-          $iisPath = "C:\inetpub\wwwroot\Recon_API"
+          $iisPath = "D:\Publish\Recon_API"
           if (Test-Path $iisPath) {
             Remove-Item "$iisPath\*" -Recurse -Force
           } else {
@@ -43,3 +43,4 @@ jobs:
           Import-Module WebAdministration
           Restart-WebAppPool -Name "DefaultAppPool"  # Change if you're using a custom app pool
         shell: powershell
+
