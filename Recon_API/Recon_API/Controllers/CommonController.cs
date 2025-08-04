@@ -181,7 +181,5 @@ namespace Recon_API.Controllers
             public long? SizeBytes { get; set; } // Nullable: only used for files
         }
 
-        //Hema Check in git
-        //  Checking build
     }
 }
