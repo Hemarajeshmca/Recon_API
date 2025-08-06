@@ -182,7 +182,7 @@ namespace Recon_API.Controllers
         }
 
         // Hema checking
-        // test1
+        // test2
         [HttpPost("Test")]
         public IActionResult Test()
         {
