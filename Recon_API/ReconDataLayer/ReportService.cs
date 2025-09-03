@@ -360,6 +360,19 @@ namespace ReconServiceLayer
 			{ }
 			return dt;
 		}
+        
+        public static DataTable updateOncheckquery(updateTemplateStatusOncheckqueryModel objcheckQuery, string constring, UserManagementModel.headerValue headerval)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                ReportData objreport = new ReportData();
+                dt = objreport.updateOncheckquery(objcheckQuery, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return dt;
+        }
         //checkQueryService
         public static DataTable checkQueryService(checkQueryModel objcheckQuery, string constring, UserManagementModel.headerValue headerval)
         {
@@ -373,8 +386,36 @@ namespace ReconServiceLayer
             { }
             return dt;
         }
+        public static DataSet resultSetService(ResultSetModel objResultset, string constring, UserManagementModel.headerValue headerval)
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                ReportData objreport = new ReportData();
+                ds = objreport.resultSetData(objResultset, headerval, constring);
+            }
+            catch (Exception e)
+            {
 
-        //getstandardreportlistservice
+            }
+            return ds;
+        }
+        public static DataSet reportCreationService(ResultSetModel.report objReport, string constring, UserManagementModel.headerValue headerval)
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                ReportData objreport = new ReportData();
+                ds = objreport.reportData(objReport, headerval, constring);
+            }
+            catch (Exception e)
+            {
+
+            }
+            return ds;
+        }
+		
+		//getstandardreportlistservice
         public static DataTable getstandardreportlistservice(getsreport objgetsreportlist,UserManagementModel.headerValue headerval, string constring)
         {
             DataTable ds = new DataTable();
@@ -387,5 +428,6 @@ namespace ReconServiceLayer
             { }
             return ds;
         }
+
     }
 }
