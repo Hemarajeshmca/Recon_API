@@ -6,7 +6,7 @@ using static ReconModels.UserManagementModel;
 using System.Data;
 using static ReconModels.ReportModel;
 using static ReconModels.ReconModel;
-
+using ReconModels;
 namespace Recon_API.Controllers
 {
     [Route("api/[controller]")]
@@ -654,7 +654,30 @@ namespace Recon_API.Controllers
 				return Problem(title: e.Message);
 			}
 		}
-
+        
+        [HttpPost("updateOncheckquery")]
+        public IActionResult updateOncheckquery(updateTemplateStatusOncheckqueryModel objcheckQuery)
+        {
+            constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+            headerValue header_value = new headerValue();
+            DataTable response = new DataTable();
+            try
+            {
+                var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+                var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+                var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+                header_value.user_code = getvalue;
+                header_value.lang_code = getlangCode;
+                header_value.role_code = getRoleCode;
+                response = ReportService.updateOncheckquery(objcheckQuery, constring, header_value);
+                var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
+                return Ok(serializedProduct);
+            }
+            catch (Exception e)
+            {
+                return Problem(title: e.Message);
+            }
+        }
         [HttpPost("checkQuery")]
         public IActionResult checkQuery(checkQueryModel objcheckQuery)
         {
@@ -678,7 +701,54 @@ namespace Recon_API.Controllers
                 return Problem(title: e.Message);
             }
         }
-        [HttpPost("getstandardreportlist")]
+        [HttpPost("resultSet")]
+        public IActionResult resultSet(ResultSetModel objResultset)
+        {
+            constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+            headerValue header_value = new headerValue();
+            DataSet response = new DataSet();
+            try
+            {
+                var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+                var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+                var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+                header_value.user_code = getvalue;
+                header_value.lang_code = getlangCode;
+                header_value.role_code = getRoleCode;
+                response = ReportService.resultSetService(objResultset, constring, header_value);
+                var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
+                return Ok(serializedProduct);
+            }
+            catch (Exception e)
+            {
+                return Problem(title: e.Message);
+            }
+        }
+        [HttpPost("reportCreation")]
+        public IActionResult reportCreation(ResultSetModel.report objReport)
+        {
+            constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+            headerValue header_value = new headerValue();
+            DataSet response = new DataSet();
+            try
+            {
+                var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+                var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+                var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+                header_value.user_code = getvalue;
+                header_value.lang_code = getlangCode;
+                header_value.role_code = getRoleCode;
+                response = ReportService.reportCreationService(objReport, constring, header_value);
+                var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
+                return Ok(serializedProduct);
+            }
+            catch (Exception e)
+            {
+                return Problem(title: e.Message);
+            }
+        }
+		
+		[HttpPost("getstandardreportlist")]
         public IActionResult getstandardreportlist(getsreport objgetsreportlist)
         {
             constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
@@ -701,6 +771,5 @@ namespace Recon_API.Controllers
                 return Problem(title: e.Message);
             }
         }
-        
     }
 }

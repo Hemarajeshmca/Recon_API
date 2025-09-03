@@ -40,6 +40,8 @@ namespace ReconModels
 			public string? postprocessflag { get; set; }
 			public string? in_cumulative_flag { get; set; }
 			public string? in_opening_flag { get; set; }
+            public string? in_group_flag { get; set; }
+            public string? in_agg_flag { get; set; }
             public string? source_dataset_code { get; set; }
             public string? comparison_dataset_code { get; set; }
             public string? recorderby_type { get; set; }
@@ -134,7 +136,9 @@ namespace ReconModels
 			public string? in_preprocess_code { get; set; }
 			public int? in_recorder_seqno { get; set; }
 			public string? in_recorder_field { get; set; }
-			public string? in_active_status { get; set; }
+            public string? in_recorder_on { get; set; }
+            public string? in_recorderby_type { get; set; }
+            public string? in_active_status { get; set; }
 			public string? in_action { get; set; }
 			public string? in_user_code { get; set; }
 			public string? out_msg { get; set; }
@@ -146,7 +150,8 @@ namespace ReconModels
 			public string? in_preprocess_code { get; set; }
 			public int? in_grpfield_seqno { get; set; }
 			public string? in_grp_field { get; set; }
-			public string? in_active_status { get; set; }
+            public string? in_grpfield_on { get; set; }
+            public string? in_active_status { get; set; }
 			public string? in_action { get; set; }
 			public string? in_user_code { get; set; }
 			public string? out_msg { get; set; }
@@ -170,6 +175,20 @@ namespace ReconModels
             public string? in_active_status { get; set; }
             public string? in_action { get; set; }
             public string? in_action_by { get; set; }
+            public string? out_msg { get; set; }
+            public string? out_result { get; set; }
+        }
+        public class preprocessexpmodel
+        {
+            public int? in_preprocessexp_gid { get; set; }
+            public string? in_preprocessexp_on { get; set; }
+            public Decimal? in_preprocessexp_sno { get; set; }
+            public string? in_preprocess_code { get; set; }
+            public string? in_preprocessexp_update_field { get; set; }
+            public string? in_preprocess_expression { get; set; }
+            public string? in_active_status { get; set; }
+            public string? in_action { get; set; }
+            public string? in_user_code { get; set; }
             public string? out_msg { get; set; }
             public string? out_result { get; set; }
         }

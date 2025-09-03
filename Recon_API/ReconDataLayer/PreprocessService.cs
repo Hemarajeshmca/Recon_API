@@ -183,5 +183,17 @@ namespace ReconServiceLayer
             { }
             return ds;
         }
+        public static DataTable preprocessExpsrv(preprocessexpmodel objconditiondata, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                PreprocessData objDS = new PreprocessData();
+                ds = objDS.preprocessExpData(objconditiondata, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
     }
 }

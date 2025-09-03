@@ -422,7 +422,6 @@ namespace ReconDataLayer
 				objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objrunrecontheme), "pr_run_theme", headerval.user_code, constring);
 				throw ex;
 			}
-
 		}
 	}
 }
