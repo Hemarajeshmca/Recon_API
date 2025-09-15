@@ -108,12 +108,13 @@ namespace ReconModels
             public string? in_active_status { get; set; }
         }
 
-		public class getReportTemplateListModel
-		{
-			public string? in_recon_code { get; set; }
+        public class getReportTemplateListModel
+        {
+            public string? in_recon_code { get; set; }
             public Boolean? in_custom_flag { get; set; }
+            public string? in_role_code { get; set; }
 
-		}
+        }
 
         public class reporttemplatefieldModel
         {

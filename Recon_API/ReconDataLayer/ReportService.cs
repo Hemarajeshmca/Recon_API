@@ -428,6 +428,17 @@ namespace ReconServiceLayer
             { }
             return ds;
         }
-
+        public static DataTable getRoleReportTemplateListService(getReportTemplateListModel objgetReportTemplateListModel, string constring, UserManagementModel.headerValue headerval)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                ReportData objreport = new ReportData();
+                dt = objreport.getRoleReportTemplateListData(objgetReportTemplateListModel, constring, headerval);
+            }
+            catch (Exception e)
+            { }
+            return dt;
+        }
     }
 }

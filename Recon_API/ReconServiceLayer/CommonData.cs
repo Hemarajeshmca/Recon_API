@@ -177,9 +177,7 @@ namespace ReconDataLayer
 				return result;
 			}
 		}
-
-        // testdata
-        public DataTable testdata( headerValue hv, string constring)
+        public DataTable reportconfig_db(reportvalidatemodel objconfigvalue, headerValue hv, string constring)
         {
             try
             {
@@ -187,25 +185,18 @@ namespace ReconDataLayer
                 Dictionary<string, Object> values = new Dictionary<string, object>();
                 MySqlDataAccess con = new MySqlDataAccess("");
                 parameters = new List<IDbDataParameter>();
-                // ds = dbManager.execStoredProcedure("pr_get_result", CommandType.StoredProcedure, parameters.ToArray());
-                // result = ds.Tables[0];
-                result.Columns.Add("Id", typeof(int));
-                result.Columns.Add("Name", typeof(string));
-                result.Columns.Add("Status", typeof(string));
-
-                // Add rows (hardcoded values)
-                result.Rows.Add(1, "Apple", "Active");
-                result.Rows.Add(2, "Orange", "Inactive");
-                result.Rows.Add(3, "Banana", "Active");
+                parameters.Add(dbManager.CreateParameter("in_recon_code", objconfigvalue.in_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_rpttemplate_code", objconfigvalue.in_template_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_role_code", hv.role_code, DbType.String));
+                ds = dbManager.execStoredProcedure("pr_get_report_permission_config", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
                 return result;
             }
             catch (Exception ex)
             {
-                logger("SP:pr_get_result" + " " + "Error Message:" + ex.Message);
+                logger("SP:pr_get_role_config" + " " + "Error Message:" + ex.Message);
                 return result;
             }
         }
-
-
     }
 }

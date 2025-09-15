@@ -235,15 +235,15 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
-                ds = dbManager.execStoredProcedurelist("pr_get_reporttemplate_list", CommandType.StoredProcedure, parameters.ToArray());
+                ds = dbManager.execStoredProcedurelist("pr_get_reporttemplate_permission_list", CommandType.StoredProcedure, parameters.ToArray());
                 result = ds.Tables[0];
                 return result;
             }
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_get_reporttemplate_list" + "Error Message:" + ex.Message);
-                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objgetReportTemplateListModel), "pr_get_reporttemplate_list", headerval.user_code, constring);
+                objlog.logger("SP:pr_get_reporttemplate_permission_list" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objgetReportTemplateListModel), "pr_get_reporttemplate_permission_list", headerval.user_code, constring);
                 throw ex;
             }
 
@@ -1755,7 +1755,29 @@ namespace ReconDataLayer
                 objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(headerval), "pr_get_reportlist", headerval.user_code, constring);
                 throw ex;
             }
-
+        }
+        public DataTable getRoleReportTemplateListData(getReportTemplateListModel objgetReportTemplateListModel, string constring, UserManagementModel.headerValue headerval)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                parameters = new List<IDbDataParameter>();
+                //parameters.Add(dbManager.CreateParameter("in_recon_code", objgetReportTemplateListModel.in_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_custom_flag", objgetReportTemplateListModel.in_custom_flag, DbType.Boolean));
+                parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_role_code", objgetReportTemplateListModel.in_role_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+                ds = dbManager.execStoredProcedurelist("pr_get_role_reporttemplate_list", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_get_role_reporttemplate_list" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objgetReportTemplateListModel), "pr_get_role_reporttemplate_list", headerval.user_code, constring);
+                throw ex;
+            }
         }
     }
 }

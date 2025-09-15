@@ -37,7 +37,16 @@ namespace ReconModels
 		public class reconmindate
 		{
 			public string in_recon_code { get; set; }
-
 		}
-	}
+        public class reportvalidatemodel
+        {
+            public string in_recon_code { get; set; }
+            public string in_template_code { get; set; }
+            public string exceldownload { get; set; }
+            public string csvdownload { get; set; }
+            public string preview { get; set; }
+            public string deny { get; set; }
+            public string in_user_code { get; set; }
+        }
+    }
 }

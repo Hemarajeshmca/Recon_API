@@ -46,8 +46,27 @@ namespace ReconModels
 			public string in_deny_flag { get; set; }
 			public string in_active_status { get; set; }
 			public string in_delete_flag { get;set; }
-
 			public string in_action_by { get; set; }
 		}
-	}
+        public class saveRolePermissionlist
+        {
+            public int in_RoleReportPermission_gid { get; set; }
+            public string in_role_code { get; set; }
+            public string in_recon_code { get; set; }
+            public string in_Recon_name { get; set; }
+            public string in_reporttemplate_code { get; set; }
+            public string in_CustomReportName { get; set; }
+            public string in_ReportName { get; set; }
+            public string in_CSVDownload { get; set; }
+            public string in_ExcelDownload { get; set; }
+            public string in_Preview { get; set; }
+            public string in_Deny { get; set; }
+            public string in_deleteflag { get; set; }
+            public string in_action_by { get; set; }
+
+            // Output params
+            public string out_msg { get; set; }
+            public int out_result { get; set; }
+        }
+    }
 }

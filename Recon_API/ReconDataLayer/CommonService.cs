@@ -65,14 +65,13 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
-        //TestService
-        public static DataTable TestService(UserManagementModel.headerValue headerval, string constring)
+        public static DataTable reportconfig_srv(reportvalidatemodel objconfigvalue, UserManagementModel.headerValue headerval, string constring)
         {
             DataTable ds = new DataTable();
             try
             {
                 CommonHeader objDS = new CommonHeader();
-                ds = objDS.testdata(headerval, constring);
+                ds = objDS.reportconfig_db(objconfigvalue, headerval, constring);
             }
             catch (Exception e)
             { }

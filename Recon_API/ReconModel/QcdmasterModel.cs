@@ -33,4 +33,17 @@ namespace ReconModels
 		public string depend_master_syscode { get; set; }
 		public string depend_flag { get; set; }
 	}
+    public class getmanualthememodel
+    {
+        public string? recon_code { get; set; }      
+        public string? in_user_code { get; set; }
+    }
+    public class manualthememodel
+    {
+        public string? recon_code { get; set; }
+        public string? manualtheme_desc { get; set; }
+        public Int32 manualtheme_id { get; set; }
+        public string? in_action { get; set; }
+        public string? in_user_code { get; set; }
+    }
 }

@@ -113,7 +113,6 @@ namespace Recon_API.Controllers
                 return Problem(title: e.Message);
             }
         }
-
         [HttpPost("Schedulerupload")]
         public IActionResult Scheduleruploadfile(IFormFile file, string in_file_path, string initiated_by)
         {
@@ -181,10 +180,8 @@ namespace Recon_API.Controllers
             public long? SizeBytes { get; set; } // Nullable: only used for files
         }
 
-        // Hema checking
-        // test2
-        [HttpPost("Test")]
-        public IActionResult Test()
+        [HttpPost("reportpermissionconfig")]
+        public IActionResult reportpermissionconfig(reportvalidatemodel objconfigvalue)
         {
             headerValue header_value = new headerValue();
             DataTable response = new DataTable();
@@ -197,7 +194,7 @@ namespace Recon_API.Controllers
                 header_value.user_code = getvalue;
                 header_value.lang_code = getlangCode;
                 header_value.role_code = getRoleCode;
-                response = CommonService.TestService(header_value, constring);
+                response = CommonService.reportconfig_srv(objconfigvalue, header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }
@@ -206,7 +203,5 @@ namespace Recon_API.Controllers
                 return Problem(title: e.Message);
             }
         }
-
-
     }
 }

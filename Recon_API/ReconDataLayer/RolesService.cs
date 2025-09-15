@@ -83,5 +83,18 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
-	}
+        public static DataTable saveRolePermissionsAccessService(saveRoleAccessModel objsaveRoleAccessModel, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                RolesData objDS = new RolesData();
+                ds = objDS.DeleteRolePermissionsAccessData(objsaveRoleAccessModel, constring);
+                ds = objDS.saveRolePermissionsAccessData(objsaveRoleAccessModel, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+    }
 }
