@@ -83,14 +83,13 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
-        public static DataTable saveRolePermissionsAccessService(saveRoleAccessModel objsaveRoleAccessModel, UserManagementModel.headerValue headerval, string constring)
+        public static DataTable saverolepermissionaccess_srv(saveroleAccesspermissionModel objsaveRoleAccessModel, UserManagementModel.headerValue headerval, string constring)
         {
             DataTable ds = new DataTable();
             try
             {
                 RolesData objDS = new RolesData();
-                ds = objDS.DeleteRolePermissionsAccessData(objsaveRoleAccessModel, constring);
-                ds = objDS.saveRolePermissionsAccessData(objsaveRoleAccessModel, headerval, constring);
+                ds = objDS.saverolepermissionaccess_Data(objsaveRoleAccessModel, headerval, constring);
             }
             catch (Exception e)
             { }

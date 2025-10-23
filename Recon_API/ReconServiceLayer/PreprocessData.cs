@@ -83,7 +83,7 @@ namespace ReconDataLayer
 				parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
 				parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
 				parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
-				ds = dbManager.execStoredProcedure("pr_recon_mst_tpreprocess1", CommandType.StoredProcedure, parameters.ToArray());
+				ds = dbManager.execStoredProcedure("pr_recon_mst_tpreprocess", CommandType.StoredProcedure, parameters.ToArray());
 				result = ds.Tables[0];
 				return result;
 			}

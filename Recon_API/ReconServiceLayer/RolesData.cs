@@ -173,55 +173,21 @@ namespace ReconDataLayer
 			}
 		}
         //saveRolePermissionsAccessData Pandiaraj 19-08-2025
-        public DataTable saveRolePermissionsAccessData(saveRoleAccessModel objsaveRoleAccessModel, UserManagementModel.headerValue headerval, string constring)
+        public DataTable saverolepermissionaccess_Data(saveroleAccesspermissionModel objsaveRoleAccessModel, UserManagementModel.headerValue headerval, string constring)
         {
             try
             {
-                DataTable JsonData = new DataTable();
-                saveRolePermissionlist model = new saveRolePermissionlist();
+                DataSet ds = new DataSet();
                 DBManager dbManager = new DBManager(constring);
-                Dictionary<string, Object> values = new Dictionary<string, object>();
-                MySqlDataAccess con = new MySqlDataAccess("");
-                RolesData objDS = new RolesData();
-                JsonData = JsonConvert.DeserializeObject<DataTable>(objsaveRoleAccessModel.roledetails);
-                for (int i = 0; i < JsonData.Rows.Count; i++)
-                {
-                    parameters = new List<IDbDataParameter>(); parameters.Add(dbManager.CreateParameter("in_action_status", "Insert", DbType.String));
-                    parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code ?? string.Empty, DbType.String));
-                    parameters.Add(dbManager.CreateParameter("in_RoleReportPermission_gid", 0, DbType.Int32));
-                    parameters.Add(dbManager.CreateParameter("in_role_code", JsonData.Rows[i]["in_role_code"] == DBNull.Value ? "" : Convert.ToString(JsonData.Rows[i]["in_role_code"]), DbType.String));
-
-                    parameters.Add(dbManager.CreateParameter("in_recon_code", JsonData.Rows[i]["in_recon_code"] == DBNull.Value ? "" : Convert.ToString(JsonData.Rows[i]["in_recon_code"]), DbType.String));
-
-                    parameters.Add(dbManager.CreateParameter("in_Recon_name", JsonData.Rows[i]["in_Recon_name"] == DBNull.Value ? "" : Convert.ToString(JsonData.Rows[i]["in_Recon_name"]), DbType.String));
-
-                    parameters.Add(dbManager.CreateParameter("in_report_code", JsonData.Rows[i]["in_report_code"] == DBNull.Value ? "" : Convert.ToString(JsonData.Rows[i]["in_report_code"]), DbType.String));
-
-                    parameters.Add(dbManager.CreateParameter("in_report_desc", JsonData.Rows[i]["in_report_desc"] == DBNull.Value ? "" : Convert.ToString(JsonData.Rows[i]["in_report_desc"]), DbType.String));
-
-                    parameters.Add(dbManager.CreateParameter("in_reporttemplate_code", JsonData.Rows[i]["in_reporttemplate_code"] == DBNull.Value ? "" : Convert.ToString(JsonData.Rows[i]["in_reporttemplate_code"]), DbType.String));
-
-                    parameters.Add(dbManager.CreateParameter("in_reporttemplate_name", JsonData.Rows[i]["in_reporttemplate_name"] == DBNull.Value ? "" : Convert.ToString(JsonData.Rows[i]["in_reporttemplate_name"]), DbType.String));
-
-                    parameters.Add(dbManager.CreateParameter("in_CSVDownload", JsonData.Rows[i]["in_CSVDownload_flag"] == DBNull.Value ? "N" : Convert.ToString(JsonData.Rows[i]["in_CSVDownload_flag"]), DbType.String));
-
-                    parameters.Add(dbManager.CreateParameter("in_ExcelDownload", JsonData.Rows[i]["in_ExcelDownload_flag"] == DBNull.Value ? "N" : Convert.ToString(JsonData.Rows[i]["in_ExcelDownload_flag"]), DbType.String));
-
-                    parameters.Add(dbManager.CreateParameter("in_Preview", JsonData.Rows[i]["in_Preview_flag"] == DBNull.Value ? "N" : Convert.ToString(JsonData.Rows[i]["in_Preview_flag"]), DbType.String));
-
-                    parameters.Add(dbManager.CreateParameter("in_Deny", JsonData.Rows[i]["in_deny_flag"] == DBNull.Value ? "N" : Convert.ToString(JsonData.Rows[i]["in_deny_flag"]), DbType.String));
-
-
-                    parameters.Add(dbManager.CreateParameter("in_deleteflag", "N", DbType.String));
-                    //parameters.Add(dbManager.CreateParameter("in_active_status","Y", DbType.String));
-                    parameters.Add(dbManager.CreateParameter("in_action_by", headerval.user_code, DbType.String));
-
-                    parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
-                    parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.Int32, ParameterDirection.Output));
-
-                    ds = dbManager.execStoredProcedure("pr_admin_mst_tRoleReportPermissions", CommandType.StoredProcedure, parameters.ToArray());
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_roledetails", objsaveRoleAccessModel.roledetails, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_recon_code", objsaveRoleAccessModel.in_recon_code, DbType.String));                           
+                parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));               
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                ds = dbManager.execStoredProcedure("pr_admin_mst_trolereportpermission", CommandType.StoredProcedure, parameters.ToArray());
                     result = ds.Tables[0];
-                }
+               
                 return result;
             }
             catch (Exception ex)
@@ -229,49 +195,6 @@ namespace ReconDataLayer
                 CommonHeader objlog = new CommonHeader();
                 objlog.logger("SP:pr_admin_mst_tRoleReportPermissions" + "Error Message:" + ex.Message);
                 objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objsaveRoleAccessModel), "pr_admin_mst_trolerights", headerval.user_code, constring);
-                return result;
-            }
-        }
-
-        public DataTable DeleteRolePermissionsAccessData(saveRoleAccessModel objsaveRoleAccessModel, string constring)
-        {
-            try
-            {
-                DataTable JsonData = new DataTable();
-                saveRolePermissionlist model = new saveRolePermissionlist();
-                DBManager dbManager = new DBManager(constring);
-                Dictionary<string, Object> values = new Dictionary<string, object>();
-                MySqlDataAccess con = new MySqlDataAccess("");
-                JsonData = JsonConvert.DeserializeObject<DataTable>(objsaveRoleAccessModel.roledetails);
-                parameters = new List<IDbDataParameter>();
-                parameters.Add(dbManager.CreateParameter("in_action_status", "Delete", DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_lang_code", "", DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_RoleReportPermission_gid", Convert.ToInt32(JsonData.Rows[0]["in_RoleReportPermission_gid"]), DbType.Int32));
-                parameters.Add(dbManager.CreateParameter("in_role_code", Convert.ToString(JsonData.Rows[0]["in_role_code"]), DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_recon_code", Convert.ToString(JsonData.Rows[0]["in_recon_code"]), DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_Recon_name", Convert.ToString(JsonData.Rows[0]["in_Recon_name"]), DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_report_code", Convert.ToString(JsonData.Rows[0]["in_report_code"]), DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_report_desc", Convert.ToString(JsonData.Rows[0]["in_report_desc"]), DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_reporttemplate_code", Convert.ToString(JsonData.Rows[0]["in_reporttemplate_code"]), DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_reporttemplate_name", Convert.ToString(JsonData.Rows[0]["in_reporttemplate_name"]), DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_CSVDownload", Convert.ToString(JsonData.Rows[0]["in_CSVDownload_flag"]), DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_ExcelDownload", Convert.ToString(JsonData.Rows[0]["in_ExcelDownload_flag"]), DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_Preview", Convert.ToString(JsonData.Rows[0]["in_Preview_flag"]), DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_Deny", Convert.ToString(JsonData.Rows[0]["in_deny_flag"]), DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_deleteflag", "N", DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_action_by", "", DbType.String));
-                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
-                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.Int32, ParameterDirection.Output));
-
-                ds = dbManager.execStoredProcedure("pr_admin_mst_tRoleReportPermissions", CommandType.StoredProcedure, parameters.ToArray());
-
-                return result;
-            }
-            catch (Exception ex)
-            {
-                CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_admin_mst_tRoleReportPermissions" + "Error Delete Message:" + ex.Message);
-                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objsaveRoleAccessModel), "pr_admin_mst_tRoleReportPermissions", "", constring);
                 return result;
             }
         }

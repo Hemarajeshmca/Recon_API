@@ -6,6 +6,7 @@ using static ReconModels.ReconVersionmodel;
 using Font = iTextSharp.text.Font;
 using System.Globalization;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace ReconDataLayer
 {
@@ -312,7 +313,6 @@ namespace ReconDataLayer
                     // Input field
                     PdfPTable mainTable = new PdfPTable(3) { WidthPercentage = 100 };
                     mainTable.SetWidths(new float[] { 10f, 5f, 10f });
-                    //lineNumber = 326;
                     //// Title
                     string recon_name = dt1.Rows[0]["Recon Name"].ToString();
                     document.Add(CreateMainTitle1(recon_name + " - " + "Version History - " + objReconReportVersionhistory.in_version_code));
@@ -634,171 +634,74 @@ namespace ReconDataLayer
                                 };
                                 mainTable3.AddCell(blankCell6);
                                 document.Add(mainTable3);
-                                // Lookup Dataset
-                                if (ds.Tables[1].Rows.Count > 1 && dtpreprocess.Rows[0]["process_method"].ToString() == "QCD_LOOKUP")
-                                {
-                                    string _alpha = alphabet[preprocessalphabet];
-                                    document.Add(CreateTitle("Lookup Dataset", mustardYellow));
-                                    document.Add(PdfdynamicTableGenration(ds.Tables[1]));
-                                    PdfPTable spacerTableAfter3 = new PdfPTable(1);
-                                    PdfPCell spacerCellAfter3 = new PdfPCell(new Phrase(" "))
-                                    {
-                                        FixedHeight = fh,
-                                        Border = PdfPCell.NO_BORDER
-                                    };
-                                    spacerTableAfter3.AddCell(spacerCellAfter3);
-                                    document.Add(spacerTableAfter3);
-                                    preprocessalphabet = preprocessalphabet + 1;
-                                }
-                                // Recon (VS) look up condition
-                                if (ds.Tables[2].Rows.Count > 1)
-                                {
-                                    string _alpha = alphabet[preprocessalphabet];
-                                    document.Add(CreateTitle("Recon Vs Lookup Condition", mustardYellow));
-                                    document.Add(PdfdynamicTableGenration(ds.Tables[2]));
-                                    PdfPTable spacerTableAfter3 = new PdfPTable(1);
-                                    PdfPCell spacerCellAfter3 = new PdfPCell(new Phrase(" "))
-                                    {
-                                        FixedHeight = fh,
-                                        Border = PdfPCell.NO_BORDER
-                                    };
-                                    spacerTableAfter3.AddCell(spacerCellAfter3);
-                                    document.Add(spacerTableAfter3);
-                                    preprocessalphabet = preprocessalphabet + 1;
-                                }
-                                //Lookup Vs Recon
-
-                                if (ds.Tables[3].Rows.Count > 1)
-                                {
-                                    string _alpha = alphabet[preprocessalphabet];
-                                    document.Add(CreateTitle("Lookup Vs Recon", mustardYellow));
-                                    document.Add(PdfdynamicTableGenration(ds.Tables[3]));
-                                    PdfPTable spacerTableAfter4 = new PdfPTable(1);
-                                    PdfPCell spacerCellAfter4 = new PdfPCell(new Phrase(" "))
-                                    {
-                                        FixedHeight = fh,
-                                        Border = PdfPCell.NO_BORDER
-                                    };
-                                    spacerTableAfter4.AddCell(spacerCellAfter4);
-                                    document.Add(spacerTableAfter4);
-                                    preprocessalphabet = preprocessalphabet + 1;
-                                }
-                                // Lookup Filter
-
-                                if (ds.Tables[4].Rows.Count > 1)
-                                {
-                                    string _alpha = alphabet[preprocessalphabet];
-                                    document.Add(CreateTitle("Lookup Filter", mustardYellow));
-                                    document.Add(PdfdynamicTableGenration(ds.Tables[4]));
-                                    PdfPTable spacerTableAfter5 = new PdfPTable(1);
-                                    PdfPCell spacerCellAfter5 = new PdfPCell(new Phrase(" "))
-                                    {
-                                        FixedHeight = fh,
-                                        Border = PdfPCell.NO_BORDER
-                                    };
-                                    spacerTableAfter5.AddCell(spacerCellAfter5);
-                                    document.Add(spacerTableAfter5);
-                                    preprocessalphabet = preprocessalphabet + 1;
-                                }
-                                //Recon Filter
-                                if (ds.Tables[5].Rows.Count > 1)
-                                {
-                                    string _alpha = alphabet[preprocessalphabet];
-                                    document.Add(CreateTitle("Recon Filter", mustardYellow));
-                                    document.Add(PdfdynamicTableGenration(ds.Tables[5]));
-                                    PdfPTable spacerTableAfter6 = new PdfPTable(1);
-                                    PdfPCell spacerCellAfter6 = new PdfPCell(new Phrase(" "))
-                                    {
-                                        FixedHeight = fh,
-                                        Border = PdfPCell.NO_BORDER
-                                    };
-                                    spacerTableAfter6.AddCell(spacerCellAfter6);
-                                    document.Add(spacerTableAfter6);
-                                    preprocessalphabet = preprocessalphabet + 1;
-                                }
-                                // Query 
-
-                                if (dtpreprocess.Rows[0]["process_method"].ToString() == "QCD_QUERY" && ds.Tables[6].Rows.Count > 1)
-                                {
-                                    string _alpha = alphabet[preprocessalphabet];
-                                    document.Add(CreateTitle("Query", mustardYellow));
-                                    document.Add(PdfdynamicTableGenration(ds.Tables[6]));
-                                    PdfPTable spacerTableAfter7 = new PdfPTable(1);
-                                    PdfPCell spacerCellAfter7 = new PdfPCell(new Phrase(" "))
-                                    {
-                                        FixedHeight = fh,
-                                        Border = PdfPCell.NO_BORDER
-                                    };
-                                    spacerTableAfter7.AddCell(spacerCellAfter7);
-                                    document.Add(spacerTableAfter7);
-                                    preprocessalphabet = preprocessalphabet + 1;
-                                }
-
-                                // Expression 
-
-                                if (dtpreprocess.Rows[0]["process_method"].ToString() == "QCD_EXPRESSION" && ds.Tables[7].Rows.Count > 1)
-                                {
-                                    string _alpha = alphabet[preprocessalphabet];
-                                    document.Add(CreateTitle("Expression", mustardYellow));
-                                    document.Add(PdfdynamicTableGenration(ds.Tables[7]));
-                                    PdfPTable spacerTableAfter8 = new PdfPTable(1);
-                                    PdfPCell spacerCellAfter8 = new PdfPCell(new Phrase(" "))
-                                    {
-                                        FixedHeight = fh,
-                                        Border = PdfPCell.NO_BORDER
-                                    };
-                                    spacerTableAfter8.AddCell(spacerCellAfter8);
-                                    document.Add(spacerTableAfter8);
-                                    preprocessalphabet = preprocessalphabet + 1;
-                                }
-                                // Cumulative order / Recon Order
-                                if (ds.Tables[8].Rows.Count > 1)
-                                {
-                                    string _alpha = alphabet[preprocessalphabet];
-                                    document.Add(CreateTitle("Recon Order", mustardYellow));
-                                    document.Add(PdfdynamicTableGenration(ds.Tables[8]));
-                                    PdfPTable spacerTableAfter9 = new PdfPTable(1);
-                                    PdfPCell spacerCellAfter9 = new PdfPCell(new Phrase(" "))
-                                    {
-                                        FixedHeight = fh,
-                                        Border = PdfPCell.NO_BORDER
-                                    };
-                                    spacerTableAfter9.AddCell(spacerCellAfter9);
-                                    document.Add(spacerTableAfter9);
-                                    preprocessalphabet = preprocessalphabet + 1;
-                                }
-                                // Aggregation
-                                if (ds.Tables[9].Rows.Count > 1)
-                                {
-                                    string _alpha = alphabet[preprocessalphabet];
-                                    document.Add(CreateTitle("Aggregation", mustardYellow));
-                                    document.Add(PdfdynamicTableGenration(ds.Tables[9]));
-                                    PdfPTable spacerTableAfter10 = new PdfPTable(1);
-                                    PdfPCell spacerCellAfter10 = new PdfPCell(new Phrase(" "))
-                                    {
-                                        FixedHeight = fh,
-                                        Border = PdfPCell.NO_BORDER
-                                    };
-                                    spacerTableAfter10.AddCell(spacerCellAfter10);
-                                    document.Add(spacerTableAfter10);
-                                    preprocessalphabet = preprocessalphabet + 1;
-                                }
 
                                 // Function
-                                if (ds.Tables[10].Rows.Count > 1)
+                                if (dtpreprocess.Rows[0]["process_method"].ToString() == "QCD_FUNCTION")
                                 {
-                                    string _alpha = alphabet[preprocessalphabet];
-                                    document.Add(CreateTitle("Function", mustardYellow));
-                                    document.Add(PdfdynamicTableGenration(ds.Tables[10]));
-                                    PdfPTable spacerTableAfter11 = new PdfPTable(1);
-                                    PdfPCell spacerCellAfter11 = new PdfPCell(new Phrase(" "))
-                                    {
-                                        FixedHeight = fh,
-                                        Border = PdfPCell.NO_BORDER
-                                    };
-                                    spacerTableAfter11.AddCell(spacerCellAfter11);
-                                    document.Add(spacerTableAfter11);
-                                    preprocessalphabet = preprocessalphabet + 1;
+                                    AddSectionDocument(document, ds.Tables[10], "Function", mustardYellow, ref preprocessalphabet, alphabet, fh);
+                                    AddSectionDocument(document, ds.Tables[5], "Recon Filter", mustardYellow, ref preprocessalphabet, alphabet, fh);
+                                }
+
+                                // Lookup
+
+                                if (dtpreprocess.Rows[0]["process_method"].ToString() == "QCD_LOOKUP")
+                                {
+                                    AddSectionDocument(document, ds.Tables[1], "Lookup Dataset", mustardYellow, ref preprocessalphabet, alphabet, fh);
+                                    AddSectionDocument(document, ds.Tables[2], "Recon Vs Lookup Condition", mustardYellow, ref preprocessalphabet, alphabet, fh);
+                                    AddSectionDocument(document, ds.Tables[4], "Lookup Filter", mustardYellow, ref preprocessalphabet, alphabet, fh);
+                                    AddSectionDocument(document, ds.Tables[5], "Recon Filter", mustardYellow, ref preprocessalphabet, alphabet, fh);
+                                }
+                                // Query
+                                if (dtpreprocess.Rows[0]["process_method"].ToString() == "QCD_QUERY")
+                                {
+                                    AddSectionDocument(document, ds.Tables[6], "Query", mustardYellow, ref preprocessalphabet, alphabet, fh);
+
+                                }
+                                // Expression
+                                if (dtpreprocess.Rows[0]["process_method"].ToString() == "QCD_EXPRESSION")
+                                {
+                                    AddSectionDocument(document, ds.Tables[7], "Expression", mustardYellow, ref preprocessalphabet, alphabet, fh);
+                                    AddSectionDocument(document, ds.Tables[5], "Recon Filter", mustardYellow, ref preprocessalphabet, alphabet, fh);
+                                }
+                                // Cummulative Expression
+                                if (dtpreprocess.Rows[0]["process_method"].ToString() == "QCD_CUMULATIVEXP")
+                                {
+                                    AddSectionDocument(document, ds.Tables[7], "Expression", mustardYellow, ref preprocessalphabet, alphabet, fh);
+                                    AddSectionDocument(document, ds.Tables[8], "Recon Order", mustardYellow, ref preprocessalphabet, alphabet, fh);
+                                    AddSectionDocument(document, ds.Tables[5], "Recon Filter", mustardYellow, ref preprocessalphabet, alphabet, fh);
+                                }
+                                // Aggregation Expression
+                                if (dtpreprocess.Rows[0]["process_method"].ToString() == "QCD_AGGEXP")
+                                {
+                                    AddSectionDocument(document, ds.Tables[7], "Expression", mustardYellow, ref preprocessalphabet, alphabet, fh);
+                                    AddSectionDocument(document, ds.Tables[9], "Aggregation Grouping", mustardYellow, ref preprocessalphabet, alphabet, fh);
+                                    AddSectionDocument(document, ds.Tables[5], "Recon Filter", mustardYellow, ref preprocessalphabet, alphabet, fh);
+                                }
+                                //Comparison
+
+                                if (dtpreprocess.Rows[0]["process_method"].ToString() == "QCD_COMPARISONEXP")
+                                {
+                                    AddSectionDocument(document, ds.Tables[7], "Expression", mustardYellow, ref preprocessalphabet, alphabet, fh);
+                                    AddSectionDocument(document, ds.Tables[14], "PreProcess Condition", mustardYellow, ref preprocessalphabet, alphabet, fh);
+                                    AddSectionDocument(document, ds.Tables[12], "Source Filter", mustardYellow, ref preprocessalphabet, alphabet, fh);
+                                    AddSectionDocument(document, ds.Tables[13], "Comparision Filter", mustardYellow, ref preprocessalphabet, alphabet, fh);
+                                    AddSectionDocument(document, ds.Tables[5], "Recon Filter", mustardYellow, ref preprocessalphabet, alphabet, fh);
+                                }
+                                // Lookup Expression
+
+                                if (dtpreprocess.Rows[0]["process_method"].ToString() == "QCD_LOOKUP_EXPRESSION")
+                                {
+                                    AddSectionDocument(document, ds.Tables[11], "Lookup Expression", mustardYellow, ref preprocessalphabet, alphabet, fh);
+                                    AddSectionDocument(document, ds.Tables[4], "Lookup Filter", mustardYellow, ref preprocessalphabet, alphabet, fh);
+                                }
+                                // Lookup Aggregation Expression
+
+                                if (dtpreprocess.Rows[0]["process_method"].ToString() == "QCD_LOOKUP_EXP_AGG")
+                                {
+                                    AddSectionDocument(document, ds.Tables[15], "Lookup Expression", mustardYellow, ref preprocessalphabet, alphabet, fh);
+                                    AddSectionDocument(document, ds.Tables[16], "Aggregation Lookup Grouping", mustardYellow, ref preprocessalphabet, alphabet, fh);
+                                    AddSectionDocument(document, ds.Tables[17], "Lookup Order", mustardYellow, ref preprocessalphabet, alphabet, fh);
+                                    AddSectionDocument(document, ds.Tables[4], "Lookup Filter", mustardYellow, ref preprocessalphabet, alphabet, fh);
                                 }
                             }
                             else if (Convert.ToString(dt2.Rows[i]["type"]) == "Rule")
@@ -1429,6 +1332,28 @@ namespace ReconDataLayer
                 return null;
             }
         }
+
+        public void AddSectionDocument(Document document, DataTable table, string titleText, BaseColor titleColor, ref int preprocessalphabet, string[] alphabet, float spacerHeight)
+        {
+            if (table.Rows.Count > 1)
+            {
+                string _alpha = alphabet[preprocessalphabet];
+                document.Add(CreateTitle(titleText, titleColor));
+                document.Add(PdfdynamicTableGenration(table));
+                PdfPTable spacerTable = new PdfPTable(1);
+                PdfPCell spacerCell = new PdfPCell(new Phrase(" "))
+                {
+                    FixedHeight = spacerHeight,
+                    Border = PdfPCell.NO_BORDER
+                };
+                spacerTable.AddCell(spacerCell);
+                document.Add(spacerTable);
+                preprocessalphabet = preprocessalphabet + 1;
+            }
+        }
+
+
+
         private byte[] GenerateTocPdf(List<TOCEntry> tocEntries)
         {
             using (MemoryStream tocStream = new MemoryStream())
@@ -1505,6 +1430,8 @@ namespace ReconDataLayer
                 PageInfo = pageInfo;
             }
         }
+
+
     }
 }
 

@@ -771,7 +771,7 @@ namespace Recon_API.Controllers
                 return Problem(title: e.Message);
             }
         }
-
+         //Pandiaraj 14-08-2025
         [Route("getRoleReportTemplateList")]
         [HttpPost]
         public IActionResult getRoleReportTemplateList(getReportTemplateListModel objgetReportTemplateListModel)
@@ -794,6 +794,7 @@ namespace Recon_API.Controllers
             catch (Exception e)
             {
                 return Problem(title: e.Message);
+
             }
         }
     }

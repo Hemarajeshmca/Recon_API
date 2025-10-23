@@ -141,8 +141,8 @@ namespace Recon_API.Controllers
 				return Problem(title: e.Message);
 			}
 		}
-        [HttpPost("saveRolePermissionAccess")]
-        public IActionResult saveRolePermissionAccess(saveRoleAccessModel objsaveRoleAccessModel)
+        [HttpPost("saverolepermissionaccess")]
+        public IActionResult saverolepermissionaccess(saveroleAccesspermissionModel objsaveRoleAccessModel)
         {
             headerValue header_value = new headerValue();
             DataTable response = new DataTable();
@@ -155,7 +155,7 @@ namespace Recon_API.Controllers
                 header_value.user_code = getvalue;
                 header_value.lang_code = getlangCode;
                 header_value.role_code = getRoleCode;
-                response = RolesService.saveRolePermissionsAccessService(objsaveRoleAccessModel, header_value, constring);
+                response = RolesService.saverolepermissionaccess_srv(objsaveRoleAccessModel, header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }

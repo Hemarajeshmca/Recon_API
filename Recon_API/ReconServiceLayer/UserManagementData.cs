@@ -212,6 +212,7 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_user_gid", Usermodel.user_gid, DbType.Int16, ParameterDirection.InputOutput));
                 parameters.Add(dbManager.CreateParameter("in_user_code", Usermodel.user_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_user_name", Usermodel.user_name, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_winauth", Usermodel.winauth, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_user_contactno", Usermodel.user_contact_no, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_user_emailid", Usermodel.user_emailid, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_user_password", Usermodel.user_password, DbType.String));
