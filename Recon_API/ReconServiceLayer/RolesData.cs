@@ -172,6 +172,31 @@ namespace ReconDataLayer
 				return result;
 			}
 		}
-
-	}
+        //saveRolePermissionsAccessData Pandiaraj 19-08-2025
+        public DataTable saverolepermissionaccess_Data(saveroleAccesspermissionModel objsaveRoleAccessModel, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DataSet ds = new DataSet();
+                DBManager dbManager = new DBManager(constring);
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_roledetails", objsaveRoleAccessModel.roledetails, DbType.String));
+				parameters.Add(dbManager.CreateParameter("in_recon_code", objsaveRoleAccessModel.in_recon_code, DbType.String));                           
+                parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));               
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                ds = dbManager.execStoredProcedure("pr_admin_mst_trolereportpermission", CommandType.StoredProcedure, parameters.ToArray());
+                    result = ds.Tables[0];
+               
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_admin_mst_tRoleReportPermissions" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objsaveRoleAccessModel), "pr_admin_mst_trolerights", headerval.user_code, constring);
+                return result;
+            }
+        }
+    }
 }

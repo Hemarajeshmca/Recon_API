@@ -154,6 +154,25 @@ namespace ReconDataLayer
 			}
 
 		}
+        public DataTable getPipelinelistSchedulerData(pipelinelist objpipeline, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_target_dataset_code", objpipeline.in_target_dataset_code, DbType.String));
+                ds = dbManager.execStoredProcedure("pr_get_pipelinelistScheduler", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_get_pipelinelist" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objpipeline), "pr_get_pipelinelist", headerval.user_code, constring);
+                throw ex;
+            }
 
-	}
+        }
+    }
 }

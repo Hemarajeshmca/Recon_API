@@ -771,5 +771,31 @@ namespace Recon_API.Controllers
                 return Problem(title: e.Message);
             }
         }
+         //Pandiaraj 14-08-2025
+        [Route("getRoleReportTemplateList")]
+        [HttpPost]
+        public IActionResult getRoleReportTemplateList(getReportTemplateListModel objgetReportTemplateListModel)
+        {
+            DataTable dt = new DataTable();
+            constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+            headerValue header_value = new headerValue();
+            try
+            {
+                var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+                var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+                var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+                header_value.user_code = getvalue;
+                header_value.lang_code = getlangCode;
+                header_value.role_code = getRoleCode;
+                dt = ReportService.getRoleReportTemplateListService(objgetReportTemplateListModel, constring, header_value);
+                var serializedProduct = JsonConvert.SerializeObject(dt, Formatting.None);
+                return Ok(serializedProduct);
+            }
+            catch (Exception e)
+            {
+                return Problem(title: e.Message);
+
+            }
+        }
     }
 }

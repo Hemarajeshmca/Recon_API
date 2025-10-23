@@ -64,6 +64,29 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
-
-	}
+        public static DataTable manualthemesavesrv(manualthememodel objgridread, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                QcdmastersData objqcd = new QcdmastersData();
+                ds = objqcd.manualthemesavedata(objgridread, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+        public static DataTable getmanualthemesrv(getmanualthememodel objgridread, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                QcdmastersData objqcd = new QcdmastersData();
+                ds = objqcd.getmanualthemedata(objgridread, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+    }
 }

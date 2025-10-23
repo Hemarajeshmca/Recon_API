@@ -86,7 +86,7 @@ namespace ReconServiceLayer
 		public static DataTable getreportparamlistreconservice(reportparamlistmodel objreportparamlistmodel, UserManagementModel.headerValue headerval, string constring)
 		{
 			DataTable ds = new DataTable();
-			try
+			try 
 			{
 				ReportData objreport = new ReportData();
 				ds = objreport.getreportparamlistreconData(objreportparamlistmodel, headerval, constring);
@@ -429,5 +429,19 @@ namespace ReconServiceLayer
             return ds;
         }
 
+        //Pandiaraj 18-08-2025
+        //getRoleReportTemplateListService
+        public static DataTable getRoleReportTemplateListService(getReportTemplateListModel objgetReportTemplateListModel, string constring, UserManagementModel.headerValue headerval)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                ReportData objreport = new ReportData();
+                dt = objreport.getRoleReportTemplateListData(objgetReportTemplateListModel, constring, headerval);
+            }
+            catch (Exception e)
+            { }
+            return dt;
+        }
     }
 }
