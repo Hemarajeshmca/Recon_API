@@ -76,7 +76,18 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
+        public static DataTable getPipelinelistSchedulerservice(pipelinelist objpipeline, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                ProcessData objprocess = new ProcessData();
+                ds = objprocess.getPipelinelistSchedulerData(objpipeline, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
 
-
-	}
+    }
 }

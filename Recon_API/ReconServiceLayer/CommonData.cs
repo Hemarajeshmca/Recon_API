@@ -1,4 +1,5 @@
 ﻿using DocumentFormat.OpenXml.Drawing.Diagrams;
+using Newtonsoft.Json;
 using ReconModels;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static ReconModels.CommonModel;
 using static ReconModels.DatasetModel;
+using static ReconModels.PreprocessModel;
 using static ReconModels.UserManagementModel;
 
 namespace ReconDataLayer
@@ -177,9 +179,7 @@ namespace ReconDataLayer
 				return result;
 			}
 		}
-
-        // testdata
-        public DataTable testdata( headerValue hv, string constring)
+        public DataTable reportconfig_db(reportvalidatemodel objconfigvalue, headerValue hv, string constring)
         {
             try
             {
@@ -187,25 +187,100 @@ namespace ReconDataLayer
                 Dictionary<string, Object> values = new Dictionary<string, object>();
                 MySqlDataAccess con = new MySqlDataAccess("");
                 parameters = new List<IDbDataParameter>();
-                // ds = dbManager.execStoredProcedure("pr_get_result", CommandType.StoredProcedure, parameters.ToArray());
-                // result = ds.Tables[0];
-                result.Columns.Add("Id", typeof(int));
-                result.Columns.Add("Name", typeof(string));
-                result.Columns.Add("Status", typeof(string));
-
-                // Add rows (hardcoded values)
-                result.Rows.Add(1, "Apple", "Active");
-                result.Rows.Add(2, "Orange", "Inactive");
-                result.Rows.Add(3, "Banana", "Active");
+                parameters.Add(dbManager.CreateParameter("in_recon_code", objconfigvalue.in_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_rpttemplate_code", objconfigvalue.in_template_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_role_code", hv.role_code, DbType.String));
+                ds = dbManager.execStoredProcedure("pr_get_report_permission_config", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
                 return result;
             }
             catch (Exception ex)
             {
-                logger("SP:pr_get_result" + " " + "Error Message:" + ex.Message);
+                logger("SP:pr_get_role_config" + " " + "Error Message:" + ex.Message);
+                return result;
+            }
+        }
+        public DataTable Archeivedatasetlist_db(ArcheivedatasetlistModel objconfigvalue, headerValue hv, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_recon_code", objconfigvalue.in_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_code", hv.user_code, DbType.String));
+                ds = dbManager.execStoredProcedure("pr_get_archivaldatasetlist", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                logger("SP:pr_get_archivaldatasetlist" + " " + "Error Message:" + ex.Message);
                 return result;
             }
         }
 
-
+        public DataTable archivaldatasetsave_db(archivaldatasetsaveModel Objmodel, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_archivaldataset_gid", Objmodel.in_archivaldataset_gid, DbType.Int32, ParameterDirection.InputOutput));
+                parameters.Add(dbManager.CreateParameter("in_archivaldatasetfilter_gid", Objmodel.in_archivaldatasetfilter_gid, DbType.Int32));
+                parameters.Add(dbManager.CreateParameter("in_dataset_code", Objmodel.in_dataset_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_recon_code", Objmodel.in_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_dataset_type", Objmodel.in_dataset_type, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_archival_flag", Objmodel.in_archival_flag, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_filter_seqno", Objmodel.in_filter_seqno, DbType.Double));
+                parameters.Add(dbManager.CreateParameter("in_filter_field", Objmodel.in_filter_field, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_filter_criteria", Objmodel.in_filter_criteria, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_filter_value_flag", Objmodel.in_filter_value_flag, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_filter_value", Objmodel.in_filter_value, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_open_parentheses_flag", Objmodel.in_open_parentheses_flag, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_close_parentheses_flag", Objmodel.in_close_parentheses_flag, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_join_condition", Objmodel.in_join_condition, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_active_status", Objmodel.in_active_status, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_action", Objmodel.in_action, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_action_by", Objmodel.in_user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                ds = dbManager.execStoredProcedure("pr_recon_mst_tarchivaldataset", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_recon_mst_tarchivaldataset" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(Objmodel), "pr_recon_mst_tarchivaldataset", headerval.user_code, constring);
+                return result;
+            }
+        }
+        public DataTable Archeivedatasetfetch_db(ArcheivedatasetfetchModel objconfigvalue, headerValue hv, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_recon_code", objconfigvalue.in_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_dataset_code", objconfigvalue.in_dataset_code, DbType.String));
+                ds = dbManager.execStoredProcedure("pr_get_archivaldatasetfetch", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                logger("SP:pr_get_archivaldatasetfetch" + " " + "Error Message:" + ex.Message);
+                return result;
+            }
+        }
     }
 }

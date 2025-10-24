@@ -8,7 +8,8 @@ namespace ReconModels
 {
 	public class ResultSetModel
 	{
-		public Int64? reportresultset_gid { get; set; }
+        public string? reporttemplate_code { get; set; } // hari changes 08-09-25
+        public Int64? reportresultset_gid { get; set; }
 		public string? report_code { get; set; }
 		public string? resultset_name { get; set; }
 		public string? resultset_order { get; set; }

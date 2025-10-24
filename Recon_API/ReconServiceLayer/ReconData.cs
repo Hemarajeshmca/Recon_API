@@ -229,6 +229,7 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_threshold_plus_value", recon.in_threshold_plus_value, DbType.Double));
                 parameters.Add(dbManager.CreateParameter("in_threshold_minus_value", recon.in_threshold_minus_value, DbType.Double));
                 parameters.Add(dbManager.CreateParameter("in_processing_method", recon.in_processing_method, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_recon_theme_flag", recon.in_recon_theme_flag, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_active_reason", recon.in_active_reason, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_active_status", recon.in_active_status, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));

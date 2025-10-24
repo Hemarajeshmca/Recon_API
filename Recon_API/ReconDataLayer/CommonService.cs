@@ -65,14 +65,49 @@ namespace ReconServiceLayer
 			{ }
 			return ds;
 		}
-        //TestService
-        public static DataTable TestService(UserManagementModel.headerValue headerval, string constring)
+        public static DataTable reportconfig_srv(reportvalidatemodel objconfigvalue, UserManagementModel.headerValue headerval, string constring)
         {
             DataTable ds = new DataTable();
             try
             {
                 CommonHeader objDS = new CommonHeader();
-                ds = objDS.testdata(headerval, constring);
+                ds = objDS.reportconfig_db(objconfigvalue, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+        public static DataTable Archeivedatasetlist_srv(ArcheivedatasetlistModel objconfigvalue, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                CommonHeader objDS = new CommonHeader();
+                ds = objDS.Archeivedatasetlist_db(objconfigvalue, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+        public static DataTable archivaldatasetsave_srv(archivaldatasetsaveModel objconfigvalue, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                CommonHeader objDS = new CommonHeader();
+                ds = objDS.archivaldatasetsave_db(objconfigvalue, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+        public static DataTable Archeivedatasetfetch_srv(ArcheivedatasetfetchModel objconfigvalue, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                CommonHeader objDS = new CommonHeader();
+                ds = objDS.Archeivedatasetfetch_db(objconfigvalue, headerval, constring);
             }
             catch (Exception e)
             { }

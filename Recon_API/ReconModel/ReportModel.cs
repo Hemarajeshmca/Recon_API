@@ -54,6 +54,7 @@ namespace ReconModels
         public class fetchReportTemplateModel
 		{
 			public String? in_reporttemplate_code { get; set; }
+            public String? in_reporttemplateresultset_code { get; set; }
             public string? in_recon_code { get; set; }
             public string? in_report_code { get; set; }
 
@@ -65,7 +66,7 @@ namespace ReconModels
             public String? in_reporttemplate_code { get; set; }
             public Decimal? in_filter_seqno { get; set; }
             public string? in_report_field { get; set; }
-            public string? in_report_code { get; set; }
+            public string? in_reporttemplateresultset_code { get; set; }
             public string? in_filter_criteria { get; set; }
             public string? in_filter_value { get; set; }
             public string? in_open_parentheses_flag { get; set; }
@@ -111,7 +112,9 @@ namespace ReconModels
 		public class getReportTemplateListModel
 		{
 			public string? in_recon_code { get; set; }
+            public string? in_report_flag { get; set; }
             public Boolean? in_custom_flag { get; set; }
+            public string? in_role_code { get; set; }
 
 		}
 
@@ -120,7 +123,7 @@ namespace ReconModels
             public string? templateJSON { get; set; }
             public string? in_reporttemplate_code { get; set; }
 
-           public string? in_report_code { get; set; }
+           public string? in_reporttemplateresultset_code { get; set; }
         }
 
         public class reporttemplatesortingModel
@@ -128,7 +131,7 @@ namespace ReconModels
             public int? in_reporttemplatesorting_gid { get; set; }
             public string? in_reporttemplate_code { get; set; }
             public string? in_report_field { get; set; }
-            public string? in_report_code { get; set; }
+            public string? in_reporttemplateresultset_code { get; set; }
             public decimal? in_sorting_order { get; set; }
             public string? in_active_status { get; set; }
             public string? in_action { get; set; }

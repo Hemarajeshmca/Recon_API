@@ -46,8 +46,15 @@ namespace ReconModels
 			public string in_deny_flag { get; set; }
 			public string in_active_status { get; set; }
 			public string in_delete_flag { get;set; }
-
 			public string in_action_by { get; set; }
 		}
-	}
+        public class saveroleAccesspermissionModel
+        {
+            public string? roledetails { get; set; }
+            public string? in_user_code { get; set; }
+            public string? in_recon_code { get; set; }
+            public string out_msg { get; set; }
+            public int out_result { get; set; }
+        }
+    }
 }

@@ -52,6 +52,7 @@ namespace ReconModels
             public string user_emailid { get; set; }
             public int user_gid { get; set; }
             public string user_name { get; set; }
+            public string winauth { get; set; }
             public string user_password { get; set; }
             public string action { get; set; }
             public string action_by { get; set; }

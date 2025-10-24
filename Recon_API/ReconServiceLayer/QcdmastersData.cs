@@ -128,6 +128,55 @@ namespace ReconDataLayer
 			}
 		}
 
-
-	}
+        public DataTable manualthemesavedata(manualthememodel objmaster, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_manualtheme_gid", objmaster.manualtheme_id, DbType.Int64, ParameterDirection.InputOutput));
+                parameters.Add(dbManager.CreateParameter("in_recon_code", objmaster.recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_manualtheme_desc", objmaster.manualtheme_desc, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_action", objmaster.in_action, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_code", objmaster.in_user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                ds = dbManager.execStoredProcedure("pr_recon_mst_tmanualtheme", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_recon_mst_tmanualtheme" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objmaster), "pr_recon_mst_tmanualtheme", headerval.user_code, constring);
+                return result;
+            }
+        }
+        public DataTable getmanualthemedata(getmanualthememodel objgridread, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_recon_code", objgridread.recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+                ds = dbManager.execStoredProcedure("pr_get_manualtheme", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_get_manualtheme" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objgridread), "pr_get_manualtheme", headerval.user_code, constring);
+                return result;
+            }
+        }
+    }
 }
