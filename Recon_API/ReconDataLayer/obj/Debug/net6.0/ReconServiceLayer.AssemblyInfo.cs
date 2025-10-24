@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ReconServiceLayer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f21244f0d807432228e578ba093be139423da05f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e5b1d892c63e1d19218c6fe2d00eca6fa9d93d30")]
 [assembly: System.Reflection.AssemblyProductAttribute("ReconServiceLayer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ReconServiceLayer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
