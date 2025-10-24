@@ -32,7 +32,9 @@ namespace Recon_API
             services.AddSwaggerGen();
             services.AddScoped<IReportQueueService, ReportQueueService>();
             services.AddScoped<IReportQueueData, ReportQueueData>();
-            services.AddScoped<ReconVersionSrv, ReconVersionSrv>();
+			services.AddScoped<IKillJobService, KillJobService>();
+			services.AddScoped<IKillJobData, KillJobData>();
+			services.AddScoped<ReconVersionSrv, ReconVersionSrv>();
             var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
             XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
         }
