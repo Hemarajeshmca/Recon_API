@@ -192,5 +192,46 @@ namespace ReconModels
             public string? out_msg { get; set; }
             public string? out_result { get; set; }
         }
+        public class preprocessAggfunction
+        {
+            public int? preprocessaggfield_gid { get; set; }
+            public Decimal? preprocessaggfield_seqno { get; set; }
+            public string? recon_field { get; set; }
+            public string? preprocessfield_applied_on { get; set; }
+            public string? preprocessaggfield_name { get; set; }
+            public string? preprocessagg_function { get; set; }
+            public string? in_preprocess_code { get; set; }
+            public string? in_active_status { get; set; }
+            public string? in_action { get; set; }
+            public string? in_action_by { get; set; }
+            public string? out_msg { get; set; }
+            public string? out_result { get; set; }
+        }
+        public class getConditionpreprocess
+        {
+            public String? in_condition_type { get; set; }
+            public String? in_field_type { get; set; }
+            public String? in_preprocess_code { get; set; }
+
+        }
+        public class Aggconditionpreprocess
+        {
+            public int? preprocessaggcondition_gid { get; set; }
+            public Decimal? preprocessaggcondition_seqno { get; set; }
+            public string? preprocessagg_applied_on { get; set; }
+            public string? preprocessagg_field { get; set; }
+            public string? preprocessagg_criteria { get; set; }
+            public string? preprocessagg_value_flag { get; set; }
+            public string? preprocessagg_value { get; set; }
+            public string? in_preprocess_code { get; set; }
+            public string? in_open_flag { get; set; }
+            public string? in_close_flag { get; set; }
+            public string? in_join_condition { get; set; }
+            public string? in_active_status { get; set; }
+            public string? in_action { get; set; }
+            public string? in_action_by { get; set; }
+            public string? out_msg { get; set; }
+            public string? out_result { get; set; }
+        }
     }
 }

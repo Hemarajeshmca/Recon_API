@@ -195,5 +195,41 @@ namespace ReconServiceLayer
             { }
             return ds;
         }
+        public static DataTable preprocessaggfunsrv(preprocessAggfunction objAggfunction, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                PreprocessData objDS = new PreprocessData();
+                ds = objDS.preprocessaggfunData(objAggfunction, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+        public static DataTable getConditioncriteriasrv(getConditionpreprocess objcondition, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                PreprocessData objDS = new PreprocessData();
+                ds = objDS.getConditioncriteriaData(objcondition, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+        public static DataTable preprocessaggconditionsrv(Aggconditionpreprocess objAggcondition, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                PreprocessData objDS = new PreprocessData();
+                ds = objDS.preprocessaggconditionData(objAggcondition, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
     }
 }

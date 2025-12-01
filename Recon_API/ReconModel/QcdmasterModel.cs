@@ -43,7 +43,32 @@ namespace ReconModels
         public string? recon_code { get; set; }
         public string? manualtheme_desc { get; set; }
         public Int32 manualtheme_id { get; set; }
+        public string? active_status { get; set; }
         public string? in_action { get; set; }
         public string? in_user_code { get; set; }
+    }
+    public class referencemodel
+    {
+        public string? recon_code { get; set; }
+        public string? ref_code { get; set; }
+        public string? ref_name { get; set; }
+        public string? ref_value { get; set; }
+        public string? active_status { get; set; }
+        public Int32 ref_gid { get; set; }
+        public string? in_action { get; set; }
+        public string? in_user_code { get; set; }
+    }
+    public class getreferencemodel
+    {
+        public string? recon_code { get; set; }
+        public string? in_user_code { get; set; }
+    }
+
+    public class Qcdticket
+    {
+        public string? in_user_code { get; set; }
+        public string? in_master_code { get; set; }
+        public string? in_role_code { get; set; }
+        public string? in_lang_code { get; set; }
     }
 }

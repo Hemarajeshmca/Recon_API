@@ -88,5 +88,41 @@ namespace ReconServiceLayer
             { }
             return ds;
         }
+        public static DataTable referencesavesrv(referencemodel objgridread, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                QcdmastersData objqcd = new QcdmastersData();
+                ds = objqcd.referencesavedata(objgridread, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+        public static DataTable getreferencesrv(getreferencemodel objgridread, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                QcdmastersData objqcd = new QcdmastersData();
+                ds = objqcd.getreferencedata(objgridread, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+        public static DataTable QcdTicketMasterRead(Qcdticket objtktread, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                QcdmastersData objqcd = new QcdmastersData();
+                ds = objqcd.QcdTicketData(objtktread, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
     }
 }

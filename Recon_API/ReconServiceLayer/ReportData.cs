@@ -829,7 +829,7 @@ namespace ReconDataLayer
             }
         }
         public DataSet generatedynamicReport_typeCData(generatedynamicReport_typeCmodel objgeneratedynamicReport, UserManagementModel.headerValue headerval, string constring)
-        {
+        {           
             try
             {
                 DataSet dataset = new DataSet();
@@ -853,7 +853,7 @@ namespace ReconDataLayer
                 objlog.logger("SP:pr_run_dynamicreport" + "Response.Tables[0]:" + dataset.Tables[0].Rows);
                 objlog.logger("SP:pr_run_dynamicreport" + "Response.Tables[0]:" + dataset.Tables[0].Rows);
                 int getsheetcount = dataset.Tables[0].Rows.Count;
-                var job_id = dataset.Tables[0].Rows[0]["result"];
+                var job_id = dataset.Tables[0].Rows[0]["result"].ToString();
                 var filename = job_id + "_" + objgeneratedynamicReport.in_report_name;
                 var insertintojob = "";
                 if (job_id != null)
@@ -913,6 +913,7 @@ namespace ReconDataLayer
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
+                Updatedynamicerror(constring, objgeneratedynamicReport.in_recon_code, headerval.user_code, ex.Message);
                 objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objgeneratedynamicReport), "pr_run_dynamicreport", headerval.user_code, constring);
                 objlog.logger("SP:pr_run_dynamicreport" + "Error Message:" + ex.Message);
                 throw ex;
@@ -1172,7 +1173,7 @@ namespace ReconDataLayer
 
         public DataTable generatedynamicReportData_new(ReportModel.DataModel objDataModel, UserManagementModel.headerValue headerval, string constring)
         {
-            var job_id_err = "";
+            var job_id_err = "";          
             try
             {
                 DataTable getfiledType = new DataTable();
@@ -1366,6 +1367,7 @@ namespace ReconDataLayer
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
+                Updatedynamicerror(constring,"", headerval.user_code, ex.Message);
                 objlog.logger("SP:pr_run_dynamicreport" + "Error Message:" + ex.Message);
                 objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objDataModel), "pr_run_dynamicreport", headerval.user_code, constring);
                 throw ex;
@@ -1792,6 +1794,32 @@ namespace ReconDataLayer
                 throw ex;
             }
 
+        }
+
+        public string Updatedynamicerror(string constring,string recon_code, string user_code,string job_remark)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();               
+                parameters.Add(dbManager.CreateParameter("in_user_code", user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_recon_code", recon_code, DbType.String));
+               parameters.Add(dbManager.CreateParameter("in_job_remark", job_remark, DbType.String));
+               parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                ds = dbManager.execStoredProcedure("pr_upd_dynamicerrlog", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                string outMsgValue = parameters[2].Value.ToString();
+                return outMsgValue;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(user_code), "pr_upd_dynamicerrlog", "", constring);
+                return "failed";
+            }
         }
     }
 }
