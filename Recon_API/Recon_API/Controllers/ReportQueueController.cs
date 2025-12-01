@@ -13,7 +13,7 @@ using static ReconModels.ReportModel;
 using static ReconModels.UserManagementModel;
 
 namespace Recon_API.Controllers
-{    
+{
     [Route("api/[controller]")]
     [ApiController]
     public class ReportQueueController : ControllerBase
@@ -55,7 +55,6 @@ namespace Recon_API.Controllers
             }
         }
 
-
         [HttpPost("setReportqueuewithdatamodel")]
         public IActionResult setReportqueuewithdatamodel([FromBody] ReportQueueModel.DataModel objDataModel)
         {
@@ -77,7 +76,6 @@ namespace Recon_API.Controllers
                        JsonConvert.DeserializeObject<List<ReportQueueModel.reportqueue>>(rawJson);
 
                 ReportQueueModel.reportqueue mappedModel = mappedList.FirstOrDefault();
-
 
                 var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
                 var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
@@ -114,6 +112,7 @@ namespace Recon_API.Controllers
                 if (response.Rows.Count > 0)
                 {
                     koqueue_gid = Convert.ToInt32(response.Rows[0]["koqueue_gid"]);
+                    UpdatekoqueueStatus(koqueue_gid, "P", "Inprocess", constring, header_value.user_code);
                     scheduled_by = Convert.ToString(response.Rows[0]["scheduled_by"]);
                     header_value.user_code = scheduled_by;
                     var koQuery = Convert.ToString(response.Rows[0]["ko_query"]);
@@ -169,21 +168,21 @@ namespace Recon_API.Controllers
                             }
                         }
                     }
+                    UpdatekoqueueStatus(koqueue_gid, "C", "Completed", constring, header_value.user_code);
                 }
                 else
                 {
 
                 }
-                UpdateJobStatus(koqueue_gid, "C", "Completed", constring, header_value.user_code);
                 return Ok();
             }
             catch (Exception e)
             {
-                UpdateJobStatus(koqueue_gid, "F", e.Message, constring, header_value.user_code);
+                UpdatekoqueueStatus(koqueue_gid, "F", e.Message, constring, header_value.user_code);
                 return Problem(title: e.Message);
             }
         }
-        public string UpdateJobStatus(Int32 job_id, string job_status, string job_remark, string constring, string user_code)
+        public string UpdatekoqueueStatus(Int32 koqueue_gid, string koqueue_status, string koqueue_remark, string constring, string user_code)
         {
             try
             {
@@ -192,9 +191,9 @@ namespace Recon_API.Controllers
                 MySqlDataAccess con = new MySqlDataAccess("");
                 parameters = new List<IDbDataParameter>();
                 //int getjobId = Convert.ToInt32(job_id.ToString());
-                parameters.Add(dbManager.CreateParameter("in_koqueue_gid", job_id, DbType.Int64));
-                parameters.Add(dbManager.CreateParameter("in_koqueue_status", job_status, DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_koqueue_remark", job_remark, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_koqueue_gid", koqueue_gid, DbType.Int64));
+                parameters.Add(dbManager.CreateParameter("in_koqueue_status", koqueue_status, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_koqueue_remark", koqueue_remark, DbType.String));
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
                 parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
                 ds = dbManager.execStoredProcedure("pr_upd_koqueue", CommandType.StoredProcedure, parameters.ToArray());
@@ -205,7 +204,7 @@ namespace Recon_API.Controllers
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(job_id), "pr_upd_koqueue", "", constring);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(koqueue_gid), "pr_upd_koqueue", "", constring);
                 return "failed";
             }
         }

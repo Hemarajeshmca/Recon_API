@@ -35,6 +35,8 @@ namespace ReconModels
             public string role_code { get; set; } = "";
             public string lang_code { get; set; } = "";
             public string ip_address { get; set; } = "";
+
+            public string in_context_code { get; set; } = "";
         }
 
 

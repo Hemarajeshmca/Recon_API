@@ -37,8 +37,7 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
                 parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
                 ds = dbManager.execStoredProcedure("pr_set_koqueue_report", CommandType.StoredProcedure, parameters.ToArray());
-                result = ds.Tables[0];
-                
+                result = ds.Tables[0];                
             }
             catch (Exception ex)
             {

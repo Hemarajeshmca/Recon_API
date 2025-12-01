@@ -313,8 +313,10 @@ namespace ReconServiceLayer
                 ReportData objreport = new ReportData();
                 dt = objreport.generatedynamicReportData(objgeneratedynamicReport, headerval, constring);
             }
-            catch (Exception e)
-            { }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
             return dt;
         }
 
@@ -326,9 +328,11 @@ namespace ReconServiceLayer
 				ReportData objreport = new ReportData();
 				dt = objreport.generatedynamicReportData_new(objDataModel, headerval, constring);
 			}
-			catch (Exception e)
-			{ }
-			return dt;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
 		}
 
         //customReport_brsSummaryservice
@@ -356,9 +360,11 @@ namespace ReconServiceLayer
 				ReportData objreport = new ReportData();
 				dt = objreport.generatedynamicReport_typeCData(objgeneratedynamicReport, headerval, constring);
 			}
-			catch (Exception e)
-			{ }
-			return dt;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
 		}
         
         public static DataTable updateOncheckquery(updateTemplateStatusOncheckqueryModel objcheckQuery, string constring, UserManagementModel.headerValue headerval)

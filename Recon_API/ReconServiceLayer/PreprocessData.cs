@@ -163,6 +163,8 @@ namespace ReconDataLayer
                 ds.Tables[12].TableName = "lookuporder";
                 ds.Tables[13].TableName = "reconexp";
                 ds.Tables[14].TableName = "lookupexp";
+                ds.Tables[15].TableName = "comaggfun";
+                ds.Tables[16].TableName = "comaggcon";
                 return ds;
 			}
 			catch (Exception ex)
@@ -517,6 +519,106 @@ namespace ReconDataLayer
                 CommonHeader objlog = new CommonHeader();
                 objlog.logger("SP:pr_recon_mst_tpreprocessexp" + "Error Message:" + ex.Message);
                 objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objpreprocessexpmodel), "pr_recon_mst_tpreprocessexp", headerval.user_code, constring);
+                return result;
+            }
+        }
+        public DataTable preprocessaggfunData(preprocessAggfunction objAggfunction, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_preprocessaggfield_gid", objAggfunction.preprocessaggfield_gid, DbType.Int64, ParameterDirection.InputOutput));
+                parameters.Add(dbManager.CreateParameter("in_preprocess_code", objAggfunction.in_preprocess_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_recon_field", objAggfunction.recon_field, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_preprocessaggfield_seqno", objAggfunction.preprocessaggfield_seqno, DbType.Decimal));
+                parameters.Add(dbManager.CreateParameter("in_preprocessfield_applied_on", objAggfunction.preprocessfield_applied_on, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_preprocessaggfield_name", objAggfunction.preprocessaggfield_name, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_preprocessagg_function", objAggfunction.preprocessagg_function, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_active_status", objAggfunction.in_active_status, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_action", objAggfunction.in_action, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_action_by", headerval.user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                ds = dbManager.execStoredProcedure("pr_recon_mst_tpreprocessaggfun", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_recon_mst_tpreprocessaggfun" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objAggfunction), "pr_recon_mst_tpreprocessaggfun", headerval.user_code, constring);
+                return result;
+            }
+        }
+        public DataTable getConditioncriteriaData(getConditionpreprocess objcondition, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_condition_type", objcondition.in_condition_type, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_field_type", objcondition.in_field_type, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_preprocess_code", objcondition.in_preprocess_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+                ds = dbManager.execStoredProcedure("pr_get_conditionpreprocess", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_get_conditionpreprocess" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objcondition), "pr_get_conditionpreprocess", headerval.user_code, constring);
+                return result;
+            }
+        }
+        public DataTable preprocessaggconditionData(Aggconditionpreprocess objAggcondition, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_preprocessaggcondition_gid", objAggcondition.preprocessaggcondition_gid, DbType.Int64, ParameterDirection.InputOutput));
+                parameters.Add(dbManager.CreateParameter("in_preprocess_code", objAggcondition.in_preprocess_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_preprocessaggcondition_seqno", objAggcondition.preprocessaggcondition_seqno, DbType.Decimal));
+                parameters.Add(dbManager.CreateParameter("in_preprocessagg_applied_on", objAggcondition.preprocessagg_applied_on, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_preprocessagg_field", objAggcondition.preprocessagg_field, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_preprocessagg_criteria", objAggcondition.preprocessagg_criteria, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_preprocessagg_value_flag", objAggcondition.preprocessagg_value_flag, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_preprocessagg_value", objAggcondition.preprocessagg_value, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_open_flag", objAggcondition.in_open_flag, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_close_flag", objAggcondition.in_close_flag, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_join_condition", objAggcondition.in_join_condition, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_active_status", objAggcondition.in_active_status, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_action", objAggcondition.in_action, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_action_by", headerval.user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                ds = dbManager.execStoredProcedure("pr_recon_mst_tpreprocessaggcon", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_recon_mst_tpreprocessaggcon" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objAggcondition), "pr_recon_mst_tpreprocessaggcon", headerval.user_code, constring);
                 return result;
             }
         }

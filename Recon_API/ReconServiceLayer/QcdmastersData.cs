@@ -138,6 +138,7 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_manualtheme_gid", objmaster.manualtheme_id, DbType.Int64, ParameterDirection.InputOutput));
                 parameters.Add(dbManager.CreateParameter("in_recon_code", objmaster.recon_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_manualtheme_desc", objmaster.manualtheme_desc, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_active_status", objmaster.active_status, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_action", objmaster.in_action, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_user_code", objmaster.in_user_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
@@ -175,6 +176,84 @@ namespace ReconDataLayer
                 CommonHeader objlog = new CommonHeader();
                 objlog.logger("SP:pr_get_manualtheme" + "Error Message:" + ex.Message);
                 objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objgridread), "pr_get_manualtheme", headerval.user_code, constring);
+                return result;
+            }
+        }
+
+        public DataTable referencesavedata(referencemodel objmaster, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_ref_gid", objmaster.ref_gid, DbType.Int64, ParameterDirection.InputOutput));
+                parameters.Add(dbManager.CreateParameter("in_recon_code", objmaster.recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_ref_code", objmaster.ref_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_ref_name", objmaster.ref_name, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_ref_value", objmaster.ref_value, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_active_status", objmaster.active_status, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_action", objmaster.in_action, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_code", objmaster.in_user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                ds = dbManager.execStoredProcedure("pr_recon_mst_treference", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_recon_mst_treference" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objmaster), "pr_recon_mst_treference", headerval.user_code, constring);
+                return result;
+            }
+        }
+        public DataTable getreferencedata(getreferencemodel objgridread, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_recon_code", objgridread.recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+                ds = dbManager.execStoredProcedure("pr_get_reference", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_get_reference" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objgridread), "pr_get_reference", headerval.user_code, constring);
+                return result;
+            }
+        }
+        public DataTable QcdTicketData(Qcdticket objtktread, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess(objtktread.in_user_code);
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_master_code", objtktread.in_master_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+                ds = dbManager.execStoredProcedure("pr_tkt_get_allqcdmaster", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_get_tkt_allqcdmaster" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objtktread), "pr_get_tkt_allqcdmaster", headerval.user_code, constring);
                 return result;
             }
         }
