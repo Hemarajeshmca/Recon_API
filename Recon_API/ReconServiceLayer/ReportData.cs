@@ -1350,15 +1350,15 @@ namespace ReconDataLayer
                                 {
                                     worksheet2.Cell(1, 1).InsertData("No Record Found");
                                 }
+                                workbook.SaveAs(destFile);
                             }
                             catch (Exception ex)
                             {
                                 objlog.logger("SP:pr_run_dynamicreport" + "Excel write1:" + ex.Message);
                                 throw;
-                            }
-                            workbook.SaveAs(destFile);
-                        }
-                        UpdateJobStatus(job_id, "C", "Completed", constring, headerval.user_code);
+                            }                           
+                            UpdateJobStatus(job_id, "C", "Completed", constring, headerval.user_code);
+                        }                        
                     }
                     dt = dataset.Tables[1];
                     return dt;
