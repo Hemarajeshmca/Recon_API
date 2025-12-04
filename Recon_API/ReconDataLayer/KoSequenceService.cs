@@ -69,6 +69,29 @@ namespace ReconServiceLayer
             { }
             return ds;
         }
-
+        public static DataSet rowqcdlistsrv(rowqcdlist rowqcdlistmodel, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                KoSequenceData objqcd = new KoSequenceData();
+                ds = objqcd.rowqcdlistData(rowqcdlistmodel, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+        public static DataSet reconfieldqcdlistsrv(reconfieldqcdlist rowfieldqcdlistmodel, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                KoSequenceData objqcd = new KoSequenceData();
+                ds = objqcd.reconfieldqcdlistData(rowfieldqcdlistmodel, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
     }
 }
