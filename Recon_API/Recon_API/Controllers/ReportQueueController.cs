@@ -109,7 +109,7 @@ namespace Recon_API.Controllers
                 header_value.lang_code = getlangCode;
                 header_value.role_code = getRoleCode;
                 response = _reportQueueService.getReportqueueservice(header_value);
-                if (response.Rows.Count > 0)
+                if (Convert.ToInt32(response.Rows[0]["koqueue_gid"]) > 0)
                 {
                     koqueue_gid = Convert.ToInt32(response.Rows[0]["koqueue_gid"]);
                     UpdatekoqueueStatus(koqueue_gid, "P", "Inprocess", constring, header_value.user_code);
