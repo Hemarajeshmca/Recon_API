@@ -81,13 +81,65 @@ namespace ReconServiceLayer
             { }
             return ds;
         }
-        public static DataSet reconfieldqcdlistsrv(reconfieldqcdlist rowfieldqcdlistmodel, UserManagementModel.headerValue headerval, string constring)
+        public static DataTable reconfieldqcdlistsrv(reconfieldqcdlist rowfieldqcdlistmodel, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                KoSequenceData objqcd = new KoSequenceData();
+                ds = objqcd.reconfieldqcdlistData(rowfieldqcdlistmodel, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+
+        public static DataTable reconexpsavesrv(reconexpsavemodel objreconexpsavemodel, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                KoSequenceData objqcd = new KoSequenceData();
+                ds = objqcd.reconexpsaveData(objreconexpsavemodel, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+
+        public static DataTable setrecordlocksrv(rowqcdlist rowqcdlistmodel, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                KoSequenceData objqcd = new KoSequenceData();
+                ds = objqcd.setrecordlockData(rowqcdlistmodel, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+
+        public static DataTable setrecordunlocksrv(rowqcdlist rowqcdlistmodel, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                KoSequenceData objqcd = new KoSequenceData();
+                ds = objqcd.setrecordunlockData(rowqcdlistmodel, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+
+        public static DataSet getrecordlocksrv(rowqcdlist rowqcdlistmodel, UserManagementModel.headerValue headerval, string constring)
         {
             DataSet ds = new DataSet();
             try
             {
                 KoSequenceData objqcd = new KoSequenceData();
-                ds = objqcd.reconfieldqcdlistData(rowfieldqcdlistmodel, headerval, constring);
+                ds = objqcd.getrecordlockData(rowqcdlistmodel, headerval, constring);
             }
             catch (Exception e)
             { }

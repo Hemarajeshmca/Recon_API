@@ -166,7 +166,7 @@ namespace Recon_API.Controllers
         {
             constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
             headerValue header_value = new headerValue();
-            DataSet response = new DataSet();
+            DataTable response = new DataTable();
             try
             {
                 var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
@@ -176,6 +176,102 @@ namespace Recon_API.Controllers
                 header_value.lang_code = getlangCode;
                 header_value.role_code = getRoleCode;
                 response = KoSequenceService.reconfieldqcdlistsrv(rowfieldqcdlistmodel, header_value, constring);
+                var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
+                return Ok(serializedProduct);
+            }
+            catch (Exception e)
+            {
+                return Problem(title: e.Message);
+            }
+        }
+
+        [HttpPost("reconexpsave")]
+        public IActionResult reconexpsave([FromBody] reconexpsavemodel objreconexpsavemodel)
+        {
+            constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+            headerValue header_value = new headerValue();
+            DataTable response = new DataTable();
+            try
+            {
+                var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+                var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+                var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+                header_value.user_code = getvalue;
+                header_value.lang_code = getlangCode;
+                header_value.role_code = getRoleCode;
+                response = KoSequenceService.reconexpsavesrv(objreconexpsavemodel, header_value, constring);
+                var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
+                return Ok(serializedProduct);
+            }
+            catch (Exception e)
+            {
+                return Problem(title: e.Message);
+            }
+        }
+
+        [HttpPost("setrecordlock")]
+        public IActionResult setrecordlock([FromBody] rowqcdlist objrecordlock)
+        {
+            constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+            headerValue header_value = new headerValue();
+            DataTable response = new DataTable();
+            try
+            {
+                var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+                var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+                var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+                header_value.user_code = getvalue;
+                header_value.lang_code = getlangCode;
+                header_value.role_code = getRoleCode;
+                response = KoSequenceService.setrecordlocksrv(objrecordlock, header_value, constring);
+                var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
+                return Ok(serializedProduct);
+            }
+            catch (Exception e)
+            {
+                return Problem(title: e.Message);
+            }
+        }
+
+        [HttpPost("setrecordunlock")]
+        public IActionResult setrecordunlock([FromBody] rowqcdlist objrecordlock)
+        {
+            constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+            headerValue header_value = new headerValue();
+            DataTable response = new DataTable();
+            try
+            {
+                var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+                var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+                var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+                header_value.user_code = getvalue;
+                header_value.lang_code = getlangCode;
+                header_value.role_code = getRoleCode;
+                response = KoSequenceService.setrecordunlocksrv(objrecordlock, header_value, constring);
+                var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
+                return Ok(serializedProduct);
+            }
+            catch (Exception e)
+            {
+                return Problem(title: e.Message);
+            }
+        }
+
+        [HttpPost("getrecordlock")]
+        public IActionResult getrecordlock([FromBody] rowqcdlist objrecordlock)
+        {
+            constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
+            headerValue header_value = new headerValue();
+            DataSet response = new DataSet();
+            try
+            {
+                var getvalue = Request.Headers.TryGetValue("user_code", out var user_code) ? user_code.First() : "";
+                var getlangCode = Request.Headers.TryGetValue("lang_code", out var lang_code) ? lang_code.First() : "";
+                var getRoleCode = Request.Headers.TryGetValue("role_code", out var role_code) ? role_code.First() : "";
+                header_value.user_code = getvalue;
+                header_value.lang_code = getlangCode;
+                header_value.role_code = getRoleCode;
+                response = KoSequenceService.getrecordlocksrv(objrecordlock, header_value, constring);
                 var serializedProduct = JsonConvert.SerializeObject(response, Formatting.None);
                 return Ok(serializedProduct);
             }

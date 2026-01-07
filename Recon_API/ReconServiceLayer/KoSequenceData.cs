@@ -61,8 +61,8 @@ namespace ReconDataLayer
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_get_koseqtype" + "Error Message:" + ex.Message);
-                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(headerval), "pr_get_koseqtype", headerval.user_code, constring);
+                objlog.logger("SP:pr_get_koseqlist" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(headerval), "pr_get_koseqlist", headerval.user_code, constring);
                 return result;
             }
         }
@@ -138,8 +138,8 @@ namespace ReconDataLayer
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:GetTreeNodes" + "Error Message:" + ex.Message);
-                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(Objmodel), "GetTreeNodes", Objmodel.user_code, constring);
+                objlog.logger("SP:pr_get_koseqlisttree" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(Objmodel), "pr_get_koseqlisttree", Objmodel.user_code, constring);
                 return result;
             }
         }
@@ -155,7 +155,7 @@ namespace ReconDataLayer
                 parameters.Add(dbManager.CreateParameter("in_tranbrkp_gid", Objmodel.in_tranbrkp_gid, DbType.Int64));
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
                 parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
-                ds = dbManager.execStoredProcedure("pr_get_reconrowqcdlist", CommandType.StoredProcedure, parameters.ToArray());
+                ds = dbManager.execStoredProcedure("pr_get_reconrow_editable", CommandType.StoredProcedure, parameters.ToArray());
                 if (ds.Tables.Count >= 1)
                 {
                     ds.Tables[0].TableName = "rowvalue";
@@ -166,12 +166,12 @@ namespace ReconDataLayer
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_get_reconrowqcdlist" + "Error Message:" + ex.Message);
-                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(Objmodel), "pr_get_reconrowqcdlist", headerval.user_code, constring);
+                objlog.logger("SP:pr_get_reconrow_editable" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(Objmodel), "pr_get_reconrow_editable", headerval.user_code, constring);
                 return ds;
             }
         }
-        public DataSet reconfieldqcdlistData(reconfieldqcdlist Objmodel, UserManagementModel.headerValue headerval, string constring)
+        public DataTable reconfieldqcdlistData(reconfieldqcdlist Objmodel, UserManagementModel.headerValue headerval, string constring)
         {
             try
             {
@@ -180,19 +180,126 @@ namespace ReconDataLayer
                 parameters = new List<IDbDataParameter>();
                 parameters.Add(dbManager.CreateParameter("in_recon_code", Objmodel.in_recon_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_recon_field_name", Objmodel.in_recon_field_name, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_depend_value", Objmodel.in_depend_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_tran_gid", Objmodel.in_tran_gid, DbType.Int64));
                 parameters.Add(dbManager.CreateParameter("in_tranbrkp_gid", Objmodel.in_tranbrkp_gid, DbType.Int64));               
                 parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
                 parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
                 ds = dbManager.execStoredProcedure("pr_get_reconfieldqcdlist", CommandType.StoredProcedure, parameters.ToArray());
-                ds.Tables[0].TableName = "newvalue";                 
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_get_reconfieldqcdlist" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(Objmodel), "pr_get_reconfieldqcdlist", headerval.user_code, constring);
+                return result;
+            }
+        }
+
+        public DataTable reconexpsaveData(reconexpsavemodel objreconexpsavemodel, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_recon_code", objreconexpsavemodel.in_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_tran_gid", objreconexpsavemodel.in_tran_gid, DbType.Int64));
+                parameters.Add(dbManager.CreateParameter("in_tranbrkp_gid", objreconexpsavemodel.in_tranbrkp_gid, DbType.Int64));
+                parameters.Add(dbManager.CreateParameter("in_curr_value", objreconexpsavemodel.in_curr_value, DbType.String));              
+                parameters.Add(dbManager.CreateParameter("in_new_value", objreconexpsavemodel.in_new_value, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));               
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                ds = dbManager.execStoredProcedure("pr_set_reconfieldlistupdate", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_set_reconfieldlistupdate" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param" + JsonConvert.SerializeObject(objreconexpsavemodel), "pr_set_reconfieldlistupdate", headerval.user_code, constring);
+                return result;
+            }
+        }
+
+        public DataTable setrecordlockData(rowqcdlist Objmodel, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_recon_code", Objmodel.in_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_tran_gid", Objmodel.in_tran_gid, DbType.Int64));
+                parameters.Add(dbManager.CreateParameter("in_tranbrkp_gid", Objmodel.in_tranbrkp_gid, DbType.Int64));
+                parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                ds = dbManager.execStoredProcedure("pr_set_recordlock", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_set_recordlock" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(Objmodel), "pr_set_recordlock", headerval.user_code, constring);
+                return result;
+            }
+        }
+
+        public DataTable setrecordunlockData(rowqcdlist Objmodel, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_recon_code", Objmodel.in_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_tran_gid", Objmodel.in_tran_gid, DbType.Int64));
+                parameters.Add(dbManager.CreateParameter("in_tranbrkp_gid", Objmodel.in_tranbrkp_gid, DbType.Int64));
+                parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                ds = dbManager.execStoredProcedure("pr_set_recordunlock", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_set_recordunlock" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(Objmodel), "pr_set_recordunlock", headerval.user_code, constring);
+                return result;
+            }
+        }
+
+        public DataSet getrecordlockData(rowqcdlist Objmodel, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_recon_code", Objmodel.in_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_tran_gid", Objmodel.in_tran_gid, DbType.Int64));
+                parameters.Add(dbManager.CreateParameter("in_tranbrkp_gid", Objmodel.in_tranbrkp_gid, DbType.Int64));
+                parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                ds = dbManager.execStoredProcedure("pr_get_recordlock", CommandType.StoredProcedure, parameters.ToArray());               
                 return ds;
             }
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_get_reconrowqcdlist" + "Error Message:" + ex.Message);
-                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(Objmodel), "pr_get_reconrowqcdlist", headerval.user_code, constring);
+                objlog.logger("SP:pr_get_recordlock" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(Objmodel), "pr_get_recordlock", headerval.user_code, constring);
                 return ds;
             }
         }

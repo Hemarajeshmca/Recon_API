@@ -54,9 +54,20 @@ namespace ReconModels
         public class reconfieldqcdlist
         {
             public string? in_recon_code { get; set; }
+            public string? in_depend_code { get; set; }
             public Int64? in_tran_gid { get; set; }
             public Int64? in_tranbrkp_gid { get; set; }
             public string? in_recon_field_name { get; set; }
+        }
+        
+        public class reconexpsavemodel
+        {
+            public string? in_recon_code { get; set; }
+            public Int64? in_tran_gid { get; set; }
+            public Int64? in_tranbrkp_gid { get; set; }
+            public string? in_curr_value { get; set; }
+            public string? in_new_value { get; set; }
+            public string? in_user_code { get; set; }
         }
     }
 }
