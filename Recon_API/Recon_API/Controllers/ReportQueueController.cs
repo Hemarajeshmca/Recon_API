@@ -165,6 +165,11 @@ namespace Recon_API.Controllers
                                 {
                                     ReportService.generatedynamicReport_typeCservice(objReportqueuemodel1, constring, header_value);
                                 }
+                                else if (objReportqueuemodel.in_outputfile_type.ToLower() == "csv")
+                                {
+                                    ReportService.generatedynamicReportservice(objReportqueuemodel, constring, header_value);
+                                }
+
                             }
                         }
                     }
