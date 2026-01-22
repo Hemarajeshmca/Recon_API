@@ -145,5 +145,29 @@ namespace ReconServiceLayer
             { }
             return ds;
         }
+        public static DataSet getreconvaluesrv(rowqcdlist rowqcdlistmodel, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                KoSequenceData objqcd = new KoSequenceData();
+                ds = objqcd.getreconvalueData(rowqcdlistmodel, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
+        public static DataTable getreconfieldinfosrv(reconfieldinfomodel rowqcdlistmodel, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataTable ds = new DataTable();
+            try
+            {
+                KoSequenceData objqcd = new KoSequenceData();
+                ds = objqcd.getreconfieldinfoData(rowqcdlistmodel, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
     }
 }

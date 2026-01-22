@@ -69,5 +69,10 @@ namespace ReconModels
             public string? in_new_value { get; set; }
             public string? in_user_code { get; set; }
         }
+        public class reconfieldinfomodel
+        {
+            public string? in_recon_code { get; set; }
+            public string? in_user_code { get; set; }
+        }
     }
 }

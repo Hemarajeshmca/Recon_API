@@ -19,6 +19,7 @@ namespace ReconModels
             public string? in_user_code { get; set; }
             public string? file_name { get; set; }
             public string? in_report_name { get; set; }
+            public string? in_reporttemplateresultset_code { get; set; }
 
         }
 

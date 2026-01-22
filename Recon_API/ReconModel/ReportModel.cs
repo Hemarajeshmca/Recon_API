@@ -81,6 +81,7 @@ namespace ReconModels
         {
             public string? in_archival_code { get; set; }
             public string? in_reporttemplate_code { get; set; }
+            public string? in_reporttemplateresultset_code { get; set; }
             public string? in_report_condition { get; set; }
             public string? in_recon_code { get; set; }
             public string? in_report_code { get; set; }
@@ -90,6 +91,7 @@ namespace ReconModels
         public class getPageNoReportModel
         {
             public string? in_reporttemplate_code { get; set; }
+            public string? in_reporttemplateresultset_code { get; set; }
             public int? in_rptsession_gid { get; set; } 
             public int in_page_no { get; set; }
             public int in_page_size { get; set; }
@@ -163,6 +165,7 @@ namespace ReconModels
             public string? file_name { get; set; }
             public string? in_report_name { get; set; }
             public string? in_archival_code { get; set; }
+            public string? in_reporttemplateresultset_code { get; set; }
 
         }
 
@@ -181,8 +184,9 @@ namespace ReconModels
 			public string? in_user_code { get; set; }
 			public string? file_name { get; set; }
 			public string? in_report_name { get; set; }
+            public string? in_reporttemplateresultset_code { get; set; }
 
-		}
+        }
 
 		public class Table1Row
 		{
