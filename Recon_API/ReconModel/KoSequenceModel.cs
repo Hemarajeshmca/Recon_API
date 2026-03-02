@@ -74,5 +74,9 @@ namespace ReconModels
             public string? in_recon_code { get; set; }
             public string? in_user_code { get; set; }
         }
+        public class ecfchecklistmodel
+        {
+            public string? in_checklist_json { get; set; }
+        }
     }
 }

@@ -169,5 +169,17 @@ namespace ReconServiceLayer
             { }
             return ds;
         }
+        public static DataSet ecfchecklistinfosrv(ecfchecklistmodel rowqcdlistmodel, UserManagementModel.headerValue headerval, string constring)
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                KoSequenceData objqcd = new KoSequenceData();
+                ds = objqcd.ecfchecklistinfoData(rowqcdlistmodel, headerval, constring);
+            }
+            catch (Exception e)
+            { }
+            return ds;
+        }
     }
 }

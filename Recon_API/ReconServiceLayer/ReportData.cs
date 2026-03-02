@@ -835,6 +835,8 @@ namespace ReconDataLayer
         {           
             try
             {
+                DataTable getDateFormatresultset = new DataTable();
+                DataTable getDateTimeFormatresultset = new DataTable();
                 DataSet dataset = new DataSet();
                 DataTable dt = new DataTable();
                 DBManager dbManager = new DBManager(constring);
@@ -866,6 +868,8 @@ namespace ReconDataLayer
                 }
                 if (insertintojob == "Success")
                 {
+                    getDateFormatresultset = configvalueData("excel_dateformat", headerval, constring);
+                    getDateTimeFormatresultset = configvalueData("excel_datetimeformat", headerval, constring);
                     string getdestFile = roleconfig_db("xlsx_folder_path", constring);
                     string sourceFolder = roleconfig_db("folder_path", constring);
 
@@ -883,7 +887,8 @@ namespace ReconDataLayer
                         if (File.Exists(sourceFile))
                         {
                             destFile = getdestFile + filename + ".xlsx";
-                            CreateExcelFile(dataset, sourceFile, destFile);
+                            //CreateExcelFile(dataset, sourceFile, destFile);
+                            CreateExcelFilemuti(dataset, sourceFile, destFile, getDateFormatresultset, getDateTimeFormatresultset, constring);
                             
                         }
                         else if(File.Exists(sourceFile.Replace("xlsx","xlsm")))
@@ -898,7 +903,8 @@ namespace ReconDataLayer
                             //  sourceFile = sourceFile.Replace("D:", "E:");
                             destFile = getdestFile + filename + ".xlsx";
                             //  destFile = destFile.Replace("D:", "E:");
-                            CreateTemplateExcel(dataset, sourceFile, destFile);
+                           // CreateTemplateExcel(dataset, sourceFile, destFile);
+                            CreateTemplateExcelmulti(dataset, sourceFile, destFile, getDateFormatresultset, getDateTimeFormatresultset,constring);
                         }
 
                     }
@@ -907,7 +913,7 @@ namespace ReconDataLayer
                         sourceFile = roleconfig_db("temp_file_folder_path", constring);
                        // sourceFile = sourceFile.Replace("D:", "E:");
                         destFile = getdestFile + filename + ".xlsx";
-                        CreateTemplateExcel(dataset, sourceFile, destFile);
+                        CreateTemplateExcel(dataset, sourceFile, destFile);                       
                     }
                     //sourceFile = sourceFile.Replace("D:", "E:");
                     UpdateJobStatus(job_id, "C", "Completed", constring, headerval.user_code);
@@ -947,6 +953,30 @@ namespace ReconDataLayer
                 CommonHeader objlog = new CommonHeader();
                 objlog.logger("SP:pr_get_reportfieldtype" + "Error Message:" + ex.Message);
                 objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objDataModel.Dataset1), "pr_get_reportfieldtype", headerval.user_code, constring);
+                throw ex;
+            }
+        }
+
+        public DataTable getreportresultsetFieldType(string reporttemplate_code,string reporttemplateresultset_code, string constring)
+        {
+            try
+            {
+                DataTable dt = new DataTable();             
+                DBManager dbManager = new DBManager(constring);
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_reporttemplate_code", reporttemplate_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_reporttemplateresultset_code", reporttemplateresultset_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                ds = dbManager.execStoredProcedurelist("pr_get_reportresultsetfieldtype", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_get_reportfieldtype" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(""), "pr_get_reportresultsetfieldtype", "", constring);
                 throw ex;
             }
         }
@@ -1539,8 +1569,90 @@ namespace ReconDataLayer
             }
 
         }
-        public void CreateTemplateExcel(DataSet dataSet, string sourceFile, string destFile)
+        private void CreateExcelFilemuti(DataSet dataSet, string sourceFile, string destFile, DataTable getDateFormatresultset, DataTable getDateTimeFormatresultset, string constring)
         {
+            DataTable getfiledTyperesultset = new DataTable();
+            File.Copy(sourceFile, destFile, true);
+            using (var workbook = new XLWorkbook(sourceFile))
+            {
+                var sheetNames = workbook.Worksheets.Select(ws => ws.Name.ToUpper()).ToList();
+                DataTable resultset1 = dataSet.Tables[1];
+
+                for (int i = 0; i < resultset1.Rows.Count; i++)
+                {
+                    getfiledTyperesultset = getreportresultsetFieldType(resultset1.Rows[i]["reporttemplate_code"].ToString(), resultset1.Rows[i]["reporttemplateresultset_code"].ToString(), constring);
+                    string sheetName = resultset1.Rows[i]["sheet_name"].ToString();
+                    int dataSetIndex = i + 2;
+
+                    if (sheetNames.Contains(sheetName.ToUpper()))
+                    {
+                        var worksheet = workbook.Worksheet(sheetName);
+                        worksheet.Clear(XLClearOptions.Contents);
+                        //if(sheetNames.Contains("Dashboard"))
+                        //{
+                        //	string imagePath = "D:\\HEMA Personal\\Image\\Screenshot_2019-04-23-11-43-50-371_com.facebook.katana.png";
+                        //	var imageStream = new FileStream(imagePath, FileMode.Open, FileAccess.Read);
+                        //	worksheet.AddPicture(imageStream)
+                        //			.MoveTo(worksheet.Cell("A1"))  // Set the position of the image
+                        //			.WithSize(200, 200);  // Set the image size (optional)
+
+                        //}
+                        if (worksheet != null && dataSet.Tables.Count > dataSetIndex)
+                        {
+                            DataTable dataTable = dataSet.Tables[dataSetIndex];
+                            try
+                            {
+                                if (dataTable.Rows.Count > 0)
+                                {
+                                    //formatingexcelsheet(dataTable, worksheet, getfiledType);
+                                    //worksheet.Cell(1, 1).InsertTable(dataTable.AsEnumerable().Take(1048500).CopyToDataTable());
+                                    formatingexcelsheet(dataTable, worksheet, getfiledTyperesultset, getDateFormatresultset, getDateTimeFormatresultset);
+                                }
+                                else
+                                {
+                                    worksheet.Cell(1, 1).Value = "No Record Found";
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                CommonHeader objlog = new CommonHeader();
+                                objlog.logger("SP:pr_run_dynamicreport" + "Function:CreateExcelFile1" + ex.Message);
+                                throw;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (dataSet.Tables.Count > dataSetIndex)
+                        {
+                            DataTable dataTable = dataSet.Tables[dataSetIndex];
+                            var worksheet = workbook.Worksheets.Add(sheetName);
+                            try
+                            {
+                                if (dataTable.Rows.Count > 0)
+                                {
+                                    worksheet.Cell(1, 1).InsertTable(dataTable.AsEnumerable().Take(1048500).CopyToDataTable());
+                                }
+                                else
+                                {
+                                    worksheet.Cell(1, 1).Value = "No Record Found";
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                CommonHeader objlog = new CommonHeader();
+                                objlog.logger("SP:pr_run_dynamicreport" + "Function:CreateExcelFile2" + ex.Message);
+                                throw;
+                            }
+                        }
+                    }
+                }
+                workbook.SaveAs(destFile);
+            }
+
+        }
+        public void CreateTemplateExcel(DataSet dataSet, string sourceFile, string destFile)
+        {           
             File.Copy(sourceFile, destFile, true);
 
             using (var workbook = new XLWorkbook(destFile))
@@ -1587,7 +1699,57 @@ namespace ReconDataLayer
                 workbook.Save(); // Save directly to destFile
             }
         }
+        public void CreateTemplateExcelmulti(DataSet dataSet, string sourceFile, string destFile,DataTable getDateFormatresultset,DataTable getDateTimeFormatresultset, string constring)
+        {
+            DataTable getfiledTyperesultset = new DataTable();  
+            File.Copy(sourceFile, destFile, true);
 
+            using (var workbook = new XLWorkbook(destFile))
+            {
+                var worksheets = workbook.Worksheets.ToList();
+                foreach (var ws in worksheets)
+                {
+                    workbook.Worksheets.Delete(ws.Name);
+                }
+                DataTable resultset1 = dataSet.Tables[1]; // contains "sheet_name" column
+
+                for (int i = 0; i < resultset1.Rows.Count; i++)
+                {
+                    getfiledTyperesultset = getreportresultsetFieldType(resultset1.Rows[i]["reporttemplate_code"].ToString(), resultset1.Rows[i]["reporttemplateresultset_code"].ToString(), constring);
+                    string sheetName = resultset1.Rows[i]["sheet_name"].ToString();
+                    int dataSetIndex = i + 2;
+
+                    if (dataSet.Tables.Count > dataSetIndex)
+                    {
+                        DataTable dataTable = dataSet.Tables[dataSetIndex];
+
+                        // Add new worksheet
+                        var worksheet = workbook.Worksheets.Add(sheetName);
+
+                        try
+                        {
+                            if (dataTable.Rows.Count > 0)
+                            {
+                                //worksheet.Cell(1, 1).InsertTable(dataTable.AsEnumerable().Take(1048500).CopyToDataTable());
+                                formatingexcelsheet(dataTable, worksheet, getfiledTyperesultset, getDateFormatresultset, getDateTimeFormatresultset);
+                            }
+                            else
+                            {
+                                worksheet.Cell(1, 1).Value = "No Record Found";
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            CommonHeader objlog = new CommonHeader();
+                            objlog.logger("SP:pr_run_dynamicreport" + "Function:CreateExcelFile" + ex.Message);
+                            throw;
+                        }
+                    }
+                }
+
+                workbook.Save(); // Save directly to destFile
+            }
+        }
         private void formatingexcelsheet(DataTable data, IXLWorksheet? worksheet, DataTable getfiledType, DataTable getDateFormat1, DataTable getDatetimeFormat1)
         {
             DataTable getDateFormat = getDateFormat1;
@@ -1783,7 +1945,7 @@ namespace ReconDataLayer
                 DBManager dbManager = new DBManager(constring);
                 parameters = new List<IDbDataParameter>();
 				parameters.Add(dbManager.CreateParameter("in_recon_code", objgetReportTemplateListModel.in_recon_code, DbType.String));
-                parameters.Add(dbManager.CreateParameter("in_report_flag", objgetReportTemplateListModel.in_recon_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_report_flag", objgetReportTemplateListModel.in_report_flag, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_role_code", objgetReportTemplateListModel.in_role_code, DbType.String));
                 parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));

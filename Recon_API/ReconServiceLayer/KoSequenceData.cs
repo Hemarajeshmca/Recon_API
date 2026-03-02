@@ -349,5 +349,26 @@ namespace ReconDataLayer
                 return result;
             }
         }
+
+        public DataSet ecfchecklistinfoData(ecfchecklistmodel Objmodel, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                string checklistJson = JsonConvert.SerializeObject(Objmodel.in_checklist_json);
+                DBManager dbManager = new DBManager(constring);
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_checklist_json", Objmodel.in_checklist_json, DbType.String));               
+                ds = dbManager.execStoredProcedure("pr_get_ecfchecklist", CommandType.StoredProcedure, parameters.ToArray());
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_get_ecfchecklist" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(Objmodel), "pr_get_ecfchecklist", headerval.user_code, constring);
+                return ds;
+            }
+        }
     }
 }
