@@ -569,6 +569,8 @@ namespace ReconDataLayer
             try
             {
                 DataSet dataset = new DataSet();
+                DataTable getmaxrowsresultset = new DataTable();
+                getmaxrowsresultset = configvalueData("excel_max_rows",constring);
                 DataTable dt = new DataTable();
                 DBManager dbManager = new DBManager(constring);
                 parameters = new List<IDbDataParameter>();
@@ -634,7 +636,13 @@ namespace ReconDataLayer
                             {
                                 if (dataset.Tables[0].Rows.Count > 0)
                                 {
-                                    worksheet.Cell(1, 1).InsertTable(dataset.Tables[0].AsEnumerable().Take(1048500).CopyToDataTable(), "MyTable", true);
+                                    int maxrows = 0;
+                                    int.TryParse(getmaxrowsresultset.Rows[0]["out_config_value"]?.ToString(), out maxrows);
+                                    if (maxrows == 0)
+                                    {
+                                        maxrows = 100000;
+                                    }
+                                    worksheet.Cell(1, 1).InsertTable(dataset.Tables[0].AsEnumerable().Take(maxrows).CopyToDataTable(), "MyTable", true);
                                 }
                                 else
                                 {
@@ -818,7 +826,7 @@ namespace ReconDataLayer
                         sourceFile = roleconfig_db("temp_file_folder_path", constring);
                     }
                     string destFile = getdestFile + filename + ".xlsx";
-                    CreateExcelFile(dataset, sourceFile, destFile);
+                    CreateExcelFile(dataset, sourceFile, destFile,constring);
                     UpdateJobStatus(job_id, "C", "Completed", constring, headerval.user_code);
                 }
                 return ds;
@@ -837,6 +845,7 @@ namespace ReconDataLayer
             {
                 DataTable getDateFormatresultset = new DataTable();
                 DataTable getDateTimeFormatresultset = new DataTable();
+
                 DataSet dataset = new DataSet();
                 DataTable dt = new DataTable();
                 DBManager dbManager = new DBManager(constring);
@@ -868,8 +877,8 @@ namespace ReconDataLayer
                 }
                 if (insertintojob == "Success")
                 {
-                    getDateFormatresultset = configvalueData("excel_dateformat", headerval, constring);
-                    getDateTimeFormatresultset = configvalueData("excel_datetimeformat", headerval, constring);
+                    getDateFormatresultset = configvalueData("excel_dateformat",constring);
+                    getDateTimeFormatresultset = configvalueData("excel_datetimeformat",constring);
                     string getdestFile = roleconfig_db("xlsx_folder_path", constring);
                     string sourceFolder = roleconfig_db("folder_path", constring);
 
@@ -895,7 +904,7 @@ namespace ReconDataLayer
                         {
                             destFile = getdestFile + filename + ".xlsm";
                             sourceFile = sourceFile.Replace("xlsx", "xlsm");
-                            CreateExcelFile(dataset, sourceFile, destFile);
+                            CreateExcelFile(dataset, sourceFile, destFile, constring);
                         }
                         else
                         {
@@ -913,7 +922,7 @@ namespace ReconDataLayer
                         sourceFile = roleconfig_db("temp_file_folder_path", constring);
                        // sourceFile = sourceFile.Replace("D:", "E:");
                         destFile = getdestFile + filename + ".xlsx";
-                        CreateTemplateExcel(dataset, sourceFile, destFile);                       
+                        CreateTemplateExcel(dataset, sourceFile, destFile, constring);                       
                     }
                     //sourceFile = sourceFile.Replace("D:", "E:");
                     UpdateJobStatus(job_id, "C", "Completed", constring, headerval.user_code);
@@ -975,13 +984,13 @@ namespace ReconDataLayer
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_get_reportfieldtype" + "Error Message:" + ex.Message);
+                objlog.logger("SP:pr_get_reportresultsetfieldtype" + "Error Message:" + ex.Message);
                 objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(""), "pr_get_reportresultsetfieldtype", "", constring);
                 throw ex;
             }
         }
 
-        public DataTable configvalueData(string objconfigvalue, headerValue hv, string constring)
+        public DataTable configvalueData(string objconfigvalue,string constring)
         {
             try
             {
@@ -1001,7 +1010,7 @@ namespace ReconDataLayer
             {
                 CommonHeader objlog = new CommonHeader();
                 objlog.logger("SP:pr_get_configvalue" + "Error Message:" + ex.Message);
-                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objconfigvalue), "pr_get_configvalue", hv.user_code, constring);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objconfigvalue), "pr_get_configvalue","",constring);
                 throw ex;
             }
         }
@@ -1213,6 +1222,7 @@ namespace ReconDataLayer
                 DataTable getfiledType = new DataTable();
                 DataTable getDateFormat = new DataTable();
                 DataTable getDateTimeFormat = new DataTable();
+                DataTable getmaxrowsresultset = new DataTable();
                 DataTable JsonData = new DataTable();
                 DataTable sheetDt = new DataTable();
                 DataSet dataset = new DataSet();
@@ -1298,8 +1308,9 @@ namespace ReconDataLayer
                     if (insertintojob == "Success")
                     {
                         getfiledType = getReportFieldType(objDataModel, headerval, constring);
-                        getDateFormat = configvalueData("excel_dateformat", headerval, constring);
-                        getDateTimeFormat = configvalueData("excel_datetimeformat", headerval, constring);
+                        getDateFormat = configvalueData("excel_dateformat",constring);
+                        getDateTimeFormat = configvalueData("excel_datetimeformat",constring);
+                        getmaxrowsresultset = configvalueData("excel_max_rows", constring);
                         string sheetName = "Data";
                         CommonHeader objlog = new CommonHeader();
                         objlog.logger("SP:pr_run_dynamicreport" + "Source File:" + sourceFile);
@@ -1324,9 +1335,9 @@ namespace ReconDataLayer
                                 if (dataset.Tables[0].Rows.Count > 0)
                                 {
 
-                                    getDateFormat = configvalueData("excel_dateformat", headerval, constring);
-                                    getDateTimeFormat = configvalueData("excel_datetimeformat", headerval, constring);
-                                    formatingexcelsheet(dataset.Tables[0], worksheet, getfiledType, getDateFormat, getDateTimeFormat);
+                                    getDateFormat = configvalueData("excel_dateformat",constring);
+                                    getDateTimeFormat = configvalueData("excel_datetimeformat", constring);                                   
+                                    formatingexcelsheet(dataset.Tables[0], worksheet, getfiledType, getDateFormat, getDateTimeFormat, getmaxrowsresultset);
                                 }
                                 else
                                 {
@@ -1376,9 +1387,15 @@ namespace ReconDataLayer
                                         }
                                         cleanedTable.Rows.Add(newRow);
                                     }
+                                    int maxrows = 0;
+                                    int.TryParse(getmaxrowsresultset.Rows[0]["out_config_value"]?.ToString(), out maxrows);
+                                    if (maxrows == 0)
+                                    {
+                                        maxrows = 100000;
+                                    }
                                     // Insert into worksheet
                                     var table = worksheet2.Cell(1, 1)
-                                                         .InsertTable(cleanedTable.AsEnumerable().Take(1048500).CopyToDataTable(), "MyTable", true);
+                                                         .InsertTable(cleanedTable.AsEnumerable().Take(maxrows).CopyToDataTable(), "MyTable", true);
 
                                 }
                                 else
@@ -1490,8 +1507,16 @@ namespace ReconDataLayer
             }
 
         }
-        private void CreateExcelFile(DataSet dataSet, string sourceFile, string destFile)
+        private void CreateExcelFile(DataSet dataSet, string sourceFile, string destFile, string constring)
         {
+            DataTable getmaxrowsresultset = new DataTable();
+            getmaxrowsresultset = configvalueData("excel_max_rows",constring);
+            int maxrows = 0;
+            int.TryParse(getmaxrowsresultset.Rows[0]["out_config_value"]?.ToString(), out maxrows);
+            if (maxrows == 0)
+            {
+                maxrows = 100000;
+            }
             File.Copy(sourceFile, destFile, true);
             using (var workbook = new XLWorkbook(sourceFile))
             {
@@ -1524,7 +1549,7 @@ namespace ReconDataLayer
                                 if (dataTable.Rows.Count > 0)
                                 {
                                     //formatingexcelsheet(dataTable, worksheet, getfiledType);
-                                    worksheet.Cell(1, 1).InsertTable(dataTable.AsEnumerable().Take(1048500).CopyToDataTable());
+                                    worksheet.Cell(1, 1).InsertTable(dataTable.AsEnumerable().Take(maxrows).CopyToDataTable());
                                 }
                                 else
                                 {
@@ -1549,7 +1574,7 @@ namespace ReconDataLayer
                             {
                                 if (dataTable.Rows.Count > 0)
                                 {
-                                    worksheet.Cell(1, 1).InsertTable(dataTable.AsEnumerable().Take(1048500).CopyToDataTable());
+                                    worksheet.Cell(1, 1).InsertTable(dataTable.AsEnumerable().Take(maxrows).CopyToDataTable());
                                 }
                                 else
                                 {
@@ -1572,6 +1597,7 @@ namespace ReconDataLayer
         private void CreateExcelFilemuti(DataSet dataSet, string sourceFile, string destFile, DataTable getDateFormatresultset, DataTable getDateTimeFormatresultset, string constring)
         {
             DataTable getfiledTyperesultset = new DataTable();
+            DataTable getmaxrowsresultset = new DataTable();
             File.Copy(sourceFile, destFile, true);
             using (var workbook = new XLWorkbook(sourceFile))
             {
@@ -1604,9 +1630,10 @@ namespace ReconDataLayer
                             {
                                 if (dataTable.Rows.Count > 0)
                                 {
+                                    getmaxrowsresultset = configvalueData("excel_max_rows", constring);
                                     //formatingexcelsheet(dataTable, worksheet, getfiledType);
                                     //worksheet.Cell(1, 1).InsertTable(dataTable.AsEnumerable().Take(1048500).CopyToDataTable());
-                                    formatingexcelsheet(dataTable, worksheet, getfiledTyperesultset, getDateFormatresultset, getDateTimeFormatresultset);
+                                    formatingexcelsheet(dataTable, worksheet, getfiledTyperesultset, getDateFormatresultset, getDateTimeFormatresultset, getmaxrowsresultset);
                                 }
                                 else
                                 {
@@ -1651,8 +1678,17 @@ namespace ReconDataLayer
             }
 
         }
-        public void CreateTemplateExcel(DataSet dataSet, string sourceFile, string destFile)
-        {           
+        public void CreateTemplateExcel(DataSet dataSet, string sourceFile, string destFile, string constring)
+        {
+
+            DataTable getmaxrowsresultset = new DataTable();
+            getmaxrowsresultset = configvalueData("excel_max_rows", constring);
+            int maxrows = 0;
+            int.TryParse(getmaxrowsresultset.Rows[0]["out_config_value"]?.ToString(), out maxrows);
+            if (maxrows == 0)
+            {
+                maxrows = 100000;
+            }
             File.Copy(sourceFile, destFile, true);
 
             using (var workbook = new XLWorkbook(destFile))
@@ -1680,7 +1716,7 @@ namespace ReconDataLayer
                         {
                             if (dataTable.Rows.Count > 0)
                             {
-                                worksheet.Cell(1, 1).InsertTable(dataTable.AsEnumerable().Take(1048500).CopyToDataTable());
+                                worksheet.Cell(1, 1).InsertTable(dataTable.AsEnumerable().Take(maxrows).CopyToDataTable());
                             }
                             else
                             {
@@ -1701,7 +1737,8 @@ namespace ReconDataLayer
         }
         public void CreateTemplateExcelmulti(DataSet dataSet, string sourceFile, string destFile,DataTable getDateFormatresultset,DataTable getDateTimeFormatresultset, string constring)
         {
-            DataTable getfiledTyperesultset = new DataTable();  
+            DataTable getfiledTyperesultset = new DataTable();
+            DataTable getmaxrowsresultset = new DataTable();
             File.Copy(sourceFile, destFile, true);
 
             using (var workbook = new XLWorkbook(destFile))
@@ -1730,8 +1767,9 @@ namespace ReconDataLayer
                         {
                             if (dataTable.Rows.Count > 0)
                             {
+                                getmaxrowsresultset = configvalueData("excel_max_rows",constring);
                                 //worksheet.Cell(1, 1).InsertTable(dataTable.AsEnumerable().Take(1048500).CopyToDataTable());
-                                formatingexcelsheet(dataTable, worksheet, getfiledTyperesultset, getDateFormatresultset, getDateTimeFormatresultset);
+                                formatingexcelsheet(dataTable, worksheet, getfiledTyperesultset, getDateFormatresultset, getDateTimeFormatresultset, getmaxrowsresultset);
                             }
                             else
                             {
@@ -1750,12 +1788,19 @@ namespace ReconDataLayer
                 workbook.Save(); // Save directly to destFile
             }
         }
-        private void formatingexcelsheet(DataTable data, IXLWorksheet? worksheet, DataTable getfiledType, DataTable getDateFormat1, DataTable getDatetimeFormat1)
+        private void formatingexcelsheet(DataTable data, IXLWorksheet? worksheet, DataTable getfiledType, DataTable getDateFormat1, DataTable getDatetimeFormat1,DataTable getmaxrows1)
         {
             DataTable getDateFormat = getDateFormat1;
             DataTable getDateTimeFormat = getDatetimeFormat1;
+            DataTable getmaxrows = getmaxrows1;
             worksheet.Clear();
-            var table = worksheet.Cell(1, 1).InsertTable(data.AsEnumerable().Take(1048500).CopyToDataTable(), "MyTable", true);
+            int maxrows = 0;
+            int.TryParse(getmaxrows.Rows[0]["out_config_value"]?.ToString(), out maxrows);
+            if (maxrows == 0)
+            {
+                maxrows = 100000;
+            }
+            var table = worksheet.Cell(1, 1).InsertTable(data.AsEnumerable().Take(maxrows).CopyToDataTable(), "MyTable", true);
             for (int j = 0; j < data.Columns.Count; j++)
             {
                 for (int i = 0; i < getfiledType.Rows.Count; i++)
@@ -1769,23 +1814,38 @@ namespace ReconDataLayer
                         {
                             foreach (var cell in column.CellsUsed())
                             {
-                                if (DateTime.TryParse(cell.GetString(), out DateTime parsedDate))
+                                try
                                 {
-                                    cell.Value = parsedDate;
-                                    cell.Style.DateFormat.Format = getDateFormat.Rows[0]["out_config_value"].ToString(); // Apply date format
+                                    if (DateTime.TryParse(cell.GetString(), out DateTime parsedDate))
+                                    {
+                                        cell.Value = parsedDate;
+                                        cell.Style.DateFormat.Format = getDateFormat.Rows[0]["out_config_value"].ToString(); // Apply date format
+                                    }
+
+                                }
+                                catch (Exception ex)
+                                {
+                                    cell.Style.NumberFormat.Format = "";
                                 }
                             }
                         }
                         else if (dataType == "DATETIME")
                         {
-                            column.Style.DateFormat.Format = getDateFormat.Rows[0]["out_config_value"].ToString();
+                            //column.Style.DateFormat.Format = getDateFormat.Rows[0]["out_config_value"].ToString();
 
                             foreach (var cell in column.CellsUsed())
                             {
-                                if (DateTime.TryParse(cell.GetString(), out DateTime parsedDate))
+                                try
                                 {
-                                    cell.Value = parsedDate;
-                                    cell.Style.DateFormat.Format = getDateTimeFormat.Rows[0]["out_config_value"].ToString(); // Apply date format
+                                    if (DateTime.TryParse(cell.GetString(), out DateTime parsedDate))
+                                    {
+                                        cell.Value = parsedDate;
+                                        cell.Style.DateFormat.Format = getDateTimeFormat.Rows[0]["out_config_value"].ToString(); // Apply date format
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    cell.Style.NumberFormat.Format = "";
                                 }
                             }
                         }
