@@ -130,7 +130,22 @@ namespace ReconModels
             public string? reverse_update_flag { get; set; }
             public string? in_value_flag { get; set; }
         }
-		public class reconfieldorder
+        public class lookupcomparsionmodel
+        {
+            public int? in_preprocessdsupdate_gid { get; set; }
+            public string? in_preprocess_code { get; set; }
+            public Double in_rec_seqno { get; set; }
+            public string? in_source_field { get; set; }
+            public string? in_comparison_field { get; set; }
+            public string? in_active_status { get; set; }
+            public string? in_action { get; set; }
+            public string? in_user_code { get; set; }
+            public string? reverse_update_flag { get; set; }
+            public string? in_value_flag { get; set; }
+            public string? out_msg { get; set; }
+            public string? out_result { get; set; }
+        }
+        public class reconfieldorder
 		{
 			public int? in_preprocessrecorder_gid { get; set; }
 			public string? in_preprocess_code { get; set; }

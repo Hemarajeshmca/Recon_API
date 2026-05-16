@@ -165,6 +165,7 @@ namespace ReconDataLayer
                 ds.Tables[14].TableName = "lookupexp";
                 ds.Tables[15].TableName = "comaggfun";
                 ds.Tables[16].TableName = "comaggcon";
+                ds.Tables[17].TableName = "lookupcomparsion";
                 return ds;
 			}
 			catch (Exception ex)
@@ -484,8 +485,8 @@ namespace ReconDataLayer
             catch (Exception ex)
             {
                 CommonHeader objlog = new CommonHeader();
-                objlog.logger("SP:pr_recon_mst_tpreprocesscondition" + "Error Message:" + ex.Message);
-                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objconditiondata), "pr_recon_mst_tpreprocesscondition", headerval.user_code, constring);
+                objlog.logger("SP:pr_recon_mst_tpreprocesscomparison" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objconditiondata), "pr_recon_mst_tpreprocesscomparison", headerval.user_code, constring);
                 return result;
             }
         }
@@ -619,6 +620,42 @@ namespace ReconDataLayer
                 CommonHeader objlog = new CommonHeader();
                 objlog.logger("SP:pr_recon_mst_tpreprocessaggcon" + "Error Message:" + ex.Message);
                 objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objAggcondition), "pr_recon_mst_tpreprocessaggcon", headerval.user_code, constring);
+                return result;
+            }
+        }
+
+        public DataTable lookupcomparsionsavedata(lookupcomparsionmodel objdatarecon, UserManagementModel.headerValue headerval, string constring)
+        {
+            try
+            {
+                DBManager dbManager = new DBManager(constring);
+                Dictionary<string, Object> values = new Dictionary<string, object>();
+                MySqlDataAccess con = new MySqlDataAccess("");
+                parameters = new List<IDbDataParameter>();
+                parameters.Add(dbManager.CreateParameter("in_preprocessdsupdate_gid", objdatarecon.in_preprocessdsupdate_gid, DbType.Int64, ParameterDirection.InputOutput));
+                parameters.Add(dbManager.CreateParameter("in_preprocess_code", objdatarecon.in_preprocess_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_rec_seqno", objdatarecon.in_rec_seqno, DbType.Double));
+                parameters.Add(dbManager.CreateParameter("in_source_field", objdatarecon.in_source_field, DbType.String));               
+                parameters.Add(dbManager.CreateParameter("in_comparison_field", objdatarecon.in_comparison_field, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_reverse_update_flag", objdatarecon.reverse_update_flag, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_value_flag", objdatarecon.in_value_flag, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_active_status", objdatarecon.in_active_status, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_action", objdatarecon.in_action, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_action_by", headerval.user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_user_code", headerval.user_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
+                parameters.Add(dbManager.CreateParameter("out_msg", "out", DbType.String, ParameterDirection.Output));
+                parameters.Add(dbManager.CreateParameter("out_result", "out", DbType.String, ParameterDirection.Output));
+                ds = dbManager.execStoredProcedure("pr_recon_mst_tpreprocesslookupcomparsion", CommandType.StoredProcedure, parameters.ToArray());
+                result = ds.Tables[0];
+                return result;
+            }
+            catch (Exception ex)
+            {
+                CommonHeader objlog = new CommonHeader();
+                objlog.logger("SP:pr_get_datasetpreprocess" + "Error Message:" + ex.Message);
+                objlog.commonDataapi("", "SP", ex.Message + "Param:" + JsonConvert.SerializeObject(objdatarecon), "pr_get_datasetpreprocess", headerval.user_code, constring);
                 return result;
             }
         }
