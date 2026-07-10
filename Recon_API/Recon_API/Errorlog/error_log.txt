@@ -1,0 +1,174 @@
+Timestamp: 2025-10-27 12:55:55 PM
+Message: Error: Error Message:Procedure or function 'pr_run_dynamicreport' cannot be found in database ''. Verify that user 'root'@'146.56.55.230' has enough privileges to execute.
+----------------------------------------
+Timestamp: 2025-10-27 12:55:55 PM
+Message: Procedure or function 'pr_run_dynamicreport' cannot be found in database ''. Verify that user 'root'@'146.56.55.230' has enough privileges to execute.
+----------------------------------------
+Timestamp: 2025-10-27 12:55:55 PM
+Message: SP:pr_run_dynamicreportError Message:Procedure or function 'pr_run_dynamicreport' cannot be found in database ''. Verify that user 'root'@'146.56.55.230' has enough privileges to execute.
+----------------------------------------
+Timestamp: 2025-10-27 12:57:48 PM
+Message: Error: Error Message:Procedure or function 'pr_run_dynamicreport' cannot be found in database ''. Verify that user 'root'@'146.56.55.230' has enough privileges to execute.
+----------------------------------------
+Timestamp: 2025-10-27 12:57:48 PM
+Message: Procedure or function 'pr_run_dynamicreport' cannot be found in database ''. Verify that user 'root'@'146.56.55.230' has enough privileges to execute.
+----------------------------------------
+Timestamp: 2025-10-27 12:57:48 PM
+Message: SP:pr_run_dynamicreportError Message:Procedure or function 'pr_run_dynamicreport' cannot be found in database ''. Verify that user 'root'@'146.56.55.230' has enough privileges to execute.
+----------------------------------------
+Timestamp: 2025-10-27 3:30:56 PM
+Message: Error: Error Message:Procedure or function 'pr_run_dynamicreport' cannot be found in database ''. Verify that user 'root'@'146.56.55.230' has enough privileges to execute.
+----------------------------------------
+Timestamp: 2025-10-27 3:30:56 PM
+Message: Procedure or function 'pr_run_dynamicreport' cannot be found in database ''. Verify that user 'root'@'146.56.55.230' has enough privileges to execute.
+----------------------------------------
+Timestamp: 2025-10-27 3:31:46 PM
+Message: SP:pr_run_dynamicreportError Message:Procedure or function 'pr_run_dynamicreport' cannot be found in database ''. Verify that user 'root'@'146.56.55.230' has enough privileges to execute.
+----------------------------------------
+Timestamp: 2025-10-27 3:33:48 PM
+Message: Error: Error Message:Procedure or function 'pr_run_dynamicreport' cannot be found in database ''. Verify that user 'root'@'146.56.55.230' has enough privileges to execute.
+----------------------------------------
+Timestamp: 2025-10-27 3:33:48 PM
+Message: Procedure or function 'pr_run_dynamicreport' cannot be found in database ''. Verify that user 'root'@'146.56.55.230' has enough privileges to execute.
+----------------------------------------
+Timestamp: 2025-10-27 3:33:51 PM
+Message: SP:pr_run_dynamicreportError Message:Procedure or function 'pr_run_dynamicreport' cannot be found in database ''. Verify that user 'root'@'146.56.55.230' has enough privileges to execute.
+----------------------------------------
+Timestamp: 2025-10-27 3:34:08 PM
+Message: Error: Error Message:Procedure or function 'pr_run_dynamicreport' cannot be found in database ''. Verify that user 'root'@'146.56.55.230' has enough privileges to execute.
+----------------------------------------
+Timestamp: 2025-10-27 3:34:08 PM
+Message: Procedure or function 'pr_run_dynamicreport' cannot be found in database ''. Verify that user 'root'@'146.56.55.230' has enough privileges to execute.
+----------------------------------------
+Timestamp: 2025-10-27 3:34:08 PM
+Message: SP:pr_run_dynamicreportError Message:Procedure or function 'pr_run_dynamicreport' cannot be found in database ''. Verify that user 'root'@'146.56.55.230' has enough privileges to execute.
+----------------------------------------
+Timestamp: 2025-10-27 3:37:04 PM
+Message: Error: Error Message:Procedure or function 'pr_run_dynamicreport' cannot be found in database ''. Verify that user 'root'@'146.56.55.230' has enough privileges to execute.
+----------------------------------------
+Timestamp: 2025-10-27 3:37:04 PM
+Message: Procedure or function 'pr_run_dynamicreport' cannot be found in database ''. Verify that user 'root'@'146.56.55.230' has enough privileges to execute.
+----------------------------------------
+Timestamp: 2025-10-27 3:37:04 PM
+Message: SP:pr_run_dynamicreportError Message:Procedure or function 'pr_run_dynamicreport' cannot be found in database ''. Verify that user 'root'@'146.56.55.230' has enough privileges to execute.
+----------------------------------------
+Timestamp: 2025-10-27 3:39:10 PM
+Message: Error: Error Message:Procedure or function 'pr_run_dynamicreport' cannot be found in database ''. Verify that user 'root'@'146.56.55.230' has enough privileges to execute.
+----------------------------------------
+Timestamp: 2025-10-27 3:39:10 PM
+Message: Procedure or function 'pr_run_dynamicreport' cannot be found in database ''. Verify that user 'root'@'146.56.55.230' has enough privileges to execute.
+----------------------------------------
+Timestamp: 2025-10-27 3:39:11 PM
+Message: SP:pr_run_dynamicreportError Message:Procedure or function 'pr_run_dynamicreport' cannot be found in database ''. Verify that user 'root'@'146.56.55.230' has enough privileges to execute.
+----------------------------------------
+Timestamp: 2025-10-29 12:44:01 PM
+Message: SP:pr_get_koqueue_reportError Message:Unknown column 'kq.delete_flag' in 'where clause'
+----------------------------------------
+Timestamp: 2025-10-29 12:46:05 PM
+Message: SP:pr_get_koqueue_reportError Message:Unknown column 'kq.delete_flag' in 'where clause'
+----------------------------------------
+Timestamp: 2025-10-29 12:49:01 PM
+Message: SP:pr_get_koqueue_reportError Message:Unknown column 'kq.delete_flag' in 'where clause'
+----------------------------------------
+Timestamp: 2025-10-29 1:19:29 PM
+Message: SP:pr_get_role_config Error Message:Table 'recon_flexiprod_dev.admin_mst_tRoleReportPermission' doesn't exist
+----------------------------------------
+Timestamp: 2025-10-29 1:21:36 PM
+Message: SP:pr_ins_usercontextError Message:Reading from the stream has failed.
+----------------------------------------
+Timestamp: 2025-10-29 1:22:20 PM
+Message: SP:pr_get_role_config Error Message:Table 'recon_flexiprod_dev.admin_mst_tRoleReportPermission' doesn't exist
+----------------------------------------
+Timestamp: 2025-10-29 1:22:30 PM
+Message: SP:pr_get_role_config Error Message:Table 'recon_flexiprod_dev.admin_mst_tRoleReportPermission' doesn't exist
+----------------------------------------
+Timestamp: 2025-10-29 1:23:04 PM
+Message: SP:pr_get_role_config Error Message:Table 'recon_flexiprod_dev.admin_mst_tRoleReportPermission' doesn't exist
+----------------------------------------
+Timestamp: 2025-10-29 1:29:53 PM
+Message: SP:pr_get_role_config Error Message:Table 'recon_flexiprod_dev.admin_mst_tRoleReportPermission' doesn't exist
+----------------------------------------
+Timestamp: 2025-10-29 1:32:13 PM
+Message: Error: Error Message:Table 'recon_flexiprod_dev.recon_trn_ttrantmp' doesn't exist
+----------------------------------------
+Timestamp: 2025-10-29 1:32:13 PM
+Message: Table 'recon_flexiprod_dev.recon_trn_ttrantmp' doesn't exist
+----------------------------------------
+Timestamp: 2025-10-29 1:32:13 PM
+Message: SP:pr_run_dynamicreportError Message:Table 'recon_flexiprod_dev.recon_trn_ttrantmp' doesn't exist
+----------------------------------------
+Timestamp: 2025-10-29 1:33:12 PM
+Message: Error: Error Message:Table 'recon_flexiprod_dev.recon_trn_ttrantmp' doesn't exist
+----------------------------------------
+Timestamp: 2025-10-29 1:33:12 PM
+Message: Table 'recon_flexiprod_dev.recon_trn_ttrantmp' doesn't exist
+----------------------------------------
+Timestamp: 2025-10-29 1:33:12 PM
+Message: SP:pr_run_dynamicreportError Message:Table 'recon_flexiprod_dev.recon_trn_ttrantmp' doesn't exist
+----------------------------------------
+Timestamp: 2025-10-29 1:37:56 PM
+Message: Error: Error Message:Table 'recon_flexiprod_dev.recon_trn_ttrantmp' doesn't exist
+----------------------------------------
+Timestamp: 2025-10-29 1:37:56 PM
+Message: Table 'recon_flexiprod_dev.recon_trn_ttrantmp' doesn't exist
+----------------------------------------
+Timestamp: 2025-10-29 1:37:56 PM
+Message: SP:pr_run_dynamicreportError Message:Table 'recon_flexiprod_dev.recon_trn_ttrantmp' doesn't exist
+----------------------------------------
+Timestamp: 2025-10-29 2:59:14 PM
+Message: Error: Error Message:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use
+----------------------------------------
+Timestamp: 2025-10-29 2:59:14 PM
+Message: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use
+----------------------------------------
+Timestamp: 2025-10-29 2:59:14 PM
+Message: SP:pr_run_dynamicreportError Message:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use
+----------------------------------------
+Timestamp: 2025-11-04 3:48:01 PM
+Message: SP:pr_get_koqueueError Message:Reading from the stream has failed.
+----------------------------------------
+Timestamp: 2025-11-04 3:48:49 PM
+Message: SP:pr_get_koqueueError Message:Reading from the stream has failed.
+----------------------------------------
+Timestamp: 2025-12-06 10:45:28 AM
+Message: SP:pr_get_loginvalidation_newError Message:Unable to connect to any of the specified MySQL hosts.
+----------------------------------------
+Timestamp: 2025-12-06 12:50:04 PM
+Message: SP:pr_get_lastsessionError Message:Unable to connect to any of the specified MySQL hosts.
+----------------------------------------
+Timestamp: 2025-12-07 7:20:17 PM
+Message: SP:pr_get_lastsessionError Message:Unable to connect to any of the specified MySQL hosts.
+----------------------------------------
+Timestamp: 2025-12-07 7:33:25 PM
+Message: SP:pr_get_loginvalidation_newError Message:Unable to connect to any of the specified MySQL hosts.
+----------------------------------------
+Timestamp: 2025-12-09 11:19:39 AM
+Message: Error: Error Message:Unable to connect to any of the specified MySQL hosts.
+----------------------------------------
+Timestamp: 2025-12-09 11:19:39 AM
+Message: Unable to connect to any of the specified MySQL hosts.
+----------------------------------------
+Timestamp: 2025-12-09 11:19:39 AM
+Message: SP:pr_getmenuError Message:Unable to connect to any of the specified MySQL hosts.
+----------------------------------------
+Timestamp: 2025-12-09 12:35:51 PM
+Message: SP:pr_run_dynamicreportResponse.Tables[0]:System.Data.DataRowCollection
+----------------------------------------
+Timestamp: 2025-12-09 12:35:51 PM
+Message: SP:pr_run_dynamicreportResponse.Tables[0]:System.Data.DataRowCollection
+----------------------------------------
+Timestamp: 2025-12-29 4:26:08 PM
+Message: SP:pr_run_dynamicreportSource File:D:\UAT_RECON\Recon_files\prod\Template\Report_template.xlsx
+----------------------------------------
+Timestamp: 2025-12-29 4:26:08 PM
+Message: SP:pr_run_dynamicreportDestination File:D:\UAT_RECON\Recon_files\prod\JobFiles\16648_TransactionReport.xlsx
+----------------------------------------
+Timestamp: 2025-12-29 4:27:41 PM
+Message: SP:pr_run_dynamicreportSource File:D:\UAT_RECON\Recon_files\prod\Template\Report_template.xlsx
+----------------------------------------
+Timestamp: 2025-12-29 4:27:41 PM
+Message: SP:pr_run_dynamicreportDestination File:D:\UAT_RECON\Recon_files\prod\JobFiles\16649_SupportingReport.xlsx
+----------------------------------------
+Timestamp: 2026-01-21 11:23:36 AM
+Message: SP:pr_run_pagereportError Message:Parameter 'in_reporttemplateresultset_code' not found in the collection.
+----------------------------------------
