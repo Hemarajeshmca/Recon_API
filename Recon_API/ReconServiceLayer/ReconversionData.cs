@@ -703,6 +703,14 @@ namespace ReconDataLayer
                                     AddSectionDocument(document, ds.Tables[17], "Lookup Order", mustardYellow, ref preprocessalphabet, alphabet, fh);
                                     AddSectionDocument(document, ds.Tables[4], "Lookup Filter", mustardYellow, ref preprocessalphabet, alphabet, fh);
                                 }
+                                // Lookup Aggregation Expression
+                                if (dtpreprocess.Rows[0]["process_method"].ToString() == "QCD_LOOKUP_COMPARISON")
+                                {
+                                    AddSectionDocument(document, ds.Tables[18], "Lookup Dataset", mustardYellow, ref preprocessalphabet, alphabet, fh);
+                                    AddSectionDocument(document, ds.Tables[14], "PreProcess Condition", mustardYellow, ref preprocessalphabet, alphabet, fh);
+                                    AddSectionDocument(document, ds.Tables[12], "Source Filter", mustardYellow, ref preprocessalphabet, alphabet, fh);
+                                    AddSectionDocument(document, ds.Tables[13], "Comparision Filter", mustardYellow, ref preprocessalphabet, alphabet, fh);
+                                }
                             }
                             else if (Convert.ToString(dt2.Rows[i]["type"]) == "Rule")
                             {
