@@ -182,7 +182,6 @@ namespace Recon_API.Controllers
 
 		//delSchedulerModel
 		[HttpPost("delScheduler")]
-
 		public IActionResult delScheduler(delSchedulerModel objdelScheduler)
 		{
 			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
@@ -211,7 +210,6 @@ namespace Recon_API.Controllers
         //DatasetagainstRecon
 
         [HttpPost("datasetAgainstRecon")]
-
         public IActionResult datasetAgainstRecon(datasetAgainstReconModel objdatasetAgainstRecon)
         {
             constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
@@ -240,7 +238,6 @@ namespace Recon_API.Controllers
 		//getaccbaldataset
 
 		[HttpPost("getaccbaldataset")]
-
 		public IActionResult getaccbaldataset(getaccbaldatasetModel objgetaccbaldataset)
 		{
 			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();
@@ -267,7 +264,6 @@ namespace Recon_API.Controllers
 
 		//setAccountbalance
 		[HttpPost("setAccountbalance")]
-
 		public IActionResult setAccountbalance(setAccountbalanceModel objsetAccountbalance)
 		{
 			constring = _configuration.GetSection("Appsettings")["ConnectionStrings"].ToString();

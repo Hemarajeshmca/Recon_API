@@ -499,7 +499,7 @@ namespace ReconDataLayer
                     {
                         lineNumber = 534;
                         int preprocessalphabet;
-                        for (int i = 1; i < dt2.Rows.Count; i++)
+                        for (int i = 0; i < dt2.Rows.Count; i++)
                         {
                             if (Convert.ToString(dt2.Rows[i]["type"]) == "Preprocess" || Convert.ToString(dt2.Rows[i]["type"]) == "Postprocess")
                             {
@@ -514,7 +514,7 @@ namespace ReconDataLayer
                                 parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
                                 parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
                                 ds = dbManager.execStoredProcedure("pr_report_preprocessdetails", CommandType.StoredProcedure, parameters.ToArray());
-                                document.Add(CreateTitle(i + ". " + "Preprocess Details" + " - " + dt2.Rows[i]["seqno"], ironbrown));
+                                document.Add(CreateTitle(i+1 + ". " + "Preprocess Details" + " - " + dt2.Rows[i]["seqno"], ironbrown));
                                 DataTable dtpreprocess = new DataTable();
                                 dtpreprocess = ds.Tables[0];
                                 //PreProcess Code
@@ -731,7 +731,7 @@ namespace ReconDataLayer
                                 dtrule = ds.Tables[0];
 
                                 // Rule Code Column
-                                document.Add(CreateTitle(i + ". " + "Rule Details" + " - " + dtrule.Rows[0]["Rule Order"], grassGreen));
+                                document.Add(CreateTitle(i+1 + ". " + "Rule Details" + " - " + dtrule.Rows[0]["Rule Order"], grassGreen));
                                 PdfPTable ruleCodeTable = new PdfPTable(1);
                                 ruleCodeTable.AddCell(CreateLabelCell("Rule Code : " + dtrule.Rows[0]["Rule Code"], true));
                                 PdfPCell ruleCodeCell = new PdfPCell(ruleCodeTable)
@@ -1053,7 +1053,7 @@ namespace ReconDataLayer
                                 parameters.Add(dbManager.CreateParameter("in_role_code", headerval.role_code, DbType.String));
                                 parameters.Add(dbManager.CreateParameter("in_lang_code", headerval.lang_code, DbType.String));
                                 ds = dbManager.execStoredProcedure("pr_report_themedetails", CommandType.StoredProcedure, parameters.ToArray());
-                                document.Add(CreateTitle(i + ". " + "Theme Details" + " - " + dt2.Rows[i]["seqno"], reconPurpple));
+                                document.Add(CreateTitle(i+1 + ". " + "Theme Details" + " - " + dt2.Rows[i]["seqno"], reconPurpple));
                                 DataTable dttheme = new DataTable();
                                 dttheme = ds.Tables[0];
                                 //Theme Code

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ReconModels")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7601eb7f87e3ba2897b76f547e9417b15bb54977")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+28ee3783a61495d4dd3ea5ee57aa6ebfdc51da1f")]
 [assembly: System.Reflection.AssemblyProductAttribute("ReconModels")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ReconModels")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

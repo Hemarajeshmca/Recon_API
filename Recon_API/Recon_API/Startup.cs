@@ -29,7 +29,20 @@ namespace Recon_API
             services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
+
+            // UPDATED SWAGGER CONFIGURATION
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Recon API", Version = "v1" });
+
+                // Fix 1: Resolves crashes caused by duplicate model class names across different namespaces
+                c.CustomSchemaIds(type => type.FullName);
+
+                // Fix 2: Prevents Swagger from crashing due to ambiguous / duplicate routing mappings
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+            });
+
+
             services.AddScoped<IReportQueueService, ReportQueueService>();
             services.AddScoped<IReportQueueData, ReportQueueData>();
 			services.AddScoped<IKillJobService, KillJobService>();
