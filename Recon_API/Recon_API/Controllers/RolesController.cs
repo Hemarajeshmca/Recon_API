@@ -9,7 +9,7 @@ namespace Recon_API.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	public class RolesController : Controller
+	public class RolesController : ControllerBase
 	{
 		private IConfiguration _configuration;
 		public RolesController(IConfiguration configuration)

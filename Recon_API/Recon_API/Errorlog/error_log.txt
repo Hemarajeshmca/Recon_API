@@ -172,3 +172,39 @@ Message: SP:pr_run_dynamicreportDestination File:D:\UAT_RECON\Recon_files\prod\J
 Timestamp: 2026-01-21 11:23:36 AM
 Message: SP:pr_run_pagereportError Message:Parameter 'in_reporttemplateresultset_code' not found in the collection.
 ----------------------------------------
+Timestamp: 13-07-2026 5:57:19 PM
+Message: SP:pr_run_pagereportError Message:Unknown column 'undefined' in 'where clause'
+----------------------------------------
+Timestamp: 13-07-2026 5:58:07 PM
+Message: SP:pr_run_pagereportError Message:Unknown column 'undefined' in 'where clause'
+----------------------------------------
+Timestamp: 13-07-2026 6:00:12 PM
+Message: SP:pr_run_pagereportError Message:Unknown column 'undefined' in 'where clause'
+----------------------------------------
+Timestamp: 13-07-2026 6:00:38 PM
+Message: SP:pr_run_pagereportError Message:Unknown column 'undefined' in 'where clause'
+----------------------------------------
+Timestamp: 13-07-2026 6:02:27 PM
+Message: SP:pr_run_pagereportError Message:Unknown column 'HPRPL2026227449565648487951HP' in 'where clause'
+----------------------------------------
+Timestamp: 14-07-2026 5:04:36 PM
+Message: SP:pr_get_loginvalidation_newError Message:Unable to connect to any of the specified MySQL hosts.
+----------------------------------------
+Timestamp: 14-07-2026 5:04:38 PM
+Message: SP:pr_get_loginvalidation_newError Message:Unable to connect to any of the specified MySQL hosts.
+----------------------------------------
+Timestamp: 15-07-2026 5:25:25 PM
+Message: SP:pr_run_pagereportError Message:Invalid storage type: DBNull.
+----------------------------------------
+Timestamp: 15-07-2026 5:26:23 PM
+Message: SP:pr_run_pagereportError Message:Invalid storage type: DBNull.
+----------------------------------------
+Timestamp: 17-07-2026 10:53:13 AM
+Message: SP:pr_set_reconfieldlistupdateError Message:Unknown column 'delete_lag' in 'where clause'
+----------------------------------------
+Timestamp: 17-07-2026 11:01:59 AM
+Message: SP:pr_set_reconfieldlistupdateError Message:Unknown column 'HPRPL2026528458398015672642HP' in 'where clause'
+----------------------------------------
+Timestamp: 17-07-2026 1:14:58 PM
+Message: SP:pr_set_reconfieldlistupdateError Message:Unknown column 'v_report_id' in 'where clause'
+----------------------------------------

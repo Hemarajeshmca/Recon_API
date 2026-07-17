@@ -9,7 +9,7 @@ namespace Recon_API.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	public class KillJobController : Controller
+	public class KillJobController : ControllerBase
     {
         private readonly IKillJobService _KillJobService;
         private IConfiguration _configuration;
